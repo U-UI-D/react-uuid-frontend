@@ -2,6 +2,7 @@ import React from "react";
 import {Button} from "antd";
 import {Link} from "react-router-dom";
 import {LOGIN, REGISTER} from "../../util/router/config/RouterConst";
+import ALHeader from "../../components/al-header/ALHeader";
 
 class HomePage extends React.Component{
   //构造器
@@ -13,19 +14,15 @@ class HomePage extends React.Component{
 
   //渲染函数
   render() {
+
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+
     return(
-      <div>
-        HomePage
+      <div style={{backgroundColor: "#eff3f5"}}>
 
-        <br/>
-        <Button onClick={() => {
-          this.goPage(REGISTER)
-        }}>
-          注册
-        </Button>
-        <br/>
-
-        <Button >登录</Button>
+        <ALHeader />
 
       </div>
     );
