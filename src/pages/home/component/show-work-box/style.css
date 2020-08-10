@@ -1,0 +1,8 @@
+.work-box:hover{
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.desc{
+    padding: 5px 0 10px 5px;
+}
