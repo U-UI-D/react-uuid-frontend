@@ -17,3 +17,8 @@ code {
 .header-menu .ant-menu-horizontal{
   border-bottom: none !important;
 }
+
+.content-width{
+  width: 1180px;
+  margin: 0 auto;
+}
