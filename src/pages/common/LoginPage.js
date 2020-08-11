@@ -4,6 +4,7 @@ import {Avatar, Button, Input} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import qs from 'querystring'
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
+import {USER_PAGE} from "../../util/router/config/RouterConst";
 
 
 const windowWidth = window.innerWidth;
@@ -96,22 +97,23 @@ class LoginPage extends React.Component {
   login = () => {
     console.log(this.state);
     let url = "http://localhost:8200/user/login";
+    this.goPage(USER_PAGE + "/1")
 
-    request({
-      url: url,
-      method: 'POST',
-      data: {
-        username: this.state.username,
-        password: this.state.password,
-      }
-    }).then(res => {
-      console.log(res);
-      this.setState({
-        result: res.data
-      })
-    }).catch(err => {
-      console.log(err);
-    });
+    // request({
+    //   url: url,
+    //   method: 'POST',
+    //   data: {
+    //     username: this.state.username,
+    //     password: this.state.password,
+    //   }
+    // }).then(res => {
+    //   console.log(res);
+    //   this.setState({
+    //     result: res.data
+    //   })
+    // }).catch(err => {
+    //   console.log(err);
+    // });
   }
 
   handleResize = (e) => {
@@ -120,6 +122,10 @@ class LoginPage extends React.Component {
       windowWidth: e.target.innerWidth,
       windowHeight: e.target.innerHeight,
     })
+  }
+
+  goPage = (path, data = {}) =>{
+    this.props.history.push({pathname: path, state: {}})
   }
 
 }
