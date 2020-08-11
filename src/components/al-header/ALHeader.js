@@ -15,15 +15,16 @@ class ALHeader extends React.Component{
   //渲染函数
   render() {
     return(
-      <div style={{backgroundColor: "#fff"}}>
+      <div style={{backgroundColor: ""}}>
         <div style={{width: 1180+'px', margin: "0 auto"}} >
           <div className="al-flex-container al-flex-container-center-v">
             <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70} />
 
             <div className="header-menu al-flex-container al-flex-justify-space-between" style={{flex: 1}}>
               <div>
-                <Menu mode="horizontal">
+                <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                   <MenuItem>首页</MenuItem>
+                  <MenuItem>作品</MenuItem>
                   <MenuItem>发现</MenuItem>
                   <MenuItem>学习</MenuItem>
                   <MenuItem>版权素材</MenuItem>
@@ -34,7 +35,7 @@ class ALHeader extends React.Component{
               </div>
 
               <div>
-                <Menu mode="horizontal">
+                <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                   <MenuItem>搜索</MenuItem>
                   <MenuItem>上传</MenuItem>
                   <MenuItem>通知</MenuItem>
