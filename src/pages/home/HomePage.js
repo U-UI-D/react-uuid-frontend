@@ -241,7 +241,11 @@ class HomePage extends React.Component{
               <div>
                 {
                   this.state.workList.map((item, index) => {
-                    return <ShowWorkBox workInfo={item} key={index} />
+                    return <span key={index} onClick={() => {
+                      this.goPage("/work/detail/" + (index + 1))
+                    }}>
+                      <ShowWorkBox workInfo={item}  />
+                    </span>
                   })
                 }
               </div>
