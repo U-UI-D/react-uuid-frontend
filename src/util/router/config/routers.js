@@ -7,12 +7,15 @@ import {
   PASSAGE_DETAIL,
   PASSAGE_LIST,
   REGISTER,
-  TEST_ANTD
+  TEST_ANTD, USER_PAGE, WORK_DETAIL, WORK_PAGE
 } from "./RouterConst";
 import {About, Home, PassgaeDetail, PassgaeList} from "../../../pages/test/TestRouter";
 import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
+import WorkPage from "../../../pages/work/WorkPage";
+import WorkDetail from "../../../pages/work/page/WorkDetail";
+import UserPage from "../../../pages/user/UserPage";
 
 let routes = [
   {
@@ -48,7 +51,23 @@ let routes = [
     path: REGISTER,
     component: RegisterPage,
     exact: true
-  }
+  },
+  {
+    path: WORK_PAGE,
+    component: WorkPage,
+    exact: true
+  },
+  {
+    // path: '/passage-list/passage-detail/:id',
+    path: WORK_DETAIL + '/:id',
+    component: WorkDetail,
+    exact: true
+  },
+  {
+    path: USER_PAGE + "/:id",
+    component: UserPage,
+    exact: true
+  },
 ];
 
 export default routes;

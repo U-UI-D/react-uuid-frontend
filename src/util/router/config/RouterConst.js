@@ -9,7 +9,14 @@ export const LOGIN = "/login";
 export const REGISTER = "/register";
 export const PASSAGE_LIST = "/passage-list";
 export const PASSAGE_DETAIL =  PASSAGE_LIST + "/passage-detail/";
+//作品 ==========================
+//作品
+export const WORK_PAGE =  "/work";
+//作品详情
+export const WORK_DETAIL =  "/work/detail";
 
-//测试Antd
-export const TEST_ANTD = "/antd";
+
+//用户 ==========================
+//用户
+export const USER_PAGE =  "/user";
 
