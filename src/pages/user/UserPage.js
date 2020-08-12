@@ -2,7 +2,9 @@ import React from "react";
 import ALHeader from "../../components/al-header/ALHeader";
 import "./style.css";
 import {request} from "../../util/network/NetworkRequest";
-import {Avatar} from "antd";
+import {Avatar, Button, Divider} from "antd";
+import CountBox from "./component/CountBox";
+import VisitorBox from "./component/VisitorBox";
 
 class UserPage extends React.Component{
   //构造器
@@ -10,7 +12,41 @@ class UserPage extends React.Component{
     super(props);
 
     this.state = {
-      userInfo : null
+      userInfo : null,
+      countData: [
+        {
+          num: 0,
+          text: "粉丝"
+        },
+        {
+          num: 32,
+          text: "关注"
+        },
+        {
+          num: 104,
+          text: "颜值"
+        },
+      ],
+      visitorData: [
+        {
+          id: 2,
+          nickname: "戴沐白i",
+          avatar: require("../../assets/image/user/avatar2.jpg"),
+          visitDate: "8-10"
+        },
+        {
+          id: 3,
+          nickname: "绽放0525",
+          avatar: require("../../assets/image/user/avatar3.jpg"),
+          visitDate: "7-28"
+        },
+        {
+          id: 4,
+          nickname: "苍麓i",
+          avatar: require("../../assets/image/user/avatar4.jpg"),
+          visitDate: "7-21"
+        }
+      ]
     }
   }
 
@@ -28,11 +64,43 @@ class UserPage extends React.Component{
         <div >
           <div className="content-width" style={{marginTop: -60+'px'}}>
             <div className="al-flex-container">
-              <div className="content-box-left al-box-radius al-box-container">
-                <Avatar size={80} src={"https://gitee.com/AlanLee97/assert/raw/master/note_images/naruto.jpg"} />
+              <div className="content-box-left al-box-radius">
+                <div className="al-box-container">
+                  <Avatar size={80} src={"https://gitee.com/AlanLee97/assert/raw/master/note_images/naruto.jpg"} />
 
-                <h2>AlanLee</h2>
-                <p>这个人很懒，什么都没写！</p>
+                  <h2>AlanLee</h2>
+                  <p>这个人很懒，什么都没写！</p>
+                </div>
+
+                {/*统计数据*/}
+                <div className="al-flex-justify-space-around">
+                  {this.state.countData.map((item, index) => {
+                    return <CountBox num={item.num} text={item.text} />
+                  })}
+                </div>
+
+                {/*我的资料*/}
+                <div className="al-flex-justify-space-around al-m-top-30px">
+                  <Button shape="round">编辑资料</Button>
+                  <Button shape="round">我的简历</Button>
+                </div>
+
+                {/*个人名片*/}
+                <div className="al-m-20px">
+                  <p>个人名片</p>
+                  <div>1岁</div>
+                </div>
+                <Divider />
+
+                {/*最近访问*/}
+                <div className="al-m-20px">
+                  <p>最近访问</p>
+                  <div className="al-flex-justify-space-between">
+                    {this.state.visitorData.map((item, index) => {
+                      return <VisitorBox avatar={item.avatar} nickname={item.nickname} visitDate={item.visitDate} />
+                    })}
+                  </div>
+                </div>
               </div>
 
               <div className="content-box-right"
@@ -49,10 +117,11 @@ class UserPage extends React.Component{
           </div>
 
           <div>
-            <div className="content-width">
-              个人中心: id={this.props.match.params.id}
-
+            <div className="content-width al-text-align-center al-opacity-2">
+              <Avatar size={70} src={require("../../assets/icon/common/UUID2.png")} />
+              <p>Powered by © 2020-2020 UUID</p>
             </div>
+            <div className="al-box-size-20px"></div>
           </div>
 
         </div>
