@@ -7,7 +7,7 @@ import {
   PASSAGE_DETAIL,
   PASSAGE_LIST,
   REGISTER,
-  TEST_ANTD, USER_PAGE, WORK_DETAIL, WORK_PAGE
+  TEST_ANTD, TEST_PAGE, USER_PAGE, WORK_DETAIL, WORK_PAGE
 } from "./RouterConst";
 import {About, Home, PassgaeDetail, PassgaeList} from "../../../pages/test/TestRouter";
 import LoginPage from "../../../pages/common/LoginPage";
@@ -16,6 +16,7 @@ import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
 import WorkDetail from "../../../pages/work/page/WorkDetail";
 import UserPage from "../../../pages/user/UserPage";
+import TestPage from "../../../pages/test/TestPage";
 
 let routes = [
   {
@@ -66,6 +67,11 @@ let routes = [
   {
     path: USER_PAGE + "/:id",
     component: UserPage,
+    exact: true
+  },
+  {
+    path: TEST_PAGE,
+    component: TestPage,
     exact: true
   },
 ];

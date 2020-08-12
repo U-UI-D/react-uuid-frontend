@@ -20,3 +20,6 @@ export const WORK_DETAIL =  "/work/detail";
 //用户
 export const USER_PAGE =  "/user";
 
+//测试页面 ==========================
+//测试
+export const TEST_PAGE =  "/test";
