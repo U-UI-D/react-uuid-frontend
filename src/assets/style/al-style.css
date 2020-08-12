@@ -335,6 +335,9 @@
     margin: 0 auto;
 }
 
+.al-text-align-center{
+    text-align: center;
+}
 
 /* 显示为行内元素,让元素不会独占一行 */
 .al-display-inline {
