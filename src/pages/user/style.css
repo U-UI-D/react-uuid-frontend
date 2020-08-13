@@ -19,3 +19,13 @@
     width: 900px;
     height: auto;
 }
+
+.count-box-hover:hover{
+    border-radius: 10px;
+    background-color: #e9efff;
+}
+
+.title-text{
+    font-size: 16px;
+    color: #303133;
+}
