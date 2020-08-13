@@ -210,7 +210,9 @@ class HomePage extends React.Component{
 
     return(
       <div style={{backgroundColor: "#eff3f5"}}>
-        <ALHeader />
+        <div className="al-bg-color-white">
+          <ALHeader />
+        </div>
         <div className="al-box-size-20px"></div>
 
 
