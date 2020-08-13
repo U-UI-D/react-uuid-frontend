@@ -34,7 +34,7 @@ class ContentRight extends React.Component{
           num: ""
         }
       ],
-      currentTitleIndex: 0
+      currentTitle: "首页"
     };
   }
 
@@ -50,11 +50,10 @@ class ContentRight extends React.Component{
           }}>
             {
               this.state.titles.map((item, index) => {
-                return <span key={item.text} className="al-p-lr-30px"
+                return <span key={item.text} className="al-p-lr-30px al-cursor-pointer"
                              onClick={() => {
-                               console.log(index);
                                this.setState({
-                                 currentTitleIndex: index
+                                 currentTitle: item.text
                                })
                              }}>
                   {item.text}
@@ -68,7 +67,8 @@ class ContentRight extends React.Component{
 
           {/*内容*/}
           <div>
-            <DataOverlook />
+            {this.switchTitle(this.state.currentTitle)}
+
           </div>
         </div>
     );
@@ -83,6 +83,26 @@ class ContentRight extends React.Component{
   //组件将要卸载时
   componentWillUnmount() {
 
+  }
+
+  switchTitle = (title) => {
+    switch (title){
+      case "首页":
+        console.log(this.state.currentTitle);
+        return <DataOverlook />
+        break;
+      case "创作":
+        return <div>创作</div>
+      case "即刻":
+        return <div>即刻</div>
+      case "收藏":
+        return <div>收藏</div>
+      case "赞过":
+        return <div>赞过</div>
+      case "更多":
+        return <div>更多</div>
+      default: break;
+    }
   }
 
 
