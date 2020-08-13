@@ -1,15 +1,69 @@
 import React from "react";
 import {Avatar, Button, Menu} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {LOGIN, REGISTER, TEST_PAGE} from "../../util/router/config/RouterConst";
+import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
+// import "./style.css"
 
 class ALHeader extends React.Component {
   //构造器
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      menuItems: [
+        {
+          text: "首页",
+          path: HOME_PAGE
+        },
+        {
+          text: "作品",
+          path: HOME_PAGE
+        },
+        {
+          text: "发现",
+          path: HOME_PAGE
+        },
+        {
+          text: "学习",
+          path: HOME_PAGE
+        },
+        {
+          text: "版权素材",
+          path: HOME_PAGE
+        },
+        {
+          text: "招聘",
+          path: HOME_PAGE
+        },
+        {
+          text: "榜单",
+          path: HOME_PAGE
+        },
+        {
+          text: "更多",
+          path: HOME_PAGE
+        },
+        {
+          text: "测试",
+          path: TEST_PAGE
+        }
+      ],
+      menuItems2: [
+        {
+          text: "搜索",
+          path: HOME_PAGE
+        },
+        {
+          text: "上传",
+          path: HOME_PAGE
+        },
+        {
+          text: "通知",
+          path: HOME_PAGE
+        }
+      ],
+    }
   }
 
   //渲染函数
@@ -23,26 +77,34 @@ class ALHeader extends React.Component {
             <div className="al-flex-container al-flex-container-center-v">
               <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70}/>
 
-              <div className="header-menu al-flex-container al-flex-justify-space-between" style={{flex: 1}}>
+              <div id="header-menu"
+                   className="header-menu al-flex-container al-flex-justify-space-between"
+                   style={{flex: 1}}>
                 <div>
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                    <MenuItem>首页</MenuItem>
-                    <MenuItem>作品</MenuItem>
-                    <MenuItem>发现</MenuItem>
-                    <MenuItem>学习</MenuItem>
-                    <MenuItem>版权素材</MenuItem>
-                    <MenuItem>招聘</MenuItem>
-                    <MenuItem>榜单</MenuItem>
-                    <MenuItem>更多</MenuItem>
-                    <MenuItem onClick={() => this.goPage(TEST_PAGE)}>测试</MenuItem>
+                    {
+                      this.state.menuItems.map((item, index) => {
+                        return <MenuItem key={item.text}
+                                         style={{color: this.props.color ?? "#000"}}
+                                         onClick={
+                          () => this.goPage(item.path)
+                        }>{item.text}</MenuItem>
+                      })
+                    }
                   </Menu>
                 </div>
 
                 <div>
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                    <MenuItem>搜索</MenuItem>
-                    <MenuItem>上传</MenuItem>
-                    <MenuItem>通知</MenuItem>
+                    {
+                      this.state.menuItems2.map((item, index) => {
+                        return <MenuItem key={item.text}
+                                         style={{color: this.props.color ?? "#000"}}
+                                         onClick={
+                                           () => this.goPage(item.path)
+                                         }>{item.text}</MenuItem>
+                      })
+                    }
                   </Menu>
                 </div>
               </div>
