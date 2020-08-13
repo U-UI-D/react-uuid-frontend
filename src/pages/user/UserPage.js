@@ -3,129 +3,58 @@ import ALHeader from "../../components/al-header/ALHeader";
 import "./style.css";
 import {request} from "../../util/network/NetworkRequest";
 import {Avatar, Button, Divider} from "antd";
-import CountBox from "./component/CountBox";
-import VisitorBox from "./component/VisitorBox";
+import ContentLeft from "./component/layout/ContentLeft";
+import ContentRight from "./component/layout/ContentRight";
 
-class UserPage extends React.Component{
+class UserPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
 
     this.state = {
-      userInfo : null,
-      countData: [
-        {
-          num: 0,
-          text: "粉丝"
-        },
-        {
-          num: 32,
-          text: "关注"
-        },
-        {
-          num: 104,
-          text: "颜值"
-        },
-      ],
-      visitorData: [
-        {
-          id: 2,
-          nickname: "戴沐白i",
-          avatar: require("../../assets/image/user/avatar2.jpg"),
-          visitDate: "8-10"
-        },
-        {
-          id: 3,
-          nickname: "绽放0525",
-          avatar: require("../../assets/image/user/avatar3.jpg"),
-          visitDate: "7-28"
-        },
-        {
-          id: 4,
-          nickname: "苍麓i",
-          avatar: require("../../assets/image/user/avatar4.jpg"),
-          visitDate: "7-21"
-        }
-      ]
+      userInfo: null,
+
+
     }
   }
 
   //渲染函数
   render() {
-    return(
-      <div style={{backgroundColor: "rgb(239, 243, 245)"}}>
-        <div className="header-box header-bg">
-          <div style={{color: "rgba(255,255,255,0.4)"}}>
-            <ALHeader />
-          </div>
-          <div style={{width: 100+'%', height: 350+'px'}}></div>
-        </div>
-
-        <div >
-          <div className="content-width" style={{marginTop: -60+'px'}}>
-            <div className="al-flex-container">
-              <div className="content-box-left al-box-radius">
-                <div className="al-box-container">
-                  <Avatar size={80} src={"https://gitee.com/AlanLee97/assert/raw/master/note_images/naruto.jpg"} />
-
-                  <h2>AlanLee</h2>
-                  <p>这个人很懒，什么都没写！</p>
-                </div>
-
-                {/*统计数据*/}
-                <div className="al-flex-justify-space-around">
-                  {this.state.countData.map((item, index) => {
-                    return <CountBox num={item.num} text={item.text} />
-                  })}
-                </div>
-
-                {/*我的资料*/}
-                <div className="al-flex-justify-space-around al-m-top-30px">
-                  <Button shape="round">编辑资料</Button>
-                  <Button shape="round">我的简历</Button>
-                </div>
-
-                {/*个人名片*/}
-                <div className="al-m-20px">
-                  <p>个人名片</p>
-                  <div>1岁</div>
-                </div>
-                <Divider />
-
-                {/*最近访问*/}
-                <div className="al-m-20px">
-                  <p>最近访问</p>
-                  <div className="al-flex-justify-space-between">
-                    {this.state.visitorData.map((item, index) => {
-                      return <VisitorBox avatar={item.avatar} nickname={item.nickname} visitDate={item.visitDate} />
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              <div className="content-box-right"
-                   style={{height: 60+'px', color: "rgba(255,255,255,0.4)"}}>
-                <span className="al-p-lr-40px">首页</span>
-                <span className="al-p-lr-40px">创作 · 1</span>
-                <span className="al-p-lr-40px">即刻 · 0</span>
-                <span className="al-p-lr-40px">收藏 · 35</span>
-                <span className="al-p-lr-40px">赞过 · 30</span>
-                <span className="al-p-lr-40px">更多</span>
-              </div>
-
-            </div>
+    return (
+        <div style={{backgroundColor: "rgb(239, 243, 245)"}}>
+          <div className="header-box header-bg">
+            <ALHeader color="#fff"/>
+            <div style={{
+              width: 100 + '%',
+              height: 350 + 'px'
+            }}></div>
           </div>
 
           <div>
-            <div className="content-width al-text-align-center al-opacity-2">
-              <Avatar size={70} src={require("../../assets/icon/common/UUID2.png")} />
-              <p>Powered by © 2020-2020 UUID</p>
-            </div>
-            <div className="al-box-size-20px"></div>
-          </div>
+            <div className="content-width" style={{marginTop: -60 + 'px'}}>
+              <div className="al-flex-container">
+                {/*左边栏*/}
+                <div className="content-box-left al-box-radius">
+                  <ContentLeft />
+                </div>
 
+                <div className="content-box-right">
+                  <ContentRight />
+                </div>
+              </div>
+            </div>
+
+            {/*底部*/}
+            <div>
+              <div className="content-width al-text-align-center al-opacity-2">
+                <Avatar size={70} src={require("../../assets/icon/common/UUID2.png")}/>
+                <p>Powered by © 2020-2020 UUID</p>
+              </div>
+              <div className="al-box-size-20px"></div>
+            </div>
+
+          </div>
         </div>
-      </div>
     );
   }
 
@@ -149,7 +78,7 @@ class UserPage extends React.Component{
       console.log(res);
       console.log(res.data);
       this.setState({
-        userInfo : res.data.data
+        userInfo: res.data.data
       })
     }).catch(err => {
       console.log(err);
