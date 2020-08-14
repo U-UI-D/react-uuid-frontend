@@ -1,6 +1,7 @@
 import React from "react";
 import DataOverlook from "../DataOverlook";
 import "../../style.css";
+import Favorite from "../Favorite";
 
 class ContentRight extends React.Component{
 
@@ -67,7 +68,9 @@ class ContentRight extends React.Component{
 
           {/*内容*/}
           <div>
-            {this.switchTitle(this.state.currentTitle)}
+            <div className="al-m-left-30px">
+              {this.switchTitle(this.state.currentTitle)}
+            </div>
 
           </div>
         </div>
@@ -96,7 +99,7 @@ class ContentRight extends React.Component{
       case "即刻":
         return <div>即刻</div>
       case "收藏":
-        return <div>收藏</div>
+        return <Favorite />
       case "赞过":
         return <div>赞过</div>
       case "更多":

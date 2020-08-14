@@ -51,9 +51,9 @@ class DataOverlook extends React.Component{
   render() {
     return (
         <div>
-          <p className="al-m-left-30px title-text al-m-top-20px">数据总览</p>
+          <p className="title-text al-m-top-20px">数据总览</p>
 
-          <div className="al-m-left-30px al-flex-wrap">
+          <div className="al-flex-wrap">
             {
               this.state.totalCountData.map((item, index) => {
                 return <div
@@ -71,7 +71,7 @@ class DataOverlook extends React.Component{
           {/*图表*/}
           <div>
             {/*时间按钮组*/}
-            <div className="al-m-left-30px al-m-top-20px">
+            <div className="al-m-top-20px">
               <ButtonGroup >
                 <Button type="primary">7天</Button>
                 <Button type="">30天</Button>

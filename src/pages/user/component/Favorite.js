@@ -1,12 +1,134 @@
 import React from "react";
+import ShowWorkBox from "../../home/component/show-work-box/ShowWorkBox";
 
-class Favorite extends React.Component{
+class Favorite extends React.Component {
 
   //构造器
   constructor(props) {
     super(props);
     this.state = {
-
+      workList: [
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        },
+        {
+          poster: require("../../../assets/image/home/poster1.jpg"),
+          title: "迟来的永中优云提案作品集",
+          tag: "原创",
+          look: 3429,
+          comment: 543,
+          favor: 243,
+          user: {
+            avatar: require("../../../assets/image/home/avatar1.jpg"),
+            nickname: "迷失方向的龙龙"
+          }
+        }
+      ],
     };
   }
 
@@ -14,7 +136,15 @@ class Favorite extends React.Component{
   render() {
     return (
         <div>
-          收藏
+          {
+            this.state.workList.map((item, index) => {
+              return <span key={index} onClick={() => {
+                    this.goPage("/work/detail/" + (index + 1))
+                  }}>
+                  <ShowWorkBox workInfo={item}/>
+              </span>
+            })
+          }
         </div>
     );
   }
