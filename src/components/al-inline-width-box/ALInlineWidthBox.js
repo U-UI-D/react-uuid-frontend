@@ -11,7 +11,7 @@ class ALInlineWidthBox extends React.Component {
   //渲染函数
   render() {
     return (
-        <div style={{
+        <div {...this.props} style={{
           display: "inline-block",
           width: this.props.width + 'px',
           height: this.props.height + 'px'
