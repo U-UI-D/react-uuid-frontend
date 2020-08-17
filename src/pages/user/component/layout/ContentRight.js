@@ -99,7 +99,7 @@ class ContentRight extends React.Component{
       case "即刻":
         return <div>即刻</div>
       case "收藏":
-        return <Favorite />
+        return <Favorite {...this.props} />
       case "赞过":
         return <div>赞过</div>
       case "更多":

@@ -20,7 +20,7 @@ class ShowWorkBox extends React.Component {
         <ALInlineWidthBox>
           <div className="work-box al-m-5px al-p-5px al-float-left">
             <Avatar shape="square" src={workInfo.poster}
-                    style={{width: 274 + 'px', height: 208 + 'px'}}/>
+                    style={{width: 270 + 'px', height: 208 + 'px'}}/>
             <div className="desc">
               <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
               <div className="al-flex-container">

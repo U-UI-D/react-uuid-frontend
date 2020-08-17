@@ -35,11 +35,11 @@ class UserPage extends React.Component {
               <div className="al-flex-container">
                 {/*左边栏*/}
                 <div className="content-box-left al-box-radius">
-                  <ContentLeft />
+                  <ContentLeft {...this.props} />
                 </div>
 
                 <div className="content-box-right">
-                  <ContentRight />
+                  <ContentRight {...this.props} />
                 </div>
               </div>
             </div>
