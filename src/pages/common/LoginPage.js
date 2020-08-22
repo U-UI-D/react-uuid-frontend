@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Avatar, Button, Input} from "antd";
+import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import qs from 'querystring'
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
@@ -56,6 +56,7 @@ class LoginPage extends React.Component {
                   密码：
                 </ALInlineWidthBox>
                 <Input style={{flex: 8}}
+                       type="password"
                        placeholder={"请输入密码"}
                        onChange={(e) => {
                          this.setState({password: e.target.value})
@@ -94,26 +95,53 @@ class LoginPage extends React.Component {
 
   }
 
+  //验证账号密码
+  validate = () => {
+    if (this.state.username.length === ''){
+      message.error("用户名不能为空");
+      return false;
+    }
+
+    if (this.state.username.length < 4){
+      message.error("用户名不能小于4位数");
+      return false;
+    }
+
+    return true;
+
+  }
+
   login = () => {
     console.log(this.state);
-    let url = "http://localhost:8200/user/login";
-    this.goPage(USER_PAGE + "/1")
+    let url = "http://localhost:9001/user/login";
 
-    // request({
-    //   url: url,
-    //   method: 'POST',
-    //   data: {
-    //     username: this.state.username,
-    //     password: this.state.password,
-    //   }
-    // }).then(res => {
-    //   console.log(res);
-    //   this.setState({
-    //     result: res.data
-    //   })
-    // }).catch(err => {
-    //   console.log(err);
-    // });
+    if (!this.validate()){
+      return ;
+    }
+
+    request({
+      url: url,
+      method: 'POST',
+      data: {
+        username: this.state.username,
+        password: this.state.password,
+      }
+    }).then(res => {
+      console.log(res);
+      if (res.data.code === 1){
+        message.success("登录成功");
+        this.setState({
+          result: res.data
+        });
+        this.goPage(USER_PAGE + "/" + res.data.id);
+      }else {
+        message.error(res.data.msg);
+        console.log(res.data.msg);
+      }
+    }).catch(err => {
+      message.error("网络错误，请稍候再试！");
+      console.log(err);
+    });
   }
 
   handleResize = (e) => {

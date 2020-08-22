@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Button, Input} from "antd";
+import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 
@@ -15,7 +15,7 @@ class RegisterPage extends React.Component {
     this.state = {
       result: null,
       username: "",
-      password: ""
+      password: "",
     }
 
   }
@@ -54,6 +54,7 @@ class RegisterPage extends React.Component {
                 </ALInlineWidthBox>
                 <Input style={{flex: 8}}
                        placeholder={"请输入密码"}
+                       type="password"
                        onChange={(e) => {
                          this.setState({password: e.target.value})
                        }}/>
@@ -91,9 +92,66 @@ class RegisterPage extends React.Component {
 
   }
 
-  register = () => {
-    console.log(this.state);
-    let url = "http://localhost:8200/user/login";
+  //验证账号密码
+  validate = async () => {
+    if (this.state.username.length === ''){
+      message.error("用户名不能为空");
+      return false;
+    }
+
+    if (this.state.username.length < 4){
+      message.error("用户名不能小于4位数");
+      return false;
+    }
+
+    if (this.state.password.length < 6){
+      message.error("用户名不能小于6位数");
+      return false;
+    }
+
+    // 判断用户名是否存在
+    if ( await this.checkUsernameExisted()){
+      return false;
+    }
+    return true;
+  }
+
+  // 检查用户名是否存在
+  checkUsernameExisted = async () => {
+    let url = "http://localhost:9001/user/u/" + this.state.username;
+    let exist = false;
+
+    let result = request({
+      url: url,
+      method: 'GET',
+      data: {}
+    }).then(res => {
+      console.log(res);
+      if (res.data.code === 0){
+        exist = true;
+        message.warn("用户名已存在，请更换用户名。")
+      }
+      return exist;
+    }).catch(err => {
+      console.log(err);
+      message.warn("网络错误，请稍候再试！");
+      exist = false;
+      return exist;
+    });
+
+    exist = await result;
+    console.log("=========exist:" + exist);
+
+    return exist;
+  }
+
+
+  register = async () => {
+    if (! (await this.validate()) ){
+      return ;
+    }
+
+    let url = "http://localhost:9001/user/register";
 
     request({
       url: url,
@@ -104,14 +162,19 @@ class RegisterPage extends React.Component {
       }
     }).then(res => {
       console.log(res);
-      this.setState({
-        result: res.data
-      })
+      if (res.data.code === 1){
+        this.setState({
+          result: res.data
+        });
+        message.success("注册成功");
+      }
     }).catch(err => {
       console.log(err);
+      message.error("网络错误，请稍候再试！");
     });
   }
 
+  // 处理窗口大小变化
   handleResize = (e) => {
     console.log(e.target.innerWidth);
     this.setState({
