@@ -3,12 +3,14 @@
 const AppConfig = {
   backendDev: {
     host: "localhost",
-    port: "",
+    port: "8764",
+    prefix: "/api/v1",
   },
 
   backendProd: {
-    host: "",
-    port: "",
+    host: "localhost",
+    port: "8764",
+    prefix: "/api/v1",
   }
 
 }
