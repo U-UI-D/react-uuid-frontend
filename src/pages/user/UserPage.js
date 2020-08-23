@@ -2,7 +2,7 @@ import React from "react";
 import ALHeader from "../../components/al-header/ALHeader";
 import "./style.css";
 import {request} from "../../util/network/NetworkRequest";
-import {Avatar, Button, Divider} from "antd";
+import {Avatar, Button, Divider, message} from "antd";
 import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
 
@@ -13,8 +13,6 @@ class UserPage extends React.Component {
 
     this.state = {
       userInfo: null,
-
-
     }
   }
 
@@ -35,7 +33,7 @@ class UserPage extends React.Component {
               <div className="al-flex-container">
                 {/*左边栏*/}
                 <div className="content-box-left al-box-radius">
-                  <ContentLeft {...this.props} />
+                  <ContentLeft {...this.props} userInfo={this.state.userInfo} />
                 </div>
 
                 <div className="content-box-right">
@@ -60,28 +58,25 @@ class UserPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    console.log("========================")
-    // this.getUserInfoById(1);
+    this.getUserInfoById(this.props.match.params.id);
   }
 
   //组件卸载前调用
   componentWillUnmount() {
-
   }
 
-  getUserInfoById = (id) => {
-    request({
-      url: 'https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/mock/user.json',
+  getUserInfoById =  (id) => {
+    let result = request({
+      url: 'http://localhost:9001/user/' + id,
       method: 'GET',
       data: {}
     }).then(res => {
-      console.log(res);
-      console.log(res.data);
       this.setState({
         userInfo: res.data.data
       })
     }).catch(err => {
       console.log(err);
+      message.error("网络错误，请稍候再试");
     });
   }
 
