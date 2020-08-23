@@ -3,6 +3,7 @@ import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
+import {POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 
 
 const windowWidth = window.innerWidth;
@@ -23,8 +24,6 @@ class LoginPage extends React.Component {
 
   //渲染函数
   render() {
-
-
     return (
       <div style={{
         width: 100 + '%',
@@ -111,14 +110,13 @@ class LoginPage extends React.Component {
 
   login = () => {
     console.log(this.state);
-    let url = "http://localhost:9001/user/login";
 
     if (!this.validate()){
       return ;
     }
 
     request({
-      url: url,
+      url: POST_USER_LOGIN,
       method: 'POST',
       data: {
         username: this.state.username,
