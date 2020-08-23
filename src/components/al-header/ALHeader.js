@@ -96,7 +96,8 @@ class ALHeader extends React.Component {
               localStorage.removeItem("isLogin");
               this.setState({
                 isLogin: false
-              })
+              });
+              this.goPage(HOME_PAGE);
             }}>退出</span>
           </Menu.Item>
         </Menu>
