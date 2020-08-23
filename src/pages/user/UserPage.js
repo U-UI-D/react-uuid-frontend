@@ -5,6 +5,8 @@ import {request} from "../../util/network/NetworkRequest";
 import {Avatar, Button, Divider, message} from "antd";
 import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
+import {GET_USER_ID} from "../../util/network/config/ApiConst";
+import {LOGIN} from "../../util/router/config/RouterConst";
 
 class UserPage extends React.Component {
   //构造器
@@ -58,6 +60,11 @@ class UserPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
+    let isLogin = localStorage.getItem("isLogin");
+    // 判断是否登录
+    if (!isLogin){
+      this.goPage(LOGIN);
+    }
     this.getUserInfoById(this.props.match.params.id);
   }
 
@@ -65,9 +72,9 @@ class UserPage extends React.Component {
   componentWillUnmount() {
   }
 
-  getUserInfoById =  (id) => {
-    let result = request({
-      url: 'http://localhost:9001/user/' + id,
+  getUserInfoById = (id) => {
+    request({
+      url: GET_USER_ID + id,
       method: 'GET',
       data: {}
     }).then(res => {
@@ -78,6 +85,10 @@ class UserPage extends React.Component {
       console.log(err);
       message.error("网络错误，请稍候再试");
     });
+  }
+
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: {}})
   }
 
 }
