@@ -1,11 +1,12 @@
 import axios from "axios";
-import qs from "querystring"
+import qs from "querystring";
+import AppConfig from "../../config/AppConfig";
 
 //https://jsonplaceholder.typicode.com/posts/1
-let host = "jsonplaceholder.typicode.com";
-let port = "80";
-let prefix = "";
-let baseURL = "http://" + host + ':' + port + "/" + prefix;
+let host = AppConfig.backendDev.host;
+let port = AppConfig.backendDev.port;
+let prefix = AppConfig.backendDev.prefix;
+let baseURL = "http://" + host + ':' + port + prefix;
 
 export function request(config) {
   if (config.type !== "get" || config.type !== "GET"){
