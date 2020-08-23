@@ -1,3 +1,19 @@
 
 //API路径常量
-export const POSTS = "/posts";
+
+//用户接口 ============================
+//登录
+export const POST_USER_LOGIN = "/user/user/login";
+//注册
+export const POST_USER_REGISTER = "/user/user/register";
+//所有用户
+export const GET_USER_ALL = "/user/user";
+//用户资料
+export const GET_USER_ID = "/user/user/";
+
+//用户接口 ============================
+//所有作品
+export const GET_WORK_ALL = "/work/work";
+//作品详情
+export const GET_WORK_ID = "/work/work/";
+
