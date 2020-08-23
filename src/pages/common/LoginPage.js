@@ -1,8 +1,6 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
-import qs from 'querystring'
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
 
@@ -127,25 +125,24 @@ class LoginPage extends React.Component {
         password: this.state.password,
       }
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.data.code === 1){
         message.success("登录成功");
         this.setState({
           result: res.data
         });
-        this.goPage(USER_PAGE + "/" + res.data.id);
+        this.goPage(USER_PAGE + "/" + res.data.data.id);
       }else {
         message.error(res.data.msg);
-        console.log(res.data.msg);
+        // console.log(res.data.msg);
       }
     }).catch(err => {
       message.error("网络错误，请稍候再试！");
-      console.log(err);
+      // console.log(err);
     });
   }
 
   handleResize = (e) => {
-    console.log(e.target.innerWidth);
     this.setState({
       windowWidth: e.target.innerWidth,
       windowHeight: e.target.innerHeight,
