@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, message, Pagination} from "antd";
+import {Menu, message, Pagination, Spin} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import MenuItem from "antd/lib/menu/MenuItem";
@@ -149,7 +149,7 @@ class WorkPage extends React.Component{
     let workList = this.state.workList2;
 
     return workList === null ? <div>
-      无数据
+      <Spin size="large" />
     </div> : (
       <div style={{backgroundColor: "#eff3f5"}}>
         <div className="al-bg-color-white">
