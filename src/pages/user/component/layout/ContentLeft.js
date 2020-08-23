@@ -44,17 +44,19 @@ class ContentLeft extends React.Component{
           visitDate: "7-21"
         }
       ],
+      userInfo: null
     };
   }
 
   // 渲染函数
   render() {
-    return (
+    let userInfo = this.props.userInfo;
+    return userInfo === null ? (<div>无数据</div>) : (
         <div>
           <div className="al-box-container">
-            <Avatar size={80} src={"https://gitee.com/AlanLee97/assert/raw/master/note_images/naruto.jpg"}/>
+            <Avatar size={80} src={userInfo.avatar}/>
 
-            <h2>AlanLee</h2>
+            <h2>{userInfo.username}</h2>
             <p>这个人很懒，什么都没写！</p>
           </div>
 

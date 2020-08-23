@@ -25,26 +25,26 @@ class ShowWorkBox extends React.Component {
               <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
               <div className="al-flex-container">
                 <div>
-                  <Tag color="blue">{workInfo.tag}</Tag>
+                  <Tag color="blue">{"原创"}</Tag>
                 </div>
                 <div>
                   <Avatar size={20} src={require("../../../../assets/icon/home/look.png")} />
-                  <span className="al-m-right-20px">{workInfo.look}</span>
+                  <span className="al-m-right-20px">{workInfo.lookCount}</span>
                 </div>
                 <div>
                   <Avatar size={20} src={require("../../../../assets/icon/home/comment.png")} />
-                  <span className="al-m-right-20px">{workInfo.comment}</span>
+                  <span className="al-m-right-20px">{workInfo.commentCount}</span>
                 </div>
                 <div>
                   <Avatar size={20} src={require("../../../../assets/icon/home/fenlei.png")} />
-                  <span className="al-m-right-20px">{workInfo.favor}</span>
+                  <span className="al-m-right-20px">{workInfo.favorCount}</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <Avatar src={workInfo.user.avatar}/>
-              <span className="al-m-left-10px">{workInfo.user.nickname}</span>
+              <Avatar src={"https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"}/>
+              <span className="al-m-left-10px">{"用户名"}</span>
             </div>
           </div>
         </ALInlineWidthBox>
