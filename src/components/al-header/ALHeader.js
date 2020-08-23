@@ -1,7 +1,7 @@
 import React from "react";
-import {Avatar, Button, Menu} from "antd";
+import {Dropdown, Avatar, Button, Menu} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE} from "../../util/router/config/RouterConst";
+import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 // import "./style.css"
 
@@ -18,7 +18,7 @@ class ALHeader extends React.Component {
         },
         {
           text: "作品",
-          path: HOME_PAGE
+          path: WORK_PAGE
         },
         {
           text: "发现",
@@ -63,11 +63,57 @@ class ALHeader extends React.Component {
           path: HOME_PAGE
         }
       ],
+      isLogin: false,
     }
   }
 
   //渲染函数
   render() {
+
+    let isLogin;
+    if (!this.state.isLogin){
+      isLogin = <div className="al-flex-container-center-v">
+        <Button className="al-m-right-30px"
+                shape="round"
+                onClick={() => this.goPage(LOGIN)}
+        >登录</Button>
+        <Button shape="round"
+                onClick={() => this.goPage(REGISTER)}
+        >注册</Button>
+      </div>
+    }else {
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+      const menu = (
+        <Menu>
+          <Menu.Item>
+            <a target="_blank" onClick={() => {this.goPage("/user/" + userInfo.id)}}>
+              个人中心
+            </a>
+          </Menu.Item>
+          <Menu.Item>
+            <span className="" onClick={() => {
+              localStorage.removeItem("isLogin");
+              this.setState({
+                isLogin: false
+              })
+            }}>退出</span>
+          </Menu.Item>
+        </Menu>
+      );
+
+      isLogin = <div className="al-flex-container-center-v">
+
+
+        <Dropdown overlay={menu}>
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            <Avatar src={userInfo.avatar} />
+          </a>
+        </Dropdown>
+      </div>
+    }
+
+
     return (
         <div style={{backgroundColor: ""}}>
           <div style={{
@@ -80,6 +126,8 @@ class ALHeader extends React.Component {
               <div id="header-menu"
                    className="header-menu al-flex-container al-flex-justify-space-between"
                    style={{flex: 1}}>
+
+                {/*菜单1*/}
                 <div>
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                     {
@@ -94,7 +142,8 @@ class ALHeader extends React.Component {
                   </Menu>
                 </div>
 
-                <div>
+                {/*菜单2*/}
+                <div className="al-flex-container">
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                     {
                       this.state.menuItems2.map((item, index) => {
@@ -106,17 +155,9 @@ class ALHeader extends React.Component {
                       })
                     }
                   </Menu>
-                </div>
-              </div>
 
-              <div>
-                <Button className="al-m-right-30px"
-                        shape="round"
-                        onClick={() => this.goPage(LOGIN)}
-                >登录</Button>
-                <Button shape="round"
-                        onClick={() => this.goPage(REGISTER)}
-                >注册</Button>
+                  {isLogin}
+                </div>
               </div>
             </div>
 
@@ -128,7 +169,9 @@ class ALHeader extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-
+    this.setState({
+      isLogin: localStorage.getItem("isLogin")
+    })
   }
 
   //组件卸载前调用
