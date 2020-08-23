@@ -14,7 +14,7 @@ class LoginPage extends React.Component {
     super(props);
 
     this.state = {
-      result: null,
+      userInfo: null,
       username: "",
       password: ""
     }
@@ -129,8 +129,9 @@ class LoginPage extends React.Component {
       if (res.data.code === 1){
         message.success("登录成功");
         this.setState({
-          result: res.data
+          userInfo: res.data.data
         });
+        this.rememberLoginState(true);
         this.goPage(USER_PAGE + "/" + res.data.data.id);
       }else {
         message.error(res.data.msg);
@@ -151,6 +152,12 @@ class LoginPage extends React.Component {
 
   goPage = (path, data = {}) =>{
     this.props.history.push({pathname: path, state: {}})
+  }
+
+  // 记住登录状态
+  rememberLoginState = (flag) => {
+    localStorage.setItem("isLogin", flag);
+    localStorage.setItem("userInfo", JSON.stringify(this.state.userInfo));
   }
 
 }
