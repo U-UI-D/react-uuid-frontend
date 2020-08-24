@@ -3,6 +3,7 @@ import {Dropdown, Avatar, Button, Menu} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
 import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
+import SubMenu from "antd/lib/menu/SubMenu";
 // import "./style.css"
 
 class ALHeader extends React.Component {
@@ -114,7 +115,6 @@ class ALHeader extends React.Component {
       </div>
     }
 
-
     return (
         <div style={{backgroundColor: ""}}>
           <div style={{
@@ -146,15 +146,20 @@ class ALHeader extends React.Component {
                 {/*菜单2*/}
                 <div className="al-flex-container">
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                    {
-                      this.state.menuItems2.map((item, index) => {
-                        return <MenuItem key={item.text}
-                                         style={{color: this.props.color ?? "#000"}}
-                                         onClick={
-                                           () => this.goPage(item.path)
-                                         }>{item.text}</MenuItem>
-                      })
-                    }
+                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>搜索</MenuItem>
+                    <SubMenu title="上传">
+                      <Menu.Item>
+                        <a onClick={() => {this.goPage("/work/publish")}}>
+                          上传作品
+                        </a>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <a onClick={() => {this.goPage("/sucai/publish")}}>
+                          上传素材
+                        </a>
+                      </Menu.Item>
+                    </SubMenu>
+                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>消息</MenuItem>
                   </Menu>
 
                   {isLogin}
