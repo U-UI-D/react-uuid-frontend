@@ -1,9 +1,9 @@
 import React from "react";
-import ALHeader from "../../../components/al-header/ALHeader";
+import ALHeader from "../../../../components/al-header/ALHeader";
 import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
 import WorkContentRight from "./component/WorkContentRight";
-import {request} from "../../../util/network/NetworkRequest";
+import {request} from "../../../../util/network/NetworkRequest";
 
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
