@@ -14,9 +14,10 @@ import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
-import WorkDetail from "../../../pages/work/page/WorkDetail";
+import WorkDetail from "../../../pages/work/page/detail/WorkDetail";
 import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
+import WorkPublish from "../../../pages/work/page/publish/WorkPublish";
 
 let routes = [
   {
@@ -72,6 +73,11 @@ let routes = [
   {
     path: TEST_PAGE,
     component: TestPage,
+    exact: true
+  },
+  {
+    path: "/work/publish",
+    component: WorkPublish,
     exact: true
   },
 ];
