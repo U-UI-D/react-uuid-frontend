@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import ALHeader from "../../../../components/al-header/ALHeader";
 import {LOGIN} from "../../../../util/router/config/RouterConst";
 
@@ -13,6 +13,7 @@ class WorkPublish extends React.Component{
 
   componentDidMount() {
     let isLogin = localStorage.getItem("isLogin");
+
     if (!isLogin){
       this.goPage(LOGIN, {fromPath: '/work/publish'});
       return;
@@ -25,11 +26,25 @@ class WorkPublish extends React.Component{
 
   render() {
     return (
-      <div>
-        <ALHeader />
-        发布作品页面
+      <div style={{backgroundColor: "#eff3f5"}}>
+        <div className="al-bg-color-white">
+          <ALHeader />
+        </div>
+        <div className="content-width al-m-top-20px" >
+          <div className="al-flex-container-center-v">
+            <h1>上传列表</h1>
+            <div className="al-flex-container-center-v">
+              <div>上传作品</div>
+              <div>上传素材</div>
+            </div>
+          </div>
+        </div>
       </div>
     );
+  }
+
+  getSSOLogin = () => {
+
   }
 }
 
