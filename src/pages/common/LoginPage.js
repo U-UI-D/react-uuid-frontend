@@ -85,6 +85,8 @@ class LoginPage extends React.Component {
       windowWidth: windowWidth,
       windowHeight: windowHeight,
     });
+
+    console.log(this.props);
   }
 
   //组件卸载前调用
@@ -110,6 +112,7 @@ class LoginPage extends React.Component {
 
   login = () => {
     console.log(this.state);
+    let fromPath = this.props.location.state.fromPath;
 
     if (!this.validate()){
       return ;
@@ -121,16 +124,22 @@ class LoginPage extends React.Component {
       data: {
         username: this.state.username,
         password: this.state.password,
+        fromPath: fromPath,
       }
     }).then(res => {
-      // console.log(res);
+      console.log(res);
       if (res.data.code === 1){
         message.success("登录成功");
         this.setState({
-          userInfo: res.data.data
+          userInfo: res.data.data.data
         });
         this.rememberLoginState(true);
-        this.goPage(USER_PAGE + "/" + res.data.data.id);
+        if (!fromPath){
+          this.goPage(USER_PAGE + "/" + res.data.data.data.id);
+        }else {
+          console.log(res.data.data.data.toPath);
+          this.goPage(res.data.data.toPath);
+        }
       }else {
         message.error(res.data.msg);
         // console.log(res.data.msg);
