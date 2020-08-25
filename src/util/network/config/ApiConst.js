@@ -3,7 +3,7 @@
 
 //用户接口 ============================
 //登录
-export const POST_USER_LOGIN = "/user/user/login";
+export const POST_USER_LOGIN = "http://localhost:1111/user/login";
 //注册
 export const POST_USER_REGISTER = "/user/user/register";
 //所有用户
