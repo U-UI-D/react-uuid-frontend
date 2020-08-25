@@ -300,8 +300,8 @@ class HomePage extends React.Component{
 
   }
 
-  goPage = (path, data = {}) =>{
-    this.props.history.push({pathname: path, state: {}})
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: data})
   }
 
 }
