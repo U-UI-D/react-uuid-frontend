@@ -1,6 +1,8 @@
 import React from "react";
 import ALHeader from "../../../../components/al-header/ALHeader";
 import {LOGIN} from "../../../../util/router/config/RouterConst";
+import {getCookieByName} from "../../../../util/cookieUtil";
+import {request} from "../../../../util/network/NetworkRequest";
 
 
 class WorkPublish extends React.Component{
@@ -12,9 +14,9 @@ class WorkPublish extends React.Component{
   }
 
   componentDidMount() {
-    let isLogin = localStorage.getItem("isLogin");
-
-    if (!isLogin){
+    //验证是否已单点登录
+    let token = getCookieByName("sso_token");
+    if (!token){
       this.goPage(LOGIN, {fromPath: '/work/publish'});
       return;
     }
@@ -43,9 +45,6 @@ class WorkPublish extends React.Component{
     );
   }
 
-  getSSOLogin = () => {
-
-  }
 }
 
 
