@@ -4,6 +4,7 @@ import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
 import {POST_USER_LOGIN} from "../../util/network/config/ApiConst";
+import {setCookie} from "../../util/cookieUtil";
 
 
 const windowWidth = window.innerWidth;
@@ -13,13 +14,11 @@ class LoginPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
-
     this.state = {
       userInfo: null,
       username: "",
       password: ""
     }
-
   }
 
   //渲染函数
@@ -32,7 +31,8 @@ class LoginPage extends React.Component {
       }} className="al-box-container">
 
         <div className="al-box-container al-box-pretty"
-             style={{width: 400 + 'px', height: 300 + 'px', marginTop: 140 + 'px'}}>
+             style={{width: 400 + 'px',
+               height: 300 + 'px', marginTop: 140 + 'px'}}>
           <div>
             <div className="al-box-container">
               <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
@@ -84,9 +84,9 @@ class LoginPage extends React.Component {
     this.setState({
       windowWidth: windowWidth,
       windowHeight: windowHeight,
+      userInfo: null
     });
 
-    console.log(this.props);
   }
 
   //组件卸载前调用
@@ -111,35 +111,23 @@ class LoginPage extends React.Component {
   }
 
   login = () => {
-    console.log(this.state);
-    let fromPath = this.props.location.state.fromPath;
-
     if (!this.validate()){
       return ;
     }
-
+    //去sso登录
     request({
       url: POST_USER_LOGIN,
       method: 'POST',
       data: {
         username: this.state.username,
         password: this.state.password,
-        fromPath: fromPath,
       }
     }).then(res => {
       console.log(res);
       if (res.data.code === 1){
         message.success("登录成功");
-        this.setState({
-          userInfo: res.data.data.data
-        });
-        this.rememberLoginState(true);
-        if (!fromPath){
-          this.goPage(USER_PAGE + "/" + res.data.data.data.id);
-        }else {
-          console.log(res.data.data.data.toPath);
-          this.goPage(res.data.data.toPath);
-        }
+        setCookie("sso_token", res.data.data.token);
+        this.getUserInfoByToken(res.data.data.token);
       }else {
         message.error(res.data.msg);
         // console.log(res.data.msg);
@@ -154,6 +142,30 @@ class LoginPage extends React.Component {
     this.setState({
       windowWidth: e.target.innerWidth,
       windowHeight: e.target.innerHeight,
+    })
+  }
+
+  getUserInfoByToken = (token) => {
+    let fromPath = this.props.location.state.fromPath;
+
+    request({
+      url: 'http://localhost:1111/user/' + token,
+      method: 'get',
+      data: {},
+      headers: {}
+    }).then(res => {
+      this.setState({
+        userInfo: res.data.data,
+      });
+      this.rememberLoginState(true);
+      if (!fromPath){
+        this.goPage(USER_PAGE + "/" + this.state.userInfo.id);
+      }else {
+        this.goPage(fromPath);
+      }
+      // console.log(res);
+    }).catch(err => {
+      console.log(err);
     })
   }
 
