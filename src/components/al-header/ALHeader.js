@@ -1,9 +1,11 @@
 import React from "react";
-import {Dropdown, Avatar, Button, Menu} from "antd";
+import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
 import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 import SubMenu from "antd/lib/menu/SubMenu";
+import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
+import {request} from "../../util/network/NetworkRequest";
 // import "./style.css"
 
 class ALHeader extends React.Component {
@@ -94,11 +96,7 @@ class ALHeader extends React.Component {
           </Menu.Item>
           <Menu.Item>
             <span className="" onClick={() => {
-              localStorage.removeItem("isLogin");
-              this.setState({
-                isLogin: false
-              });
-              this.goPage(HOME_PAGE);
+              this.logout();
             }}>退出</span>
           </Menu.Item>
         </Menu>
@@ -175,8 +173,13 @@ class ALHeader extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
+    let isLogin = JSON.parse(localStorage.getItem("isLogin"));
+    if (isLogin){
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      console.log(userInfo);
+    }
     this.setState({
-      isLogin: localStorage.getItem("isLogin")
+      isLogin: isLogin
     })
   }
 
@@ -188,6 +191,39 @@ class ALHeader extends React.Component {
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: {}})
   }
+
+  // 退出
+  logout(){
+    let token = getCookieByName("sso_token");
+    console.log(token);
+    request({
+      url: 'http://localhost:1111/user/logout',
+      method: 'POST',
+      data: {
+        token: token
+      },
+      headers: {}
+    }).then(res => {
+      console.log(res);
+      if (res.data.code === 0){
+        message.warning("网络繁忙，请稍候再试");
+      }
+      this.clearUserInfo();
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  clearUserInfo(){
+    localStorage.removeItem("isLogin");
+    deleteCookie("sso_token");
+    this.setState({
+      isLogin: false
+    });
+    this.goPage(HOME_PAGE);
+  }
+
 
 }
 
