@@ -136,6 +136,7 @@ class WorkPage extends React.Component{
         }
       ],
       workList2: [],
+      loading: true
     }
   }
 
@@ -149,7 +150,7 @@ class WorkPage extends React.Component{
     let workList = this.state.workList2;
 
     return workList === null ? <div>
-      <Spin size="large" />
+
     </div> : (
       <div style={{backgroundColor: "#eff3f5"}}>
         <div className="al-bg-color-white">
@@ -174,17 +175,24 @@ class WorkPage extends React.Component{
             {/*作品列表*/}
             <div>
               {/*作品列表*/}
-              <div>
-                {
-                  workList.map((item, index) => {
-                    return <span key={index} onClick={() => {
-                      this.goPage("/work/detail/" + (index + 1))
-                    }}>
+              {
+                this.state.loading ?
+                    <div className="al-flex-container-center-vh" style={{height: 200+'px'}}>
+                      <Spin size="large" />
+                    </div>
+                    :
+                    <div>
+                      {
+                        workList.map((item, index) => {
+                          return <span key={index} onClick={() => {
+                            this.goPage("/work/detail/" + (index + 1))
+                          }}>
                       <ShowWorkBox workInfo={item}  />
                     </span>
-                  })
-                }
-              </div>
+                        })
+                      }
+                    </div>
+              }
 
               {/*分页*/}
               <div className="al-flex-container-center-vh">
@@ -231,7 +239,8 @@ class WorkPage extends React.Component{
     }).then(res => {
       console.log(res);
       this.setState({
-        workList2: res.data.data
+        workList2: res.data.data,
+        loading: false
       })
     }).catch(err => {
       message.warning("网络错误，请稍候重试！");
