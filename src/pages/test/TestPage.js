@@ -1,5 +1,4 @@
 import React from "react";
-import ALImage from "../../components/al-image/ALImage";
 
 class TestPage extends React.Component{
 
@@ -18,9 +17,10 @@ class TestPage extends React.Component{
           <center><h1 >测试页面</h1></center>
 
           {/*测试内容*/}
-          <div>
-            <ALImage fit={"fill"} src={require('../../assets/image/home/poster1.jpg')} />
-          </div>
+          {
+            JSON.stringify(this.state.result)
+          }
+
         </div>
     );
   }
@@ -28,14 +28,13 @@ class TestPage extends React.Component{
   // 生命周期函数
   //组件已挂载
   componentDidMount() {
-
+    // getWorkList().then(res => this.setState({result: res}))
   }
 
   //组件将要卸载时
   componentWillUnmount() {
 
   }
-
 
 }
 
