@@ -4,6 +4,7 @@ import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
 import WorkContentRight from "./component/WorkContentRight";
 import {request} from "../../../../util/network/NetworkRequest";
+import {GET_WORK_ID} from "../../../../util/network/config/ApiConst";
 
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -51,7 +52,7 @@ class WorkDetail extends React.Component{
 
   // 获取作品详情
   getWorkDetailById(id){
-    let url = "http://localhost:9002/work/" + id;
+    let url = GET_WORK_ID + id;
     request({
       url: url,
       method: 'GET',
