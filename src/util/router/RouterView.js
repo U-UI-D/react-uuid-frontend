@@ -12,26 +12,16 @@ export const RouteWithSubRoutes = route => (
     />
 );
 
-class RouterView extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-
-  }
-
-  render() {
-    return (
-        <Router>
-          {
-            routes.map((route, i) => {
-              return <RouteWithSubRoutes key={route.path} {...route} />
-            })
-          }
-        </Router>
-    );
-  }
+function RouterView() {
+  return (
+      <Router>
+        {
+          routes.map((route, i) => {
+            return <RouteWithSubRoutes key={route.path} {...route} />
+          })
+        }
+      </Router>
+  );
 }
 
 export default RouterView;
