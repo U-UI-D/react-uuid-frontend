@@ -9,7 +9,7 @@ import {GET_WORK_ID} from "../../../../util/network/config/ApiConst";
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
 
-class WorkDetail extends React.Component{
+class WorkDetailPage extends React.Component{
   //构造器
   constructor(props) {
     super(props);
@@ -69,4 +69,4 @@ class WorkDetail extends React.Component{
 
 }
 
-export default WorkDetail;
+export default WorkDetailPage;

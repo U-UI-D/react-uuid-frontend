@@ -6,6 +6,8 @@ import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ShowWorkBox from "../home/component/show-work-box/ShowWorkBox";
 import {getWorkList} from "../../util/network/RequestHub";
+import {WORK_DETAIL} from "../../util/router/config/RouterConst";
+import ALLoading from "../../components/al-loading/ALLoading";
 
 class WorkPage extends React.Component {
   //构造器
@@ -13,129 +15,7 @@ class WorkPage extends React.Component {
     super(props);
 
     this.state = {
-      workList: [
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        },
-        {
-          poster: require("../../assets/image/home/poster1.jpg"),
-          title: "迟来的永中优云提案作品集",
-          tag: "原创",
-          look: 3429,
-          comment: 543,
-          favor: 243,
-          user: {
-            avatar: require("../../assets/image/home/avatar1.jpg"),
-            nickname: "迷失方向的龙龙"
-          }
-        }
-      ],
-      workList2: [],
+      workData: null,
       loading: true,
       currentPageNo: 1
     }
@@ -143,9 +23,7 @@ class WorkPage extends React.Component {
 
   //渲染函数
   render() {
-    return this.state.workData === null ? <div>
-
-    </div> : (
+    return (
         <div style={{backgroundColor: "#eff3f5"}}>
           <div className="al-bg-color-white">
             <ALHeader/>
@@ -167,16 +45,14 @@ class WorkPage extends React.Component {
               {/*作品列表*/}
               <div>
                 {
-                  this.state.loading ?
-                      <div className="al-flex-container-center-vh" style={{height: 200 + 'px'}}>
-                        <Spin size="large"/>
-                      </div>
+                  this.state.workData === null ?
+                      <ALLoading show height={200} />
                       :
                       <div>
                         {
                           this.state.workData.list.map((item, index) => {
                             return <span key={index} onClick={() => {
-                              this.goPage("/work/detail/" + item.id)
+                              this.goPage(WORK_DETAIL + "/" + item.id)
                             }}>
                       <ShowWorkBox workInfo={item}/>
                     </span>

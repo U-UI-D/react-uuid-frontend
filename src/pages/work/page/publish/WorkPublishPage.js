@@ -5,7 +5,7 @@ import {getCookieByName} from "../../../../util/cookieUtil";
 import {request} from "../../../../util/network/NetworkRequest";
 
 
-class WorkPublish extends React.Component{
+class WorkPublishPage extends React.Component{
   constructor(props) {
     super();
     this.state = {
@@ -49,4 +49,4 @@ class WorkPublish extends React.Component{
 
 
 
-export default WorkPublish;
+export default WorkPublishPage;

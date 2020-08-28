@@ -7,6 +7,7 @@ import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
 import {getWorkList} from "../../util/network/RequestHub";
+import ALLoading from "../../components/al-loading/ALLoading";
 
 class HomePage extends React.Component {
   //构造器
@@ -87,7 +88,7 @@ class HomePage extends React.Component {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    return this.state.workData === null ? <div></div> : (
+    return (
         <div style={{backgroundColor: "#eff3f5"}}>
           <div className="al-bg-color-white">
             <ALHeader/>
@@ -121,11 +122,7 @@ class HomePage extends React.Component {
                 {/*作品列表*/}
                 <div>
                   {
-                    this.state.loading ?
-                        <div className="al-flex-container-center-vh" style={{height: 200 + 'px'}}>
-                          <Spin size="large"/>
-                        </div>
-                        :
+                    this.state.workData === null ? <ALLoading show height={200} /> :
                         <div>
                           {
                             this.state.workData.list.map((item, index) => {
@@ -143,17 +140,20 @@ class HomePage extends React.Component {
                 {/*分页*/}
                 <div className="al-flex-container-center-vh">
                   <div>
-                    <ALInlineWidthBox>
-                      <Pagination current={this.state.currentPageNo}
-                                  total={this.state.workData.total}
-                                  onChange={(page, pageSize) => {
-                                    console.log(page);
-                                    console.log(pageSize);
-                                    this.setState({
-                                      currentPageNo: page
-                                    })
-                      }}/>
-                    </ALInlineWidthBox>
+                    {
+                      this.state.workData === null ? <div></div> :
+                          <ALInlineWidthBox>
+                            <Pagination current={this.state.currentPageNo}
+                                        total={this.state.workData.total}
+                                        onChange={(page, pageSize) => {
+                                          console.log(page);
+                                          console.log(pageSize);
+                                          this.setState({
+                                            currentPageNo: page
+                                          })
+                                        }}/>
+                          </ALInlineWidthBox>
+                    }
                   </div>
                 </div>
               </div>

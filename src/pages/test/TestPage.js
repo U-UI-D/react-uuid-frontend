@@ -1,4 +1,5 @@
 import React from "react";
+import ALLoading from "../../components/al-loading/ALLoading";
 
 class TestPage extends React.Component{
 
@@ -17,9 +18,7 @@ class TestPage extends React.Component{
           <center><h1 >测试页面</h1></center>
 
           {/*测试内容*/}
-          {
-            JSON.stringify(this.state.result)
-          }
+          <ALLoading show />
 
         </div>
     );
