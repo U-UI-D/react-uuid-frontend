@@ -14,10 +14,10 @@ import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
-import WorkDetail from "../../../pages/work/page/detail/WorkDetail";
+import WorkDetailPage from "../../../pages/work/page/detail/WorkDetailPage";
 import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
-import WorkPublish from "../../../pages/work/page/publish/WorkPublish";
+import WorkPublishPage from "../../../pages/work/page/publish/WorkPublishPage";
 
 let routes = [
   {
@@ -62,7 +62,7 @@ let routes = [
   {
     // path: '/passage-list/passage-detail/:id',
     path: WORK_DETAIL + '/:id',
-    component: WorkDetail,
+    component: WorkDetailPage,
     exact: true
   },
   {
@@ -77,7 +77,7 @@ let routes = [
   },
   {
     path: "/work/publish",
-    component: WorkPublish,
+    component: WorkPublishPage,
     exact: true
   },
 ];
