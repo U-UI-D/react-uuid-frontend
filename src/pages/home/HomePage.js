@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Carousel, Menu, message, Pagination, Spin} from "antd";
+import {Spin, Button, Carousel, Menu, Pagination, Avatar} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
@@ -78,7 +78,26 @@ class HomePage extends React.Component {
           }
         }
       ],
-      currentPageNo: 1
+      currentPageNo: 1,
+      carouselList: [
+        {
+          title: "",
+          poster: 'https://img.ui.cn/data/upload/202008/1598162172_155?imageView/1/w/1480/h/350',
+          url: "/"
+        },
+        {
+          title: "",
+          poster: 'https://img.ui.cn/data/upload/202008/1597827366_118?imageView/1/w/1480/h/350',
+          url: "/"
+        },
+        {
+          title: "",
+          poster: 'https://img.ui.cn/data/upload/202008/1597723301_547?imageView/1/w/1480/h/350',
+          url: "/"
+        },
+
+
+      ],
     }
   }
 
@@ -88,22 +107,29 @@ class HomePage extends React.Component {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    return (
-        <div style={{backgroundColor: "#eff3f5"}}>
-          <div className="al-bg-color-white">
-            <ALHeader/>
-          </div>
-          <div className="al-box-size-20px"></div>
+    return this.state.workData === null ? <ALLoading show /> : (
+      <div style={{backgroundColor: "#eff3f5"}}>
+        <div className="al-bg-color-white">
+          <ALHeader/>
+        </div>
+        <div className="al-box-size-20px"></div>
 
 
           <div>
             <div className="content-width">
               {/*轮播图*/}
               <Carousel autoplay>
-                <div className="al-box-size-200px al-bg-color-blue">1</div>
-                <div className="al-box-size-200px al-bg-color-red">2</div>
-                <div className="al-box-size-200px al-bg-color-green">3</div>
-                <div className="al-box-size-200px al-bg-color-yellow">4</div>
+                {
+                  this.state.carouselList.map((item, index) => {
+                    return (
+                      <div>
+                        <a href={item.url}>
+                          <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
+                        </a>
+                      </div>
+                    );
+                  })
+                }
               </Carousel>
               <br/>
 
@@ -122,7 +148,11 @@ class HomePage extends React.Component {
                 {/*作品列表*/}
                 <div>
                   {
-                    this.state.workData === null ? <ALLoading show height={200} /> :
+                    this.state.loading ?
+                        <div className="al-flex-container-center-vh" style={{height: 200 + 'px'}}>
+                          <Spin size="large"/>
+                        </div>
+                        :
                         <div>
                           {
                             this.state.workData.list.map((item, index) => {
@@ -140,20 +170,17 @@ class HomePage extends React.Component {
                 {/*分页*/}
                 <div className="al-flex-container-center-vh">
                   <div>
-                    {
-                      this.state.workData === null ? <div></div> :
-                          <ALInlineWidthBox>
-                            <Pagination current={this.state.currentPageNo}
-                                        total={this.state.workData.total}
-                                        onChange={(page, pageSize) => {
-                                          console.log(page);
-                                          console.log(pageSize);
-                                          this.setState({
-                                            currentPageNo: page
-                                          })
-                                        }}/>
-                          </ALInlineWidthBox>
-                    }
+                    <ALInlineWidthBox>
+                      <Pagination current={this.state.currentPageNo}
+                                  total={this.state.workData.total}
+                                  onChange={(page, pageSize) => {
+                                    console.log(page);
+                                    console.log(pageSize);
+                                    this.setState({
+                                      currentPageNo: page
+                                    })
+                      }}/>
+                    </ALInlineWidthBox>
                   </div>
                 </div>
               </div>
