@@ -11,7 +11,7 @@ class WorkContentRight extends React.Component{
   //渲染函数
   render() {
     return(
-      <div style={{width: 220, backgroundColor: "#fff", padding: 20}}>
+      <div style={{width: 220, height: 100+'vh', backgroundColor: "#fff", padding: 20}}>
         右边
       </div>
     );

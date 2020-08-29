@@ -29,7 +29,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </>
 );
 
-class TestPage extends React.Component{
+class ALComment extends React.Component{
 
 
   state = {
@@ -115,4 +115,4 @@ class TestPage extends React.Component{
 
 }
 
-export default TestPage;
+export default ALComment;
