@@ -19,7 +19,7 @@ import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
 import WorkPublishPage from "../../../pages/work/page/publish/WorkPublishPage";
 import ShopPage from "../../../pages/shop/ShopPage";
-import UserProfilePage from "../../../pages/user/page/UserProfilePage";
+import UserProfilePage from "../../../pages/user/page/profile/UserProfilePage";
 
 let routes = [
   {
