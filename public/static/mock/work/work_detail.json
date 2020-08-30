@@ -1,0 +1,31 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": {
+    "id": 1,
+    "title": "BESTFOOD APP设计",
+    "poster": "https://img.ui.cn/data/file/1/6/3/3387361.jpg?imageView/1/w/420/h/315",
+    "description": "BESTFOOD APP是一款社交电商类互联网产品，为用户提供更多会员专享优惠活动和会员权益，同时提供品质商城、美食社区和便捷的外卖送货上门服务。",
+    "imageId": "2;3;4;5;6;7;8",
+    "imageUrls": [
+      "https://img.ui.cn/data/file/6/6/3/3387366.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/7/6/3/3387367.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/8/6/3/3387368.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/3/5/3/3387353.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/4/5/3/3387354.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/5/5/3/3387355.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/",
+      "https://img.ui.cn/data/file/6/5/3/3387356.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/"
+    ],
+    "lookCount": 120,
+    "likeCount": 10,
+    "commentCount": 2,
+    "commentId": 1,
+    "favorCount": 28,
+    "usingCount": 4,
+    "raiseRealization": "2",
+    "commercialAvailable": null,
+    "userId": 1,
+    "createdTime": "2020-08-23T16:58:09.000+0000",
+    "updatedTime": "2020-08-23T16:58:12.000+0000"
+  }
+}

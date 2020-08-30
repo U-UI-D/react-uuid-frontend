@@ -15,5 +15,5 @@ export const GET_USER_ID = "/user/user/";
 //所有作品
 export const GET_WORK_ALL = "/work/work";
 //作品详情
-export const GET_WORK_ID = "/work/work/";
+export const GET_WORK_BY_ID = "/work/work/";
 
