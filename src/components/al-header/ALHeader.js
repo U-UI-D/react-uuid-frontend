@@ -1,11 +1,12 @@
 import React from "react";
 import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {HOME_PAGE, LOGIN, REGISTER, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
+import {HOME_PAGE, LOGIN, REGISTER, SHOP_PAGE, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 import SubMenu from "antd/lib/menu/SubMenu";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/NetworkRequest";
+import {getUserInfoFromLocalStorage} from "../../util/util";
 // import "./style.css"
 
 class ALHeader extends React.Component {
@@ -28,15 +29,7 @@ class ALHeader extends React.Component {
           path: HOME_PAGE
         },
         {
-          text: "学习",
-          path: HOME_PAGE
-        },
-        {
-          text: "版权素材",
-          path: HOME_PAGE
-        },
-        {
-          text: "招聘",
+          text: "素材",
           path: HOME_PAGE
         },
         {
@@ -44,8 +37,8 @@ class ALHeader extends React.Component {
           path: HOME_PAGE
         },
         {
-          text: "更多",
-          path: HOME_PAGE
+          text: "商城",
+          path: SHOP_PAGE
         },
         {
           text: "测试",
@@ -85,12 +78,12 @@ class ALHeader extends React.Component {
         >注册</Button>
       </div>
     }else {
-      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      let userInfo = getUserInfoFromLocalStorage();
 
       const menu = (
         <Menu>
           <Menu.Item>
-            <a target="_blank" onClick={() => {this.goPage("/user/" + userInfo.id)}}>
+            <a onClick={() => {this.goPage("/user/" + userInfo.id)}}>
               个人中心
             </a>
           </Menu.Item>
