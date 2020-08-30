@@ -80,7 +80,12 @@ export async function getWorkDetailByID(id){
  * @returns {Promise<{data: null, err: null}>}
  */
 export async function getUserInfoByID(id){
-  let url = GET_USER_ID + id;
+  let url = GET_USER_ID;
+  if (AppConfig.env === 'mock'){
+    url = "/user/user.json";
+  }else {
+    url = url + id;
+  }
   let result = {
     data: null,
     err: null
@@ -104,32 +109,3 @@ export async function getUserInfoByID(id){
 }
 
 
-//mock数据 =============================================
-/**
- * 通过id获取用户信息（mock）
- * @param id
- * @returns {Promise<{data: null, err: null}>}
- */
-export async function getMockUserInfoByID(id){
-  let url = GET_USER_ID + "user.json";
-  let result = {
-    data: null,
-    err: null
-  }
-  let promise = request({
-    url: url,
-  }).then(res => {
-    console.log(res);
-    result.data = res.data.data;
-    return result;
-  }).catch(err => {
-    message.warning("网络错误，请稍候重试！");
-    console.log(err);
-    result.err = err;
-    return result;
-  });
-
-  result = await promise;
-  console.log(result);
-  return result;
-}
