@@ -19,7 +19,13 @@ export const WORK_DETAIL =  "/work/detail";
 //用户 ==========================
 //用户
 export const USER_PAGE =  "/user";
+export const USER_PROFILE_PAGE =  "/user/profile";
+
 
 //测试页面 ==========================
 //测试
 export const TEST_PAGE =  "/test";
+
+//用户 ==========================
+//用户
+export const SHOP_PAGE =  "/shop";
