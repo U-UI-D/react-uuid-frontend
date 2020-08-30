@@ -7,6 +7,7 @@ import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
 import {GET_USER_ID} from "../../util/network/config/ApiConst";
 import {LOGIN} from "../../util/router/config/RouterConst";
+import {getUserInfoFromLocalStorage} from "../../util/util";
 
 class UserPage extends React.Component {
   //构造器
@@ -65,30 +66,19 @@ class UserPage extends React.Component {
     if (!isLogin){
       this.goPage(LOGIN);
     }
-    this.getUserInfoById(this.props.match.params.id);
+    this.setState({
+      userInfo: getUserInfoFromLocalStorage()
+    })
   }
 
   //组件卸载前调用
   componentWillUnmount() {
   }
 
-  getUserInfoById = (id) => {
-    request({
-      url: GET_USER_ID + id,
-      method: 'GET',
-      data: {}
-    }).then(res => {
-      this.setState({
-        userInfo: res.data.data
-      })
-    }).catch(err => {
-      console.log(err);
-      message.error("网络错误，请稍候再试");
-    });
-  }
+
 
   goPage = (path, data = {}) => {
-    this.props.history.push({pathname: path, state: {}})
+    this.props.history.push({pathname: path, state: data})
   }
 
 }

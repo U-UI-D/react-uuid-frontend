@@ -4,7 +4,8 @@ import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
 import WorkContentRight from "./component/WorkContentRight";
 import {request} from "../../../../util/network/NetworkRequest";
-import {GET_WORK_ID} from "../../../../util/network/config/ApiConst";
+import {GET_WORK_BY_ID} from "../../../../util/network/config/ApiConst";
+import {getWorkDetailByID} from "../../../../util/network/RequestHub";
 
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -42,7 +43,11 @@ class WorkDetailPage extends React.Component{
 
   //组件挂载完成时调用
   componentDidMount() {
-    this.getWorkDetailById(this.props.match.params.id);
+    getWorkDetailByID(this.props.match.params.id).then(res => {
+      this.setState({
+        workData: res.data
+      })
+    });
   }
 
   //组件卸载前调用
@@ -51,21 +56,7 @@ class WorkDetailPage extends React.Component{
   }
 
   // 获取作品详情
-  getWorkDetailById(id){
-    let url = GET_WORK_ID + id;
-    request({
-      url: url,
-      method: 'GET',
-      data: {}
-    }).then(res => {
-      console.log(res);
-      this.setState({
-        workData: res.data.data
-      })
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+
 
 }
 

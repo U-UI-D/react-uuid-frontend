@@ -3,6 +3,7 @@ import {Avatar, Button, Divider} from "antd";
 import CountBox from "../CountBox";
 import VisitorBox from "../VisitorBox";
 import "../../style.css";
+import {USER_PROFILE_PAGE} from "../../../../util/router/config/RouterConst";
 
 class ContentLeft extends React.Component{
 
@@ -69,7 +70,7 @@ class ContentLeft extends React.Component{
 
           {/*我的资料*/}
           <div className="al-flex-justify-space-around al-m-top-30px">
-            <Button shape="round">编辑资料</Button>
+            <Button shape="round" onClick={() => this.goPage(USER_PROFILE_PAGE + '/' + userInfo.id)}>编辑资料</Button>
             <Button shape="round">我的简历</Button>
           </div>
 
@@ -102,6 +103,10 @@ class ContentLeft extends React.Component{
   //组件将要卸载时
   componentWillUnmount() {
 
+  }
+
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: data})
   }
 
 
