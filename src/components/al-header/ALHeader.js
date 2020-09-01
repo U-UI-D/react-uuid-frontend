@@ -7,6 +7,7 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/NetworkRequest";
 import {getUserInfoFromLocalStorage} from "../../util/util";
+
 // import "./style.css"
 
 class ALHeader extends React.Component {
@@ -66,9 +67,9 @@ class ALHeader extends React.Component {
   //渲染函数
   render() {
 
-    let isLogin;
-    if (!this.state.isLogin){
-      isLogin = <div className="al-flex-container-center-v">
+    let isLoginDiv;
+    if (!this.state.isLogin) {
+      isLoginDiv = <div className="al-flex-container-center-v">
         <Button className="al-m-right-30px"
                 shape="round"
                 onClick={() => this.goPage(LOGIN)}
@@ -77,30 +78,30 @@ class ALHeader extends React.Component {
                 onClick={() => this.goPage(REGISTER)}
         >注册</Button>
       </div>
-    }else {
+    } else {
       let userInfo = getUserInfoFromLocalStorage();
 
       const menu = (
-        <Menu>
-          <Menu.Item>
-            <a onClick={() => {this.goPage("/user/" + userInfo.id)}}>
-              个人中心
-            </a>
-          </Menu.Item>
-          <Menu.Item>
+          <Menu>
+            <Menu.Item>
+              <a onClick={() => {
+                this.goPage("/user/" + userInfo.id)
+              }}>
+                个人中心
+              </a>
+            </Menu.Item>
+            <Menu.Item>
             <span className="" onClick={() => {
               this.logout();
             }}>退出</span>
-          </Menu.Item>
-        </Menu>
+            </Menu.Item>
+          </Menu>
       );
 
-      isLogin = <div className="al-flex-container-center-v">
-
-
+      isLoginDiv = <div className="al-flex-container-center-v">
         <Dropdown overlay={menu}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            <Avatar src={userInfo.avatar} />
+            <Avatar src={userInfo.avatar}/>
           </a>
         </Dropdown>
       </div>
@@ -127,8 +128,8 @@ class ALHeader extends React.Component {
                         return <MenuItem key={item.text}
                                          style={{color: this.props.color ?? "#000"}}
                                          onClick={
-                          () => this.goPage(item.path)
-                        }>{item.text}</MenuItem>
+                                           () => this.goPage(item.path)
+                                         }>{item.text}</MenuItem>
                       })
                     }
                   </Menu>
@@ -138,14 +139,18 @@ class ALHeader extends React.Component {
                 <div className="al-flex-container">
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                     <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>搜索</MenuItem>
-                    <SubMenu title="上传">
-                      <Menu.Item>
-                        <a onClick={() => {this.goPage("/work/publish")}}>
+                    <SubMenu title="上传" style={{color: this.props.color ?? "#000"}}>
+                      <Menu.Item >
+                        <a onClick={() => {
+                          this.goPage("/work/publish")
+                        }}>
                           上传作品
                         </a>
                       </Menu.Item>
                       <Menu.Item>
-                        <a onClick={() => {this.goPage("/sucai/publish")}}>
+                        <a onClick={() => {
+                          this.goPage("/sucai/publish")
+                        }}>
                           上传素材
                         </a>
                       </Menu.Item>
@@ -153,7 +158,7 @@ class ALHeader extends React.Component {
                     <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>消息</MenuItem>
                   </Menu>
 
-                  {isLogin}
+                  {isLoginDiv}
                 </div>
               </div>
             </div>
@@ -167,7 +172,7 @@ class ALHeader extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     let isLogin = JSON.parse(localStorage.getItem("isLogin"));
-    if (isLogin){
+    if (isLogin) {
       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       console.log(userInfo);
     }
@@ -186,7 +191,7 @@ class ALHeader extends React.Component {
   }
 
   // 退出
-  logout(){
+  logout() {
     let token = getCookieByName("sso_token");
     console.log(token);
     request({
@@ -198,7 +203,7 @@ class ALHeader extends React.Component {
       headers: {}
     }).then(res => {
       console.log(res);
-      if (res.data.code === 0){
+      if (res.data.code === 0) {
         message.warning("网络繁忙，请稍候再试");
       }
       this.clearUserInfo();
@@ -208,7 +213,7 @@ class ALHeader extends React.Component {
     })
   }
 
-  clearUserInfo(){
+  clearUserInfo() {
     localStorage.removeItem("isLogin");
     deleteCookie("sso_token");
     this.setState({
