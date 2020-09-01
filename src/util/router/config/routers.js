@@ -20,6 +20,7 @@ import TestPage from "../../../pages/test/TestPage";
 import WorkPublishPage from "../../../pages/work/page/publish/WorkPublishPage";
 import ShopPage from "../../../pages/shop/ShopPage";
 import UserProfilePage from "../../../pages/user/page/profile/UserProfilePage";
+import Demo from "../../../pages/test/demo/Demo";
 
 let routes = [
   {
@@ -90,6 +91,11 @@ let routes = [
   {
     path: "/shop",
     component: ShopPage,
+    exact: true
+  },
+  {
+    path: "/demo",
+    component: Demo,
     exact: true
   },
 ];
