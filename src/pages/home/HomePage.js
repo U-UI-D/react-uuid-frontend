@@ -124,7 +124,7 @@ class HomePage extends React.Component {
                 {
                   this.state.carouselList.map((item, index) => {
                     return (
-                        <div>
+                        <div key={item.poster}>
                           <a href={item.url}>
                             <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
                           </a>

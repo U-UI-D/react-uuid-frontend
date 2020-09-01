@@ -13,7 +13,7 @@ function ALFlexBox(props) {
     wrap: "al-flex-wrap",
   }
   return (
-      <div className={`
+    <div className={`
       ${classNames.flex} 
       ${props.between ? classNames.between : ""} 
       ${props.around ? classNames.around : ""} 
@@ -22,10 +22,13 @@ function ALFlexBox(props) {
       ${props.centerV ? classNames.centerV : ""} 
       ${props.centerH ? classNames.centerH : ""} 
       ${props.centerVH ? classNames.centerVH : ""} 
-      `}>
-        {/*<div className="al-flex-wrap"></div>*/}
-        {props.children}
-      </div>
+      `}
+         style={{
+           padding: (props.padding ?? '') + 'px'
+         }}>
+      {/*<div className="al-flex-wrap"></div>*/}
+      {props.children}
+    </div>
   );
 }
 

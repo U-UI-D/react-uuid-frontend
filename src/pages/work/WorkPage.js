@@ -69,7 +69,8 @@ class WorkPage extends React.Component {
                           :
                           <ALInlineWidthBox>
                             <Pagination current={this.state.currentPageNo}
-                                        total={50} onChange={(page, pageSize) => {
+                                        total={50}
+                                        onChange={(page, pageSize) => {
                               console.log(page);
                               console.log(pageSize);
                               getWorkList(page).then(res => {
