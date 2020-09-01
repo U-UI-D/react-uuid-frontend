@@ -9,7 +9,73 @@
       "city": "上海",
       "occupation": "UI设计师",
       "fans": 33172,
-      "workCount": 342
+      "workCount": 342,
+      "sign": "VX: dooromeng",
+      "workPoster": [
+        "https://img.zcool.cn/community/0174385f4dc28511013f1a64a596af.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/0153595f44cdb1a801215aa023049b.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/01458c5f3e4279a801215aa07d1ffc.jpg@260w_195h_1c_1e_1o_100sh.jpg"
+      ]
+    },
+    {
+      "id": 12,
+      "avatar": "https://img.zcool.cn/community/01cd665bc1651ca8012099c8ee5f8d.jpg@80w_80h_1c_1e_1o_100sh.jpg",
+      "nickname": "_小矛",
+      "city": "北京",
+      "occupation": "插画师",
+      "fans": 33172,
+      "workCount": 342,
+      "sign": "VX: dooromeng",
+      "workPoster": [
+        "https://img.zcool.cn/community/031b80b579b1dba0000012e7ef2fba4.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/03133605772920c0000018c1b51b82a.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/031ba8f571cc0c90000017d6c3b0f45.jpg@260w_195h_1c_1e_1o_100sh.jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "avatar": "https://img.zcool.cn/community/043284553f9eb600000140270498d7.jpg@80w_80h_1c_1e_1o_100sh.jpg",
+      "nickname": "萌芽熊DooroBear",
+      "city": "上海",
+      "occupation": "UI设计师",
+      "fans": 2587,
+      "workCount": 28,
+      "sign": "VX: dooromeng",
+      "workPoster": [
+        "https://img.zcool.cn/community/031bcdf5566d6ce000001cc296eb115.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/03137365566d8bc000001cc298a5876.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/0319a645566da09000001cc2944ebf6.jpg@260w_195h_1c_1e_1o_100sh.jpg"
+      ]
+    },
+    {
+      "id": 14,
+      "avatar": "https://img.zcool.cn/community/0169e35d495a7da8012187f40f6764.jpg@160w_160h_1c_1e_1o_100sh.jpg",
+      "nickname": "QinLiang",
+      "city": "北京",
+      "occupation": "UI设计师",
+      "fans": 332,
+      "workCount": 23,
+      "sign": "微信: x8x123",
+      "workPoster": [
+        "https://img.zcool.cn/community/031fdf65566c994000001cc292e6443.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/0317cdd5566cd34000001cc29ad5eaf.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/031be3c5566d18f000001cc29ef264e.jpg@260w_195h_1c_1e_1o_100sh.jpg"
+      ]
+    },
+    {
+      "id": 15,
+      "avatar": "https://img.zcool.cn/community/04d76458a94d6aa8010e60d00dce9f.jpg@80w_80h_1c_1e_1o_100sh.jpg",
+      "nickname": "韩冰云",
+      "city": "上海",
+      "occupation": "UI设计师",
+      "fans": 17645,
+      "workCount": 45,
+      "sign": "冰艺：www.iceart.com.cn",
+      "workPoster": [
+        "https://img.zcool.cn/community/01236b5e8103f4a80120a8958e73d5.jpg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/0189835b15cc8da801212d57854b54.jpeg@260w_195h_1c_1e_1o_100sh.jpg",
+        "https://img.zcool.cn/community/01c61e5a0e9c6ba80121985cd6cf58.jpeg@260w_195h_1c_1e_1o_100sh.jpg"
+      ]
     }
   ]
 }

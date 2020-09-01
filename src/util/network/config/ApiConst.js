@@ -10,6 +10,10 @@ export const POST_USER_REGISTER = "/user/user/register";
 export const GET_USER_ALL = "/user/user";
 //用户资料
 export const GET_USER_ID = "/user/user/";
+//获取首页显示的设计师
+export const GET_USER_DESIGNER_SHOW = "/user/user/designer/show";
+
+
 
 //用户接口 ============================
 //所有作品
