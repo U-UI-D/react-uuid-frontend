@@ -9,6 +9,16 @@ export function getItemFromLocalStorage(itemName) {
 }
 
 /**
+ * 从SessionStorage获取数据
+ * @param itemName
+ * @returns {any}
+ */
+export function getItemFromSessionStorage(itemName) {
+  let item = sessionStorage.getItem(itemName);
+  return JSON.parse(item);
+}
+
+/**
  * 从LocalStorage获取用户信息
  * @returns {any}
  */
