@@ -1,0 +1,15 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": [
+    {
+      "id": 11,
+      "avatar": "https://img.zcool.cn/community/0169e35d495a7da8012187f40f6764.jpg@160w_160h_1c_1e_1o_100sh.jpg",
+      "nickname": "萌芽熊DooroBear",
+      "city": "上海",
+      "occupation": "UI设计师",
+      "fans": 33172,
+      "workCount": 342
+    }
+  ]
+}

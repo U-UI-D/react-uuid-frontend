@@ -9,6 +9,7 @@ import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
 import {getWorkList} from "../../util/network/RequestHub";
 import ALLoading from "../../components/al-loading/ALLoading";
 import {getUserInfoFromLocalStorage} from "../../util/util";
+import ShowDesigner from "./component/show-designer/ShowDesigner";
 
 class HomePage extends React.Component {
   //构造器
@@ -109,11 +110,11 @@ class HomePage extends React.Component {
     const windowHeight = window.innerHeight;
 
     return (
-      <div style={{backgroundColor: "#eff3f5"}}>
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
-        <div className="al-box-size-20px"></div>
+        <div style={{backgroundColor: "#eff3f5"}}>
+          <div className="al-bg-color-white">
+            <ALHeader/>
+          </div>
+          <div className="al-box-size-20px"></div>
 
 
           <div>
@@ -123,11 +124,11 @@ class HomePage extends React.Component {
                 {
                   this.state.carouselList.map((item, index) => {
                     return (
-                      <div>
-                        <a href={item.url}>
-                          <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
-                        </a>
-                      </div>
+                        <div>
+                          <a href={item.url}>
+                            <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
+                          </a>
+                        </div>
                     );
                   })
                 }
@@ -149,7 +150,7 @@ class HomePage extends React.Component {
                 {/*作品列表*/}
                 <div>
                   {
-                    this.state.workData === null ? <ALLoading show /> :
+                    this.state.workData === null ? <ALLoading show/> :
                         <div>
                           {
                             this.state.workData.list.map((item, index) => {
@@ -169,23 +170,25 @@ class HomePage extends React.Component {
                   <div>
                     {
                       this.state.workData === null ? <div></div> :
-                        <ALInlineWidthBox>
-                          <Pagination current={this.state.currentPageNo}
-                                      total={this.state.workData.total}
-                                      onChange={(page, pageSize) => {
-                                        console.log(page);
-                                        console.log(pageSize);
-                                        this.setState({
-                                          currentPageNo: page
-                                        })
-                                      }}/>
-                        </ALInlineWidthBox>
+                          <ALInlineWidthBox>
+                            <Pagination current={this.state.currentPageNo}
+                                        total={this.state.workData.total}
+                                        onChange={(page, pageSize) => {
+                                          console.log(page);
+                                          console.log(pageSize);
+                                          this.setState({
+                                            currentPageNo: page
+                                          })
+                                        }}/>
+                          </ALInlineWidthBox>
                     }
                   </div>
                 </div>
               </div>
+
             </div>
 
+            {/*即刻作品*/}
             <div style={{backgroundColor: "#e9eef2"}}>
               <div className="content-width">
                 <div>
@@ -202,7 +205,14 @@ class HomePage extends React.Component {
                 </div>
               </div>
             </div>
+
+            {/*显示设计师*/}
+            <div className="content-width">
+              <ShowDesigner/>
+            </div>
           </div>
+
+
 
           <div className="al-box-size-20px"></div>
           <div className="al-bg-color-light-white">
@@ -216,7 +226,9 @@ class HomePage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    getWorkList().then(res => {this.setState({workData: res.data})})
+    getWorkList().then(res => {
+      this.setState({workData: res.data})
+    })
   }
 
   //组件卸载前调用
