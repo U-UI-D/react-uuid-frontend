@@ -1645,6 +1645,11 @@
     color: #FCFCFC;
 }
 
+/*淡白色*/
+.al-hover-bgcolor-light-white:hover {
+    background-color: #FCFCFC;
+}
+
 
 /*黑色*/
 .al-hover-color-black:hover {
