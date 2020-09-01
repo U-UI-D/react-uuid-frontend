@@ -60,69 +60,74 @@ function Header({userInfo}) {
 }
 
 function Content(){
+  const [itemArr, setItemArr] = useState(initItemArr);
+  const [currentTitle, setCurrentTitle] = useState('个人资料');
+
+  const LayoutLeft = () => {
+
+    return (
+        <div style={{backgroundColor: "#f6f6f6"}}>
+          {
+            itemArr.map((item, index) => {
+              return(
+                  <div key={item.title}
+                       style={{width: 130+'px',
+                         height: 125+'px',
+                         backgroundColor: item.title === currentTitle ? '#fff' : '',
+                         borderLeft: item.title === currentTitle ? 'solid 2px #00b0ff': ''
+                       }}
+                       className="al-flex-container-center-vh al-cursor-pointer"
+                       onClick={() => {
+                         setCurrentTitle(item.title);
+                       }}
+                  >
+                    {item.title}
+                  </div>
+              )
+            })
+          }
+
+        </div>
+    )
+  }
+
+  const LayoutRight = ({currentTitle}) => {
+    let [title, setTitle] = useState(currentTitle);
+    function SwitchCard({title}) {
+      switch (title) {
+        case initItemArr[0].title:
+          return <BaseInfoTabCard />;
+        case initItemArr[1].title:
+          return <ExtensionInfoTabCard />;
+        case initItemArr[2].title:
+          return <AccountSecurityTabCard />;
+        case initItemArr[3].title:
+          return <AuthTabCard />;
+        default:
+          return <div></div>
+      }
+    }
+
+    return (
+        <div >
+          <SwitchCard title={title} />
+        </div>
+    )
+  }
+
   return(
     <>
-      <div className="al-flex-container al-p-top-20px">
+      <div className="al-flex-container al-p-tb-20px">
         <div>
           <LayoutLeft />
         </div>
-        <div style={{flexGrow: 1}}>
-          <LayoutRight  />
+        <div style={{flexGrow: 1}}
+             className="al-p-40px al-bg-color-white">
+          <LayoutRight currentTitle={currentTitle} />
         </div>
       </div>
     </>
   );
-}
-
-function LayoutLeft(){
-
-  const [itemArr, setItemArr] = useState(initItemArr);
-  const [currentTitle, setCurrentTitle] = useState('个人资料');
-  return (
-    <div style={{backgroundColor: "#f6f6f6"}}>
-      {
-        itemArr.map((item, index) => {
-          return(
-            <div key={item.title}
-                 style={{width: 130+'px', height: 125+'px', backgroundColor: item.title === currentTitle ? '#fff' : '' }}
-                 className="al-flex-container-center-vh al-cursor-pointer"
-                 onClick={() => {
-                   setCurrentTitle(item.title);
-
-                 }}
-                 >
-              {item.title}
-            </div>
-          )
-        })
-      }
-
-    </div>
-  )
-}
-
-function LayoutRight({currentTitle}){
-
-  return (
-    <div >
-      {
-        () => {
-          switch (currentTitle) {
-            case initItemArr[0].title:
-              return <BaseInfoTabCard />;
-            case initItemArr[1].title:
-              return <ExtensionInfoTabCard />;
-            case initItemArr[2].title:
-              return <AccountSecurityTabCard />;
-            case initItemArr[3].title:
-              return <AuthTabCard />;
-            default:
-              break;
-          }
-        }
-      }
-    </div>
-  )
 }
 
 class UserProfilePage extends React.Component{

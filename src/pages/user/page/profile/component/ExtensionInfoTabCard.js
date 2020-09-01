@@ -3,7 +3,8 @@ import React from "react";
 function ExtensionInfoTabCard(props) {
   return (
     <div>
-      扩展信息卡
+      <h1>扩展信息</h1>
+
     </div>
   );
 }
