@@ -10,6 +10,7 @@ import {getWorkList} from "../../util/network/RequestHub";
 import ALLoading from "../../components/al-loading/ALLoading";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
+import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 
 class HomePage extends React.Component {
   //构造器
@@ -189,7 +190,7 @@ class HomePage extends React.Component {
             </div>
 
             {/*即刻作品*/}
-            <div style={{backgroundColor: "#e9eef2"}}>
+            <div style={{backgroundColor: "#e9eef2"}} className="al-p-tb-30px">
               <div className="content-width">
                 <div>
                   热门即刻
@@ -206,6 +207,7 @@ class HomePage extends React.Component {
               </div>
             </div>
 
+            <ALPlaceBox height={30} />
             {/*显示设计师*/}
             <div className="content-width">
               <ShowDesigner/>
