@@ -8,7 +8,7 @@ import "./style.css";
 function ShowDesigner(props) {
 
   const [designerData, setDesignerData] = useState(null);
-  useEffect(async () => {
+  useEffect( () => {
     getShowDesigner().then(res => {
       setDesignerData(res.data)
     })

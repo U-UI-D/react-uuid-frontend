@@ -22,10 +22,10 @@ function ALFlexBox(props) {
       ${props.centerV ? classNames.centerV : ""} 
       ${props.centerH ? classNames.centerH : ""} 
       ${props.centerVH ? classNames.centerVH : ""} 
-      `}
+      ` + props.className}
          style={{
            padding: (props.padding ?? '') + 'px'
-         }}>
+         }} >
       {/*<div className="al-flex-wrap"></div>*/}
       {props.children}
     </div>

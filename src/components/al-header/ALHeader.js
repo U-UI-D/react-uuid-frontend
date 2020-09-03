@@ -1,7 +1,15 @@
 import React from "react";
 import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {HOME_PAGE, LOGIN, REGISTER, SHOP_PAGE, TEST_PAGE, WORK_PAGE} from "../../util/router/config/RouterConst";
+import {
+  HOME_PAGE,
+  LOGIN,
+  REGISTER,
+  SHOP_PAGE,
+  TEST_PAGE,
+  TOP_PAGE,
+  WORK_PAGE
+} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 import SubMenu from "antd/lib/menu/SubMenu";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
@@ -35,7 +43,7 @@ class ALHeader extends React.Component {
         },
         {
           text: "榜单",
-          path: HOME_PAGE
+          path: TOP_PAGE
         },
         {
           text: "商城",
@@ -100,7 +108,7 @@ class ALHeader extends React.Component {
 
       isLoginDiv = <div className="al-flex-container-center-v">
         <Dropdown overlay={menu}>
-          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+          <a className="ant-dropdown-link al-m-left-20px" onClick={e => e.preventDefault()}>
             <Avatar src={userInfo.avatar}/>
           </a>
         </Dropdown>

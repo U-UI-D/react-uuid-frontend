@@ -139,3 +139,38 @@ export async function getShowDesigner(){
   console.log(result);
   return result;
 }
+
+/**
+ * 通用网络请求
+ * @param url
+ * @param type
+ * @param data
+ * @param env
+ * @returns {Promise<*|{data: null, err: null}>}
+ */
+export async function commonRequest({url="", type="get", data={}, env="dev", mockURL=""}){
+  let _url = url;
+  if (AppConfig.env === "mock"){
+    _url = mockURL;
+  }
+  let result = {
+    data: null,
+    err: null
+  }
+  let promise = request({
+    url: _url,
+    type,
+    data
+  }).then(res => {
+    console.log(res);
+    result.data = res.data.data;
+    return result;
+  }).catch(err => {
+    console.log(err);
+    result.err = err;
+    return result;
+  });
+
+  result = await promise;
+  return result;
+}

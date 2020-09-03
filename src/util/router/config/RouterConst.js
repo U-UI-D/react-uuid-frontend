@@ -29,3 +29,7 @@ export const TEST_PAGE =  "/test";
 //用户 ==========================
 //用户
 export const SHOP_PAGE =  "/shop";
+
+//排行榜 ==========================
+//用户
+export const TOP_PAGE =  "/top";
