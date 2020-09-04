@@ -1,0 +1,78 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": [
+    {
+      "top": 1,
+      "id": 21,
+      "nickname": "王M争",
+      "avatar": "https://imgavater.ui.cn/avatar/3/2/8/9/129823.jpg?imageMogr2/auto-orient/crop/!1024x1024a0a0/thumbnail/100x100",
+      "workCount": 53,
+      "fansCount": 523,
+      "visitCount": 74221
+    },
+    {
+      "top": 2,
+      "id": 22,
+      "nickname": "黑马青年",
+      "avatar": "https://imgavater.ui.cn/avatar/6/8/3/0/230386.png?imageMogr2/auto-orient/crop/!800x800a0a0/thumbnail/100x100",
+      "workCount": 752,
+      "fansCount": 3235,
+      "visitCount": 23532
+    },
+    {
+      "top": 3,
+      "id": 23,
+      "nickname": "skys",
+      "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar3.jpg",
+      "workCount": 638,
+      "fansCount": 522,
+      "visitCount": 3253
+    },
+    {
+      "top": 4,
+      "id": 24,
+      "nickname": "是北瓜呀",
+      "avatar": "https://imgavater.ui.cn/avatar/0/0/0/1/1251000.png?imageMogr2/auto-orient/crop/!816x816a102a102/thumbnail/100x100",
+      "workCount": 231,
+      "fansCount": 6323,
+      "visitCount": 6432
+    },
+    {
+      "top": 5,
+      "id": 25,
+      "nickname": "腾讯动漫TCD",
+      "avatar": "https://imgavater.ui.cn/avatar/8/2/0/0/1190028.png?imageMogr2/auto-orient/crop/!499x499a1a1/thumbnail/100x100",
+      "workCount": 623,
+      "fansCount": 643,
+      "visitCount": 6432
+    },
+    {
+      "top": 6,
+      "id": 26,
+      "nickname": "七七六",
+      "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar6.jpg",
+      "workCount": 322,
+      "fansCount": 5322,
+      "visitCount": 4642
+    },
+    {
+      "top": 7,
+      "id": 27,
+      "nickname": "UILEO",
+      "avatar": "https://imgavater.ui.cn/avatar/2/3/7/4/194732.png?imageMogr2/auto-orient/crop/!223x223a3a1/thumbnail/100x100",
+      "workCount": 64,
+      "fansCount": 7452,
+      "visitCount": 6653
+    },
+    {
+      "top": 8,
+      "id": 28,
+      "nickname": "南山可",
+      "avatar": "https://imgavater.ui.cn/avatar/2/0/8/4/1244802.jpg?imageMogr2/auto-orient/crop/!768x768a96a96/thumbnail/100x100",
+      "workCount": 326,
+      "fansCount": 234,
+      "visitCount": 4232
+    }
+  ]
+}

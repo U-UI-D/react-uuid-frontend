@@ -15,7 +15,7 @@
       "user": {
         "id": 11,
         "nickname": "是北瓜呀",
-        "avatar": "https://imgavater.ui.cn/avatar/0/0/0/1/1251000.png"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar1.jpg"
       }
     },
     {
@@ -31,7 +31,7 @@
       "user": {
         "id": 12,
         "nickname": "進擊的皮蛋",
-        "avatar": "https://imgavater.ui.cn/avatar/0/0/0/1/1251000.png"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"
       }
     },
     {
@@ -47,7 +47,7 @@
       "user": {
         "id": 13,
         "nickname": "木子灬先森",
-        "avatar": "https://imgavater.ui.cn/avatar/3/0/5/4/934503.jpg"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar3.jpg"
       }
     },
     {
@@ -63,7 +63,7 @@
       "user": {
         "id": 14,
         "nickname": "超人他哥",
-        "avatar": "https://imgavater.ui.cn/avatar/4/5/0/5/75054.jpg"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar4.jpg"
       }
     },
     {
@@ -79,29 +79,13 @@
       "user": {
         "id": 15,
         "nickname": "章三疯",
-        "avatar": "https://imgavater.ui.cn/avatar/8/4/0/5/225048.jpg"
-      }
-    },
-    {
-      "top": 5,
-      "id": 25,
-      "title": "Luckin Coffee Redesign",
-      "poster": "https://img.ui.cn/data/file/7/0/6/2213607.gif",
-      "lookCount": 7543,
-      "likeCount": 43,
-      "commentCount": 64,
-      "favorCount": 42,
-      "createdTime": "2020-06-26",
-      "user": {
-        "id": 15,
-        "nickname": "EricWu",
-        "avatar": "https://imgavater.ui.cn/avatar/8/0/0/7/957008.jpg"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar5.jpg"
       }
     },
     {
       "top": 6,
       "id": 26,
-      "title": "Luckin Coffee Redesign",
+      "title": "掌阅精选",
       "poster": "https://img.ui.cn/data/file/1/7/6/2716671.jpg",
       "lookCount": 5322,
       "likeCount": 32,
@@ -111,14 +95,14 @@
       "user": {
         "id": 16,
         "nickname": "Lucia_西亚",
-        "avatar": "https://imgavater.ui.cn/avatar/8/0/0/7/957008.jpg"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar7.jpg"
       }
     },
     {
       "top": 7,
       "id": 27,
       "title": "密合app",
-      "poster": "https://img.ui.cn/data/file/1/7/6/2716671.jpg",
+      "poster": "https://img.ui.cn/data/file/9/5/2/3409259.jpg?imageView/1/w/420/h/315",
       "lookCount": 43132,
       "likeCount": 32,
       "commentCount": 64,
@@ -134,7 +118,7 @@
       "top": 8,
       "id": 28,
       "title": "教育家社区·APP页面设计",
-      "poster": "https://img.ui.cn/data/file/1/7/6/2716671.jpg",
+      "poster": "https://img.ui.cn/data/file/3/5/2/3400253.jpg?imageView/1/w/420/h/315",
       "lookCount": 43132,
       "likeCount": 32,
       "commentCount": 64,
@@ -143,7 +127,23 @@
       "user": {
         "id": 18,
         "nickname": "阿呆同学呀",
-        "avatar": "https://imgavater.ui.cn/avatar/8/7/1/8/988178.gif?imageMogr2/auto-orient/crop/!500x500a0a115/thumbnail/60x60"
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar8.jpg"
+      }
+    },
+    {
+      "top": 9,
+      "id": 29,
+      "title": "Luckin Coffee Redesign",
+      "poster": "https://img.ui.cn/data/file/7/0/6/2213607.gif",
+      "lookCount": 3433,
+      "likeCount": 564,
+      "commentCount": 64,
+      "favorCount": 86,
+      "createdTime": "2020-06-26",
+      "user": {
+        "id": 19,
+        "nickname": "EricWu",
+        "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar6.jpg"
       }
     }
   ]
