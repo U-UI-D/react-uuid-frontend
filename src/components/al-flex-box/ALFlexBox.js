@@ -12,6 +12,11 @@ function ALFlexBox(props) {
     centerVH: "al-flex-container-center-vh",
     wrap: "al-flex-wrap",
   }
+
+  const styles = {
+    padding: (props.padding ?? '') + 'px',
+    ...props.style
+  }
   return (
     <div className={`
       ${classNames.flex} 
@@ -23,9 +28,7 @@ function ALFlexBox(props) {
       ${props.centerH ? classNames.centerH : ""} 
       ${props.centerVH ? classNames.centerVH : ""} 
       ` + props.className}
-         style={{
-           padding: (props.padding ?? '') + 'px'
-         }} >
+         style={styles} >
       {/*<div className="al-flex-wrap"></div>*/}
       {props.children}
     </div>
