@@ -2,9 +2,10 @@ import React from "react";
 import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
 import {
+  DISCOVERY_PAGE,
   HOME_PAGE,
-  LOGIN,
-  REGISTER,
+  LOGIN, MATERIAL_PAGE, MESSAGE_PAGE,
+  REGISTER, SEARCH_PAGE,
   SHOP_PAGE,
   TEST_PAGE,
   TOP_PAGE,
@@ -35,11 +36,11 @@ class ALHeader extends React.Component {
         },
         {
           text: "发现",
-          path: HOME_PAGE
+          path: DISCOVERY_PAGE
         },
         {
           text: "素材",
-          path: HOME_PAGE
+          path: MATERIAL_PAGE
         },
         {
           text: "榜单",
@@ -57,7 +58,7 @@ class ALHeader extends React.Component {
       menuItems2: [
         {
           text: "搜索",
-          path: HOME_PAGE
+          path: SEARCH_PAGE
         },
         {
           text: "上传",
@@ -65,7 +66,7 @@ class ALHeader extends React.Component {
         },
         {
           text: "通知",
-          path: HOME_PAGE
+          path: MESSAGE_PAGE
         }
       ],
       isLogin: false,
@@ -146,7 +147,7 @@ class ALHeader extends React.Component {
                 {/*菜单2*/}
                 <div className="al-flex-container">
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>搜索</MenuItem>
+                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(SEARCH_PAGE)}>搜索</MenuItem>
                     <SubMenu title="上传" style={{color: this.props.color ?? "#000"}}>
                       <Menu.Item >
                         <a onClick={() => {
@@ -163,7 +164,7 @@ class ALHeader extends React.Component {
                         </a>
                       </Menu.Item>
                     </SubMenu>
-                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage("/")}>消息</MenuItem>
+                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(MESSAGE_PAGE)}>消息</MenuItem>
                   </Menu>
 
                   {isLoginDiv}
