@@ -1,0 +1,80 @@
+.hover-all:hover{
+    color: rgb(132, 140, 164);
+}
+
+.hover-chat:hover{
+    color: rgb(132, 140, 164);
+}
+
+.hover-like:hover{
+    color: rgb(255, 85, 66);
+}
+
+.hover-comment:hover{
+    color: rgb(61, 126, 255);
+}
+
+.hover-message:hover{
+    color: rgb(93, 202, 113);
+}
+
+.hover-favor:hover{
+    color: rgb(255, 203, 33);
+}
+
+.hover-fans:hover{
+    color: rgb(149, 107, 255);
+}
+
+.hover-team:hover{
+    color: rgb(255, 140, 41);
+}
+
+
+
+
+
+.checked-title-all{
+    font-weight: bold;
+    color: rgb(132, 140, 164);
+}
+
+.checked-title-chat{
+    font-weight: bold;
+    color: rgb(132, 140, 164);
+}
+
+.checked-title-like{
+    font-weight: bold;
+    color: rgb(255, 85, 66);
+}
+
+.checked-title-comment{
+    font-weight: bold;
+    color: rgb(61, 126, 255);
+}
+
+.checked-title-message{
+    font-weight: bold;
+    color: rgb(93, 202, 113);
+}
+
+.checked-title-favor{
+    font-weight: bold;
+    color: rgb(255, 203, 33);
+}
+
+.checked-title-fans{
+    font-weight: bold;
+    color: rgb(149, 107, 255);
+}
+
+.checked-title-team{
+    font-weight: bold;
+    color: rgb(255, 140, 41);
+}
+
+.test{
+    float: end;
+}
+
