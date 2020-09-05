@@ -1,0 +1,27 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": [
+    {
+      "id": 1,
+      "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar1.jpg",
+      "nickname": "AlanLee",
+      "message": "消息内容",
+      "reachTime": "2020.09.04 18:00"
+    },
+    {
+      "id": 2,
+      "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg",
+      "nickname": "Margaret",
+      "message": "消息内容",
+      "reachTime": "2020.09.04 16:00"
+    },
+    {
+      "id": 3,
+      "avatar": "https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar3.jpg",
+      "nickname": "Amyria",
+      "message": "消息内容",
+      "reachTime": "2020.09.04 14:00"
+    }
+  ]
+}
