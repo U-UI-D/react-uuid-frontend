@@ -26,10 +26,26 @@ export const USER_PROFILE_PAGE =  "/user/profile";
 //测试
 export const TEST_PAGE =  "/test";
 
-//用户 ==========================
-//用户
+//商城 ==========================
+//商城
 export const SHOP_PAGE =  "/shop";
 
 //排行榜 ==========================
-//用户
+//排行榜
 export const TOP_PAGE =  "/top";
+
+//发现 ==========================
+//发现
+export const DISCOVERY_PAGE =  "/discovery";
+
+//素材 ==========================
+//素材
+export const MATERIAL_PAGE =  "/material";
+
+//搜索 ==========================
+//搜索
+export const SEARCH_PAGE =  "/search";
+
+//消息 ==========================
+//消息
+export const MESSAGE_PAGE =  "/message";
