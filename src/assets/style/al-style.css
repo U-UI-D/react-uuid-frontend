@@ -1647,7 +1647,7 @@
 
 /*淡白色*/
 .al-hover-bgcolor-light-white:hover {
-    background-color: #FCFCFC;
+    background-color: #F6F6F6;
 }
 
 
@@ -1718,6 +1718,19 @@
 
 .al-hover-transform-scale-1-1:hover {
     transform: scale(1.01);
+}
+
+/*hover元素升高 5px*/
+.al-hover-lifting-5px:hover{
+    margin-top: -5px;
+    margin-bottom: 5px;
+    transition-duration: 300ms;
+}
+
+/*hover元素升高 10px*/
+.al-hover-lifting-10px:hover{
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 /*================END 鼠标悬停================*/

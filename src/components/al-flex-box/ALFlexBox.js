@@ -18,7 +18,7 @@ function ALFlexBox(props) {
     ...props.style
   }
   return (
-    <div className={`
+    <div {...props} className={`
       ${classNames.flex} 
       ${props.between ? classNames.between : ""} 
       ${props.around ? classNames.around : ""} 
@@ -28,7 +28,7 @@ function ALFlexBox(props) {
       ${props.centerH ? classNames.centerH : ""} 
       ${props.centerVH ? classNames.centerVH : ""} 
       ` + props.className}
-         style={styles} >
+         style={styles}>
       {/*<div className="al-flex-wrap"></div>*/}
       {props.children}
     </div>

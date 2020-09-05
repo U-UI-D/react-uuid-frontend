@@ -22,3 +22,13 @@ code {
   width: 1180px;
   margin: 0 auto;
 }
+
+.primary-bg-color{
+  background-color: #eff3f5;
+}
+
+.primary-border-radius{
+  border-radius: 10px;
+}
+
+
