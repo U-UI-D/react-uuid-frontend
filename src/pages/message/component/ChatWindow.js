@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Button, Divider, Input} from "antd";
+import {Avatar, Button, Divider, Input, message} from "antd";
 import ALFlexBox from "../../../components/al-flex-box/ALFlexBox";
 import {getUserInfoFromLocalStorage} from "../../../util/util";
 
@@ -27,6 +27,7 @@ class ChatWindow extends React.Component {
     this.state = {
       userInfo: null,
       record: "",
+      recordValue: "",
       recordList: ["Hello"],
     }
   }
@@ -36,6 +37,7 @@ class ChatWindow extends React.Component {
   render() {
 
     const addRecordToList = (msg) => {
+      message.info(this.state.record);
       let list = this.state.recordList;
       list.push(msg);
       this.setState({
@@ -91,7 +93,7 @@ class ChatWindow extends React.Component {
         </div>
 
         <div style={{float: "end"}}>
-          <Input.TextArea rows={3}
+          <Input.TextArea id="msg" rows={3}
                           onChange={(e) => {
                             this.setState({record: e.target.value})
                           }}/>

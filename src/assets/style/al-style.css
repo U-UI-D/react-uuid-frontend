@@ -344,6 +344,16 @@
     display: inline;
 }
 
+/* 显示为行内块状元素,让元素不会独占一行，可控制宽度 */
+.al-display-inline-block {
+    display: inline-block;
+}
+
+/* 显示为行内元素显示为块状元素，会独占一行 */
+.al-display-block {
+    display: inline-block;
+}
+
 /* 显示为块状,让元素不会独占一行 */
 .al-d-il-blk {
     display: inline-block;
@@ -1731,6 +1741,30 @@
 .al-hover-lifting-10px:hover{
     margin-top: -10px;
     margin-bottom: 10px;
+}
+
+.al-hover-shadow-black-10:hover{
+  box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.al-hover-shadow-black-20:hover{
+    box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.al-hover-shadow-black-30:hover{
+    box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.al-hover-shadow-black-40:hover{
+    box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.al-hover-shadow-black-50:hover{
+    box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.al-hover-shadow-black-60:hover{
+    box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.6);
 }
 
 /*================END 鼠标悬停================*/

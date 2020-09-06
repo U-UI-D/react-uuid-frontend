@@ -1,7 +1,9 @@
 import React from "react";
 import ALHeader from "../../components/al-header/ALHeader";
+import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {Input} from "antd";
 
-class SearchPage extends React.Component{
+class SearchPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
@@ -11,10 +13,32 @@ class SearchPage extends React.Component{
 
   //渲染函数
   render() {
-    return(
-      <div>
-        <ALHeader />
-        搜索页面
+    const {Search} = Input;
+    const bgImage = require('../../assets/image/search/bg.jpg');
+    return (
+      <div className="al-full-screen"
+           style={{
+             backgroundImage: "url('" + bgImage + "')",
+             backgroundSize: "cover",
+             backgroundRepeat: "no-repeat",
+           }}>
+        <ALHeader color={"#fff"}/>
+
+        <div className="content-width al-p-tb-30px">
+
+          <ALFlexBox centerH between className="al-m-tb-50px al-text-align-center">
+            <div></div>
+            <div className="al-width-60">
+              <Search
+                placeholder="请输入搜索内容"
+                enterButton="搜索"
+                size="large"
+                onSearch={value => console.log(value)}
+              />
+            </div>
+            <div></div>
+          </ALFlexBox>
+        </div>
       </div>
     );
   }
