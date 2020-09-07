@@ -2,19 +2,21 @@ import React from "react";
 import ALHeader from "../../components/al-header/ALHeader";
 import {Avatar} from "antd";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import IconModule from "./component/icon-module/IconModule";
 
 function ImgBgBox(props){
+  let boxSize = {width: props.width + 'px', height: props.height + 'px'}
   return (
     <div className="al-position-rela al-hover-shadow-black-30 al-cursor-pointer al-hover-transform-scale-1-1"
-         style={{width: 352 + 'px', height: 264 + 'px'}}>
+         style={boxSize}>
       <Avatar
         src={props.data.poster}
-        style={{width: 352 + 'px', height: '264px'}}
+        style={{width: props.width + 'px', height: '264px'}}
         shape="square"/>
       <div className="al-position-abs al-mask-black-30"
            style={{top: 0, bottom: 0, left: 0, right: 0}} />
       <div className="al-position-abs" style={{top: 0}}>
-        <div style={{width: 352 + 'px', height: '264px'}}
+        <div style={boxSize}
              className="al-flex-container-center-vh">
           <h1 className="al-text-color-white">{props.data.title}</h1>
         </div>
@@ -42,6 +44,22 @@ class MaterialPage extends React.Component {
         {
           title: "老师",
           poster: "https://ali.image.hellorf.com/images/5bbf7f91a22277045db4772a017c815c.jpeg?x-oss-process=image/resize,h_528"
+        },
+        {
+          title: "运动拉伸",
+          poster: "https://ali.image.hellorf.com/images/e141926a59531dbf166d503fb58edeb0.jpeg?x-oss-process=image/resize,h_528"
+        },
+        {
+          title: "间隔年",
+          poster: "https://ali.image.hellorf.com/images/cf98d9c4247bea8737c8e742401665b1.jpeg?x-oss-process=image/resize,h_528"
+        },
+        {
+          title: "影子",
+          poster: "https://ali.image.hellorf.com/images/6782eeee79505f452eff95d9d395f944.jpeg?x-oss-process=image/resize,h_528"
+        },
+        {
+          title: "花莲",
+          poster: "https://ali.image.hellorf.com/images/2db5c64fefc4b14df9ab7ced4a588392.jpeg?x-oss-process=image/resize,h_528"
         }
       ]
     }
@@ -61,6 +79,11 @@ class MaterialPage extends React.Component {
 
         <div className="content-width al-p-tb-30px">
           <h2>icon</h2>
+          <div>
+            <IconModule />
+          </div>
+
+
           <h2>海报</h2>
 
 
@@ -70,11 +93,26 @@ class MaterialPage extends React.Component {
               {
                 this.state.imageList.map((item, index) => {
                   return <div key={index} className="al-m-right-10px">
-                    <ImgBgBox data={item} />
+                    <ImgBgBox data={item} width={352} height={264} />
                   </div>
                 })
               }
             </ALFlexBox>
+
+            <h2>图册</h2>
+            <div>
+              <ALFlexBox wrap>
+                {
+                  this.state.imageList.map((item, index) => {
+                    return <div key={index} className="al-m-right-10px">
+                      <ImgBgBox data={item}
+                                width={(index === 1) || (index === 2) ? 723 : 352}
+                                height={264} />
+                    </div>
+                  })
+                }
+              </ALFlexBox>
+            </div>
           </div>
 
         </div>
