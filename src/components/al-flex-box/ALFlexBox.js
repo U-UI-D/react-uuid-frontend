@@ -27,6 +27,7 @@ function ALFlexBox(props) {
       ${props.centerV ? classNames.centerV : ""} 
       ${props.centerH ? classNames.centerH : ""} 
       ${props.centerVH ? classNames.centerVH : ""} 
+      ${props.wrap ? classNames.wrap : ""} 
       ` + props.className}
          style={styles}
          onClick={props.onClick}
