@@ -11,9 +11,9 @@ function IconModule(props) {
     overflow: "hidden"
   }
 
-  const iconBox1 = <div style={{width: 316+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20">
-    <ul className="al-flex-container al-flex-wrap">
+  const iconBox1 = <div style={{width: 346+"px"}}
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px">
+    <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly">
       <li className="icon-wrap">
         <svg className="icon"
              style={svgStyle}
@@ -195,9 +195,9 @@ function IconModule(props) {
     </ul>
   </div>
 
-  const iconBox2 = <div style={{width: 316+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20" >
-    <ul className="al-flex-container al-flex-wrap" p-id="8638">
+  const iconBox2 = <div style={{width: 346+"px"}}
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px" >
+    <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly" p-id="8638">
       <li className="icon-wrap" p-id="8639">
         <svg className="icon"
              style={svgStyle}
@@ -432,9 +432,9 @@ function IconModule(props) {
     </ul>
   </div>
 
-  const iconBox3 = <div style={{width: 316+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20">
-    <ul className="al-flex-container al-flex-wrap" p-id="14016">
+  const iconBox3 = <div style={{width: 346+"px"}}
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px">
+    <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly" p-id="14016">
       <li className="icon-wrap" p-id="14017">
         <svg className="icon"
              style={svgStyle}

@@ -7,13 +7,16 @@ import IconModule from "./component/icon-module/IconModule";
 function ImgBgBox(props){
   let boxSize = {width: props.width + 'px', height: props.height + 'px'}
   return (
-    <div className="al-position-rela al-hover-shadow-black-30 al-cursor-pointer al-hover-transform-scale-1-1"
+    <div className="al-position-rela al-m-bottom-10px al-hover-shadow-black-30 al-cursor-pointer primary-border-radius"
          style={boxSize}>
-      <Avatar
-        src={props.data.poster}
-        style={{width: props.width + 'px', height: '264px'}}
-        shape="square"/>
-      <div className="al-position-abs al-mask-black-30"
+      <span className="primary-border-radius">
+        <Avatar
+            src={props.data.poster}
+            style={{width: props.width + 'px', height: '264px', borderRadius: 10+'px'}}
+            shape="square"/>
+      </span>
+
+      <div className="al-position-abs al-mask-black-30 primary-border-radius"
            style={{top: 0, bottom: 0, left: 0, right: 0}} />
       <div className="al-position-abs" style={{top: 0}}>
         <div style={boxSize}
@@ -78,35 +81,23 @@ class MaterialPage extends React.Component {
         </div>
 
         <div className="content-width al-p-tb-30px">
-          <h2>icon</h2>
-          <div>
-            <IconModule />
+          <div className="al-m-tb-20px">
+            <h2>icon</h2>
+            <div>
+              <IconModule />
+            </div>
           </div>
 
 
-          <h2>海报</h2>
-
-
-          <div>
-            <h2>图片</h2>
-            <ALFlexBox wrap>
-              {
-                this.state.imageList.map((item, index) => {
-                  return <div key={index} className="al-m-right-10px">
-                    <ImgBgBox data={item} width={352} height={264} />
-                  </div>
-                })
-              }
-            </ALFlexBox>
-
+          <div className="al-m-tb-20px">
             <h2>图册</h2>
             <div>
-              <ALFlexBox wrap>
+              <ALFlexBox wrap between>
                 {
                   this.state.imageList.map((item, index) => {
-                    return <div key={index} className="al-m-right-10px">
+                    return <div key={index}>
                       <ImgBgBox data={item}
-                                width={(index === 1) || (index === 2) ? 723 : 352}
+                                width={(index === 1) || (index === 2) ? 777 : 373}
                                 height={264} />
                     </div>
                   })
