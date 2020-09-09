@@ -1,8 +1,8 @@
 import React from "react";
-import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
+import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
 import "./style.css";
 
-function IconModule(props) {
+function IconBox(props) {
   let svgStyle = {
     width: 2 + "em",
     height: 2 + "em",
@@ -12,7 +12,7 @@ function IconModule(props) {
   }
 
   const iconBox1 = <div style={{width: 346+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px">
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px al-cursor-pointer">
     <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly">
       <li className="icon-wrap">
         <svg className="icon"
@@ -196,7 +196,7 @@ function IconModule(props) {
   </div>
 
   const iconBox2 = <div style={{width: 346+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px" >
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px al-cursor-pointer" >
     <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly" p-id="8638">
       <li className="icon-wrap" p-id="8639">
         <svg className="icon"
@@ -433,7 +433,7 @@ function IconModule(props) {
   </div>
 
   const iconBox3 = <div style={{width: 346+"px"}}
-                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px">
+                        className="al-bg-color-white primary-border-radius al-hover-lifting-5px al-hover-shadow-black-20 al-p-20px al-cursor-pointer">
     <ul className="al-flex-container al-flex-wrap al-flex-justify-space-evenly" p-id="14016">
       <li className="icon-wrap" p-id="14017">
         <svg className="icon"
@@ -638,4 +638,4 @@ function IconModule(props) {
   );
 }
 
-export default IconModule;
+export default IconBox;

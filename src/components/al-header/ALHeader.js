@@ -16,6 +16,7 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/NetworkRequest";
 import {getUserInfoFromLocalStorage} from "../../util/util";
+import ALFlexBox from "../al-flex-box/ALFlexBox";
 
 // import "./style.css"
 
@@ -125,10 +126,10 @@ class ALHeader extends React.Component {
             <div className="al-flex-container al-flex-container-center-v">
               <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70}/>
 
-              <div id="header-menu"
-                   className="header-menu al-flex-container al-flex-justify-space-between"
-                   style={{flex: 1}}>
-
+              <ALFlexBox id="header-menu"
+                         centerV
+                         between
+                         className="header-menu" style={{flex: 1}}>
                 {/*菜单1*/}
                 <div>
                   <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
@@ -145,8 +146,8 @@ class ALHeader extends React.Component {
                 </div>
 
                 {/*菜单2*/}
-                <div className="al-flex-container">
-                  <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
+                <ALFlexBox centerV>
+                  <Menu mode="horizontal" style={{backgroundColor: "#00000000"}} className="al-flex-container-center-v">
                     <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(SEARCH_PAGE)}>搜索</MenuItem>
                     <SubMenu title="上传" style={{color: this.props.color ?? "#000"}}>
                       <Menu.Item >
@@ -168,8 +169,9 @@ class ALHeader extends React.Component {
                   </Menu>
 
                   {isLoginDiv}
-                </div>
-              </div>
+                </ALFlexBox>
+              </ALFlexBox>
+
             </div>
 
 
