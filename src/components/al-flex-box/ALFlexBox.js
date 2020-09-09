@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function ALFlexBox(props) {
+
   const classNames = {
     flex: "al-flex-container",
     between: "al-flex-justify-space-between",
@@ -30,12 +32,45 @@ function ALFlexBox(props) {
       ${props.wrap ? classNames.wrap : ""} 
       ` + props.className}
          style={styles}
-         onClick={props.onClick}
-         onChange={props.onChange}>
-      {/*<div className="al-flex-wrap"></div>*/}
+         onClick={props.onClick}>
       {props.children}
     </div>
   );
+
+
 }
+
+// 类型
+ALFlexBox.propTypes = {
+  id: PropTypes.string,
+  between: PropTypes.bool,
+  around: PropTypes.bool,
+  evenly: PropTypes.bool,
+  column: PropTypes.bool,
+  centerV: PropTypes.bool,
+  centerH: PropTypes.bool,
+  centerVH: PropTypes.bool,
+  wrap: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  onClick: PropTypes.func,
+}
+
+// 默认值
+ALFlexBox.defaultProps = {
+  id: "",
+  between: false,
+  around: false,
+  evenly: false,
+  column: false,
+  centerV: false,
+  centerH: false,
+  centerVH: false,
+  wrap: false,
+  style: {},
+  onClick: null,
+}
+
+
 
 export default ALFlexBox;
