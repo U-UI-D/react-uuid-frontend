@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function ALPlaceBox(props) {
   return (
@@ -11,4 +12,13 @@ function ALPlaceBox(props) {
   );
 }
 
+ALPlaceBox.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+}
+
+ALPlaceBox.defaultProps = {
+  width: 20,
+  height: 20
+}
 export default ALPlaceBox;

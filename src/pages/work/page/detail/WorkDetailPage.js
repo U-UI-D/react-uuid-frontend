@@ -3,9 +3,8 @@ import ALHeader from "../../../../components/al-header/ALHeader";
 import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
 import WorkContentRight from "./component/WorkContentRight";
-import {request} from "../../../../util/network/NetworkRequest";
-import {GET_WORK_BY_ID} from "../../../../util/network/config/ApiConst";
-import {getWorkDetailByID} from "../../../../util/network/RequestHub";
+import {commonRequest, getWorkDetailByID} from "../../../../util/network/RequestHub";
+import {Affix} from "antd";
 
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -16,14 +15,18 @@ class WorkDetailPage extends React.Component{
     super(props);
 
     this.state = {
-      workData: null
+      workData: null,
+      userInfo: null
     }
   }
 
   //渲染函数
   render() {
+    let layoutRightData = {
+      userInfo: this.state.userInfo
+    }
     return this.workData === null ? <div></div> : (
-      <div className="page" style={{width: windowWidth, height: "auto"}}>
+      <div className="page">
         <div style={{backgroundColor: "#fff"}}>
           <ALHeader />
         </div>
@@ -34,7 +37,10 @@ class WorkDetailPage extends React.Component{
         <div className="content-width">
           <div className="al-flex-justify-space-between">
             <WorkContentLeft workData={this.state.workData} />
-            <WorkContentRight />
+            <Affix offsetTop={20}>
+              <WorkContentRight data={layoutRightData} />
+            </Affix>
+
           </div>
         </div>
       </div>
@@ -46,6 +52,12 @@ class WorkDetailPage extends React.Component{
     getWorkDetailByID(this.props.match.params.id).then(res => {
       this.setState({
         workData: res.data
+      });
+
+      commonRequest({mockURL: "/user/user.json", env: "mock"}).then(res => {
+        this.setState({
+          userInfo: res.data
+        })
       })
     });
   }

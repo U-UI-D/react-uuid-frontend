@@ -17,37 +17,37 @@ class ShowWorkBox extends React.Component {
   render() {
     const workInfo = this.props.workInfo;
     return (
-        <ALInlineWidthBox>
-          <div className="work-box al-m-5px al-p-5px al-float-left al-cursor-pointer">
-            <Avatar shape="square" src={workInfo.poster}
-                    style={{width: 270 + 'px', height: 208 + 'px'}}/>
-            <div className="desc">
-              <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
-              <div className="al-flex-container">
-                <div>
-                  <Tag color="blue">{"原创"}</Tag>
-                </div>
-                <div>
-                  <Avatar size={20} src={require("../../../../assets/icon/home/look.png")} />
-                  <span className="al-m-right-20px">{workInfo.lookCount}</span>
-                </div>
-                <div>
-                  <Avatar size={20} src={require("../../../../assets/icon/home/comment.png")} />
-                  <span className="al-m-right-20px">{workInfo.commentCount}</span>
-                </div>
-                <div>
-                  <Avatar size={20} src={require("../../../../assets/icon/home/fenlei.png")} />
-                  <span className="al-m-right-20px">{workInfo.favorCount}</span>
-                </div>
+        <div className="work-box al-m-bottom-10px al-p-5px al-cursor-pointer"
+             style={{width: 287.5+'px'}}>
+          <Avatar shape="square" src={workInfo.poster}
+                  style={{
+                    width: 277.5 + 'px', height: 208 + 'px'}}/>
+          <div className="desc">
+            <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
+            <div className="al-flex-container">
+              <div>
+                <Tag color="blue">{"原创"}</Tag>
+              </div>
+              <div>
+                <Avatar size={20} src={require("../../../../assets/icon/home/look.png")} />
+                <span className="al-m-right-20px">{workInfo.lookCount}</span>
+              </div>
+              <div>
+                <Avatar size={20} src={require("../../../../assets/icon/home/comment.png")} />
+                <span className="al-m-right-20px">{workInfo.commentCount}</span>
+              </div>
+              <div>
+                <Avatar size={20} src={require("../../../../assets/icon/home/fenlei.png")} />
+                <span className="al-m-right-20px">{workInfo.favorCount}</span>
               </div>
             </div>
-
-            <div>
-              <Avatar src={"https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"}/>
-              <span className="al-m-left-10px">{"用户名"}</span>
-            </div>
           </div>
-        </ALInlineWidthBox>
+
+          <div>
+            <Avatar src={"https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"}/>
+            <span className="al-m-left-10px">{"用户名"}</span>
+          </div>
+        </div>
     );
   }
 

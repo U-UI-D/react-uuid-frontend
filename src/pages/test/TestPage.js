@@ -1,5 +1,6 @@
 import React from "react";
 import {Pagination, Button} from 'antd';
+import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 
 
 class TestPage extends React.Component{
@@ -21,7 +22,9 @@ class TestPage extends React.Component{
             <Button onClick={() => this.props.history.push('/demo')}>demo页面</Button>
           </div>
 
-          <Pagination defaultCurrent={6} total={500} />
+          <ALInlineWidthBox>
+            haha
+          </ALInlineWidthBox>
 
         </>
     );

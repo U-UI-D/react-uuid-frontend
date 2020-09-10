@@ -66,7 +66,7 @@ ALFlexBox.defaultProps = {
   centerV: false,
   centerH: false,
   centerVH: false,
-  wrap: false,
+  wrap: true,
   style: {},
   onClick: null,
 }

@@ -11,6 +11,7 @@ import ALLoading from "../../components/al-loading/ALLoading";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
+import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 
 class HomePage extends React.Component {
   //构造器
@@ -118,100 +119,98 @@ class HomePage extends React.Component {
           <div className="al-box-size-20px"></div>
 
 
-          <div>
-            <div className="content-width">
-              {/*轮播图*/}
-              <Carousel autoplay>
-                {
-                  this.state.carouselList.map((item, index) => {
-                    return (
-                        <div key={item.poster}>
-                          <a href={item.url}>
-                            <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
-                          </a>
-                        </div>
-                    );
-                  })
-                }
-              </Carousel>
-              <br/>
+          <div className="content-width">
+            {/*轮播图*/}
+            <Carousel autoplay>
+              {
+                this.state.carouselList.map((item, index) => {
+                  return (
+                      <div key={item.poster}>
+                        <a href={item.url}>
+                          <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
+                        </a>
+                      </div>
+                  );
+                })
+              }
+            </Carousel>
+            <br/>
 
-              {/*标题*/}
-              <div>
-                <Menu mode="horizontal">
-                  <MenuItem>首页推荐</MenuItem>
-                  <MenuItem>即刻作品</MenuItem>
-                  <MenuItem>最新作品</MenuItem>
-                  <MenuItem>佳作分享</MenuItem>
-                </Menu>
-              </div>
+            {/*标题*/}
+            <div>
+              <Menu mode="horizontal">
+                <MenuItem>首页推荐</MenuItem>
+                <MenuItem>即刻作品</MenuItem>
+                <MenuItem>最新作品</MenuItem>
+                <MenuItem>佳作分享</MenuItem>
+              </Menu>
+            </div>
 
+            {/*作品列表*/}
+            <div>
               {/*作品列表*/}
               <div>
-                {/*作品列表*/}
+                {
+                  this.state.workData === null ? <ALLoading show/> :
+                      <ALFlexBox between wrap>
+                        {
+                          this.state.workData.list.map((item, index) => {
+                            return <div key={index} onClick={() => {
+                              this.goPage("/work/detail/" + (index + 1))
+                            }}>
+                              <ShowWorkBox workInfo={item}/>
+                              </div>
+                          })
+                        }
+                      </ALFlexBox>
+                }
+              </div>
+
+              {/*分页*/}
+              <div className="al-flex-container-center-vh">
                 <div>
                   {
-                    this.state.workData === null ? <ALLoading show/> :
-                        <div>
-                          {
-                            this.state.workData.list.map((item, index) => {
-                              return <span key={index} onClick={() => {
-                                this.goPage("/work/detail/" + (index + 1))
-                              }}>
-                              <ShowWorkBox workInfo={item}/>
-                              </span>
-                            })
-                          }
-                        </div>
+                    this.state.workData === null ? <div></div> :
+                        <ALInlineWidthBox>
+                          <Pagination current={this.state.currentPageNo}
+                                      total={this.state.workData.total}
+                                      onChange={(page, pageSize) => {
+                                        console.log(page);
+                                        console.log(pageSize);
+                                        this.setState({
+                                          currentPageNo: page
+                                        })
+                                      }}/>
+                        </ALInlineWidthBox>
                   }
                 </div>
-
-                {/*分页*/}
-                <div className="al-flex-container-center-vh">
-                  <div>
-                    {
-                      this.state.workData === null ? <div></div> :
-                          <ALInlineWidthBox>
-                            <Pagination current={this.state.currentPageNo}
-                                        total={this.state.workData.total}
-                                        onChange={(page, pageSize) => {
-                                          console.log(page);
-                                          console.log(pageSize);
-                                          this.setState({
-                                            currentPageNo: page
-                                          })
-                                        }}/>
-                          </ALInlineWidthBox>
-                    }
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/*即刻作品*/}
-            <div style={{backgroundColor: "#e9eef2"}} className="al-p-tb-30px">
-              <div className="content-width">
-                <div>
-                  热门即刻
-                </div>
-                <div className="al-m-top-20px">
-                  <div className="al-flex-container al-flex-justify-space-between">
-                    {
-                      this.state.jikeWorkList.map((item, index) => {
-                        return <ShowJikeWorkBox workJike={item} key={index}/>
-                      })
-                    }
-                  </div>
-                </div>
               </div>
             </div>
 
-            <ALPlaceBox height={30} />
-            {/*显示设计师*/}
+          </div>
+
+          {/*即刻作品*/}
+          <div style={{backgroundColor: "#e9eef2"}} className="al-p-tb-30px">
             <div className="content-width">
-              <ShowDesigner/>
+              <div>
+                热门即刻
+              </div>
+              <div className="al-m-top-20px">
+                <div className="al-flex-container al-flex-justify-space-between">
+                  {
+                    this.state.jikeWorkList.map((item, index) => {
+                      return <ShowJikeWorkBox workJike={item} key={index}/>
+                    })
+                  }
+                </div>
+              </div>
             </div>
+          </div>
+
+          <ALPlaceBox height={30} />
+          {/*显示设计师*/}
+          <div className="content-width">
+            <ShowDesigner/>
           </div>
 
 

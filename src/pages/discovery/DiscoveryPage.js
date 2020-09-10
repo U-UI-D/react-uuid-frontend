@@ -12,8 +12,10 @@ class DiscoveryPage extends React.Component{
   //渲染函数
   render() {
     return(
-      <div>
-        <ALHeader />
+      <div className="primary-bg-color">
+        <div className="al-bg-color-white">
+          <ALHeader />
+        </div>
         <div className="content-width">
           发现页面
         </div>

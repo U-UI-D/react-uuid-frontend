@@ -8,6 +8,7 @@ import ShowWorkBox from "../home/component/show-work-box/ShowWorkBox";
 import {getWorkList} from "../../util/network/RequestHub";
 import {WORK_DETAIL} from "../../util/router/config/RouterConst";
 import ALLoading from "../../components/al-loading/ALLoading";
+import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 
 class WorkPage extends React.Component {
   //构造器
@@ -48,7 +49,7 @@ class WorkPage extends React.Component {
                   this.state.workData === null ?
                       <ALLoading show height={200} />
                       :
-                      <div>
+                      <ALFlexBox between wrap>
                         {
                           this.state.workData.list.map((item, index) => {
                             return <span key={index} onClick={() => {
@@ -58,7 +59,7 @@ class WorkPage extends React.Component {
                     </span>
                           })
                         }
-                      </div>
+                      </ALFlexBox>
                 }
 
                 {/*分页*/}

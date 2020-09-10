@@ -1,5 +1,6 @@
 import React from "react";
 import {Spin} from "antd";
+import PropTypes from "prop-types";
 
 function ALLoading(props) {
   return (
@@ -15,6 +16,16 @@ function ALLoading(props) {
         </div>
       </div>
   );
+}
+
+ALLoading.propTypes = {
+  show: PropTypes.bool,
+  width: PropTypes.number,
+  height: PropTypes.number,
+}
+
+ALLoading.defaultProps = {
+  show: true
 }
 
 export default ALLoading;
