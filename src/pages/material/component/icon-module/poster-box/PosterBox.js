@@ -36,9 +36,8 @@ function PosterBox(props) {
         <ALFlexBox between >
           {
             posterData.map((item, index) => {
-              return <div className="al-hover-shadow-black-20 primary-border-radius al-cursor-pointer">
-                <Avatar key={index}
-                        src={item.poster}
+              return <div key={index} className="al-hover-shadow-black-20 primary-border-radius al-cursor-pointer">
+                <Avatar src={item.poster}
                         shape="square"
                         style={{
                           width: 287.5+'px',

@@ -628,7 +628,7 @@ function IconBox(props) {
   </div>
 
   return (
-    <div>
+    <div id="icon-box">
       <ALFlexBox between>
         {iconBox1}
         {iconBox2}

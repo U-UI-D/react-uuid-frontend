@@ -60,9 +60,8 @@ function IllustrationBox(props) {
           {
             illustrationData.map((item, index) => {
               return (
-                  <div className="al-m-bottom-10px primary-border-radius al-hover-shadow-black-20 al-cursor-pointer">
-                    <Avatar key={index}
-                            src={item.url}
+                  <div key={index} className="al-m-bottom-10px primary-border-radius al-hover-shadow-black-20 al-cursor-pointer">
+                    <Avatar src={item.url}
                             shape="square"
                             style={{
                               width: 287.5 + 'px',

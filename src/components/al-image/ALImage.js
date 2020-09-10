@@ -7,8 +7,7 @@ function ALImage(props) {
         display: "inline-block",
         width: props.circle ? (props.height + 'px') : "",
         height: props.circle ? (props.height + 'px') : "",
-        lineHeight: props.height + 'px',
-        borderRadius: props.circle ? 50 + '%' : "",
+        borderRadius: props.circle ? 50 + '%' : props.radius + 'px',
       }} className="al-flex-container-center-vh al-overflow-hide al-bgcolor-transparent">
         <img src={props.src}
              alt={props.alt}
@@ -16,6 +15,7 @@ function ALImage(props) {
                objectFit: props.fit,
                width: props.circle ? (100 + '%') : (props.width + 'px'),
                height: props.circle ? (100 + '%') : (props.height + 'px'),
+               borderRadius: props.radius + 'px',
                ...props.style
              }}
              className={" " + props.className}

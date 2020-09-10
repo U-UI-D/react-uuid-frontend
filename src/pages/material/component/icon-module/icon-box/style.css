@@ -1,8 +1,8 @@
-ol, ul {
+#icon-box ol, ul {
     list-style-type: none;
     padding-inline-start: 0;
 }
 
-li {
+#icon-box li {
     padding: 15px;
 }
