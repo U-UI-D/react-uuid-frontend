@@ -1,0 +1,21 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": [
+    {
+      "title": "",
+      "poster": "https://img.ui.cn/data/upload/202008/1598162172_155?imageView/1/w/1480/h/350",
+      "link": "/"
+    },
+    {
+      "title": "",
+      "poster": "https://img.ui.cn/data/upload/202008/1597827366_118?imageView/1/w/1480/h/350",
+      "link": "/"
+    },
+    {
+      "title": "",
+      "poster": "https://img.ui.cn/data/upload/202008/1597723301_547?imageView/1/w/1480/h/350",
+      "link": "/"
+    }
+  ]
+}

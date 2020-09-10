@@ -4,21 +4,33 @@ import PropTypes from "prop-types";
 function ALPlaceBox(props) {
   return (
       <div style={{
-        width: (props.width ?? '') + 'px',
-        height: (props.height ?? '') + 'px',
-      }}>
-
+        width: props.width,
+        height: props.height,
+        ...props.style
+      }} className={props.className}
+           onClick={props.onClick}>
+        {props.children}
       </div>
   );
 }
 
 ALPlaceBox.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 ALPlaceBox.defaultProps = {
-  width: 20,
-  height: 20
+  width: "auto",
+  height: "auto",
+  className: "",
+  onClick: null,
 }
 export default ALPlaceBox;

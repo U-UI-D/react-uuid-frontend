@@ -27,7 +27,7 @@ class ChatWindow extends React.Component {
     this.state = {
       userInfo: null,
       record: "",
-      recordValue: "",
+      chatText: "",
       recordList: ["Hello"],
     }
   }
@@ -37,12 +37,12 @@ class ChatWindow extends React.Component {
   render() {
 
     const addRecordToList = (msg) => {
-      message.info(this.state.record);
+      message.info(this.state.chatText);
       let list = this.state.recordList;
       list.push(msg);
       this.setState({
         recordList: list,
-        record: ""
+        chatText: ""
       })
     }
 
@@ -94,11 +94,12 @@ class ChatWindow extends React.Component {
 
         <div style={{float: "end"}}>
           <Input.TextArea id="msg" rows={3}
+                          value={this.state.chatText}
                           onChange={(e) => {
-                            this.setState({record: e.target.value})
+                            this.setState({chatText: e.target.value})
                           }}/>
           <div className="al-text-right al-m-tb-20px">
-            <Button type="primary" onClick={() => {addRecordToList(this.state.record)}}>发送</Button>
+            <Button type="primary" onClick={() => {addRecordToList(this.state.chatText)}}>发送</Button>
           </div>
         </div>
       </div>
