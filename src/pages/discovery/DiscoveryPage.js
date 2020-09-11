@@ -3,6 +3,7 @@ import ALHeader from "../../components/al-header/ALHeader";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import ALComment from "../../components/al-comment/ALComment";
+import {Avatar} from "antd";
 
 class DiscoveryPage extends React.Component{
   //构造器
@@ -29,7 +30,13 @@ class DiscoveryPage extends React.Component{
                 <ALComment />
 
                 <div>
-                  关注的人的动态
+                  <h2>关注的人的动态</h2>
+                  <div>
+                    <ALFlexBox>
+                      <Avatar src={"https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"} />
+                      <div>刚刚发布了作品</div>
+                    </ALFlexBox>
+                  </div>
                 </div>
               </div>
             </ALPlaceBox>
