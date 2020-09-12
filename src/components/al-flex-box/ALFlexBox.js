@@ -17,6 +17,9 @@ function ALFlexBox(props) {
 
   const styles = {
     padding: (props.padding ?? '') + 'px',
+    margin: (props.margin ?? '') + 'px',
+    flex: props.flexNum === undefined ? "" :  props.flexNum,
+    lineHeight: props.lineHeight + "em",
     ...props.style
   }
   return (
@@ -43,6 +46,10 @@ function ALFlexBox(props) {
 // 类型
 ALFlexBox.propTypes = {
   id: PropTypes.string,
+  flexNum: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   between: PropTypes.bool,
   around: PropTypes.bool,
   evenly: PropTypes.bool,
@@ -52,6 +59,10 @@ ALFlexBox.propTypes = {
   centerVH: PropTypes.bool,
   wrap: PropTypes.bool,
   className: PropTypes.string,
+  lineHeight: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   style: PropTypes.object,
   onClick: PropTypes.func,
 }
@@ -59,6 +70,7 @@ ALFlexBox.propTypes = {
 // 默认值
 ALFlexBox.defaultProps = {
   id: "",
+  flexNum: "",
   between: false,
   around: false,
   evenly: false,
@@ -67,6 +79,7 @@ ALFlexBox.defaultProps = {
   centerH: false,
   centerVH: false,
   wrap: true,
+  lineHeight: "",
   style: {},
   onClick: null,
 }

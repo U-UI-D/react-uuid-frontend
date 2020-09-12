@@ -25,24 +25,23 @@ function ShowDesigner(props) {
           designerData.map((item, index) => {
             return <div key={index} className="al-bg-color-white">
               <ALFlexBox centerV>
-                <div className="al-width-30">
-                  <ALFlexBox padding={30} centerV>
+                <ALFlexBox padding={30} flexNum={3} centerV>
+                  <div>
+                    {/*头像*/}
+                    <Avatar src={item.avatar} size={100}/>
+                  </div>
+
+
+                  {/*个人信息*/}
+                  <div className="al-m-lr-20px desc-text">
+                    <h3 className="al-font-weight-bold">{item.nickname}</h3>
                     <div>
-                      {/*头像*/}
-                      <Avatar src={item.avatar} size={100}/>
+                      <span>{item.city}</span>
+                      <span className="al-m-lr-5px">|</span>
+                      <span>{item.occupation}</span>
                     </div>
 
-
-                    {/*个人信息*/}
-                    <div className="al-m-lr-20px desc-text">
-                      <h3 className="al-font-weight-bold">{item.nickname}</h3>
-                      <div>
-                        <span>{item.city}</span>
-                        <span className="al-m-lr-5px">|</span>
-                        <span>{item.occupation}</span>
-                      </div>
-
-                      <div>
+                    <div>
                   <span>
                     作品
                     <span className="al-font-weight-bold al-m-left-5px"
@@ -53,8 +52,8 @@ function ShowDesigner(props) {
                       {item.workCount}
                     </span>
                   </span>
-                        <span className="al-m-lr-5px">|</span>
-                        <span>
+                      <span className="al-m-lr-5px">|</span>
+                      <span>
                     粉丝
                     <span className="al-font-weight-bold al-m-lr-5px"
                           style={{
@@ -64,19 +63,19 @@ function ShowDesigner(props) {
                       {item.fans}
                     </span>
                   </span>
-                      </div>
-
-                      <div>{item.sign}</div>
-
-                      <div className="al-m-top-20px">
-                        <Button type="primary">关注</Button>
-                      </div>
-
                     </div>
 
-                  </ALFlexBox>
-                </div>
-                <div className="al-width-70 al-text-right al-m-right-30px">
+                    <div>{item.sign}</div>
+
+                    <div className="al-m-top-20px">
+                      <Button type="primary">关注</Button>
+                    </div>
+
+                  </div>
+
+                </ALFlexBox>
+
+                <ALFlexBox flexNum={7} className="al-text-right al-m-right-30px">
                   {
                     //封面图
                     item.workPoster.map((item, index) => {
@@ -90,7 +89,7 @@ function ShowDesigner(props) {
                                      key={item}/>
                     })
                   }
-                </div>
+                </ALFlexBox>
               </ALFlexBox>
             </div>
           })

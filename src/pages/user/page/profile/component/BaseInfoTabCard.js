@@ -22,13 +22,22 @@ function BaseInfoTabCard(props) {
       </ALFlexBox>
 
       <div className="">
-        <div className="al-flex-container al-m-bottom-20px">
-          <div className="al-flex-item-grow-1">
+        <ALFlexBox between>
+          <ALFlexBox lineHeight={4} flexNum={1} centerH column>
             <ALLabelBox label={"用户名"}>
               <Input defaultValue={userInfo.username} disabled />
             </ALLabelBox>
-          </div>
-          <div className="al-flex-item-grow-1">
+
+            <ALLabelBox label={"昵称"}>
+              <Input defaultValue={userInfo.nickname} />
+            </ALLabelBox>
+
+            <ALLabelBox label={"手机"}>
+              <Input defaultValue={userInfo.phone} />
+            </ALLabelBox>
+          </ALFlexBox>
+
+          <ALFlexBox lineHeight={4} flexNum={1} centerH column>
             <ALLabelBox label={"性别"}>
               <div>
                 <Radio.Group value={userInfo.gender}>
@@ -37,34 +46,16 @@ function BaseInfoTabCard(props) {
                 </Radio.Group>
               </div>
             </ALLabelBox>
-          </div>
-        </div>
 
-        <div className="al-flex-container al-m-bottom-20px">
-          <div className="al-flex-item-grow-1">
-            <ALLabelBox label={"昵称"}>
-              <Input defaultValue={userInfo.nickname} />
-            </ALLabelBox>
-          </div>
-          <div className="al-flex-item-grow-1">
             <ALLabelBox label={"年龄"}>
               <Input defaultValue={userInfo.age} />
             </ALLabelBox>
-          </div>
-        </div>
 
-        <div className="al-flex-container al-m-bottom-20px">
-          <div className="al-flex-item-grow-1">
-            <ALLabelBox label={"手机"}>
-              <Input defaultValue={userInfo.phone} />
-            </ALLabelBox>
-          </div>
-          <div className="al-flex-item-grow-1">
             <ALLabelBox label={"邮箱"}>
               <Input defaultValue={userInfo.email} />
             </ALLabelBox>
-          </div>
-        </div>
+          </ALFlexBox>
+        </ALFlexBox>
 
         <div className="al-m-bottom-20px">
           <ALLabelBox label={"个性签名"}>
