@@ -26,7 +26,7 @@ class WorkDetailPage extends React.Component{
       userInfo: this.state.userInfo
     }
     return this.workData === null ? <div></div> : (
-      <div className="page">
+      <div>
         <div style={{backgroundColor: "#fff"}}>
           <ALHeader />
         </div>
