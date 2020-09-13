@@ -1,0 +1,47 @@
+{
+  "code": 1,
+  "msg": "ok",
+  "data": [
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20200630/999991356_1593509701716_F92C3C8D8AD6A983B49B7BAB084E0B24",
+      "title": "四大行业高能求职攻略",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20200701/999991356_1593569844585_354C4F7E7478AD57CDF9993A53CA980F",
+      "title": "产品/运营/游戏策划求职攻略",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20200630/999991356_1593513376355_098D431F8519D05E8EC0AA205B2A20B4",
+      "title": "四大行业高能求职攻略",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20200710/999991356_1594350078712_B96B8941B553BDF42DBC70CA152965B6",
+      "title": "C语言入门自学指南",
+      "price": "200"
+    },
+
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20191009/999991356_1570619654726_558429FADE3FC6FB71463D9D5F665371",
+      "title": "牛客新款多功能背包",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20190817/999991356_1566024319542_95FDE15F04D7B7F053D66CB926FD1AA6",
+      "title": "三合一数据线",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20190322/999991356_1553236131503_30E62FDDC14C05988B44E7C02788E187",
+      "title": "牛可乐保温杯",
+      "price": "200"
+    },
+    {
+      "poster": "https://uploadfiles.nowcoder.com/images/20180314/7233087_1521028218254_D642F8C3D2D6C1AB174D170D2DC8ED78",
+      "title": "小风扇",
+      "price": "200"
+    }
+  ]
+}
