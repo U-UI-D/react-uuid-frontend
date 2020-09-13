@@ -1655,11 +1655,6 @@
     color: #FCFCFC;
 }
 
-/*淡白色*/
-.al-hover-bgcolor-light-white:hover {
-    background-color: #F6F6F6;
-}
-
 
 /*黑色*/
 .al-hover-color-black:hover {
@@ -1765,6 +1760,27 @@
 
 .al-hover-shadow-black-60:hover{
     box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+
+/*淡白色*/
+.al-hover-border-color-light-white:hover {
+    border: #F6F6F6 solid 1px;
+}
+
+/*淡黑色*/
+.al-hover-border-color-light-black:hover {
+    border: rgba(0,0,0, 0.3) solid 1px;
+}
+
+/*白色*/
+.al-hover-bgcolor-white:hover {
+    background-color: #fff;
+}
+
+/*淡白色*/
+.al-hover-bgcolor-light-white:hover {
+    background-color: #F6F6F6;
 }
 
 /*================END 鼠标悬停================*/

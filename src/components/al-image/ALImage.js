@@ -30,8 +30,14 @@ function ALImage(props) {
 ALImage.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   fit: PropTypes.string,
   circle: PropTypes.bool,
   radius: PropTypes.number,
@@ -44,8 +50,8 @@ ALImage.propTypes = {
 ALImage.defaultProps = {
   src: "",
   alt: "this is an image",
-  width: 480,
-  height: 320,
+  width: "",
+  height: "",
   fit: "cover",
   circle: false,
   radius: 0,

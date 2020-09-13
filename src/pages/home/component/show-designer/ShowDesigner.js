@@ -23,25 +23,26 @@ function ShowDesigner(props) {
       <div>
         {
           designerData.map((item, index) => {
-            return <div key={index} className="al-bg-color-white">
-              <ALFlexBox centerV>
-                <ALFlexBox padding={30} flexNum={3} centerV>
-                  <div>
-                    {/*头像*/}
-                    <Avatar src={item.avatar} size={100}/>
-                  </div>
-
-
-                  {/*个人信息*/}
-                  <div className="al-m-lr-20px desc-text">
-                    <h3 className="al-font-weight-bold">{item.nickname}</h3>
+            return (
+              <div key={index} className="al-hover-bgcolor-white al-cursor-pointer">
+                <ALFlexBox centerV between>
+                  <ALFlexBox padding={30}  centerV>
                     <div>
-                      <span>{item.city}</span>
-                      <span className="al-m-lr-5px">|</span>
-                      <span>{item.occupation}</span>
+                      {/*头像*/}
+                      <Avatar src={item.avatar} size={100}/>
                     </div>
 
-                    <div>
+
+                    {/*个人信息*/}
+                    <div className="al-m-lr-20px desc-text">
+                      <h3 className="al-font-weight-bold">{item.nickname}</h3>
+                      <div>
+                        <span>{item.city}</span>
+                        <span className="al-m-lr-5px">|</span>
+                        <span>{item.occupation}</span>
+                      </div>
+
+                      <div>
                   <span>
                     作品
                     <span className="al-font-weight-bold al-m-left-5px"
@@ -52,8 +53,8 @@ function ShowDesigner(props) {
                       {item.workCount}
                     </span>
                   </span>
-                      <span className="al-m-lr-5px">|</span>
-                      <span>
+                        <span className="al-m-lr-5px">|</span>
+                        <span>
                     粉丝
                     <span className="al-font-weight-bold al-m-lr-5px"
                           style={{
@@ -63,35 +64,36 @@ function ShowDesigner(props) {
                       {item.fans}
                     </span>
                   </span>
+                      </div>
+
+                      <div>{item.sign}</div>
+
+                      <div className="al-m-top-20px">
+                        <Button type="primary">关注</Button>
+                      </div>
+
                     </div>
 
-                    <div>{item.sign}</div>
+                  </ALFlexBox>
 
-                    <div className="al-m-top-20px">
-                      <Button type="primary">关注</Button>
-                    </div>
-
-                  </div>
-
+                  <ALFlexBox  className="al-text-right al-m-right-30px">
+                    {
+                      //封面图
+                      item.workPoster.map((item, index) => {
+                        return <Avatar shape="square"
+                                       style={{
+                                         width: 200 + 'px',
+                                         height: 150 + 'px',
+                                         margin: "0 5px"
+                                       }}
+                                       src={item}
+                                       key={item}/>
+                      })
+                    }
+                  </ALFlexBox>
                 </ALFlexBox>
-
-                <ALFlexBox flexNum={7} className="al-text-right al-m-right-30px">
-                  {
-                    //封面图
-                    item.workPoster.map((item, index) => {
-                      return <Avatar shape="square"
-                                     style={{
-                                       width: 200 + 'px',
-                                       height: 150 + 'px',
-                                       margin: "0 5px"
-                                     }}
-                                     src={item}
-                                     key={item}/>
-                    })
-                  }
-                </ALFlexBox>
-              </ALFlexBox>
-            </div>
+              </div>
+            )
           })
         }
       </div>

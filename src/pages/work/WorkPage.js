@@ -4,7 +4,7 @@ import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
-import ShowWorkBox from "../home/component/show-work-box/ShowWorkBox";
+import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {getWorkList} from "../../util/network/RequestHub";
 import {WORK_DETAIL} from "../../util/router/config/RouterConst";
 import ALLoading from "../../components/al-loading/ALLoading";
@@ -25,7 +25,7 @@ class WorkPage extends React.Component {
   //渲染函数
   render() {
     return (
-        <div style={{backgroundColor: "#eff3f5"}}>
+        <div>
           <div className="al-bg-color-white">
             <ALHeader/>
           </div>
@@ -34,7 +34,7 @@ class WorkPage extends React.Component {
           <div>
             <div className="content-width">
               {/*标题*/}
-              <div>
+              <div className="al-m-tb-20px">
                 <Menu mode="horizontal">
                   <MenuItem>首页推荐</MenuItem>
                   <MenuItem>即刻作品</MenuItem>
@@ -63,28 +63,26 @@ class WorkPage extends React.Component {
                 }
 
                 {/*分页*/}
-                <div className="al-flex-container-center-vh">
-                  <div>
-                    {
-                      this.state.workData === null ? <div></div>
-                          :
-                          <ALInlineWidthBox>
-                            <Pagination current={this.state.currentPageNo}
-                                        total={50}
-                                        onChange={(page, pageSize) => {
-                              console.log(page);
-                              console.log(pageSize);
-                              getWorkList(page).then(res => {
-                                this.setState({
-                                  currentPageNo: page
-                                })
-                              });
-                            }} />
+                <ALFlexBox centerH className="al-m-tb-20px">
+                  {
+                    this.state.workData === null ? <div></div>
+                      :
+                      <ALInlineWidthBox>
+                        <Pagination current={this.state.currentPageNo}
+                                    total={50}
+                                    onChange={(page, pageSize) => {
+                                      console.log(page);
+                                      console.log(pageSize);
+                                      getWorkList(page).then(res => {
+                                        this.setState({
+                                          currentPageNo: page
+                                        })
+                                      });
+                                    }} />
 
-                          </ALInlineWidthBox>
-                    }
-                  </div>
-                </div>
+                      </ALInlineWidthBox>
+                  }
+                </ALFlexBox>
               </div>
             </div>
 

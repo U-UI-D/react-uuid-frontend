@@ -2,13 +2,12 @@ import React from "react";
 import {Spin, Button, Carousel, Menu, Pagination, Avatar} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
-import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
+import ShowWorkBox from "../work/component/show-work-box/ShowWorkBox";
 import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
-import {getWorkList} from "../../util/network/RequestHub";
+import {commonRequest, getWorkList} from "../../util/network/RequestHub";
 import ALLoading from "../../components/al-loading/ALLoading";
-import {getUserInfoFromLocalStorage} from "../../util/util";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
@@ -83,25 +82,7 @@ class HomePage extends React.Component {
         }
       ],
       currentPageNo: 1,
-      carouselList: [
-        {
-          title: "",
-          poster: 'https://img.ui.cn/data/upload/202008/1598162172_155?imageView/1/w/1480/h/350',
-          url: "/"
-        },
-        {
-          title: "",
-          poster: 'https://img.ui.cn/data/upload/202008/1597827366_118?imageView/1/w/1480/h/350',
-          url: "/"
-        },
-        {
-          title: "",
-          poster: 'https://img.ui.cn/data/upload/202008/1597723301_547?imageView/1/w/1480/h/350',
-          url: "/"
-        },
-
-
-      ],
+      carouselList: null,
     }
   }
 
@@ -112,7 +93,7 @@ class HomePage extends React.Component {
     const windowHeight = window.innerHeight;
 
     return (
-        <div style={{backgroundColor: "#eff3f5"}}>
+        <div>
           <div className="al-bg-color-white">
             <ALHeader/>
           </div>
@@ -123,6 +104,7 @@ class HomePage extends React.Component {
             {/*轮播图*/}
             <Carousel autoplay>
               {
+                this.state.carouselList === null ? <ALLoading /> :
                 this.state.carouselList.map((item, index) => {
                   return (
                       <div key={item.poster}>
@@ -137,7 +119,7 @@ class HomePage extends React.Component {
             <br/>
 
             {/*标题*/}
-            <div>
+            <div className="al-m-tb-20px">
               <Menu mode="horizontal">
                 <MenuItem>首页推荐</MenuItem>
                 <MenuItem>即刻作品</MenuItem>
@@ -167,24 +149,20 @@ class HomePage extends React.Component {
               </div>
 
               {/*分页*/}
-              <div className="al-flex-container-center-vh">
-                <div>
-                  {
-                    this.state.workData === null ? <div></div> :
-                        <ALInlineWidthBox>
-                          <Pagination current={this.state.currentPageNo}
-                                      total={this.state.workData.total}
-                                      onChange={(page, pageSize) => {
-                                        console.log(page);
-                                        console.log(pageSize);
-                                        this.setState({
-                                          currentPageNo: page
-                                        })
-                                      }}/>
-                        </ALInlineWidthBox>
-                  }
-                </div>
-              </div>
+              <ALFlexBox centerH className="al-m-tb-20px">
+                {
+                  this.state.workData === null ? <div></div> :
+                    <Pagination current={this.state.currentPageNo}
+                                total={this.state.workData.total}
+                                onChange={(page, pageSize) => {
+                                  console.log(page);
+                                  console.log(pageSize);
+                                  this.setState({
+                                    currentPageNo: page
+                                  })
+                                }}/>
+                }
+              </ALFlexBox>
             </div>
 
           </div>
@@ -192,9 +170,7 @@ class HomePage extends React.Component {
           {/*即刻作品*/}
           <div style={{backgroundColor: "#e9eef2"}} className="al-p-tb-30px">
             <div className="content-width">
-              <div>
-                热门即刻
-              </div>
+              <h2>热门即刻</h2>
               <div className="al-m-top-20px">
                 <div className="al-flex-container al-flex-justify-space-between">
                   {
@@ -210,6 +186,7 @@ class HomePage extends React.Component {
           <ALPlaceBox height={30} />
           {/*显示设计师*/}
           <div className="content-width">
+            <h2>设计师/开发者推荐</h2>
             <ShowDesigner/>
           </div>
 
@@ -229,6 +206,12 @@ class HomePage extends React.Component {
     //获取作品列表
     getWorkList().then(res => {
       this.setState({workData: res.data})
+    });
+
+    commonRequest({mockURL: "/carousel/carousel.json", env: "mock"}).then(res => {
+      this.setState({
+        carouselList: res.data
+      })
     })
   }
 

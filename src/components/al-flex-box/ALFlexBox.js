@@ -18,6 +18,8 @@ function ALFlexBox(props) {
   const styles = {
     padding: (props.padding ?? '') + 'px',
     margin: (props.margin ?? '') + 'px',
+    width: (props.width ?? '') + 'px',
+    height: (props.height ?? '') + 'px',
     flex: props.flexNum === undefined ? "" :  props.flexNum,
     lineHeight: props.lineHeight + "em",
     ...props.style
@@ -64,6 +66,10 @@ ALFlexBox.propTypes = {
     PropTypes.string
   ]),
   style: PropTypes.object,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  padding: PropTypes.number,
+  margin: PropTypes.number,
   onClick: PropTypes.func,
 }
 

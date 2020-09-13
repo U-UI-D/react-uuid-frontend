@@ -35,10 +35,10 @@ class ALHeader extends React.Component {
           text: "作品",
           path: WORK_PAGE
         },
-        {
-          text: "发现",
-          path: DISCOVERY_PAGE
-        },
+        // {
+        //   text: "发现",
+        //   path: DISCOVERY_PAGE
+        // },
         {
           text: "素材",
           path: MATERIAL_PAGE

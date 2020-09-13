@@ -22,7 +22,7 @@ class UserPage extends React.Component {
   //渲染函数
   render() {
     return (
-        <div style={{backgroundColor: "rgb(239, 243, 245)"}}>
+        <div>
           <div className="header-box header-bg">
             <ALHeader color="#fff"/>
             <div style={{

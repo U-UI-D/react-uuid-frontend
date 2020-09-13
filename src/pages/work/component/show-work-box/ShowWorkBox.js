@@ -17,11 +17,11 @@ class ShowWorkBox extends React.Component {
   render() {
     const workInfo = this.props.workInfo;
     return (
-        <div className="work-box al-m-bottom-10px al-p-5px al-cursor-pointer"
-             style={{width: 287.5+'px'}}>
+        <div className="work-box al-m-bottom-10px al-p-10px al-cursor-pointer"
+             style={{width: 282.5+'px'}}>
           <Avatar shape="square" src={workInfo.poster}
                   style={{
-                    width: 277.5 + 'px', height: 208 + 'px'}}/>
+                    width: 262.5 + 'px', height: 193 + 'px'}}/>
           <div className="desc">
             <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
             <div className="al-flex-container">
