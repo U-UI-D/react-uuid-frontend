@@ -41,6 +41,7 @@ class WorkDetailPage extends React.Component{
               <WorkContentRight data={layoutRightData} />
             </Affix>
 
+
           </div>
         </div>
       </div>
