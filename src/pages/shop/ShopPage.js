@@ -2,9 +2,10 @@ import React from "react";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import ALImage from "../../components/al-image/ALImage";
-import {Affix, Button, Divider} from "antd";
+import {Affix, Avatar, Button, Divider} from "antd";
 import ALLoading from "../../components/al-loading/ALLoading";
 import {commonRequest} from "../../util/network/RequestHub";
+import {getUserInfoFromLocalStorage} from "../../util/util";
 
 function GoodsBox(props) {
   const {data} = props;
@@ -30,7 +31,8 @@ class ShopPage extends React.Component{
     super(props);
 
     this.state = {
-      diyGoodsList: null
+      diyGoodsList: null,
+      userInfo: null
     }
   }
 
@@ -187,6 +189,18 @@ class ShopPage extends React.Component{
                          padding={30}
                          className="al-bg-color-white al-m-bottom-10px"
                          style={{height: 95 + "vh"}}>
+                <ALFlexBox className="al-width-100">
+                  {
+                    this.state.userInfo === null ? <div></div> :
+                      <ALFlexBox centerV height={100} between className="">
+                        <ALFlexBox>
+                          <Avatar src={this.state.userInfo.avatar} size={80} />
+                          <h2>{this.state.userInfo.username}</h2>
+                        </ALFlexBox>
+                        <div>剩余66积分</div>
+                      </ALFlexBox>
+                  }
+                </ALFlexBox>
                 <div>
                   <h3>如何获取积分？</h3>
                   <ul>
@@ -211,6 +225,10 @@ class ShopPage extends React.Component{
       this.setState({
         diyGoodsList: res.data
       })
+    });
+
+    this.setState({
+      userInfo: getUserInfoFromLocalStorage()
     })
   }
 
