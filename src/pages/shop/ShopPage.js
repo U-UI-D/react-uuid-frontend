@@ -187,15 +187,17 @@ class ShopPage extends React.Component{
             <Affix offsetTop={20}>
               <ALFlexBox width={360}
                          padding={30}
+                         column
                          className="al-bg-color-white al-m-bottom-10px"
                          style={{height: 95 + "vh"}}>
                 <ALFlexBox className="al-width-100">
                   {
                     this.state.userInfo === null ? <div></div> :
-                      <ALFlexBox centerV height={100} between className="">
-                        <ALFlexBox>
+                      <ALFlexBox centerV height={100} between flexNum={1}
+                                 className="">
+                        <ALFlexBox centerV>
                           <Avatar src={this.state.userInfo.avatar} size={80} />
-                          <h2>{this.state.userInfo.username}</h2>
+                          <h2 className="al-m-left-20px">{this.state.userInfo.username}</h2>
                         </ALFlexBox>
                         <div>剩余66积分</div>
                       </ALFlexBox>
