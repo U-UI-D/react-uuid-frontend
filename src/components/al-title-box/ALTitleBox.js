@@ -66,7 +66,10 @@ function ALTitleBox(props) {
 
   if (!props.isBeauty){
     return (
-        <ALFlexBox padding={props.padding} margin={props.margin}>
+        <ALFlexBox padding={props.padding}
+                   margin={props.margin}
+                   className={props.className}
+                   style={{...props.style}}>
           {hTag(props.hNum)}
         </ALFlexBox>
     );
@@ -78,7 +81,8 @@ function ALTitleBox(props) {
                  style={{
                    borderLeft: props.showLeftBd ? `solid ${props.borderWidth}px ${getColorMode(props.colorMode).accent}`: "",
                    backgroundColor: props.showBg ? getColorMode(props.colorMode).light : "",
-                   paddingLeft: props.gap + "px"
+                   paddingLeft: props.gap + "px",
+                   ...props.style
                  }}>
         {hTag(props.hNum)}
       </ALFlexBox>
@@ -134,6 +138,7 @@ ALTitleBox.defaultProps = {
   gap: 20,
   showBg: true,
   showLeftBd: true,
+  className: ""
 }
 
 export default ALTitleBox;
