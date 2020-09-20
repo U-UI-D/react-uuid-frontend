@@ -66,10 +66,22 @@ ALFlexBox.propTypes = {
     PropTypes.string
   ]),
   style: PropTypes.object,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  padding: PropTypes.number,
-  margin: PropTypes.number,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  padding: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  margin: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   onClick: PropTypes.func,
 }
 

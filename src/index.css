@@ -50,4 +50,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 12px;
 }
 
+.hover-bg-color-primary:hover{
+  background-color: #409EFF;
+}
+
+/*BEGIN ========== 重写ant样式 ========== */
+.ant-btn-primary{
+  border-radius: 5px !important;
+}
+
+.ant-btn-default{
+  border-radius: 5px !important;
+}
+
+/*END ========== 重写ant样式 ========== */
+
 

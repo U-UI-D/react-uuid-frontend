@@ -5,22 +5,7 @@ import PropTypes from "prop-types";
 function ALTitleBox(props) {
 
   const hTag = (h) => {
-    switch (h) {
-      case 1:
-        return <h1>{props.text}</h1>
-      case 2:
-        return <h2>{props.text}</h2>
-      case 3:
-        return <h3>{props.text}</h3>
-      case 4:
-        return <h4>{props.text}</h4>
-      case 5:
-        return <h5>{props.text}</h5>
-      case 6:
-        return <h6>{props.text}</h6>
-      default:
-        return <p>{props.text}</p>
-    }
+    return React.createElement('h' + h, {}, props.text);
   }
 
   const getColorMode = (colorMode) => {
@@ -66,26 +51,37 @@ function ALTitleBox(props) {
 
   if (!props.isBeauty){
     return (
-        <ALFlexBox padding={props.padding}
-                   margin={props.margin}
+        <ALFlexBox margin={props.margin}
                    className={props.className}
                    style={{...props.style}}>
-          {hTag(props.hNum)}
+          <div style={{width: props.edgeWidth+"px"}} className="al-flex-item-stretch"></div>
+          <ALFlexBox padding={props.padding}>
+            <div style={{width: props.gap + "px"}} />
+            {hTag(props.hNum)}
+          </ALFlexBox>
         </ALFlexBox>
     );
   }
   return (
+    <ALFlexBox centerV>
+      <div style={{
+        width: props.edgeWidth+"px",
+        backgroundColor: getColorMode(props.colorMode).accent
+      }}  className="al-flex-item-stretch"></div>
       <ALFlexBox className={props.className}
                  centerV
+                 onClick={props.onClick}
+                 flexNum={1}
                  padding={props.padding}
                  style={{
-                   borderLeft: props.showLeftBd ? `solid ${props.borderWidth}px ${getColorMode(props.colorMode).accent}`: "",
                    backgroundColor: props.showBg ? getColorMode(props.colorMode).light : "",
-                   paddingLeft: props.gap + "px",
                    ...props.style
                  }}>
+        <div style={{width: props.gap + "px"}} />
         {hTag(props.hNum)}
       </ALFlexBox>
+    </ALFlexBox>
+
   );
 }
 
@@ -97,7 +93,7 @@ ALTitleBox.propTypes = {
   isBeauty: PropTypes.bool,
   showBg: PropTypes.bool,
   showLeftBd: PropTypes.bool,
-  borderWidth: PropTypes.oneOfType([
+  edgeWidth: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
   ]),
@@ -131,11 +127,11 @@ ALTitleBox.defaultProps = {
   style: {},
   onClick: null,
   isBeauty: false,
-  padding: 4,
+  padding: 6,
   margin: "",
   colorMode: "primary",
-  borderWidth: 3,
-  gap: 20,
+  edgeWidth: 3,
+  gap: 12,
   showBg: true,
   showLeftBd: true,
   className: ""

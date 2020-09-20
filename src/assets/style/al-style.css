@@ -299,6 +299,11 @@
     align-items: stretch;
 }
 
+.al-flex-item-stretch {
+    display: flex;
+    align-self: stretch;
+}
+
 .al-width-match-parent {
     display: flex;
     align-items: stretch;
