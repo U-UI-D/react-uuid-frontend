@@ -25,17 +25,17 @@ function ALFlexBox(props) {
     ...props.style
   }
   return (
-    <div className={`
-      ${classNames.flex} 
-      ${props.between ? classNames.between : ""} 
-      ${props.around ? classNames.around : ""} 
-      ${props.evenly ? classNames.evenly : ""} 
-      ${props.column ? classNames.column : ""} 
-      ${props.centerV ? classNames.centerV : ""} 
-      ${props.centerH ? classNames.centerH : ""} 
-      ${props.centerVH ? classNames.centerVH : ""} 
-      ${props.wrap ? classNames.wrap : ""} 
-      ` + props.className}
+    <div className={
+      classNames.flex + " " +
+      (props.between ? classNames.between : '') + " " +
+      (props.around ? classNames.around : '') + " " +
+      (props.evenly ? classNames.evenly : '') + " " +
+      (props.column ? classNames.column : '') + " " +
+      (props.centerV ? classNames.centerV : '') + " " +
+      (props.centerH ? classNames.centerH : '') + " " +
+      (props.centerVH ? classNames.centerVH : '') + " " +
+      (props.wrap ? classNames.wrap : '')+ " "
+       + props.className}
          style={styles}
          onClick={props.onClick}>
       {props.children}
@@ -99,6 +99,7 @@ ALFlexBox.defaultProps = {
   wrap: true,
   lineHeight: "",
   style: {},
+  className: "",
   onClick: null,
 }
 
