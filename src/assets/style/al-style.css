@@ -1775,7 +1775,7 @@
 
 /*淡黑色*/
 .al-hover-border-color-light-black:hover {
-    border: rgba(0,0,0, 0.3) solid 1px;
+    border: rgba(0,0,0, 0.3) solid 1px !important;
 }
 
 /*白色*/

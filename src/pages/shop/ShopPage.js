@@ -13,6 +13,8 @@ function GoodsBox(props) {
     <ALFlexBox column
                padding={10}
                width={177.5}
+               className="al-hover-border-color-light-black"
+               style={{border: "solid 1px #00000000"}}
                lineHeight={2}>
       <ALImage src={data.poster} width={157.5} />
       <div className="al-text-overflow-show-point " style={{width: 157.5}}>{data.title}</div>
@@ -103,7 +105,7 @@ class ShopPage extends React.Component{
                     this.state.diyGoodsList.map((item, index) => {
                       return (
                         <div key={item.title}
-                             className="al-hover-border-color-light-black al-cursor-pointer al-m-bottom-10px">
+                             className="al-cursor-pointer al-m-bottom-10px">
                           <GoodsBox data={item} />
                         </div>
                       )
@@ -137,7 +139,7 @@ class ShopPage extends React.Component{
                       this.state.diyGoodsList.map((item, index) => {
                         return (
                           <div key={item.title}
-                               className="al-hover-border-color-light-black al-cursor-pointer al-m-bottom-10px">
+                               className="al-cursor-pointer al-m-bottom-10px">
                             <GoodsBox data={item} />
                           </div>
                         )
@@ -154,7 +156,7 @@ class ShopPage extends React.Component{
                       this.state.diyGoodsList.map((item, index) => {
                         return (
                           <div key={item.title}
-                               className="al-hover-border-color-light-black al-cursor-pointer al-m-bottom-10px">
+                               className="al-cursor-pointer al-m-bottom-10px">
                             <GoodsBox data={item} />
                           </div>
                         )
@@ -171,7 +173,7 @@ class ShopPage extends React.Component{
                       this.state.diyGoodsList.map((item, index) => {
                         return (
                           <div key={item.title}
-                               className="al-hover-border-color-light-black al-cursor-pointer al-m-bottom-10px">
+                               className="al-cursor-pointer al-m-bottom-10px">
                             <GoodsBox data={item} />
                           </div>
                         )
