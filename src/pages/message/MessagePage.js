@@ -7,6 +7,7 @@ import {Avatar, Divider, message, Empty} from "antd";
 import "./style.css";
 import {commonRequest} from "../../util/network/RequestHub";
 import ChatWindow from "./component/ChatWindow";
+import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 
 class MessagePage extends React.Component {
   //构造器
@@ -88,7 +89,7 @@ class MessagePage extends React.Component {
               <Avatar src={item.avatar} size={70} />
               <ALFlexBox column className="al-m-left-20px">
                 <ALFlexBox centerV>
-                  <h2 className="al-m-right-20px">{item.nickname}</h2>
+                  <h2 className="al-p-right-20px">{item.nickname}</h2>
                   <div className="al-m-right-20px" style={{fontSize: 12+'px', color: "#bbb"}}>{item.reachTime}</div>
                 </ALFlexBox>
                 <div>
@@ -117,7 +118,7 @@ class MessagePage extends React.Component {
               <Avatar src={item.avatar} size={70} />
               <ALFlexBox column className="al-m-left-20px">
                 <ALFlexBox centerV>
-                  <h2 className="al-m-right-20px">{item.nickname}</h2>
+                  <h2>{item.nickname}</h2>
                   <div className="al-m-right-20px" style={{fontSize: 12+'px', color: "#bbb"}}>{item.reachTime}</div>
                 </ALFlexBox>
                 <div>

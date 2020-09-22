@@ -122,7 +122,7 @@ class ShopPage extends React.Component{
                       this.state.diyGoodsList.map((item, index) => {
                         return (
                           <div key={item.title}
-                               className="al-hover-border-color-light-black al-cursor-pointer al-m-bottom-10px">
+                               className="al-cursor-pointer al-m-bottom-10px">
                             <GoodsBox data={item} />
                           </div>
                         )

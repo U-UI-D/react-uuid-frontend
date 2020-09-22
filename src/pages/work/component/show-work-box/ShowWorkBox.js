@@ -22,7 +22,7 @@ class ShowWorkBox extends React.Component {
           <Avatar shape="square" src={workInfo.poster}
                   style={{
                     width: 262.5 + 'px', height: 193 + 'px'}}/>
-          <div className="desc">
+          <div className="desc" style={{lineHeight: "3em"}}>
             <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
             <div className="al-flex-container">
               <div>
@@ -30,15 +30,15 @@ class ShowWorkBox extends React.Component {
               </div>
               <div>
                 <Avatar size={20} src={require("../../../../assets/icon/home/look.png")} />
-                <span className="al-m-right-20px">{workInfo.lookCount}</span>
+                <span className="al-m-left-5px al-m-right-20px">{workInfo.lookCount}</span>
               </div>
               <div>
                 <Avatar size={20} src={require("../../../../assets/icon/home/comment.png")} />
-                <span className="al-m-right-20px">{workInfo.commentCount}</span>
+                <span className="al-m-left-5px al-m-right-20px">{workInfo.commentCount}</span>
               </div>
               <div>
                 <Avatar size={20} src={require("../../../../assets/icon/home/fenlei.png")} />
-                <span className="al-m-right-20px">{workInfo.favorCount}</span>
+                <span className="al-m-left-5px al-m-right-20px">{workInfo.favorCount}</span>
               </div>
             </div>
           </div>
