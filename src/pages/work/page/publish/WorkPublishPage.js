@@ -7,7 +7,8 @@ import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
 import ALPlaceBox from "../../../../components/al-place-box/ALPlaceBox";
 import ALTitleBox from "../../../../components/al-title-box/ALTitleBox";
 import {Select, Card, Input, Upload, message, Button} from "antd";
-import {UploadOutlined} from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined} from '@ant-design/icons';
+import "./style.css";
 
 
 class WorkPublishPage extends React.Component {
@@ -131,7 +132,7 @@ class WorkPublishPage extends React.Component {
 
           <div>
             <Input.TextArea style={{borderRadius: 5 + 'px'}}
-                            autoSize={{ minRows: 3}}
+                            autoSize={{minRows: 3}}
                             size="large"
                             placeholder="作品说明"
                             suffix={
@@ -148,8 +149,8 @@ class WorkPublishPage extends React.Component {
                 lineHeight: 4 + 'em'
               }}>
           <div>
-            <Upload {...upload}>
-              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer al-show-border-blue">
+            <Upload {...upload} className="avatar-uploader" listType="picture-card">
+              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer" >
                 <div>选择图片上传</div>
               </ALFlexBox>
             </Upload>
@@ -163,7 +164,14 @@ class WorkPublishPage extends React.Component {
               }}>
           <div>
             <div>
-              <Input style={{borderRadius: 5 + 'px'}} size="large" placeholder="请输入标签名称"/>
+              <Input style={{borderRadius: 5 + 'px'}}
+                     size="large"
+                     placeholder="请输入标签名称"
+                     suffix={
+                       <span>
+                         50
+                       </span>
+                     }/>
             </div>
           </div>
         </Card>
@@ -174,8 +182,8 @@ class WorkPublishPage extends React.Component {
                 lineHeight: 4 + 'em'
               }}>
           <div>
-            <Upload {...upload}>
-              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer al-show-border-blue">
+            <Upload {...upload} className="avatar-uploader" listType="picture-card">
+              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer">
                 <div>选择图片上传</div>
               </ALFlexBox>
             </Upload>
@@ -184,8 +192,8 @@ class WorkPublishPage extends React.Component {
 
         <ALFlexBox centerV between>
           <ALFlexBox centerV>
-            <Button type="primary" style={{width: 100+'px'}} className="al-m-right-20px">发布</Button>
-            <Button type="default" style={{width: 100+'px'}} className="al-m-right-20px">预览</Button>
+            <Button type="primary" style={{width: 100 + 'px'}} className="al-m-right-20px">发布</Button>
+            <Button type="default" style={{width: 100 + 'px'}} className="al-m-right-20px">预览</Button>
           </ALFlexBox>
           <div>草稿箱</div>
         </ALFlexBox>
