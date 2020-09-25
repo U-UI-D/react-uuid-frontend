@@ -3,12 +3,18 @@ import qs from "querystring";
 import AppConfig from "../../config/AppConfig";
 
 export function request(config) {
-  if (config.type !== "get" || config.type !== "GET"){
+  if (config.type === "get" || config.type === "GET"){
+    if (JSON.stringify(config.data) !== "{}"){
+      config.url += "?" + qs.stringify(config.data);
+    }
+  }else {
     config.data = qs.stringify(config.data);
   }
 
+  console.log("request config", config)
+
   const axiosInstance = axios.create({
-    baseURL: createBaseURL(),
+    baseURL: createBaseURL(AppConfig.env),
     timeout: 30000,
     headers: {
       "content-type" : "application/x-www-form-urlencoded"
@@ -19,12 +25,12 @@ export function request(config) {
   return axiosInstance(config);
 }
 
-function createBaseURL() {
+export function createBaseURL(env) {
   let host = "";
   let port = "";
   let prefix = "";
   let baseURL = "";
-  switch (AppConfig.env){
+  switch (env){
     case "mock":
       host = AppConfig.backend.mock.host;
       port = AppConfig.backend.mock.port;

@@ -5,6 +5,7 @@ import WorkContentLeft from "./component/WorkContentLeft";
 import WorkContentRight from "./component/WorkContentRight";
 import {commonRequest, getWorkDetailByID} from "../../../../util/network/RequestHub";
 import {Affix} from "antd";
+import {GET_WORK_BY_ID} from "../../../../util/network/config/ApiConst";
 
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -50,7 +51,7 @@ class WorkDetailPage extends React.Component{
 
   //组件挂载完成时调用
   componentDidMount() {
-    getWorkDetailByID(this.props.match.params.id).then(res => {
+    commonRequest({url: GET_WORK_BY_ID + this.props.match.params.id}).then(res => {
       this.setState({
         workData: res.data
       });

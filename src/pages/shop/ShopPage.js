@@ -6,6 +6,7 @@ import {Affix, Avatar, Button, Divider} from "antd";
 import ALLoading from "../../components/al-loading/ALLoading";
 import {commonRequest} from "../../util/network/RequestHub";
 import {getUserInfoFromLocalStorage} from "../../util/util";
+import {GET_SHOP_DIY_GOODS} from "../../util/network/config/ApiConst";
 
 function GoodsBox(props) {
   const {data} = props;
@@ -225,7 +226,7 @@ class ShopPage extends React.Component{
 
   //组件挂载完成时调用
   componentDidMount() {
-    commonRequest({mockURL: "/shop/diy-goods-list.json", env: "mock"}).then(res => {
+    commonRequest({url: GET_SHOP_DIY_GOODS, env: "mock"}).then(res => {
       this.setState({
         diyGoodsList: res.data
       })

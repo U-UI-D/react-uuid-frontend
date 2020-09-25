@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
 import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
 import {Avatar, Button} from "antd";
-import {getShowDesigner} from "../../../../util/network/RequestHub";
+import {commonRequest} from "../../../../util/network/RequestHub";
 import ALLoading from "../../../../components/al-loading/ALLoading";
 import "./style.css";
+import {GET_DESIGNER_RECOMMEND} from "../../../../util/network/config/ApiConst";
 
 function ShowDesigner(props) {
 
   const [designerData, setDesignerData] = useState(null);
   useEffect( () => {
-    getShowDesigner().then(res => {
+    commonRequest({url: GET_DESIGNER_RECOMMEND, env: "mock"}).then(res => {
       setDesignerData(res.data)
     })
   }, []);

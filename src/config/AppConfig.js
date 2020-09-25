@@ -1,7 +1,7 @@
 
 
 const AppConfig = {
-  env: "mock",
+  env: "dev",
   backend: {
     mock: {
       host: "localhost",

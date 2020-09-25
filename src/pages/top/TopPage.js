@@ -4,6 +4,7 @@ import {commonRequest} from "../../util/network/RequestHub";
 import ALLoading from "../../components/al-loading/ALLoading";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {Avatar, Divider, Menu, Dropdown} from "antd";
+import {GET_TOP_DESIGNER, GET_TOP_DEVELOPER, GET_TOP_WORK} from "../../util/network/config/ApiConst";
 
 class TopPage extends React.Component {
 
@@ -49,9 +50,9 @@ class TopPage extends React.Component {
               this.setState({
                 currentTab: item
               })
-            }}>
+            }} className="al-m-right-30px" >
               <h3 key={index}
-                  className="al-m-right-30px al-text-color-white"
+                  className="al-text-color-white"
                   style={
                     item === this.state.currentTab ?
                         {
@@ -230,20 +231,20 @@ class TopPage extends React.Component {
   // 生命周期函数
   //组件已挂载
   componentDidMount() {
-    commonRequest({env: "mock", mockURL: "/top/top-work.json"}).then(res => {
+    commonRequest({url: GET_TOP_WORK, env: "mock"}).then(res => {
       this.setState({
         topWorkData: res.data
       })
     });
 
-    commonRequest({env: "mock", mockURL: "/top/top-designer.json"}).then(res => {
+    commonRequest({url: GET_TOP_DESIGNER, env: "mock"}).then(res => {
       this.setState({
         topDesignerData: res.data
       });
       console.log(res);
     });
 
-    commonRequest({env: "mock", mockURL: "/top/top-developer.json"}).then(res => {
+    commonRequest({url: GET_TOP_DEVELOPER, env: "mock"}).then(res => {
       this.setState({
         topDeveloperData: res.data
       });

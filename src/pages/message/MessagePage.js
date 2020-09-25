@@ -8,6 +8,7 @@ import "./style.css";
 import {commonRequest} from "../../util/network/RequestHub";
 import ChatWindow from "./component/ChatWindow";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
+import {GET_MESSAGE_ALL, GET_MESSAGE_CHAT} from "../../util/network/config/ApiConst";
 
 class MessagePage extends React.Component {
   //构造器
@@ -263,13 +264,13 @@ class MessagePage extends React.Component {
       userInfo: getUserInfoFromLocalStorage()
     });
 
-    commonRequest({mockURL: "/message/message-all.json", env: "mock"}).then(res => {
+    commonRequest({url: GET_MESSAGE_ALL, env: "mock"}).then(res => {
       this.setState({
         messageData: res.data
       })
     });
 
-    commonRequest({mockURL: "/message/message-chat.json", env: "mock"}).then(res => {
+    commonRequest({url: GET_MESSAGE_CHAT, env: "mock"}).then(res => {
       this.setState({
         messageChatData: res.data
       })

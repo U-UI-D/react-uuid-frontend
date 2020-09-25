@@ -6,11 +6,12 @@ import ShowWorkBox from "../work/component/show-work-box/ShowWorkBox";
 import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
-import {commonRequest, getWorkList} from "../../util/network/RequestHub";
+import {commonRequest} from "../../util/network/RequestHub";
 import ALLoading from "../../components/al-loading/ALLoading";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {GET_CAROUSEL_ALL, GET_WORK_ALL} from "../../util/network/config/ApiConst";
 
 class HomePage extends React.Component {
   //构造器
@@ -204,11 +205,11 @@ class HomePage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    getWorkList().then(res => {
+    commonRequest({url: GET_WORK_ALL, data:{pageNum: 1, pageSize: 20}}).then(res => {
       this.setState({workData: res.data})
     });
 
-    commonRequest({mockURL: "/carousel/carousel.json", env: "mock"}).then(res => {
+    commonRequest({url: GET_CAROUSEL_ALL, env: "mock"}).then(res => {
       this.setState({
         carouselList: res.data
       })

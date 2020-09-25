@@ -5,10 +5,11 @@ import ALFooter from "../../components/al-footer/ALFooter";
 import MenuItem from "antd/lib/menu/MenuItem";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
-import {getWorkList} from "../../util/network/RequestHub";
+import {commonRequest} from "../../util/network/RequestHub";
 import {WORK_DETAIL} from "../../util/router/config/RouterConst";
 import ALLoading from "../../components/al-loading/ALLoading";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {GET_WORK_ALL} from "../../util/network/config/ApiConst";
 
 class WorkPage extends React.Component {
   //构造器
@@ -73,7 +74,7 @@ class WorkPage extends React.Component {
                                     onChange={(page, pageSize) => {
                                       console.log(page);
                                       console.log(pageSize);
-                                      getWorkList(page).then(res => {
+                                      commonRequest({url: ""}).then(res => {
                                         this.setState({
                                           currentPageNo: page
                                         })
@@ -100,7 +101,7 @@ class WorkPage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    getWorkList().then(res => {
+    commonRequest({url: GET_WORK_ALL}).then(res => {
       this.setState({
         workData: res.data,
         loading: false
