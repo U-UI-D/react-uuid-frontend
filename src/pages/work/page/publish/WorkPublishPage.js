@@ -9,6 +9,7 @@ import ALTitleBox from "../../../../components/al-title-box/ALTitleBox";
 import {Select, Card, Input, Upload, message, Button} from "antd";
 import { LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import "./style.css";
+import ALInput from "../../../../components/al-input/ALInput";
 
 
 class WorkPublishPage extends React.Component {
@@ -102,36 +103,27 @@ class WorkPublishPage extends React.Component {
         <Card title="作品信息" bordered={false}
               style={{
                 width: 100 + '%',
-                lineHeight: 4 + 'em'
+                lineHeight: 5 + 'em'
               }}>
-          <div>
-            <Input style={{borderRadius: 5 + 'px'}}
-                   size="large"
-                   placeholder="请输入作品名称"
-                   allowClear
-                   suffix={
-                     <span>
-                       50
-                     </span>
-                   }
-            />
+          <div className="">
+            <ALInput>
+            </ALInput>
+
           </div>
           <div>
-            <span>选择类型</span>
-            <Select defaultValue="lucy"
+            <div className="dot-red" />
+            <span className="al-m-right-20px">选择类型</span>
+            <Select defaultValue="work"
                     style={{width: 120}}
                     onChange={this.handleChange}>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="disabled" disabled>
-                Disabled
-              </Option>
-              <Option value="Yiminghe">yiminghe</Option>
+              <Option value="work">作品</Option>
+              <Option value="icon">icon</Option>
+              <Option value="image">图片</Option>
             </Select>
           </div>
 
           <div>
-            <Input.TextArea style={{borderRadius: 5 + 'px'}}
+            <Input.TextArea style={{borderRadius: 5 + 'px', marginLeft: '28px'}}
                             autoSize={{minRows: 3}}
                             size="large"
                             placeholder="作品说明"
@@ -148,9 +140,9 @@ class WorkPublishPage extends React.Component {
                 width: 100 + '%',
                 lineHeight: 4 + 'em'
               }}>
-          <div>
+          <div className="al-cursor-pointer" style={{marginLeft: '28px'}}>
             <Upload {...upload} className="avatar-uploader" listType="picture-card">
-              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer" >
+              <ALFlexBox centerVH >
                 <div>选择图片上传</div>
               </ALFlexBox>
             </Upload>
@@ -162,17 +154,15 @@ class WorkPublishPage extends React.Component {
                 width: 100 + '%',
                 lineHeight: 4 + 'em'
               }}>
-          <div>
-            <div>
-              <Input style={{borderRadius: 5 + 'px'}}
-                     size="large"
-                     placeholder="请输入标签名称"
-                     suffix={
-                       <span>
+          <div style={{marginLeft: '28px'}}>
+            <Input style={{borderRadius: 5 + 'px'}}
+                   size="large"
+                   placeholder="请输入标签名称"
+                   suffix={
+                     <span>
                          50
                        </span>
-                     }/>
-            </div>
+                   }/>
           </div>
         </Card>
 
@@ -181,9 +171,9 @@ class WorkPublishPage extends React.Component {
                 width: 100 + '%',
                 lineHeight: 4 + 'em'
               }}>
-          <div>
+          <div style={{marginLeft: '28px'}}>
             <Upload {...upload} className="avatar-uploader" listType="picture-card">
-              <ALFlexBox centerVH width={100} height={100} className="al-cursor-pointer">
+              <ALFlexBox centerVH className="al-cursor-pointer">
                 <div>选择图片上传</div>
               </ALFlexBox>
             </Upload>

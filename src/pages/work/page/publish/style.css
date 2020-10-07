@@ -1,4 +1,13 @@
 .avatar-uploader > .ant-upload {
-    width: 128px;
-    height: 128px;
+    width: 240px;
+    height: 160px;
+}
+
+.dot-red{
+    width: 8px;
+    height: 8px;
+    background-color: orangered;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 20px;
 }
