@@ -1,17 +1,18 @@
-import AppConfig from "../../../config/AppConfig";
-
-
 //API路径常量
 
-//用户接口 ============================
+//sso接口 ============================
 //登录
-export const POST_USER_LOGIN = "http://localhost:1111/user/login";
-//注册
-export const POST_USER_REGISTER = "/user/user/register";
+export const POST_USER_LOGIN = "/sso/sso/login";
+//通过token获取用户信息
+export const GET_USER_BY_TOKEN = "/sso/sso/";
+//退出登录
+export const POST_USER_LOGOUT = "/sso/sso/logout";
+
+//用户接口 ============================
 //所有用户
 export const GET_USER_ALL = "/user/user";
 //用户资料
-export const GET_USER_ID = "/user/user/";
+export const GET_USER_ID = "/user/user";
 //获取首页显示的设计师
 export const GET_USER_DESIGNER_SHOW = "/user/user/designer/show";
 

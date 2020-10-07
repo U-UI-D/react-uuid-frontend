@@ -22,11 +22,11 @@ class WorkPublishPage extends React.Component {
 
   componentDidMount() {
     //验证是否已单点登录
-    // let token = getCookieByName("sso_token");
-    // if (!token){
-    //   this.goPage(LOGIN, {fromPath: '/work/publish'});
-    //   return;
-    // }
+    let token = getCookieByName("sso_token");
+    if (!token){
+      this.goPage(LOGIN, {fromPath: '/work/publish'});
+      return;
+    }
   }
 
   goPage = (path, data = {}) => {

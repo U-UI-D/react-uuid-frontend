@@ -17,6 +17,7 @@ import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/NetworkRequest";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 import ALFlexBox from "../al-flex-box/ALFlexBox";
+import {POST_USER_LOGOUT} from "../../util/network/config/ApiConst";
 
 // import "./style.css"
 
@@ -206,7 +207,7 @@ class ALHeader extends React.Component {
     let token = getCookieByName("sso_token");
     console.log(token);
     request({
-      url: 'http://localhost:1111/user/logout',
+      url: POST_USER_LOGOUT,
       method: 'POST',
       data: {
         token: token

@@ -3,8 +3,9 @@ import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
-import {POST_USER_LOGIN} from "../../util/network/config/ApiConst";
+import {GET_USER_BY_TOKEN, POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 import {setCookie} from "../../util/cookieUtil";
+import {commonRequest} from "../../util/network/RequestHub";
 
 
 const windowWidth = window.innerWidth;
@@ -31,8 +32,10 @@ class LoginPage extends React.Component {
       }} className="al-box-container">
 
         <div className="al-box-container al-box-pretty"
-             style={{width: 400 + 'px',
-               height: 300 + 'px', marginTop: 140 + 'px'}}>
+             style={{
+               width: 400 + 'px',
+               height: 300 + 'px', marginTop: 140 + 'px'
+             }}>
           <div>
             <div className="al-box-container">
               <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
@@ -96,12 +99,12 @@ class LoginPage extends React.Component {
 
   //验证账号密码
   validate = () => {
-    if (this.state.username.length === ''){
+    if (this.state.username.length === '') {
       message.error("用户名不能为空");
       return false;
     }
 
-    if (this.state.username.length < 4){
+    if (this.state.username.length < 4) {
       message.error("用户名不能小于4位数");
       return false;
     }
@@ -111,8 +114,8 @@ class LoginPage extends React.Component {
   }
 
   login = () => {
-    if (!this.validate()){
-      return ;
+    if (!this.validate()) {
+      return;
     }
     //去sso登录
     request({
@@ -124,11 +127,11 @@ class LoginPage extends React.Component {
       }
     }).then(res => {
       console.log(res);
-      if (res.data.code === 1){
+      if (res.data.code === 1) {
         message.success("登录成功");
         setCookie("sso_token", res.data.data.token);
         this.getUserInfoByToken(res.data.data.token);
-      }else {
+      } else {
         message.error(res.data.msg);
         // console.log(res.data.msg);
       }
@@ -146,30 +149,33 @@ class LoginPage extends React.Component {
   }
 
   getUserInfoByToken = (token) => {
-    let fromPath = this.props.location.state.fromPath;
+    console.log("getUserInfoByToken", this.props.location);
+    let fromPath = "";
+    if (this.props.location.state) {
+      fromPath = this.props.location.state.fromPath;
+    }
 
-    request({
-      url: 'http://localhost:1111/user/' + token,
-      method: 'get',
-      data: {},
-      headers: {}
+    commonRequest({
+      url: GET_USER_BY_TOKEN + token
     }).then(res => {
-      this.setState({
-        userInfo: res.data.data,
-      });
-      this.rememberLoginState(true);
-      if (!fromPath){
-        this.goPage(USER_PAGE + "/" + this.state.userInfo.id);
-      }else {
-        this.goPage(fromPath);
+      // 成功获取用户信息
+      if (res.err === null) {
+        this.setState({
+          userInfo: res.data,
+        });
+        // 记住登录状态
+        this.rememberLoginState(true);
+        // 跳转页面
+        if (fromPath) {
+          this.goPage(fromPath);
+        } else {
+          this.goPage(USER_PAGE + "/" + this.state.userInfo.id);
+        }
       }
-      // console.log(res);
-    }).catch(err => {
-      console.log(err);
-    })
+    });
   }
 
-  goPage = (path, data = {}) =>{
+  goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: {}})
   }
 

@@ -217,9 +217,12 @@ class HomePage extends React.Component {
   }
 
   //组件卸载前调用
-  componentWillUnmount() {
-
+  componentWillUnmount(){
+    this.setState = (state, callback) =>{
+      return;
+    }
   }
+
 
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: data})

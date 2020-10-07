@@ -19,7 +19,11 @@ class WorkPage extends React.Component {
     this.state = {
       workData: null,
       loading: true,
-      currentPageNo: 1
+      pagination:{
+        currentPageNum: 1,
+        currentPageSize: 20,
+        total: 0
+      },
     }
   }
 
@@ -66,17 +70,22 @@ class WorkPage extends React.Component {
                 {/*分页*/}
                 <ALFlexBox centerH className="al-m-tb-20px">
                   {
-                    this.state.workData === null ? <div></div>
-                      :
+
                       <ALInlineWidthBox>
-                        <Pagination current={this.state.currentPageNo}
-                                    total={50}
-                                    onChange={(page, pageSize) => {
-                                      console.log(page);
+                        <Pagination current={this.state.currentPageNum}
+                                    total={56}
+                                    onChange={(pageNum, pageSize) => {
+                                      console.log(pageNum);
                                       console.log(pageSize);
-                                      commonRequest({url: ""}).then(res => {
+                                      this.setState({
+                                        workData: null
+                                      })
+                                      commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
                                         this.setState({
-                                          currentPageNo: page
+                                          pagination: {
+                                            currentPageNum: pageNum,
+                                          },
+                                          workData: res.data
                                         })
                                       });
                                     }} />
@@ -104,7 +113,10 @@ class WorkPage extends React.Component {
     commonRequest({url: GET_WORK_ALL}).then(res => {
       this.setState({
         workData: res.data,
-        loading: false
+        loading: false,
+        pagination: {
+          total: res.data.total
+        }
       })
     })
   }

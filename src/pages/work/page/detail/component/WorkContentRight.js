@@ -73,7 +73,7 @@ function WorkContentRight(props) {
   return (
     <div style={{
       width: 220,
-      height: 'auto',
+      height: '800px',
       backgroundColor: "#fff",
       padding: 20
     }}>
@@ -111,7 +111,7 @@ function WorkContentRight(props) {
                 作品信息
               </h2>
 
-              <ALFlexBox between>
+              <div>
                 {
                   countData.map((item, index) => {
                     return (
@@ -122,15 +122,15 @@ function WorkContentRight(props) {
                               style={{backgroundColor: "rgb(225,239,255)"}}>
                           <Avatar src={item.icon} size={25}/>
                         </span>
-                        <ALFlexBox column centerV className="al-m-lr-5px">
-                          <div>{item.title}</div>
+                        <ALFlexBox centerV className="al-m-lr-5px">
+                          <div className="al-m-lr-15px">{item.title}</div>
                           <div>{item.num}</div>
                         </ALFlexBox>
                       </ALFlexBox>
                     )
                   })
                 }
-              </ALFlexBox>
+              </div>
 
               <div>
                 <ul>
