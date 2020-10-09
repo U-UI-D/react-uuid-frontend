@@ -102,9 +102,9 @@ class ALHeader extends React.Component {
               </a>
             </Menu.Item>
             <Menu.Item>
-            <span className="" onClick={() => {
-              this.logout();
-            }}>退出</span>
+              <span className="" onClick={() => {
+                this.logout();
+              }}>退出</span>
             </Menu.Item>
           </Menu>
       );

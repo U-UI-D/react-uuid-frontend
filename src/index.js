@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import RouterView from "./util/router/RouterView";
+import {initForUser} from "./util/init/init";
+
+console.log("================ initForUser ================== ");
+initForUser();
+
+export const GlobalContext = React.createContext();
+
 
 ReactDOM.render(
   <React.StrictMode>
