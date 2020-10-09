@@ -45,7 +45,7 @@ class MessagePage extends React.Component {
       },
       {
         key: "chat",
-        icon: require('../../assets/icon/message/notice.png'),
+        icon: require('../../assets/icon/message/chat.png'),
         title: "聊天"
       },
       {

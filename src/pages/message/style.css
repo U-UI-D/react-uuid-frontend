@@ -3,7 +3,7 @@
 }
 
 .hover-chat:hover{
-    color: rgb(132, 140, 164);
+    color: rgb(14, 225, 254);
 }
 
 .hover-like:hover{
@@ -41,7 +41,7 @@
 
 .checked-title-chat{
     font-weight: bold;
-    color: rgb(132, 140, 164);
+    color: rgb(14, 225, 254);
 }
 
 .checked-title-like{
