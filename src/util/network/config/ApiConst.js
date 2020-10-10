@@ -26,6 +26,8 @@ export const GET_DESIGNER_RECOMMEND = "/user/designer/recommend";
 export const GET_WORK_ALL = "/work/work";
 //作品详情
 export const GET_WORK_BY_ID = "/work/work/";
+//添加作品
+export const POST_WORK_ADD = "/work/work";
 
 //轮播图接口 ============================
 //所有轮播图

@@ -3,7 +3,7 @@ import qs from "querystring";
 import AppConfig from "../../config/AppConfig";
 
 export function request(config) {
-  if (config.type === "get" || config.type === "GET"){
+  if (config.method === "get" || config.method === "GET"){
     if (JSON.stringify(config.data) !== "{}"){
       config.url += "?" + qs.stringify(config.data);
     }

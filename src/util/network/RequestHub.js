@@ -46,7 +46,7 @@ export async function getWorkDetailByID(id){
  * @param env
  * @returns {Promise<*|{data: null, err: null}>}
  */
-export async function commonRequest({url="", type="get", data={}, env="dev", headers={}}){
+export async function commonRequest({url="", method="get", data={}, env="dev", headers={}}){
   let _url = url;
   if (env === "mock"){
     let baseMockURL = createBaseURL("mock");
@@ -59,8 +59,8 @@ export async function commonRequest({url="", type="get", data={}, env="dev", hea
   }
   let promise = request({
     url: _url,
-    type,
-    data: data
+    method,
+    data
   }).then(res => {
     console.log(res);
     result.data = res.data.data;
