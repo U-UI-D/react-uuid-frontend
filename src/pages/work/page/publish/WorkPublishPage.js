@@ -10,6 +10,8 @@ import {Select, Card, Input, Upload, message, Button} from "antd";
 import { LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import "./style.css";
 import ALInput from "../../../../components/al-input/ALInput";
+import {commonRequest} from "../../../../util/network/RequestHub";
+import {POST_WORK_ADD} from "../../../../util/network/config/ApiConst";
 
 
 class WorkPublishPage extends React.Component {
@@ -17,7 +19,13 @@ class WorkPublishPage extends React.Component {
     super();
     this.state = {
       workData: null,
-      currentTitle: "上传作品"
+      currentTitle: "上传作品",
+      //sendData
+      title: "",
+      description: "",
+      imageIds: [],
+      poster: "",
+
     }
   }
 
@@ -34,9 +42,27 @@ class WorkPublishPage extends React.Component {
     this.props.history.push({pathname: path, state: data})
   }
 
-  handleChange = (value) => {
-    console.log(`selected ${value}`);
+  handleChangeInputForTitle = (value) => {
+    console.log("handleChangeInputForTitle", value);
+    this.setState({
+      title: value
+    });
   }
+
+  handleChangeInputForDesc = (value) => {
+    console.log("handleChangeInputForDesc", value);
+    this.setState({
+      description: value
+    });
+  }
+
+  handleChangeSelect = (value) =>{
+    console.log("handleChangeSelect", value);
+    this.setState({
+      type: value
+    });
+  }
+
 
   render() {
     const leftLayout = (
@@ -79,18 +105,49 @@ class WorkPublishPage extends React.Component {
 
     const {Option} = Select;
 
-    const upload = {
+    let that = this;
+    let imageIds = [];
+    const uploadImages = {
       name: 'file',
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-      headers: {
-        authorization: 'authorization-text',
+      action: 'http://localhost:9000/upload/return-id',
+      data: {
+        userId: 1
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
+          info.fileList.map((item, index) => {
+            imageIds.push(item.response);
+          })
+          that.setState({
+            imageIds: imageIds
+          })
         }
         if (info.file.status === 'done') {
           message.success(`${info.file.name} file uploaded successfully`);
+          console.log("imageIds", that.state.imageIds)
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
+
+    const uploadPoster = {
+      name: 'file',
+      action: 'http://localhost:9000/upload/return-url',
+      data: {
+        userId: 1
+      },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+          that.setState({
+            poster: info.file.response
+          })
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+          console.log("poster", that.state.poster)
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
         }
@@ -105,17 +162,17 @@ class WorkPublishPage extends React.Component {
                 width: 100 + '%',
                 lineHeight: 5 + 'em'
               }}>
-          <div className="">
-            <ALInput>
-            </ALInput>
 
+          {/*标题*/}
+          <div className="">
+            <ALInput required onChange={this.handleChangeInputForTitle}/>
           </div>
           <div>
             <div className="dot-red" />
             <span className="al-m-right-20px">选择类型</span>
             <Select defaultValue="work"
                     style={{width: 120}}
-                    onChange={this.handleChange}>
+                    onChange={this.handleChangeSelect}>
               <Option value="work">作品</Option>
               <Option value="icon">icon</Option>
               <Option value="image">图片</Option>
@@ -123,15 +180,8 @@ class WorkPublishPage extends React.Component {
           </div>
 
           <div>
-            <Input.TextArea style={{borderRadius: 5 + 'px', marginLeft: '28px'}}
-                            autoSize={{minRows: 3}}
-                            size="large"
-                            placeholder="作品说明"
-                            suffix={
-                              <span>
-                               50
-                             </span>
-                            }/>
+            {/*描述*/}
+            <ALInput type={"textarea"} onChange={this.handleChangeInputForDesc}/>
           </div>
         </Card>
 
@@ -141,7 +191,7 @@ class WorkPublishPage extends React.Component {
                 lineHeight: 4 + 'em'
               }}>
           <div className="al-cursor-pointer" style={{marginLeft: '28px'}}>
-            <Upload {...upload} className="avatar-uploader" listType="picture-card">
+            <Upload {...uploadImages} multiple className="avatar-uploader" listType="picture-card">
               <ALFlexBox centerVH >
                 <div>选择图片上传</div>
               </ALFlexBox>
@@ -155,14 +205,19 @@ class WorkPublishPage extends React.Component {
                 lineHeight: 4 + 'em'
               }}>
           <div style={{marginLeft: '28px'}}>
-            <Input style={{borderRadius: 5 + 'px'}}
-                   size="large"
-                   placeholder="请输入标签名称"
-                   suffix={
-                     <span>
+            <ALFlexBox>
+              <div className="al-flex-item-grow-1">
+                <Input style={{borderRadius: 5 + 'px'}}
+                       size="large"
+                       placeholder="请输入标签名称"
+                       suffix={
+                         <span>
                          50
                        </span>
-                   }/>
+                       }/>
+              </div>
+              <ALPlaceBox width={150} />
+            </ALFlexBox>
           </div>
         </Card>
 
@@ -172,7 +227,7 @@ class WorkPublishPage extends React.Component {
                 lineHeight: 4 + 'em'
               }}>
           <div style={{marginLeft: '28px'}}>
-            <Upload {...upload} className="avatar-uploader" listType="picture-card">
+            <Upload {...uploadPoster} className="avatar-uploader" listType="picture-card">
               <ALFlexBox centerVH className="al-cursor-pointer">
                 <div>选择图片上传</div>
               </ALFlexBox>
@@ -182,7 +237,7 @@ class WorkPublishPage extends React.Component {
 
         <ALFlexBox centerV between>
           <ALFlexBox centerV>
-            <Button type="primary" style={{width: 100 + 'px'}} className="al-m-right-20px">发布</Button>
+            <Button type="primary" style={{width: 100 + 'px'}} className="al-m-right-20px" onClick={this.sendRequest}>发布</Button>
             <Button type="default" style={{width: 100 + 'px'}} className="al-m-right-20px">预览</Button>
           </ALFlexBox>
           <div>草稿箱</div>
@@ -203,6 +258,32 @@ class WorkPublishPage extends React.Component {
         </div>
       </div>
     );
+  }
+
+  sendRequest = () => {
+    let sendData = {
+      title: this.state.title,
+      description: this.state.description,
+      imageId: this.state.imageIds.join(";"),
+      poster: this.state.poster,
+      userId: 1,
+      createdTime: Date(),
+      updatedTime: Date(),
+    }
+    console.log("sendData", sendData);
+
+    commonRequest({
+      url: POST_WORK_ADD,
+      method: "post",
+      data: sendData
+    }).then(res => {
+      if (res.err === null){
+        message.success("发布成功");
+      }else {
+        console.log(res.err);
+        message.error("发布失败");
+      }
+    })
   }
 
 
