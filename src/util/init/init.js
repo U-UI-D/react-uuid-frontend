@@ -18,6 +18,8 @@ export function initForUser() {
         localStorage.setItem("isLogin", "false");
         localStorage.removeItem("userInfo");
         message.info("登录已过期，请重新登录！");
+        console.log("执行window.location.href = '/login'")
+        window.location.href = "/#/login";
       }
     })
   }else {
