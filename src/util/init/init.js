@@ -5,6 +5,7 @@ import {message} from "antd";
 
 export function initForUser() {
   let token = getCookieByName("sso_token");
+  console.log("sso_token", token);
   if (token) {
     commonRequest({
       url: GET_USER_BY_TOKEN + token
@@ -19,5 +20,9 @@ export function initForUser() {
         message.info("登录已过期，请重新登录！");
       }
     })
+  }else {
+    // 没有token
+    localStorage.setItem("isLogin", "false");
+    localStorage.removeItem("userInfo");
   }
 }
