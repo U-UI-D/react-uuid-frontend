@@ -11,6 +11,8 @@ import ShowDesigner from "./component/show-designer/ShowDesigner";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {GET_CAROUSEL_ALL, GET_WORK_ALL} from "../../util/network/config/ApiConst";
+import {WORK_DETAIL} from "../../util/router/config/RouterConst";
+import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 
 class HomePage extends React.Component {
   //构造器
@@ -138,7 +140,7 @@ class HomePage extends React.Component {
                     {
                       this.state.workData.list.map((item, index) => {
                         return <div key={index} onClick={() => {
-                          this.goPage("/work/detail/" + (index + 1))
+                          this.goPage(WORK_DETAIL + "/" + item.id)
                         }}>
                           <ShowWorkBox workInfo={item}/>
                         </div>
@@ -151,16 +153,27 @@ class HomePage extends React.Component {
             {/*分页*/}
             <ALFlexBox centerH className="al-m-tb-20px">
               {
-                this.state.workData === null ? <div></div> :
-                  <Pagination current={this.state.currentPageNo}
-                              total={this.state.workData.total}
-                              onChange={(page, pageSize) => {
-                                console.log(page);
+
+                <ALInlineWidthBox>
+                  <Pagination current={this.state.currentPageNum}
+                              total={56}
+                              onChange={(pageNum, pageSize) => {
+                                console.log(pageNum);
                                 console.log(pageSize);
                                 this.setState({
-                                  currentPageNo: page
+                                  workData: null
                                 })
-                              }}/>
+                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+                                  this.setState({
+                                    pagination: {
+                                      currentPageNum: pageNum,
+                                    },
+                                    workData: res.data
+                                  })
+                                });
+                              }} />
+
+                </ALInlineWidthBox>
               }
             </ALFlexBox>
           </div>
