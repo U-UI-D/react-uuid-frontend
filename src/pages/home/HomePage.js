@@ -83,7 +83,10 @@ class HomePage extends React.Component {
           }
         }
       ],
-      currentPageNo: 1,
+      // pagination
+      currentPageNum: 1,
+      currentPageSize: 20,
+      total: 0,
       carouselList: null,
     }
   }
@@ -131,47 +134,61 @@ class HomePage extends React.Component {
           </div>
 
           {/*作品列表*/}
-          <div>
-            {/*作品列表*/}
-            <div>
-              {
-                this.state.workData === null ? <ALLoading show/> :
-                  <ALFlexBox between wrap>
-                    {
-                      this.state.workData.list.map((item, index) => {
-                        return <div key={index} onClick={() => {
+          <ALPlaceBox height={20} />
+          <div style={{marginLeft: "15px"}}>
+            {
+              this.state.workData === null ?
+                <ALLoading show height={200}/>
+                :
+                <ALFlexBox wrap margin={-15}>
+                  {
+                    this.state.workData.list.map((item, index) => {
+                      return (
+                        <div key={index} onClick={() => {
                           this.goPage(WORK_DETAIL + "/" + item.id)
                         }}>
                           <ShowWorkBox workInfo={item}/>
                         </div>
-                      })
-                    }
-                  </ALFlexBox>
-              }
-            </div>
+                      )
+                    })
+                  }
+                </ALFlexBox>
+            }
 
             {/*分页*/}
             <ALFlexBox centerH className="al-m-tb-20px">
               {
-
                 <ALInlineWidthBox>
                   <Pagination current={this.state.currentPageNum}
-                              total={56}
-                              onChange={(pageNum, pageSize) => {
-                                console.log(pageNum);
-                                console.log(pageSize);
-                                this.setState({
-                                  workData: null
-                                })
-                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+                              total={this.state.total}
+                              defaultPageSize={this.state.currentPageSize}
+                              pageSizeOptions={["20", "40", "60", "80", "100"]}
+                              hideOnSinglePage
+                              onShowSizeChange={(pageNum, pageSize) => {
+                                console.log("pageNum", pageNum);
+                                console.log("pageSize", pageSize);
+                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize}}).then(res => {
                                   this.setState({
-                                    pagination: {
-                                      currentPageNum: pageNum,
-                                    },
+                                    currentPageNum: pageNum,
+                                    total: res.data.total,
                                     workData: res.data
                                   })
                                 });
-                              }} />
+                              }}
+                              onChange={(pageNum, pageSize) => {
+                                console.log("pageNum", pageNum);
+                                console.log("pageSize", pageSize);
+                                this.setState({
+                                  workData: null
+                                });
+                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+                                  this.setState({
+                                    currentPageNum: pageNum,
+                                    total: res.data.total,
+                                    workData: res.data
+                                  })
+                                });
+                              }}/>
 
                 </ALInlineWidthBox>
               }
@@ -217,7 +234,7 @@ class HomePage extends React.Component {
   componentDidMount() {
     //获取作品列表
     commonRequest({url: GET_WORK_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
-      this.setState({workData: res.data})
+      this.setState({workData: res.data, total: res.data.total})
     });
 
     commonRequest({url: GET_CAROUSEL_ALL, env: "mock"}).then(res => {

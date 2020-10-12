@@ -18,7 +18,7 @@ class ShowWorkBox extends React.Component {
     const workInfo = this.props.workInfo;
     return (
         <div className="work-box al-m-bottom-10px al-p-10px al-cursor-pointer"
-             style={{width: 282.5+'px'}}>
+             style={{width: 283.75+'px', marginRight: "15px", marginBottom: "15px"}}>
           <Avatar shape="square" src={workInfo.poster}
                   style={{
                     width: 262.5 + 'px', height: 193 + 'px'}}/>
