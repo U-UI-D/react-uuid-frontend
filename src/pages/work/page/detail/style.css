@@ -1,3 +1,25 @@
 .page{
     background-color: #eff3f5
 }
+
+.animate{
+    animation-name: fade-in-out;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fade-in-out {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.work-info-top{
+    box-shadow: 2px 2px 10px #eee;
+}

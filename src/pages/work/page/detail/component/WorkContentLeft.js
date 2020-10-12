@@ -15,7 +15,7 @@ class WorkContentLeft extends React.Component{
 
     let workData = this.props.workData;
     return workData === null ? <div></div> :(
-      <div style={{width: 940, backgroundColor: "#fff", padding: 20}}>
+      <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
         <div>
           <span style={{marginRight: 20}}>原创作品</span>
@@ -27,11 +27,17 @@ class WorkContentLeft extends React.Component{
         <div className="al-m-tb-20px"><Divider /></div>
 
         <div>
-          {
-            workData.imageUrls.map((item, index) => {
-              return <img key={index} src={item} style={{width: 100+'%'}} alt=""/>
-            })
-          }
+          <div className="al-m-tb-20px">
+            {workData.description}
+          </div>
+
+          <div>
+            {
+              workData.imageUrls.map((item, index) => {
+                return <img key={index} src={item} style={{width: 100+'%'}} alt=""/>
+              })
+            }
+          </div>
 
         </div>
 

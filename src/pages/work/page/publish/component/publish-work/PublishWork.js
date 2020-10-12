@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, Input, message, Select, Switch, Upload} from "antd";
+import {Modal, Button, Card, Input, message, Select, Switch, Upload} from "antd";
 import ALFlexBox from "../../../../../../components/al-flex-box/ALFlexBox";
 import ALPlaceBox from "../../../../../../components/al-place-box/ALPlaceBox";
 import ALInput from "../../../../../../components/al-input/ALInput";
@@ -19,7 +19,7 @@ class PublishWork extends React.Component {
       //sendData
       title: "",
       type: "",
-      description: "",
+      desc: "",
       imageIds: [],
       poster: "",
       tag: "",
@@ -34,7 +34,11 @@ class PublishWork extends React.Component {
       typeTip: false,
 
       // flag
-      clearTag: false
+      clearTag: false,
+
+      previewVisible: false,
+      previewImage: '',
+      previewTitle: '',
 
     }
   }
@@ -53,6 +57,10 @@ class PublishWork extends React.Component {
       onChange(info) {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
+
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} 上传成功`);
           info.fileList.map((item, index) => {
             imageIds.push(item.response);
           })
@@ -60,9 +68,6 @@ class PublishWork extends React.Component {
             imageIds: imageIds,
             imageTip: !(that.state.imageIds.length > 0)
           })
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} 上传成功`);
           console.log("imageIds", that.state.imageIds)
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} 上传失败`);
@@ -97,6 +102,16 @@ class PublishWork extends React.Component {
 
     return (
       <div>
+
+        <Modal
+          visible={this.state.previewVisible}
+          title={this.state.previewTitle}
+          footer={null}
+          onCancel={this.handleCancelPreview}
+        >
+          <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+        </Modal>
+
         <ALFlexBox column className="al-bg-color-white">
 
           {/*作品信息*/}
@@ -195,7 +210,10 @@ class PublishWork extends React.Component {
                 <div className="dot-red" style={{marginTop: "15px"}}></div>
               </ALPlaceBox>
               <div>
-                <Upload {...uploadImages} multiple className="avatar-uploader" listType="picture-card">
+                <Upload {...uploadImages} multiple
+                        className="avatar-uploader"
+                        listType="picture-card"
+                        onPreview={this.handlePreview}>
                   <ALFlexBox centerVH>
                     <div>选择图片上传</div>
                   </ALFlexBox>
@@ -266,6 +284,7 @@ class PublishWork extends React.Component {
               <ALFlexBox>
                 <Upload {...uploadPoster} className="avatar-uploader"
                         listType="picture-card"
+                        onPreview={this.handlePreview}
                         showUploadList={false}>
                   <ALFlexBox centerVH className="al-cursor-pointer">
                     {
@@ -339,10 +358,10 @@ class PublishWork extends React.Component {
     })
   }
 
-  handleChangeInputForDesc = (value) => {
-    console.log("handleChangeInputForDesc", value);
+  handleChangeInputForDesc = (e) => {
+    console.log("handleChangeInputForDesc", e.target.value);
     this.setState({
-      description: value
+      desc: e.target.value
     });
   }
 
@@ -377,6 +396,29 @@ class PublishWork extends React.Component {
 
     console.log("tagList", this.state.tagList);
   }
+
+  handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await this.getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+    });
+  };
+
+  getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  handleCancelPreview = () => this.setState({ previewVisible: false });
 
   createTagList = () => {
     return (
@@ -416,7 +458,7 @@ class PublishWork extends React.Component {
 
     let sendData = {
       title: this.state.title,
-      description: this.state.description,
+      description: this.state.desc,
       imageId: this.state.imageIds.join(";"),
       poster: this.state.poster,
       tagList: this.state.tagList.join(";"),
