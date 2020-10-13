@@ -119,7 +119,7 @@ class ALHeader extends React.Component {
     }
 
     return (
-        <div style={{backgroundColor: ""}}>
+        <div style={{backgroundColor: ""}} hidden={this.props.hidden}>
           <div style={{
             width: 1180 + 'px',
             margin: "0 auto"

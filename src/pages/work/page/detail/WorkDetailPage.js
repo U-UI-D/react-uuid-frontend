@@ -14,7 +14,7 @@ function HoverBox(props) {
   const [activeColor, setActiveColor] = useState(false);
 
   return (
-    <div>
+    <div style={props.style}>
       <div
         className="al-border-capsule al-p-5px al-display-inline-block al-cursor-pointer al-m-bottom-20px al-box-shadow"
         onMouseEnter={() => {
@@ -23,6 +23,7 @@ function HoverBox(props) {
         onMouseLeave={() => {
           setActiveColor(false);
         }}
+        onClick={props.onClick}
         style={{backgroundColor: activeColor ? "rgb(225,239,255)" : "rgb(255,255,255)"}}>
         <Avatar
           src={activeColor ? props.data.icon1 : props.data.icon0}
@@ -76,28 +77,30 @@ class WorkDetailPage extends React.Component {
     const {workData} = this.state;
 
     const workInfoTop = (
-      <Affix offsetTop={0} className="animate">
-        <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
-          <div className="content-width">
-            <ALFlexBox centerV className="">
-              <Avatar size={60} shape="circle" src={userInfo.avatar}/>
+      <div hidden={this.state.scrollTop <= 70}>
+        <Affix offsetTop={0} className="animate">
+          <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
+            <div className="content-width">
+              <ALFlexBox centerV className="">
+                <Avatar size={60} shape="circle" src={userInfo.avatar}/>
 
-              <ALFlexBox column centerH className="al-m-left-10px">
-                <h3>{workData === null ? "" : workData.title}</h3>
-                <div>
-                  {userInfo.nickname}
-                  <Button type="link" className="al-m-lr-10px">关注</Button>
-                </div>
+                <ALFlexBox column centerH className="al-m-left-10px">
+                  <h3>{workData === null ? "" : workData.title}</h3>
+                  <div>
+                    {userInfo.nickname}
+                    <Button type="link" className="al-m-lr-10px">关注</Button>
+                  </div>
+                </ALFlexBox>
               </ALFlexBox>
-            </ALFlexBox>
-          </div>
-        </ALFlexBox>
-      </Affix>
+            </div>
+          </ALFlexBox>
+        </Affix>
+      </div>
     );
 
     const backTopData = {
-      icon0: require("../../../../assets/icon/common/dianzan0.png"),
-      icon1: require("../../../../assets/icon/common/dianzan1.png"),
+      icon0: require("../../../../assets/icon/common/top0.png"),
+      icon1: require("../../../../assets/icon/common/top1.png"),
       title: "点赞",
       num: 666
     };
@@ -105,8 +108,9 @@ class WorkDetailPage extends React.Component {
     return this.workData === null ? <div></div> : (
       <div>
         <div style={{backgroundColor: "#fff"}}>
+          {workInfoTop}
           {
-            this.state.scrollTop > 70 ? workInfoTop : <ALHeader/>
+            <ALHeader hidden={this.state.scrollTop > 70}/>
           }
         </div>
 
@@ -133,15 +137,12 @@ class WorkDetailPage extends React.Component {
               })
             }
 
+            {
+              <HoverBox style={{visibility: this.state.scrollTop > 70 ? "" : "hidden"}} data={backTopData} onClick={this.handleBackToTop}/>
+            }
+
           </ALFlexBox>
         </Affix>
-
-        <BackTop>
-          <div className="al-m-right-40px">
-            <HoverBox data={backTopData}/>
-          </div>
-        </BackTop>
-
 
       </div>
     );
@@ -175,6 +176,44 @@ class WorkDetailPage extends React.Component {
     this.setState({
       scrollTop
     })
+  }
+
+  controlBackTopSpeed = () => {
+    const {scrollTop} = this.state;
+
+    let timer = setInterval(() => {
+      if (scrollTop === 0) {
+        clearInterval(timer);
+      }
+      this.setState({
+        scrollTop: scrollTop - 1
+      })
+    }, 1000);
+
+    return scrollTop;
+
+  };
+
+  handleBackToTop = () => {
+    let timer = setInterval(() => {
+      if (this.state.scrollTop === 0) {
+        clearInterval(timer);
+        return ;
+      }
+      let speed = Math.ceil(this.state.scrollTop / 5);
+      this.setState({
+        scrollTop: this.state.scrollTop - speed
+      })
+
+      this.handleBackToTop();
+    }, 30);
+    document.body.scrollTop = this.state.scrollTop;
+    document.documentElement.scrollTop = this.state.scrollTop;
+
+    // 滚动的高度
+    // this.setState({
+    //   scrollTop: 0
+    // });
   }
 
 
