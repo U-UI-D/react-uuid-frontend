@@ -66,7 +66,7 @@ function Content(){
   const LayoutLeft = () => {
 
     return (
-        <div style={{backgroundColor: "#f6f6f6"}}>
+        <div id="user-profile-page" style={{backgroundColor: "#f6f6f6"}}>
           {
             itemArr.map((item, index) => {
               return(

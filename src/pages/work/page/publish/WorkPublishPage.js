@@ -50,7 +50,7 @@ class WorkPublishPage extends React.Component {
   render() {
 
     return (
-      <div>
+      <div id="work-publish-page">
         <div className="al-bg-color-white">
           <ALHeader/>
         </div>

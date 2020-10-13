@@ -1,5 +1,5 @@
 import React from "react";
-import {Pagination, Button} from 'antd';
+import {Pagination, Button, Upload} from 'antd';
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import ALHeader from "../../components/al-header/ALHeader";
 
@@ -27,9 +27,13 @@ class TestPage extends React.Component{
             <Button onClick={() => this.props.history.push('/demo')}>demo页面</Button>
           </div>
 
-          <ALInlineWidthBox>
-            haha
-          </ALInlineWidthBox>
+          <div>
+            <Upload>
+              <div>
+                上传
+              </div>
+            </Upload>
+          </div>
 
         </div>
     );

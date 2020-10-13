@@ -1,4 +1,4 @@
-.avatar-uploader > .ant-upload {
+#work-publish-page .avatar-uploader > .ant-upload {
     width: 240px;
     height: 160px;
 }
@@ -19,7 +19,7 @@
     margin: 0 8px 8px 0;
 }
 
-.ant-upload-list-picture-card .ant-upload-list-item{
+#work-publish-page .ant-upload-list-picture-card .ant-upload-list-item{
     float: left;
     width: 240px;
     height: 160px;
