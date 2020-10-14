@@ -2,6 +2,8 @@ import React from "react";
 import {Avatar, Button, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
+import {commonRequest} from "../../util/network/RequestHub";
+import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
 
 
 const windowWidth = window.innerWidth;
@@ -118,7 +120,7 @@ class RegisterPage extends React.Component {
 
   // 检查用户名是否存在
   checkUsernameExisted = async () => {
-    let url = "http://localhost:9001/user/u/" + this.state.username;
+    let url = GET_CHECK_USER_EXIST + this.state.username;
     let exist = false;
 
     let result = request({
@@ -151,10 +153,8 @@ class RegisterPage extends React.Component {
       return ;
     }
 
-    let url = "http://localhost:9001/user/register";
-
     request({
-      url: url,
+      url: POST_USER_REGISTER,
       method: 'POST',
       data: {
         username: this.state.username,
