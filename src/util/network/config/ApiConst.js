@@ -13,6 +13,12 @@ export const POST_USER_LOGOUT = "/sso/sso/logout";
 export const GET_USER_ALL = "/user/user";
 //用户资料
 export const GET_USER_ID = "/user/user";
+//更新用户资料
+export const PUT_USER = "/user/user";
+//查询用户名是否存在
+export const GET_CHECK_USER_EXIST = "/user/user/u/";
+//注册
+export const POST_USER_REGISTER = "/user/user/register";
 //获取首页显示的设计师
 export const GET_USER_DESIGNER_SHOW = "/user/user/designer/show";
 
