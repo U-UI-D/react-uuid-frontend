@@ -3,6 +3,7 @@ import {Avatar} from "antd";
 
 function ALFooter() {
   return (
+    <div style={{backgroundColor: "#282828", color: "#666"}}>
       <div className="al-flex-container al-flex-container-center-v content-width">
         <div>
           <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')} />
@@ -18,6 +19,8 @@ function ALFooter() {
           </div>
         </div>
       </div>
+    </div>
+
   );
 }
 

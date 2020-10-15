@@ -44,8 +44,8 @@ class ShowWorkBox extends React.Component {
           </div>
 
           <div>
-            <Avatar src={"https://gitee.com/AlanLee97/react_native_mock_uicn/raw/master/src/assets/image/other/avatar/avatar2.jpg"}/>
-            <span className="al-m-left-10px">{"用户名"}</span>
+            <Avatar src={workInfo.avatar}/>
+            <span className="al-m-left-10px">{workInfo.nickname}</span>
           </div>
         </div>
     );

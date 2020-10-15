@@ -29,24 +29,41 @@ class WorkPage extends React.Component {
 
   //渲染函数
   render() {
+
+    const {SubMenu} = Menu;
+
     return (
       <div>
         <div className="al-bg-color-white">
           <ALHeader/>
         </div>
-        <div className="al-box-size-20px"></div>
+
+        <div className="al-bg-color-white">
+          {/*标题*/}
+          <div className="content-width">
+            <div id="work-menu-title">
+              <Menu mode="horizontal">
+                <MenuItem>全部</MenuItem>
+                <SubMenu key="UIWorkSubMenu" title={"UI作品"}>
+                  <div className="al-bg-color-white" style={{width: "100vw"}}>
+                    <div className="content-width">
+                      <Menu mode="horizontal">
+                        <MenuItem>首页推荐</MenuItem>
+                        <MenuItem>即刻作品</MenuItem>
+                        <MenuItem>最新作品</MenuItem>
+                        <MenuItem>佳作分享</MenuItem>
+                      </Menu>
+                    </div>
+                  </div>
+                </SubMenu>
+                <MenuItem>软件作品</MenuItem>
+              </Menu>
+            </div>
+          </div>
+        </div>
 
         <div>
           <div className="content-width">
-            {/*标题*/}
-            <div className="al-m-tb-20px">
-              <Menu mode="horizontal">
-                <MenuItem>首页推荐</MenuItem>
-                <MenuItem>即刻作品</MenuItem>
-                <MenuItem>最新作品</MenuItem>
-                <MenuItem>佳作分享</MenuItem>
-              </Menu>
-            </div>
 
             {/*作品列表*/}
             <ALPlaceBox height={20} />

@@ -178,22 +178,6 @@ class WorkDetailPage extends React.Component {
     })
   }
 
-  controlBackTopSpeed = () => {
-    const {scrollTop} = this.state;
-
-    let timer = setInterval(() => {
-      if (scrollTop === 0) {
-        clearInterval(timer);
-      }
-      this.setState({
-        scrollTop: scrollTop - 1
-      })
-    }, 1000);
-
-    return scrollTop;
-
-  };
-
   handleBackToTop = () => {
     let timer = setInterval(() => {
       if (this.state.scrollTop === 0) {
@@ -211,9 +195,9 @@ class WorkDetailPage extends React.Component {
     document.documentElement.scrollTop = this.state.scrollTop;
 
     // 滚动的高度
-    // this.setState({
-    //   scrollTop: 0
-    // });
+    this.setState({
+      scrollTop: 0
+    });
   }
 
 

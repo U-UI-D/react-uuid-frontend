@@ -112,7 +112,7 @@ class ALHeader extends React.Component {
       isLoginDiv = <div className="al-flex-container-center-v">
         <Dropdown overlay={menu}>
           <a className="ant-dropdown-link al-m-left-20px" onClick={e => e.preventDefault()}>
-            <Avatar src={userInfo.avatar}/>
+            <Avatar src={userInfo.avatar === null ? "" : userInfo.avatar}/>
           </a>
         </Dropdown>
       </div>

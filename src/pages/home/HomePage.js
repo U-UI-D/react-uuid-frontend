@@ -1,5 +1,5 @@
 import React from "react";
-import {Spin, Button, Carousel, Menu, Pagination, Avatar} from "antd";
+import {Spin, Button, Carousel, Menu, Pagination, Avatar, Affix} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import ShowWorkBox from "../work/component/show-work-box/ShowWorkBox";
@@ -88,6 +88,8 @@ class HomePage extends React.Component {
       currentPageSize: 20,
       total: 0,
       carouselList: null,
+      scrollTop: 0,
+      showTitleBoxShadow: false
     }
   }
 
@@ -102,39 +104,50 @@ class HomePage extends React.Component {
         <div className="al-bg-color-white">
           <ALHeader/>
         </div>
-        <div className="al-box-size-20px"></div>
 
-
-        <div className="content-width">
-          {/*轮播图*/}
-          <Carousel autoplay>
-            {
-              this.state.carouselList === null ? <ALLoading/> :
-                this.state.carouselList.map((item, index) => {
-                  return (
-                    <div key={item.poster}>
-                      <a href={item.url}>
-                        <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
-                      </a>
-                    </div>
-                  );
-                })
-            }
-          </Carousel>
-          <br/>
-
-          {/*标题*/}
-          <div className="al-m-tb-20px">
-            <Menu mode="horizontal">
-              <MenuItem>首页推荐</MenuItem>
-              <MenuItem>即刻作品</MenuItem>
-              <MenuItem>最新作品</MenuItem>
-              <MenuItem>佳作分享</MenuItem>
-            </Menu>
+        <div className="al-bg-color-white">
+          <div className="content-width al-p-tb-20px">
+            {/*轮播图*/}
+            <Carousel autoplay>
+              {
+                this.state.carouselList === null ? <ALLoading/> :
+                  this.state.carouselList.map((item, index) => {
+                    return (
+                      <div key={item.poster}>
+                        <a href={item.url}>
+                          <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
+                        </a>
+                      </div>
+                    );
+                  })
+              }
+            </Carousel>
           </div>
 
+          {/*标题*/}
+          <Affix offsetTop={0}
+                 onChange={(val) => {
+                   this.setState({
+                     showTitleBoxShadow: val
+                   })
+
+                 }}>
+            <div id="index-menu-title"
+                 className={`al-bg-color-white ${this.state.showTitleBoxShadow ? 'al-box-shadow' : ''}`}>
+
+              <Menu mode="horizontal" defaultSelectedKeys={["index"]}>
+                <MenuItem key={"index"}>首页推荐</MenuItem>
+                <MenuItem key={"lasted"}>最新作品</MenuItem>
+              </Menu>
+            </div>
+
+          </Affix>
+        </div>
+
+
+        <div className="content-width al-p-tb-20px">
           {/*作品列表*/}
-          <ALPlaceBox height={20} />
+          <ALPlaceBox height={20}/>
           <div style={{marginLeft: "15px"}}>
             {
               this.state.workData === null ?
@@ -234,14 +247,16 @@ class HomePage extends React.Component {
   componentDidMount() {
     //获取作品列表
     commonRequest({url: GET_WORK_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
-      this.setState({workData: res.data, total: res.data.total})
+      this.setState({workData: res.data, total: res.data.total || 0})
     });
 
     commonRequest({url: GET_CAROUSEL_ALL, env: "mock"}).then(res => {
       this.setState({
         carouselList: res.data
       })
-    })
+    });
+
+    window.addEventListener('scroll', this.bindHandleScroll);
   }
 
   //组件卸载前调用
@@ -249,8 +264,18 @@ class HomePage extends React.Component {
     this.setState = (state, callback) => {
       return;
     }
+
+    window.removeEventListener('scroll', this.bindHandleScroll);
+
   }
 
+  bindHandleScroll = (event) => {
+    // 滚动的高度
+    const scrollTop = event.target.documentElement.scrollTop;
+    this.setState({
+      scrollTop
+    })
+  }
 
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: data})

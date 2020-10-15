@@ -60,7 +60,8 @@ export async function commonRequest({url="", method="get", data={}, env="dev", h
   let promise = request({
     url: _url,
     method,
-    data
+    data,
+    headers
   }).then(res => {
     console.log(res);
     result.data = res.data.data;

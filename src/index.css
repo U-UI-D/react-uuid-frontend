@@ -55,16 +55,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*BEGIN ========== 重写ant样式 ========== */
-.ant-btn-primary{
-  border-radius: 5px !important;
-}
 
-.ant-btn-default{
-  border-radius: 5px !important;
-}
-
+/*调整 input，textarea，button 弧度为5px*/
 input, textarea, button{
   border-radius: 5px !important;
+}
+
+/*调整 input输入框 弧度为5px*/
+.ant-input-affix-wrapper {
+  border-radius: 5px !important;
+}
+
+/*去除 菜单栏底部灰色线条*/
+.ant-menu-horizontal{
+  border-bottom: none !important;
+}
+
+#index-menu-title .ant-menu-horizontal{
+  display: flex !important;
+  justify-content: center !important;
 }
 
 /*END ========== 重写ant样式 ========== */
