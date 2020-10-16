@@ -19,7 +19,8 @@ import {getUserInfoFromLocalStorage} from "../../util/util";
 import ALFlexBox from "../al-flex-box/ALFlexBox";
 import {POST_USER_LOGOUT} from "../../util/network/config/ApiConst";
 
-// import "./style.css"
+import "./style.css"
+import {GlobalContext} from "../../index";
 
 class ALHeader extends React.Component {
   //构造器
@@ -27,6 +28,7 @@ class ALHeader extends React.Component {
     super(props);
 
     this.state = {
+      currentTitle: ["首页"],
       menuItems: [
         {
           text: "首页",
@@ -72,6 +74,7 @@ class ALHeader extends React.Component {
         }
       ],
       isLogin: false,
+      hidden: false
     }
   }
 
@@ -79,6 +82,28 @@ class ALHeader extends React.Component {
   render() {
 
     let isLoginDiv;
+
+    const uploadDropdownMenu = (
+      <div style={{color: this.props.color ?? "#000"}}>
+        <Menu>
+          <MenuItem style={{width: "100px"}}>
+            <a onClick={() => {
+              this.goPage("/work/publish")
+            }}>
+              上传作品
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a onClick={() => {
+              this.goPage("/sucai/publish")
+            }}>
+              上传素材
+            </a>
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+
     if (!this.state.isLogin) {
       isLoginDiv = <div className="al-flex-container-center-v">
         <Button className="al-m-right-30px"
@@ -91,26 +116,26 @@ class ALHeader extends React.Component {
       </div>
     } else {
       let userInfo = getUserInfoFromLocalStorage();
-
-      const menu = (
-          <Menu>
-            <Menu.Item>
-              <a onClick={() => {
-                this.goPage("/user/" + userInfo.id)
-              }}>
-                个人中心
-              </a>
-            </Menu.Item>
-            <Menu.Item>
-              <span className="" onClick={() => {
-                this.logout();
-              }}>退出</span>
-            </Menu.Item>
-          </Menu>
+      const avatarDropdownMenu = (
+        <Menu>
+          <MenuItem style={{width: "100px"}}>
+            <a onClick={() => {
+              this.goPage("/user/" + userInfo.id)
+            }}>
+              个人中心
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a className="" onClick={() => {
+              this.logout();
+            }}>退出</a>
+          </MenuItem>
+        </Menu>
       );
 
       isLoginDiv = <div className="al-flex-container-center-v">
-        <Dropdown overlay={menu}>
+        <Dropdown overlay={avatarDropdownMenu}
+                  placement="bottomCenter">
           <a className="ant-dropdown-link al-m-left-20px" onClick={e => e.preventDefault()}>
             <Avatar src={userInfo.avatar === null ? "" : userInfo.avatar}/>
           </a>
@@ -119,65 +144,70 @@ class ALHeader extends React.Component {
     }
 
     return (
-        <div style={{backgroundColor: ""}} hidden={this.props.hidden}>
-          <div style={{
-            width: 1180 + 'px',
-            margin: "0 auto"
-          }}>
-            <div className="al-flex-container al-flex-container-center-v">
-              <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70}/>
+      <div id="al-header" style={{backgroundColor: ""}} hidden={this.state.hidden}>
+        <div style={{
+          width: 1180 + 'px',
+          margin: "0 auto"
+        }}>
+          <div className="al-flex-container al-flex-container-center-v">
+            <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70}/>
 
-              <ALFlexBox id="header-menu"
-                         centerV
-                         between
-                         className="header-menu" style={{flex: 1}}>
-                {/*菜单1*/}
-                <div>
-                  <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                    {
-                      this.state.menuItems.map((item, index) => {
-                        return <MenuItem key={item.text}
-                                         style={{color: this.props.color ?? "#000"}}
-                                         onClick={
-                                           () => this.goPage(item.path)
-                                         }>{item.text}</MenuItem>
-                      })
-                    }
-                  </Menu>
-                </div>
+            <ALFlexBox id="header-menu"
+                       centerVH
+                       between
+                       className="header-menu" style={{flex: 1}}>
+              {/*菜单1*/}
+              <div>
+                <Menu mode="horizontal"
+                      defaultSelectedKeys={this.state.currentTitle}
+                      style={{backgroundColor: "#00000000"}}
+                      onClick={({item, key, keyPath, domEvent}) => {
+                        this.setState({
+                          currentTitle: [key]
+                        });
+                      }}
 
-                {/*菜单2*/}
-                <ALFlexBox centerV>
-                  <Menu mode="horizontal" style={{backgroundColor: "#00000000"}} className="al-flex-container-center-v">
-                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(SEARCH_PAGE)}>搜索</MenuItem>
-                    <SubMenu title="上传" style={{color: this.props.color ?? "#000"}}>
-                      <Menu.Item >
-                        <a onClick={() => {
-                          this.goPage("/work/publish")
-                        }}>
-                          上传作品
-                        </a>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <a onClick={() => {
-                          this.goPage("/sucai/publish")
-                        }}>
-                          上传素材
-                        </a>
-                      </Menu.Item>
-                    </SubMenu>
-                    <MenuItem style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(MESSAGE_PAGE)}>消息</MenuItem>
-                  </Menu>
+                >
+                  {
+                    this.state.menuItems.map((item, index) => {
+                      return <MenuItem key={item.text}
+                                       style={{color: this.props.color ?? "#000"}}
+                                       onClick={
+                                         () => this.goPage(item.path)
+                                       }>{item.text}</MenuItem>
+                    })
+                  }
+                </Menu>
+              </div>
 
-                  {isLoginDiv}
+              {/*菜单2*/}
+              <ALFlexBox centerV>
+                <ALFlexBox centerV style={{marginTop: "4px"}}>
+                  <div className="al-p-lr-20px">
+                    <a style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(SEARCH_PAGE)}>搜索</a>
+                  </div>
+
+                  <div className="al-p-lr-20px">
+                    <Dropdown overlay={uploadDropdownMenu}
+                              placement="bottomCenter">
+                      <a style={{color: this.props.color ?? "#000"}}>上传</a>
+                    </Dropdown>
+                  </div>
+
+                  <div className="al-p-lr-20px">
+                    <a style={{color: this.props.color ?? "#000"}}
+                       onClick={() => this.goPage(MESSAGE_PAGE)}>消息</a>
+                  </div>
                 </ALFlexBox>
+                {isLoginDiv}
               </ALFlexBox>
-
-            </div>
-
+            </ALFlexBox>
 
           </div>
+
+
         </div>
+      </div>
     );
   }
 

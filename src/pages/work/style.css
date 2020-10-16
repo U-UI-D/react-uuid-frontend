@@ -2,8 +2,3 @@
     display: flex !important;
     justify-content: center !important;
 }
-
-#SubMenuMenu{
-    box-shadow: none;
-    margin-top: -6px;
-}

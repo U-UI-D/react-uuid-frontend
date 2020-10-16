@@ -17,9 +17,6 @@ class DiscoveryPage extends React.Component{
   render() {
     return(
       <div className="primary-bg-color">
-        <div className="al-bg-color-white">
-          <ALHeader />
-        </div>
         <div className="content-width">
           <ALFlexBox between>
             <ALPlaceBox width={200} className="al-bg-color-white al-p-30px al-m-tb-30px">

@@ -109,9 +109,6 @@ class WorkDetailPage extends React.Component {
       <div>
         <div style={{backgroundColor: "#fff"}}>
           {workInfoTop}
-          {
-            <ALHeader hidden={this.state.scrollTop > 70}/>
-          }
         </div>
 
 

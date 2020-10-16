@@ -195,13 +195,7 @@ class MessagePage extends React.Component {
 
     return (
       <div className="primary-bg-color ">
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
-
         <div className="content-width al-p-tb-30px">
-
-
           <ALFlexBox>
             {/*左侧内容*/}
             <div style={{width: 280+'px'}} className="al-bg-color-white primary-border-radius">

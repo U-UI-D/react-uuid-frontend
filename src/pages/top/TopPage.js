@@ -210,9 +210,6 @@ class TopPage extends React.Component {
 
     return (
         <div style={{backgroundColor: "#e74c3c"}} className="al-width-100">
-          <div style={{backgroundColor: "#fff"}}>
-            <ALHeader/>
-          </div>
 
           <div className="content-width">
             {/*顶部选项卡*/}

@@ -51,9 +51,6 @@ class WorkPublishPage extends React.Component {
 
     return (
       <div id="work-publish-page">
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
         <div className="content-width al-p-tb-20px">
           <ALFlexBox between>
             <WorkPublishLeftLayout onChange={this.handleChangeForTitle}/>

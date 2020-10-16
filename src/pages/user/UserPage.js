@@ -24,7 +24,6 @@ class UserPage extends React.Component {
     return (
         <div>
           <div className="header-box header-bg">
-            <ALHeader color="#fff"/>
             <div style={{
               width: 100 + '%',
               height: 350 + 'px'

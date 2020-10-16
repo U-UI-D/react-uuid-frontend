@@ -2,7 +2,7 @@ import {Route, HashRouter as Router} from "react-router-dom";
 import React from "react";
 import routes from "./config/routers";
 import {GlobalContext} from "../../index";
-import {getUserInfoFromLocalStorage} from "../util";
+import ALHeader from "../../components/al-header/ALHeader";
 
 export const RouteWithSubRoutes = route => (
   <Route
@@ -14,17 +14,13 @@ export const RouteWithSubRoutes = route => (
   />
 );
 
-function RouterView() {
-  let contextData = {
-    userInfo: getUserInfoFromLocalStorage(),
-    setUserInfo: (val) => {
-      contextData.userInfo = val;
-    }
-  };
-
+function RouterView(props){
   return (
-    <GlobalContext.Provider value={contextData}>
+    <GlobalContext.Provider value={{
+      hello: "Hello React"
+    }}>
       <Router>
+        <ALHeader />
         {
           routes.map((route, i) => {
             return <RouteWithSubRoutes key={route.path} {...route} />

@@ -22,7 +22,6 @@ class SearchPage extends React.Component {
              backgroundSize: "cover",
              backgroundRepeat: "no-repeat",
            }}>
-        <ALHeader color={"#fff"}/>
 
         <div className="content-width al-p-tb-30px">
 

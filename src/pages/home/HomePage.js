@@ -13,6 +13,7 @@ import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {GET_CAROUSEL_ALL, GET_WORK_ALL} from "../../util/network/config/ApiConst";
 import {WORK_DETAIL} from "../../util/router/config/RouterConst";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
+import {GlobalContext} from "../../index";
 
 class HomePage extends React.Component {
   //构造器
@@ -101,10 +102,6 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
-
         <div className="al-bg-color-white">
           <div className="content-width al-p-tb-20px">
             {/*轮播图*/}

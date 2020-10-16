@@ -22,10 +22,6 @@ class MaterialPage extends React.Component {
   render() {
     return (
       <div className="primary-bg-color">
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
-
         <div className="content-width al-p-tb-30px">
           <div className="al-m-tb-20px">
             <h2>icon</h2>

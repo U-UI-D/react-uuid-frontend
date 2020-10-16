@@ -94,7 +94,6 @@ class LoginPage extends React.Component {
 
   //组件卸载前调用
   componentWillUnmount() {
-
   }
 
   //验证账号密码

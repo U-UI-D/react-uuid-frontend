@@ -69,9 +69,6 @@ class ShopPage extends React.Component{
 
     return(
       <div>
-        <div className="al-bg-color-white">
-          <ALHeader />
-        </div>
         <ALFlexBox centerH style={{backgroundColor: "#e44f37"}}>
           <ALImage src={bgImage} style={{width: 100+"%"}} height={220}/>
         </ALFlexBox>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, message, Pagination, Spin} from "antd";
+import {Button, Menu, message, Pagination, Spin} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import MenuItem from "antd/lib/menu/MenuItem";
@@ -11,6 +11,7 @@ import ALLoading from "../../components/al-loading/ALLoading";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {GET_WORK_ALL} from "../../util/network/config/ApiConst";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
+import {GlobalContext} from "../../index";
 
 class WorkPage extends React.Component {
   //构造器
@@ -34,10 +35,6 @@ class WorkPage extends React.Component {
 
     return (
       <div>
-        <div className="al-bg-color-white">
-          <ALHeader/>
-        </div>
-
         <div className="al-bg-color-white">
           {/*标题*/}
           <div className="content-width">

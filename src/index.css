@@ -21,9 +21,10 @@ h1, h2, h3, h4, h5, h6 {
 
 #root{
   display: flex;
+  flex-direction: column;
 }
 
-#root>div:nth-child(1){
+#root>div:nth-child(2){
   flex: 1;
   background-color: rgba(240, 240, 240, 0.5);
 }
