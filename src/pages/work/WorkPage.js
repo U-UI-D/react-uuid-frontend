@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Menu, message, Pagination, Spin} from "antd";
+import {Affix, Button, Menu, message, Pagination, Spin} from "antd";
 import ALHeader from "../../components/al-header/ALHeader";
 import ALFooter from "../../components/al-footer/ALFooter";
 import MenuItem from "antd/lib/menu/MenuItem";
@@ -13,6 +13,9 @@ import {GET_WORK_ALL} from "../../util/network/config/ApiConst";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import {GlobalContext} from "../../index";
 
+import "./style.css"
+import TitleList from "./component/title-list/TitleList";
+
 class WorkPage extends React.Component {
   //构造器
   constructor(props) {
@@ -24,7 +27,8 @@ class WorkPage extends React.Component {
       // pagination
       currentPageNum: 1,
       currentPageSize: 20,
-      total: 0
+      total: 0,
+      enterLiTag: false,
     }
   }
 
@@ -35,35 +39,15 @@ class WorkPage extends React.Component {
 
     return (
       <div>
-        <div className="al-bg-color-white">
-          {/*标题*/}
-          <div className="content-width">
-            <div id="work-menu-title">
-              <Menu mode="horizontal">
-                <MenuItem>全部</MenuItem>
-                <SubMenu key="UIWorkSubMenu" title={"UI作品"}>
-                  <div className="al-bg-color-white" style={{width: "100vw"}}>
-                    <div className="content-width">
-                      <Menu mode="horizontal">
-                        <MenuItem>首页推荐</MenuItem>
-                        <MenuItem>即刻作品</MenuItem>
-                        <MenuItem>最新作品</MenuItem>
-                        <MenuItem>佳作分享</MenuItem>
-                      </Menu>
-                    </div>
-                  </div>
-                </SubMenu>
-                <MenuItem>软件作品</MenuItem>
-              </Menu>
-            </div>
-          </div>
-        </div>
+        <Affix>
+          <TitleList />
+        </Affix>
 
         <div>
           <div className="content-width">
 
             {/*作品列表*/}
-            <ALPlaceBox height={20} />
+            <ALPlaceBox height={20}/>
             <div style={{marginLeft: "15px"}}>
               {
                 this.state.workData === null ?
@@ -141,11 +125,13 @@ class WorkPage extends React.Component {
   componentDidMount() {
     //获取作品列表
     commonRequest({url: GET_WORK_ALL}).then(res => {
-      this.setState({
-        workData: res.data,
-        loading: false,
-        total: res.data.total
-      })
+      if (res.err === null) {
+        this.setState({
+          workData: res.data,
+          loading: false,
+          total: res.data.total || 0
+        })
+      }
     })
   }
 

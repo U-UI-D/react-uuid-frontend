@@ -1,0 +1,35 @@
+#title-list{
+    position: relative;
+}
+
+.title-list{
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.title-list > li{
+    margin-right: 40px;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.title-list > li:hover{
+    color: #1890ff;
+}
+
+.sub-title-list{
+    position: absolute;
+    top: 50px;
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999999;
+}
+
+.sub-title-list li{
+    cursor: pointer;
+}
