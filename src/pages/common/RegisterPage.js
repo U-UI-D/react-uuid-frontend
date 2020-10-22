@@ -4,10 +4,10 @@ import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
+import loginbg2 from "../../assets/image/login/loginbg2.svg";
+import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {GlobalContext} from "../../index";
 
-
-const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight;
 
 class RegisterPage extends React.Component {
   //构造器
@@ -24,56 +24,69 @@ class RegisterPage extends React.Component {
 
   //渲染函数
   render() {
-
-
     return (
       <div style={{
         width: 100 + '%',
-        height: this.state.windowHeight - 20 + 'px',
-        backgroundColor: "#eff3f5"
+        height: "100vh",
+        padding: 0,
+        backgroundImage: `url(${loginbg2})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "50%",
+        backgroundAttachment: "fixed",
+        backgroundColor: "white",
       }} className="al-box-container">
 
-        <div className="al-box-container al-box-pretty"
-             style={{width: 400 + 'px', height: 300 + 'px', marginTop: 140 + 'px'}}>
-          <div>
-            <div className="al-box-container">
-              <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
-            </div>
-            <div className="al-box-container">
-              <div className="al-flex-container al-flex-container-center-v">
-                <ALInlineWidthBox style={{flex: 2}}>
-                  帐号：
-                </ALInlineWidthBox>
-                <Input style={{flex: 8}}
-                       placeholder={"请输入帐号"}
-                       onChange={(e) => {
-                         this.setState({username: e.target.value})
-                       }}/>
-              </div>
-              <div className="al-m-top-20px al-flex-container al-flex-container-center-v">
-                <ALInlineWidthBox style={{flex: 2}}>
-                  密码：
-                </ALInlineWidthBox>
-                <Input style={{flex: 8}}
-                       placeholder={"请输入密码"}
-                       type="password"
-                       onChange={(e) => {
-                         this.setState({password: e.target.value})
-                       }}/>
-              </div>
-            </div>
-
-            <div className="al-box-container">
+        <div className="content-width al-position-rela">
+          <ALFlexBox between>
+            <div></div>
+            <ALFlexBox column className="al-position-abs"
+                       style={{
+                         width: 400 + 'px',
+                         height: 300 + 'px',
+                         top: "-30vh",
+                         right: 0,
+                       }}>
               <div>
-                <Button shape="round"
-                        style={{padding: "0 50px 0 50px"}}
-                        onClick={() => {
-                          this.register()
-                        }}>注册</Button>
-              </div>
-            </div>
+                <div className="al-box-container">
+                  <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
+                </div>
+                <div className="al-box-container">
+                  <div className="al-flex-container al-flex-container-center-v">
+                    <ALInlineWidthBox style={{flex: 2}}>
+                      帐号：
+                    </ALInlineWidthBox>
+                    <Input style={{flex: 8}}
+                           placeholder={"请输入帐号"}
+                           onChange={(e) => {
+                             this.setState({username: e.target.value})
+                           }}/>
+                  </div>
+                  <div className="al-m-top-20px al-flex-container al-flex-container-center-v">
+                    <ALInlineWidthBox style={{flex: 2}}>
+                      密码：
+                    </ALInlineWidthBox>
+                    <Input style={{flex: 8}}
+                           type="password"
+                           placeholder={"请输入密码"}
+                           onChange={(e) => {
+                             this.setState({password: e.target.value})
+                           }}/>
+                  </div>
+                </div>
 
-          </div>
+                <div className="al-box-container">
+                  <div>
+                    <Button shape="round"
+                            style={{padding: "0 50px 0 50px"}}
+                            onClick={() => {
+                              this.register()
+                            }}>注册</Button>
+                  </div>
+                </div>
+
+              </div>
+            </ALFlexBox>
+          </ALFlexBox>
         </div>
 
       </div>
@@ -82,16 +95,12 @@ class RegisterPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
-    this.setState({
-      windowWidth: windowWidth,
-      windowHeight: windowHeight,
-    });
+    document.getElementById("al-header").hidden = true;
   }
 
   //组件卸载前调用
   componentWillUnmount() {
-
+    document.getElementById("al-header").hidden = false;
   }
 
   //验证账号密码
@@ -147,7 +156,6 @@ class RegisterPage extends React.Component {
     return exist;
   }
 
-
   register = async () => {
     if (! (await this.validate()) ){
       return ;
@@ -172,15 +180,6 @@ class RegisterPage extends React.Component {
       console.log(err);
       message.error("网络错误，请稍候再试！");
     });
-  }
-
-  // 处理窗口大小变化
-  handleResize = (e) => {
-    console.log(e.target.innerWidth);
-    this.setState({
-      windowWidth: e.target.innerWidth,
-      windowHeight: e.target.innerHeight,
-    })
   }
 
 }

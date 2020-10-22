@@ -1,15 +1,17 @@
 import React from "react";
-import {Avatar, Button, Input, message} from "antd";
+import {Avatar, Button, Divider, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
 import {GET_USER_BY_TOKEN, POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 import {setCookie} from "../../util/cookieUtil";
 import {commonRequest} from "../../util/network/RequestHub";
+import {GlobalContext} from "../../index";
+import loginbg2 from "../../assets/image/login/loginbg2.svg"
+import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 
 
-const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight;
 
 class LoginPage extends React.Component {
   //构造器
@@ -18,7 +20,7 @@ class LoginPage extends React.Component {
     this.state = {
       userInfo: null,
       username: "",
-      password: ""
+      password: "",
     }
   }
 
@@ -27,55 +29,78 @@ class LoginPage extends React.Component {
     return (
       <div style={{
         width: 100 + '%',
-        height: this.state.windowHeight - 20 + 'px',
-        backgroundColor: "#eff3f5"
+        height: "100vh",
+        padding: 0,
+        backgroundImage: `url(${loginbg2})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "50%",
+        backgroundAttachment: "fixed",
+        backgroundColor: "white",
       }} className="al-box-container">
 
-        <div className="al-box-container al-box-pretty"
-             style={{
-               width: 400 + 'px',
-               height: 300 + 'px', marginTop: 140 + 'px'
-             }}>
-          <div>
-            <div className="al-box-container">
-              <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
-            </div>
-            <div className="al-box-container">
-              <div className="al-flex-container al-flex-container-center-v">
-                <ALInlineWidthBox style={{flex: 2}}>
-                  帐号：
-                </ALInlineWidthBox>
-                <Input style={{flex: 8}}
-                       placeholder={"请输入帐号"}
-                       onChange={(e) => {
-                         this.setState({username: e.target.value})
-                       }}/>
-              </div>
-              <div className="al-m-top-20px al-flex-container al-flex-container-center-v">
-                <ALInlineWidthBox style={{flex: 2}}>
-                  密码：
-                </ALInlineWidthBox>
-                <Input style={{flex: 8}}
-                       type="password"
-                       placeholder={"请输入密码"}
-                       onChange={(e) => {
-                         this.setState({password: e.target.value})
-                       }}/>
-              </div>
-            </div>
-
-            <div className="al-box-container">
+        <div className="content-width al-position-rela">
+          <ALFlexBox between>
+            <div></div>
+            <ALFlexBox column className="al-position-abs"
+                 style={{
+                   width: 400 + 'px',
+                   height: 300 + 'px',
+                   top: "-30vh",
+                   right: 0,
+                 }}>
               <div>
-                <Button shape="round"
-                        style={{padding: "0 50px 0 50px"}}
-                        onClick={() => {
-                          this.login()
-                        }}>登录</Button>
-              </div>
-            </div>
+                <div className="al-box-container">
+                  <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
+                </div>
+                <div className="al-box-container">
+                  <div className="al-flex-container al-flex-container-center-v">
+                    <ALInlineWidthBox style={{flex: 2}}>
+                      帐号：
+                    </ALInlineWidthBox>
+                    <Input style={{flex: 8}}
+                           placeholder={"请输入帐号"}
+                           onChange={(e) => {
+                             this.setState({username: e.target.value})
+                           }}/>
+                  </div>
+                  <div className="al-m-top-20px al-flex-container al-flex-container-center-v">
+                    <ALInlineWidthBox style={{flex: 2}}>
+                      密码：
+                    </ALInlineWidthBox>
+                    <Input style={{flex: 8}}
+                           type="password"
+                           placeholder={"请输入密码"}
+                           onChange={(e) => {
+                             this.setState({password: e.target.value})
+                           }}/>
+                  </div>
+                </div>
 
-          </div>
+                <div className="al-box-container">
+                  <div>
+                    <Button shape="round"
+                            style={{padding: "0 50px 0 50px"}}
+                            onClick={() => {
+                              this.login()
+                            }}>登录</Button>
+                  </div>
+                </div>
+
+              </div>
+            </ALFlexBox>
+          </ALFlexBox>
         </div>
+
+
+        {/*将用户信息保存到context中*/}
+        <GlobalContext.Consumer>
+          {
+            data => {
+              data.userInfo = this.state.userInfo;
+              return (<></>);
+            }
+          }
+        </GlobalContext.Consumer>
 
       </div>
     );
@@ -83,10 +108,8 @@ class LoginPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
+    document.getElementById("al-header").hidden = true;
     this.setState({
-      windowWidth: windowWidth,
-      windowHeight: windowHeight,
       userInfo: null
     });
 
@@ -94,6 +117,7 @@ class LoginPage extends React.Component {
 
   //组件卸载前调用
   componentWillUnmount() {
+    document.getElementById("al-header").hidden = false;
   }
 
   //验证账号密码
