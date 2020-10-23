@@ -1,9 +1,7 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
-import ALComment from "../../components/al-comment/ALComment";
 import {Avatar} from "antd";
+import {ALFlexBox, ALPlaceBox, ALComment} from "../../components/al-component";
+
 
 class DiscoveryPage extends React.Component{
   //构造器

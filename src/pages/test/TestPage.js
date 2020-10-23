@@ -1,8 +1,7 @@
 import React from "react";
-import {Pagination, Button, Upload, Menu} from 'antd';
-import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
-import ALHeader from "../../components/al-header/ALHeader";
+import {Button, Menu} from 'antd';
 import MenuItem from "antd/es/menu/MenuItem";
+import {ALFlexBox} from "../../components/al-component";
 
 
 class TestPage extends React.Component {
@@ -52,6 +51,13 @@ class TestPage extends React.Component {
             </Menu>
           </div>
         </div>
+
+        <ALFlexBox>
+          <div>a</div>
+          <div>b</div>
+        </ALFlexBox>
+
+
 
 
       </div>

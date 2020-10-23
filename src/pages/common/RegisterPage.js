@@ -1,11 +1,9 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
-import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
-import {commonRequest} from "../../util/network/RequestHub";
 import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
 import registerbg from "../../assets/image/register/registerbg.svg";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";
 
 
 class RegisterPage extends React.Component {

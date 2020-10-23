@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import ALLabelBox from "../../../../../components/al-label-box/ALLabelBox";
-import {Button, Input} from "antd";
+import {Button} from "antd";
 import {getUserInfoFromLocalStorage} from "../../../../../util/util";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
+import {ALFlexBox, ALLabelBox} from "../../../../../components/al-component";
 
 function AccountSecurityTabCard(props) {
   let [userInfo, setUserInfo] = useState(getUserInfoFromLocalStorage());

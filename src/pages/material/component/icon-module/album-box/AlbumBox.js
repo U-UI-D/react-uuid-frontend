@@ -1,7 +1,7 @@
 import React from "react";
-import {Avatar, message} from "antd";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
-import ALImage from "../../../../../components/al-image/ALImage";
+import {message} from "antd";
+import {ALFlexBox, ALImage} from "../../../../../components/al-component";
+
 
 function ImgBgBox(props){
   let boxSize = {width: props.width + 'px', height: props.height + 'px'}

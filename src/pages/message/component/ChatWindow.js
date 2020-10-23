@@ -1,8 +1,7 @@
 import React from "react";
-import {Avatar, Button, Divider, Input, message} from "antd";
-import ALFlexBox from "../../../components/al-flex-box/ALFlexBox";
+import {Avatar, Button, Input, message} from "antd";
 import {getUserInfoFromLocalStorage} from "../../../util/util";
-
+import {ALFlexBox} from "../../../components/al-component";
 
 function RecordBox1(props) {
 

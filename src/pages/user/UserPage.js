@@ -1,12 +1,9 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
 import "./style.css";
-import {request} from "../../util/network/NetworkRequest";
-import {Avatar, Button, Divider, message} from "antd";
+import {Avatar} from "antd";
 import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
-import {GET_USER_ID} from "../../util/network/config/ApiConst";
-import {LOGIN} from "../../util/router/config/RouterConst";
+import {PATH_LOGIN} from "../../util/router/config/RouterConst";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 
 class UserPage extends React.Component {
@@ -63,7 +60,7 @@ class UserPage extends React.Component {
     let isLogin = localStorage.getItem("isLogin");
     // 判断是否登录
     if (!isLogin){
-      this.goPage(LOGIN);
+      this.goPage(PATH_LOGIN);
     }
     this.setState({
       userInfo: getUserInfoFromLocalStorage()

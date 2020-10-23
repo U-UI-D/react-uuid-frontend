@@ -1,14 +1,11 @@
 import React, {useState} from "react";
 import {getUserInfoFromLocalStorage} from "../../../../../util/util";
 import {Upload, Modal, Avatar, Button, Input, Radio, message} from "antd";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
-import ALLabelBox from "../../../../../components/al-label-box/ALLabelBox";
-import ALImage from "../../../../../components/al-image/ALImage";
 import ImgCrop from 'antd-img-crop';
-import ALPlaceBox from "../../../../../components/al-place-box/ALPlaceBox";
 import {commonRequest} from "../../../../../util/network/RequestHub";
 import {PUT_USER} from "../../../../../util/network/config/ApiConst";
 import {getCookieByName} from "../../../../../util/cookieUtil";
+import {ALFlexBox, ALLabelBox, ALImage} from "../../../../../components/al-component";
 
 
 function BaseInfoTabCard(props) {

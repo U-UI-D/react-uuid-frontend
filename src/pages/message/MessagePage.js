@@ -1,16 +1,14 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {getUserInfoFromLocalStorage} from "../../util/util";
-import ALLoading from "../../components/al-loading/ALLoading";
 import {Avatar, Divider, message, Empty} from "antd";
 import "./style.css";
 import {commonRequest} from "../../util/network/RequestHub";
 import ChatWindow from "./component/ChatWindow";
-import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import {GET_MESSAGE_ALL, GET_MESSAGE_CHAT} from "../../util/network/config/ApiConst";
 import {getCookieByName} from "../../util/cookieUtil";
-import {LOGIN} from "../../util/router/config/RouterConst";
+import {PATH_LOGIN} from "../../util/router/config/RouterConst";
+import {ALFlexBox, ALLoading} from "../../components/al-component";
+
 
 class MessagePage extends React.Component {
   //构造器
@@ -260,7 +258,7 @@ class MessagePage extends React.Component {
     //验证是否已单点登录
     let token = getCookieByName("sso_token");
     if (!token){
-      this.goPage(LOGIN, {fromPath: '/message'});
+      this.goPage(PATH_LOGIN, {fromPath: '/message'});
       return;
     }
 

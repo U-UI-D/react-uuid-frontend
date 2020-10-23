@@ -1,6 +1,6 @@
 import React from "react";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
 import {Avatar, Button} from "antd";
+import {ALFlexBox} from "../../../../../components/al-component";
 
 function AuthTabCard(props) {
   return (

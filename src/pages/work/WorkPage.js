@@ -1,20 +1,12 @@
 import React from "react";
-import {Affix, Button, Menu, message, Pagination, Spin} from "antd";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFooter from "../../components/al-footer/ALFooter";
-import MenuItem from "antd/lib/menu/MenuItem";
-import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
+import {Affix, Pagination} from "antd";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
-import {WORK_DETAIL} from "../../util/router/config/RouterConst";
-import ALLoading from "../../components/al-loading/ALLoading";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import {GET_WORK_ALL} from "../../util/network/config/ApiConst";
-import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
-import {GlobalContext} from "../../index";
-
+import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
+import {GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
 import TitleList from "./component/title-list/TitleList";
+import {ALFlexBox, ALFooter, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
 
 class WorkPage extends React.Component {
   //构造器
@@ -28,19 +20,16 @@ class WorkPage extends React.Component {
       currentPageNum: 1,
       currentPageSize: 20,
       total: 0,
-      enterLiTag: false,
+      workType: null
     }
   }
 
   //渲染函数
   render() {
-
-    const {SubMenu} = Menu;
-
     return (
       <div>
         <Affix>
-          <TitleList />
+          <TitleList onChange={this.handleTitleListChange} />
         </Affix>
 
         <div>
@@ -58,7 +47,7 @@ class WorkPage extends React.Component {
                       this.state.workData.list.map((item, index) => {
                         return (
                           <div key={index} onClick={() => {
-                            this.goPage(WORK_DETAIL + "/" + item.id)
+                            this.goPage(PATH_WORK_DETAIL + "/" + item.id)
                           }}>
                             <ShowWorkBox workInfo={item}/>
                           </div>
@@ -81,7 +70,7 @@ class WorkPage extends React.Component {
                                 onShowSizeChange={(pageNum, pageSize) => {
                                   console.log("pageNum", pageNum);
                                   console.log("pageSize", pageSize);
-                                  commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize}}).then(res => {
+                                  commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
                                     this.setState({
                                       currentPageNum: pageNum,
                                       total: res.data.total,
@@ -95,7 +84,7 @@ class WorkPage extends React.Component {
                                   this.setState({
                                     workData: null
                                   });
-                                  commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+                                  commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
                                     this.setState({
                                       currentPageNum: pageNum,
                                       total: res.data.total,
@@ -124,7 +113,17 @@ class WorkPage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    commonRequest({url: GET_WORK_ALL}).then(res => {
+    this.getWorkData();
+  }
+
+  //组件卸载前调用
+  componentWillUnmount() {
+
+  }
+
+  //获取作品列表
+  getWorkData = (data = {}) => {
+    commonRequest({url: GET_WORK_UI_ALL, data}).then(res => {
       if (res.err === null) {
         this.setState({
           workData: res.data,
@@ -135,13 +134,13 @@ class WorkPage extends React.Component {
     })
   }
 
-  //组件卸载前调用
-  componentWillUnmount() {
-
-  }
-
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: {}})
+  }
+
+  handleTitleListChange = data => {
+    console.log("TitleListChange", data);
+    this.getWorkData({typename: data.secondTitle === '全部' ? null : data.secondTitle});
   }
 
 

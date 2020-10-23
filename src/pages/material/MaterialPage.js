@@ -1,5 +1,4 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
 import IconBox from "./component/icon-module/icon-box/IconBox";
 import PosterBox from "./component/icon-module/poster-box/PosterBox";
 import IllustrationBox from "./component/icon-module/illustration-box/IllustrationBox";

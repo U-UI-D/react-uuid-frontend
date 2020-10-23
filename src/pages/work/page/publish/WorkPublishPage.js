@@ -1,19 +1,10 @@
 import React from "react";
-import ALHeader from "../../../../components/al-header/ALHeader";
-import {LOGIN} from "../../../../util/router/config/RouterConst";
+import {PATH_LOGIN} from "../../../../util/router/config/RouterConst";
 import {getCookieByName} from "../../../../util/cookieUtil";
-import {request} from "../../../../util/network/NetworkRequest";
-import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
-import ALPlaceBox from "../../../../components/al-place-box/ALPlaceBox";
-import ALTitleBox from "../../../../components/al-title-box/ALTitleBox";
-import {Select, Card, Input, Upload, message, Button} from "antd";
-import { LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import "./style.css";
-import ALInput from "../../../../components/al-input/ALInput";
-import {commonRequest} from "../../../../util/network/RequestHub";
-import {POST_WORK_ADD} from "../../../../util/network/config/ApiConst";
 import WorkPublishLeftLayout from "./component/layout/left/WorkPublishLeftLayout";
 import WorkPublishRightLayout from "./component/layout/right/WorkPublishRightLayout";
+import {ALFlexBox} from "../../../../components/al-component";
 
 
 class WorkPublishPage extends React.Component {
@@ -29,7 +20,7 @@ class WorkPublishPage extends React.Component {
     //验证是否已单点登录
     let token = getCookieByName("sso_token");
     if (!token){
-      this.goPage(LOGIN, {fromPath: '/work/publish'});
+      this.goPage(PATH_LOGIN, {fromPath: '/work/publish'});
       return;
     }
   }

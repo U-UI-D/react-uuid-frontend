@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ALLoading from "../../../../../components/al-loading/ALLoading";
 import {Avatar, Divider} from "antd";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
-import ALPlaceBox from "../../../../../components/al-place-box/ALPlaceBox";
+import {ALFlexBox, ALPlaceBox, ALLoading} from "../../../../../components/al-component";
 
 let windowHeight = window.innerHeight;
 

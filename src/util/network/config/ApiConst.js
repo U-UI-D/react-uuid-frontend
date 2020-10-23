@@ -28,12 +28,12 @@ export const GET_DESIGNER_RECOMMEND = "/user/designer/recommend";
 
 
 //作品接口 ============================
-//所有作品
-export const GET_WORK_ALL = "/work/work";
-//作品详情
-export const GET_WORK_BY_ID = "/work/work/";
-//添加作品
-export const POST_WORK_ADD = "/work/work";
+//所有ui作品
+export const GET_WORK_UI_ALL = "/work/work/ui";
+//ui作品详情
+export const GET_WORK_UI_BY_ID = "/work/work/ui/";
+//添加ui作品
+export const POST_WORK_UI_ADD = "/work/work/ui";
 
 //轮播图接口 ============================
 //所有轮播图

@@ -1,7 +1,6 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {Input} from "antd";
+import {ALFlexBox} from "../../components/al-component";
 
 class SearchPage extends React.Component {
   //构造器

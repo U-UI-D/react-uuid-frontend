@@ -1,6 +1,6 @@
 import React from "react";
 import {Divider} from "antd";
-import ALComment from "../../../../../components/al-comment/ALComment";
+import {ALComment} from "../../../../../components/al-component";
 
 class WorkContentLeft extends React.Component{
   //构造器

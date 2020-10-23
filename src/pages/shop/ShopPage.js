@@ -1,12 +1,10 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import ALImage from "../../components/al-image/ALImage";
 import {Affix, Avatar, Button, Divider} from "antd";
-import ALLoading from "../../components/al-loading/ALLoading";
 import {commonRequest} from "../../util/network/RequestHub";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 import {GET_SHOP_DIY_GOODS} from "../../util/network/config/ApiConst";
+import {ALFlexBox, ALImage, ALLoading} from "../../components/al-component";
+
 
 function GoodsBox(props) {
   const {data} = props;

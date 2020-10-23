@@ -1,7 +1,6 @@
 import React from "react";
 import {Avatar, Tag} from "antd";
 import "./style.css"
-import ALInlineWidthBox from "../../../../components/al-inline-width-box/ALInlineWidthBox";
 
 class ShowWorkBox extends React.Component {
 

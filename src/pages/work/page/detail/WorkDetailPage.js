@@ -1,13 +1,11 @@
 import React, {useState} from "react";
-import ALHeader from "../../../../components/al-header/ALHeader";
 import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
-import WorkContentRight from "./component/WorkContentRight";
-import {commonRequest, getWorkDetailByID} from "../../../../util/network/RequestHub";
-import {Affix, Avatar, BackTop, Button} from "antd";
-import {GET_USER_ID, GET_WORK_BY_ID} from "../../../../util/network/config/ApiConst";
-import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
+import {commonRequest} from "../../../../util/network/RequestHub";
+import {Affix, Avatar, Button} from "antd";
+import {GET_USER_ID, GET_WORK_UI_BY_ID} from "../../../../util/network/config/ApiConst";
 import {getUserInfoFromLocalStorage} from "../../../../util/util";
+import {ALFlexBox} from "../../../../components/al-component";
 
 
 function HoverBox(props) {
@@ -77,6 +75,7 @@ class WorkDetailPage extends React.Component {
     const {workData} = this.state;
 
     const workInfoTop = (
+      // 向下滚动后再顶部显示用户信息
       <div hidden={this.state.scrollTop <= 70}>
         <Affix offsetTop={0} className="animate">
           <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
@@ -84,8 +83,8 @@ class WorkDetailPage extends React.Component {
               <ALFlexBox centerV className="">
                 <Avatar size={60} shape="circle" src={userInfo.avatar}/>
 
-                <ALFlexBox column centerH className="al-m-left-10px">
-                  <h3>{workData === null ? "" : workData.title}</h3>
+                <ALFlexBox column centerH evenly className="al-m-left-10px">
+                  <div className="al-font-weight-bold">{workData === null ? "" : workData.title}</div>
                   <div>
                     {userInfo.nickname}
                     <Button type="link" className="al-m-lr-10px">关注</Button>
@@ -107,6 +106,8 @@ class WorkDetailPage extends React.Component {
 
     return this.workData === null ? <div></div> : (
       <div>
+
+        {/*向下滚动后再顶部显示用户信息*/}
         <div style={{backgroundColor: "#fff"}}>
           {workInfoTop}
         </div>
@@ -124,6 +125,7 @@ class WorkDetailPage extends React.Component {
           {/*</div>*/}
         </div>
 
+        {/*右侧点赞、收藏、评论、返回顶部的按钮*/}
         <Affix offsetBottom={50} className="al-float-right">
           <ALFlexBox column width={60} className="al-m-right-40px">
             {
@@ -147,7 +149,7 @@ class WorkDetailPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    commonRequest({url: GET_WORK_BY_ID + this.props.match.params.id}).then(res => {
+    commonRequest({url: GET_WORK_UI_BY_ID + this.props.match.params.id}).then(res => {
       this.setState({
         workData: res.data
       });

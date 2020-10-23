@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import ALFlexBox from "../../../../../../../components/al-flex-box/ALFlexBox";
-import ALTitleBox from "../../../../../../../components/al-title-box/ALTitleBox";
+import {ALFlexBox, ALTitleBox} from "../../../../../../../components/al-component";
 
 function WorkPublishLeftLayout(props) {
   const [title, setTitle] = useState("上传作品");

@@ -1,6 +1,6 @@
 import React from "react";
 import {Avatar} from "antd";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
+import {ALFlexBox} from "../../../../../components/al-component";
 
 function IllustrationBox(props) {
   const illustrationData = [

@@ -1,13 +1,11 @@
 import React from "react";
 import {Modal, Button, Card, Input, message, Select, Switch, Upload} from "antd";
-import ALFlexBox from "../../../../../../components/al-flex-box/ALFlexBox";
-import ALPlaceBox from "../../../../../../components/al-place-box/ALPlaceBox";
-import ALInput from "../../../../../../components/al-input/ALInput";
-import ALImage from "../../../../../../components/al-image/ALImage";
 import {getUserInfoFromLocalStorage} from "../../../../../../util/util";
 import {commonRequest} from "../../../../../../util/network/RequestHub";
-import {POST_WORK_ADD} from "../../../../../../util/network/config/ApiConst";
+import {POST_WORK_UI_ADD} from "../../../../../../util/network/config/ApiConst";
 import {CloseOutlined} from "@ant-design/icons";
+import {ALFlexBox, ALPlaceBox, ALImage} from "../../../../../../components/al-component";
+
 
 class PublishWork extends React.Component {
 
@@ -471,7 +469,7 @@ class PublishWork extends React.Component {
     console.log("sendData", sendData);
 
     commonRequest({
-      url: POST_WORK_ADD,
+      url: POST_WORK_UI_ADD,
       method: "post",
       data: sendData
     }).then(res => {

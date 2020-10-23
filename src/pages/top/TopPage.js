@@ -1,10 +1,8 @@
 import React from "react";
-import ALHeader from "../../components/al-header/ALHeader";
 import {commonRequest} from "../../util/network/RequestHub";
-import ALLoading from "../../components/al-loading/ALLoading";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
 import {Avatar, Divider, Menu, Dropdown} from "antd";
 import {GET_TOP_DESIGNER, GET_TOP_DEVELOPER, GET_TOP_WORK} from "../../util/network/config/ApiConst";
+import {ALFlexBox, ALLoading} from "../../components/al-component";
 
 class TopPage extends React.Component {
 

@@ -1,14 +1,14 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
-import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
-import {USER_PAGE} from "../../util/router/config/RouterConst";
+import {PATH_USER_PAGE} from "../../util/router/config/RouterConst";
 import {GET_USER_BY_TOKEN, POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 import {setCookie} from "../../util/cookieUtil";
 import {commonRequest} from "../../util/network/RequestHub";
 import {GlobalContext} from "../../index";
 import loginbg2 from "../../assets/image/login/loginbg2.svg"
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
+import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";
+
 
 
 class LoginPage extends React.Component {
@@ -200,7 +200,7 @@ class LoginPage extends React.Component {
         if (fromPath) {
           this.goPage(fromPath);
         } else {
-          this.goPage(USER_PAGE + "/" + this.state.userInfo.id);
+          this.goPage(PATH_USER_PAGE + "/" + this.state.userInfo.id);
         }
       }
     });

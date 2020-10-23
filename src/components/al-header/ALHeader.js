@@ -2,22 +2,21 @@ import React from "react";
 import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
 import {
-  DISCOVERY_PAGE,
-  HOME_PAGE,
-  LOGIN, MATERIAL_PAGE, MESSAGE_PAGE,
-  REGISTER, SEARCH_PAGE,
-  SHOP_PAGE,
-  TEST_PAGE,
-  TOP_PAGE,
-  WORK_PAGE
+  PATH_DISCOVERY_PAGE,
+  PATH_HOME_PAGE,
+  PATH_LOGIN, PATH_MATERIAL_PAGE, PATH_MESSAGE_PAGE,
+  PATH_REGISTER, PATH_SEARCH_PAGE,
+  PATH_SHOP_PAGE,
+  PATH_TEST_PAGE,
+  PATH_TOP_PAGE,
+  PATH_WORK_PAGE
 } from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
-import SubMenu from "antd/lib/menu/SubMenu";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/NetworkRequest";
 import {getUserInfoFromLocalStorage} from "../../util/util";
-import ALFlexBox from "../al-flex-box/ALFlexBox";
 import {POST_USER_LOGOUT} from "../../util/network/config/ApiConst";
+import ALFlexBox from "../al-flex-box/ALFlexBox";
 
 import "./style.css"
 import {GlobalContext} from "../../index";
@@ -32,11 +31,11 @@ class ALHeader extends React.Component {
       menuItems: [
         {
           text: "首页",
-          path: HOME_PAGE
+          path: PATH_HOME_PAGE
         },
         {
           text: "作品",
-          path: WORK_PAGE
+          path: PATH_WORK_PAGE
         },
         // {
         //   text: "发现",
@@ -44,33 +43,33 @@ class ALHeader extends React.Component {
         // },
         {
           text: "素材",
-          path: MATERIAL_PAGE
+          path: PATH_MATERIAL_PAGE
         },
         {
           text: "榜单",
-          path: TOP_PAGE
+          path: PATH_TOP_PAGE
         },
         {
           text: "商城",
-          path: SHOP_PAGE
+          path: PATH_SHOP_PAGE
         },
         {
           text: "测试",
-          path: TEST_PAGE
+          path: PATH_TEST_PAGE
         }
       ],
       menuItems2: [
         {
           text: "搜索",
-          path: SEARCH_PAGE
+          path: PATH_SEARCH_PAGE
         },
         {
           text: "上传",
-          path: HOME_PAGE
+          path: PATH_HOME_PAGE
         },
         {
           text: "通知",
-          path: MESSAGE_PAGE
+          path: PATH_MESSAGE_PAGE
         }
       ],
       isLogin: false,
@@ -109,10 +108,10 @@ class ALHeader extends React.Component {
         <div className="al-flex-container-center-v">
           <Button className="al-m-right-30px"
                   shape="round"
-                  onClick={() => this.goPage(LOGIN)}
+                  onClick={() => this.goPage(PATH_LOGIN)}
           >登录</Button>
           <Button shape="round"
-                  onClick={() => this.goPage(REGISTER)}
+                  onClick={() => this.goPage(PATH_REGISTER)}
           >注册</Button>
         </div>
       );
@@ -148,7 +147,7 @@ class ALHeader extends React.Component {
         <Dropdown overlay={avatarDropdownMenu}
                   placement="bottomCenter">
           <a className="ant-dropdown-link al-m-left-20px" onClick={e => e.preventDefault()}>
-            <Avatar src={userInfo.avatar === null ? "" : userInfo.avatar}/>
+            <Avatar src={userInfo === null ? "" : userInfo.avatar}/>
           </a>
         </Dropdown>
       </div>
@@ -196,7 +195,7 @@ class ALHeader extends React.Component {
               <ALFlexBox centerV>
                 <ALFlexBox centerV style={{marginTop: "4px"}}>
                   <div className="al-p-lr-20px">
-                    <a style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(SEARCH_PAGE)}>搜索</a>
+                    <a style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(PATH_SEARCH_PAGE)}>搜索</a>
                   </div>
 
                   <div className="al-p-lr-20px">
@@ -208,7 +207,7 @@ class ALHeader extends React.Component {
 
                   <div className="al-p-lr-20px">
                     <a style={{color: this.props.color ?? "#000"}}
-                       onClick={() => this.goPage(MESSAGE_PAGE)}>消息</a>
+                       onClick={() => this.goPage(PATH_MESSAGE_PAGE)}>消息</a>
                   </div>
                 </ALFlexBox>
                 {isLoginDiv}
@@ -271,7 +270,7 @@ class ALHeader extends React.Component {
     this.setState({
       isLogin: false
     });
-    this.goPage(HOME_PAGE);
+    this.goPage(PATH_HOME_PAGE);
   }
 
 

@@ -1,15 +1,11 @@
 
 import {
-  ABOUT, DISCOVERY_PAGE,
-  HOME,
-  HOME_PAGE,
-  LOGIN, MATERIAL_PAGE, MESSAGE_PAGE,
-  PASSAGE_DETAIL,
-  PASSAGE_LIST,
-  REGISTER, SEARCH_PAGE,
-  TEST_ANTD, TEST_PAGE, TOP_PAGE, USER_PAGE, USER_PROFILE_PAGE, WORK_DETAIL, WORK_PAGE
+  PATH_DISCOVERY_PAGE,
+  PATH_HOME_PAGE,
+  PATH_LOGIN, PATH_MATERIAL_PAGE, PATH_MESSAGE_PAGE,
+  PATH_REGISTER, PATH_SEARCH_PAGE,
+  PATH_TEST_PAGE, PATH_TOP_PAGE, PATH_USER_PAGE, PATH_USER_PROFILE_PAGE, PATH_WORK_DETAIL, PATH_WORK_PAGE
 } from "./RouterConst";
-import {About, Home, PassgaeDetail, PassgaeList} from "../../../pages/test/TestRouter";
 import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
@@ -30,50 +26,50 @@ import MessagePage from "../../../pages/message/MessagePage";
 let routes = [
   {
     title: "UUID",
-    path: HOME_PAGE,
+    path: PATH_HOME_PAGE,
     component: HomePage,
     exact: true
   },
   {
     title: "登录",
-    path: LOGIN,
+    path: PATH_LOGIN,
     component: LoginPage,
     exact: true
   },
   {
     title: "注册",
-    path: REGISTER,
+    path: PATH_REGISTER,
     component: RegisterPage,
     exact: true
   },
   {
     title: "作品",
-    path: WORK_PAGE,
+    path: PATH_WORK_PAGE,
     component: WorkPage,
     exact: true
   },
   {
     title: "作品详情页",
     // path: '/passage-list/passage-detail/:id',
-    path: WORK_DETAIL + '/:id',
+    path: PATH_WORK_DETAIL + '/:id',
     component: WorkDetailPage,
     exact: true
   },
   {
     title: "个人中心",
-    path: USER_PAGE + "/:id",
+    path: PATH_USER_PAGE + "/:id",
     component: UserPage,
     exact: true
   },
   {
     title: "用户资料页",
-    path: USER_PROFILE_PAGE + "/:id",
+    path: PATH_USER_PROFILE_PAGE + "/:id",
     component: UserProfilePage,
     exact: true
   },
   {
     title: "测试",
-    path: TEST_PAGE,
+    path: PATH_TEST_PAGE,
     component: TestPage,
     exact: true
   },
@@ -97,31 +93,31 @@ let routes = [
   },
   {
     title: "排行榜",
-    path: TOP_PAGE,
+    path: PATH_TOP_PAGE,
     component: TopPage,
     exact: true
   },
   {
     title: "发现",
-    path: DISCOVERY_PAGE,
+    path: PATH_DISCOVERY_PAGE,
     component: DiscoveryPage,
     exact: true
   },
   {
     title: "素材",
-    path: MATERIAL_PAGE,
+    path: PATH_MATERIAL_PAGE,
     component: MaterialPage,
     exact: true
   },
   {
     title: "搜索",
-    path: SEARCH_PAGE,
+    path: PATH_SEARCH_PAGE,
     component: SearchPage,
     exact: true
   },
   {
     title: "消息",
-    path: MESSAGE_PAGE,
+    path: PATH_MESSAGE_PAGE,
     component: MessagePage,
     exact: true
   },

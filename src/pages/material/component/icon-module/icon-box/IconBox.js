@@ -1,6 +1,6 @@
 import React from "react";
-import ALFlexBox from "../../../../../components/al-flex-box/ALFlexBox";
 import "./style.css";
+import {ALFlexBox} from "../../../../../components/al-component";
 
 function IconBox(props) {
   let svgStyle = {

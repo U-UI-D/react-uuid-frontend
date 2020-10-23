@@ -1,19 +1,13 @@
 import React from "react";
-import {Spin, Button, Carousel, Menu, Pagination, Avatar, Affix} from "antd";
-import ALHeader from "../../components/al-header/ALHeader";
-import ALFooter from "../../components/al-footer/ALFooter";
+import {Carousel, Menu, Pagination, Avatar, Affix} from "antd";
 import ShowWorkBox from "../work/component/show-work-box/ShowWorkBox";
 import MenuItem from "antd/lib/menu/MenuItem";
 import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
-import ALLoading from "../../components/al-loading/ALLoading";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
-import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
-import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import {GET_CAROUSEL_ALL, GET_WORK_ALL} from "../../util/network/config/ApiConst";
-import {WORK_DETAIL} from "../../util/router/config/RouterConst";
-import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
-import {GlobalContext} from "../../index";
+import {GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
+import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
+import {ALFlexBox, ALFooter, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
 
 class HomePage extends React.Component {
   //构造器
@@ -155,7 +149,7 @@ class HomePage extends React.Component {
                     this.state.workData.list.map((item, index) => {
                       return (
                         <div key={index} onClick={() => {
-                          this.goPage(WORK_DETAIL + "/" + item.id)
+                          this.goPage(PATH_WORK_DETAIL + "/" + item.id)
                         }}>
                           <ShowWorkBox workInfo={item}/>
                         </div>
@@ -177,7 +171,7 @@ class HomePage extends React.Component {
                               onShowSizeChange={(pageNum, pageSize) => {
                                 console.log("pageNum", pageNum);
                                 console.log("pageSize", pageSize);
-                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize}}).then(res => {
+                                commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
                                   this.setState({
                                     currentPageNum: pageNum,
                                     total: res.data.total,
@@ -191,7 +185,7 @@ class HomePage extends React.Component {
                                 this.setState({
                                   workData: null
                                 });
-                                commonRequest({url: GET_WORK_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+                                commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
                                   this.setState({
                                     currentPageNum: pageNum,
                                     total: res.data.total,
@@ -243,7 +237,7 @@ class HomePage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    commonRequest({url: GET_WORK_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
+    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
       if (res.err === null){
         this.setState({
           workData: res.data,

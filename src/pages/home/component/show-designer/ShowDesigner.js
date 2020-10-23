@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import ALFlexBox from "../../../../components/al-flex-box/ALFlexBox";
 import {Avatar, Button} from "antd";
 import {commonRequest} from "../../../../util/network/RequestHub";
-import ALLoading from "../../../../components/al-loading/ALLoading";
 import "./style.css";
 import {GET_DESIGNER_RECOMMEND} from "../../../../util/network/config/ApiConst";
+import {ALFlexBox, ALLoading} from "../../../../components/al-component";
 
 function ShowDesigner(props) {
 

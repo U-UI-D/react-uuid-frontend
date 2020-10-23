@@ -1,6 +1,6 @@
 import React from "react";
 import ShowWorkBox from "../../work/component/show-work-box/ShowWorkBox";
-import ALInlineWidthBox from "../../../components/al-inline-width-box/ALInlineWidthBox";
+import {ALInlineWidthBox} from "../../../components/al-component";
 
 class Favorite extends React.Component {
 
