@@ -9,6 +9,8 @@ import {commonRequest} from "../../util/network/RequestHub";
 import ChatWindow from "./component/ChatWindow";
 import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
 import {GET_MESSAGE_ALL, GET_MESSAGE_CHAT} from "../../util/network/config/ApiConst";
+import {getCookieByName} from "../../util/cookieUtil";
+import {LOGIN} from "../../util/router/config/RouterConst";
 
 class MessagePage extends React.Component {
   //构造器
@@ -254,6 +256,14 @@ class MessagePage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
+
+    //验证是否已单点登录
+    let token = getCookieByName("sso_token");
+    if (!token){
+      this.goPage(LOGIN, {fromPath: '/message'});
+      return;
+    }
+
     this.setState({
       userInfo: getUserInfoFromLocalStorage()
     });
@@ -274,6 +284,10 @@ class MessagePage extends React.Component {
   //组件卸载前调用
   componentWillUnmount() {
 
+  }
+
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: data})
   }
 
 }

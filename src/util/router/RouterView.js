@@ -3,6 +3,7 @@ import React from "react";
 import routes from "./config/routers";
 import {GlobalContext} from "../../index";
 import ALHeader from "../../components/al-header/ALHeader";
+import {getUserInfoFromLocalStorage} from "../util";
 
 export const RouteWithSubRoutes = route => (
   <Route
@@ -17,7 +18,8 @@ export const RouteWithSubRoutes = route => (
 function RouterView(props){
   return (
     <GlobalContext.Provider value={{
-      hello: "Hello React"
+      hello: "Hello React",
+      userInfo: getUserInfoFromLocalStorage()
     }}>
       <Router>
         <ALHeader />

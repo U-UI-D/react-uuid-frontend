@@ -105,15 +105,17 @@ class ALHeader extends React.Component {
     );
 
     if (!this.state.isLogin) {
-      isLoginDiv = <div className="al-flex-container-center-v">
-        <Button className="al-m-right-30px"
-                shape="round"
-                onClick={() => this.goPage(LOGIN)}
-        >登录</Button>
-        <Button shape="round"
-                onClick={() => this.goPage(REGISTER)}
-        >注册</Button>
-      </div>
+      isLoginDiv = (
+        <div className="al-flex-container-center-v">
+          <Button className="al-m-right-30px"
+                  shape="round"
+                  onClick={() => this.goPage(LOGIN)}
+          >登录</Button>
+          <Button shape="round"
+                  onClick={() => this.goPage(REGISTER)}
+          >注册</Button>
+        </div>
+      );
     } else {
       let userInfo = getUserInfoFromLocalStorage();
       const avatarDropdownMenu = (
@@ -128,7 +130,16 @@ class ALHeader extends React.Component {
           <MenuItem>
             <a className="" onClick={() => {
               this.logout();
-            }}>退出</a>
+            }}>
+              <GlobalContext.Consumer>
+                {
+                  data => {
+                    data.userInfo = null;
+                    return (<>退出</>);
+                  }
+                }
+              </GlobalContext.Consumer>
+            </a>
           </MenuItem>
         </Menu>
       );
@@ -145,6 +156,7 @@ class ALHeader extends React.Component {
 
     return (
       <div id="al-header" style={{backgroundColor: ""}} hidden={this.state.hidden}>
+
         <div style={{
           width: 1180 + 'px',
           margin: "0 auto"
@@ -204,8 +216,6 @@ class ALHeader extends React.Component {
             </ALFlexBox>
 
           </div>
-
-
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Button, Divider, Input, message} from "antd";
+import {Affix, Avatar, Button, Divider, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {USER_PAGE} from "../../util/router/config/RouterConst";
@@ -9,8 +9,6 @@ import {commonRequest} from "../../util/network/RequestHub";
 import {GlobalContext} from "../../index";
 import loginbg2 from "../../assets/image/login/loginbg2.svg"
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import ALPlaceBox from "../../components/al-place-box/ALPlaceBox";
-
 
 
 class LoginPage extends React.Component {
@@ -36,18 +34,27 @@ class LoginPage extends React.Component {
         backgroundSize: "50%",
         backgroundAttachment: "fixed",
         backgroundColor: "white",
-      }} className="al-box-container">
+        display: "flex",
+        flexDirection: "column"
+      }}>
 
-        <div className="content-width al-position-rela">
-          <ALFlexBox between>
+        <ALFlexBox column flexNum={1}>
+
+          <Affix>
+            <div className="al-text-right">
+              <Button type="link" onClick={() => this.goPage('/register')}>注册</Button>
+              <Divider type="vertical" style={{borderLeft: "1px solid #ccc"}} />
+              <Button type="link" onClick={() => this.goPage('/')}>首页</Button>
+            </div>
+          </Affix>
+
+          <ALFlexBox between centerV flexNum={1} className="content-width">
             <div></div>
-            <ALFlexBox column className="al-position-abs"
-                 style={{
-                   width: 400 + 'px',
-                   height: 300 + 'px',
-                   top: "-30vh",
-                   right: 0,
-                 }}>
+            <ALFlexBox column
+                       style={{
+                         width: 400 + 'px',
+                         height: 300 + 'px',
+                       }}>
               <div>
                 <div className="al-box-container">
                   <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')}/>
@@ -89,7 +96,8 @@ class LoginPage extends React.Component {
               </div>
             </ALFlexBox>
           </ALFlexBox>
-        </div>
+
+        </ALFlexBox>
 
 
         {/*将用户信息保存到context中*/}
@@ -122,7 +130,7 @@ class LoginPage extends React.Component {
 
   //验证账号密码
   validate = () => {
-    if (this.state.username.length === '') {
+    if (this.state.username.length === 0) {
       message.error("用户名不能为空");
       return false;
     }

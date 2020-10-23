@@ -244,7 +244,17 @@ class HomePage extends React.Component {
   componentDidMount() {
     //获取作品列表
     commonRequest({url: GET_WORK_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
-      this.setState({workData: res.data, total: res.data.total || 0})
+      if (res.err === null){
+        this.setState({
+          workData: res.data,
+          total: res.data.total
+        })
+      }else {
+        this.setState({
+          workData: null,
+          total: 0
+        })
+      }
     });
 
     commonRequest({url: GET_CAROUSEL_ALL, env: "mock"}).then(res => {

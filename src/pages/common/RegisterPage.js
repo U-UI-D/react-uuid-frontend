@@ -1,12 +1,11 @@
 import React from "react";
-import {Avatar, Button, Input, message} from "antd";
+import {Affix, Avatar, Button, Divider, Input, message} from "antd";
 import {request} from "../../util/network/NetworkRequest";
 import ALInlineWidthBox from "../../components/al-inline-width-box/ALInlineWidthBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
-import loginbg2 from "../../assets/image/login/loginbg2.svg";
+import registerbg from "../../assets/image/register/registerbg.svg";
 import ALFlexBox from "../../components/al-flex-box/ALFlexBox";
-import {GlobalContext} from "../../index";
 
 
 class RegisterPage extends React.Component {
@@ -29,22 +28,31 @@ class RegisterPage extends React.Component {
         width: 100 + '%',
         height: "100vh",
         padding: 0,
-        backgroundImage: `url(${loginbg2})`,
+        backgroundImage: `url(${registerbg})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "50%",
+        backgroundSize: "66%",
         backgroundAttachment: "fixed",
         backgroundColor: "white",
-      }} className="al-box-container">
+        display: "flex",
+        flexDirection: "column"
+      }}>
 
-        <div className="content-width al-position-rela">
-          <ALFlexBox between>
+        <ALFlexBox column flexNum={1}>
+
+          <Affix>
+            <div className="al-text-right">
+              <Button type="link" onClick={() => this.goPage('/login')}>登录</Button>
+              <Divider type="vertical" style={{borderLeft: "1px solid #ccc"}} />
+              <Button type="link" onClick={() => this.goPage('/')}>首页</Button>
+            </div>
+          </Affix>
+
+          <ALFlexBox between centerV flexNum={1} className="content-width">
             <div></div>
-            <ALFlexBox column className="al-position-abs"
+            <ALFlexBox column
                        style={{
                          width: 400 + 'px',
                          height: 300 + 'px',
-                         top: "-30vh",
-                         right: 0,
                        }}>
               <div>
                 <div className="al-box-container">
@@ -80,15 +88,15 @@ class RegisterPage extends React.Component {
                             style={{padding: "0 50px 0 50px"}}
                             onClick={() => {
                               this.register()
-                            }}>注册</Button>
+                            }}>登录</Button>
                   </div>
                 </div>
 
               </div>
             </ALFlexBox>
           </ALFlexBox>
-        </div>
 
+        </ALFlexBox>
       </div>
     );
   }
@@ -180,6 +188,10 @@ class RegisterPage extends React.Component {
       console.log(err);
       message.error("网络错误，请稍候再试！");
     });
+  }
+
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: {}})
   }
 
 }
