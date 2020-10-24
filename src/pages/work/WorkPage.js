@@ -3,7 +3,7 @@ import {Affix, Pagination} from "antd";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
-import {GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
+import {GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
 import TitleList from "./component/title-list/TitleList";
 import {ALFlexBox, ALFooter, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
@@ -122,8 +122,8 @@ class WorkPage extends React.Component {
   }
 
   //获取作品列表
-  getWorkData = (data = {}) => {
-    commonRequest({url: GET_WORK_UI_ALL, data}).then(res => {
+  getWorkData = (url=GET_WORK_UI_ALL, data = {}) => {
+    commonRequest({url, data}).then(res => {
       if (res.err === null) {
         this.setState({
           workData: res.data,
@@ -140,7 +140,17 @@ class WorkPage extends React.Component {
 
   handleTitleListChange = data => {
     console.log("TitleListChange", data);
-    this.getWorkData({typename: data.secondTitle === '全部' ? null : data.secondTitle});
+    let url = "";
+    let param = {};
+    if (data.firstTitle === 'UI作品'){
+      url = GET_WORK_UI_ALL;
+      param.typename = data.secondTitle;
+    }else {
+      url = GET_WORK_SOFTWARE_ALL;
+      // param.typename = data.secondTitle;
+      param.finished = data.secondTitle === '成品' ? '1' : '0';
+    }
+    this.getWorkData(url, {...param});
   }
 
 

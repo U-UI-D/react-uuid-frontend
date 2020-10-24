@@ -1,5 +1,5 @@
 import React from "react";
-import {Divider} from "antd";
+import {Button, Divider} from "antd";
 import {ALComment} from "../../../../../components/al-component";
 
 class WorkContentLeft extends React.Component{
@@ -19,9 +19,10 @@ class WorkContentLeft extends React.Component{
         <h1>{workData.title}</h1>
         <div>
           <span style={{marginRight: 20}}>原创作品</span>
-          <span style={{marginRight: 20}}>分类：APP</span>
-          <span style={{marginRight: 20}}>版权：APP</span>
-          <span style={{marginRight: 20}}>举报</span>
+          <span style={{marginRight: 20}}>分类：{workData.typename}</span>
+          <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
+          <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
+          <Button type="link" style={{marginRight: 20}}>举报</Button>
         </div>
 
         <div className="al-m-tb-20px"><Divider /></div>
