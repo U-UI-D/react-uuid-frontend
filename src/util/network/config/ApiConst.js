@@ -35,6 +35,13 @@ export const GET_WORK_UI_BY_ID = "/work/work/ui/";
 //添加ui作品
 export const POST_WORK_UI_ADD = "/work/work/ui";
 
+//所有软件作品
+export const GET_WORK_SOFTWARE_ALL = "/work/work/software";
+//软件作品详情
+export const GET_WORK_SOFTWARE_BY_ID = "/work/work/software/";
+//添加软件作品
+export const POST_WORK_SOFTWARE_ADD = "/work/work/software";
+
 //轮播图接口 ============================
 //所有轮播图
 export const GET_CAROUSEL_ALL = "/carousel/carousel";

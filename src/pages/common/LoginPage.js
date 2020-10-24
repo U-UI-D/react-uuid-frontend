@@ -8,6 +8,7 @@ import {commonRequest} from "../../util/network/RequestHub";
 import {GlobalContext} from "../../index";
 import loginbg2 from "../../assets/image/login/loginbg2.svg"
 import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";
+import store from "../../store";
 
 
 
@@ -15,8 +16,10 @@ class LoginPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
+
+    const {userInfo} = store.getState();
     this.state = {
-      userInfo: null,
+      userInfo: userInfo,
       username: "",
       password: "",
     }
@@ -116,10 +119,14 @@ class LoginPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    document.getElementById("al-header").hidden = true;
-    this.setState({
-      userInfo: null
+    store.subscribe(() => {
+      this.setState({
+        userInfo: store.getState().userInfo,
+        isLogin: store.getState().isLogin,
+      });
     });
+
+    document.getElementById("al-header").hidden = true;
 
   }
 
@@ -194,6 +201,20 @@ class LoginPage extends React.Component {
         this.setState({
           userInfo: res.data,
         });
+
+        let userInfo = res.data
+        const action = {
+          type: "changeUserInfo",
+          value: userInfo
+        }
+        store.dispatch(action);
+
+        const action2 = {
+          type: "changeLoginState",
+          value: true
+        }
+        store.dispatch(action2);
+
         // 记住登录状态
         this.rememberLoginState(true);
         // 跳转页面

@@ -20,12 +20,14 @@ import ALFlexBox from "../al-flex-box/ALFlexBox";
 
 import "./style.css"
 import {GlobalContext} from "../../index";
+import store from "../../store";
 
 class ALHeader extends React.Component {
   //构造器
   constructor(props) {
     super(props);
 
+    const {userInfo, isLogin} = store.getState();
     this.state = {
       currentTitle: ["首页"],
       menuItems: [
@@ -72,9 +74,12 @@ class ALHeader extends React.Component {
           path: PATH_MESSAGE_PAGE
         }
       ],
-      isLogin: false,
-      hidden: false
+      isLogin: isLogin,
+      hidden: false,
+      userInfo: userInfo,
     }
+
+    console.log("store", store.getState());
   }
 
   //渲染函数
@@ -222,14 +227,15 @@ class ALHeader extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    let isLogin = JSON.parse(localStorage.getItem("isLogin"));
-    if (isLogin) {
-      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      console.log(userInfo);
-    }
-    this.setState({
-      isLogin: isLogin
-    })
+    store.subscribe(() => {
+      this.setState({
+        userInfo: store.getState().userInfo,
+        isLogin: store.getState().isLogin
+      });
+
+      console.log("store userInfo", store.getState().userInfo);
+      console.log("store isLogin", store.getState().isLogin);
+    });
   }
 
   //组件卸载前调用

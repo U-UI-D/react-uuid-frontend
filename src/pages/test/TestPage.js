@@ -1,17 +1,40 @@
 import React from "react";
-import {Button, Menu} from 'antd';
-import MenuItem from "antd/es/menu/MenuItem";
-import {ALFlexBox} from "../../components/al-component";
+import {Button, Input} from 'antd';
+import store from "../../store";
 
 
 class TestPage extends React.Component {
   constructor(props) {
     super(props);
 
+    const {userInfo} = store.getState();
     this.state = {
-      value: null,
-      current: ["item1"],
+      userInfo: userInfo
+    };
+
+  }
+
+  storeChange = () => {
+    this.setState({userInfo: store.getState().userInfo});
+  }
+
+  componentDidMount() {
+    store.subscribe(this.storeChange);
+    console.log("state", this.state);
+  }
+
+  handleChange = (e) => {
+    console.log(e.target.value);
+    const {userInfo} = store.getState();
+    userInfo.nickname = e.target.value;
+    const action = {
+      type: "changeUserInfo",
+      value: userInfo
     }
+
+    store.dispatch(action);
+
+    console.log("store", store.getState());
   }
 
 
@@ -26,36 +49,13 @@ class TestPage extends React.Component {
             <Button onClick={() => this.props.history.push('/demo')}>demo页面</Button>
           </div>
 
-          <div>
-            <Menu mode="horizontal"
-                  defaultSelectedKeys={this.state.current}
-                  onSelect={({item, key}) => {
-                    console.log("item", item);
-                    console.log("key", key);
-                    let arr = [];
-                    arr.push(key);
-                    this.setState({
-                      current: arr
-                    })
-                  }}
-            >
-              <MenuItem key={"item1"}>
-                item1
-              </MenuItem>
-              <MenuItem key={"item2"}>
-                item2
-              </MenuItem>
-              <MenuItem key={"item3"}>
-                item3
-              </MenuItem>
-            </Menu>
+          <div className="al-box-size-200px al-show-border">
+            {this.state.userInfo === null ? "22" : this.state.userInfo.nickname}
           </div>
-        </div>
 
-        <ALFlexBox>
-          <div>a</div>
-          <div>b</div>
-        </ALFlexBox>
+          <Input onChange={this.handleChange} />
+
+        </div>
 
 
 
