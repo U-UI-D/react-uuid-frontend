@@ -76,7 +76,6 @@ class ALComment extends React.Component{
 
     return this.state.userInfo === null ? <div></div> : (
         <>
-          {comments.length > 0 && <CommentList comments={comments} />}
           <Comment
               avatar={
                 <Avatar
@@ -93,6 +92,8 @@ class ALComment extends React.Component{
                 />
               }
           />
+
+          {comments.length > 0 && <CommentList comments={comments} />}
         </>
     );
   }

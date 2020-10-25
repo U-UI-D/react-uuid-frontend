@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Avatar} from "antd";
 
 export class HoverBox extends React.Component{
@@ -39,7 +39,7 @@ export class HoverBox extends React.Component{
           onClick={this.props.data.num === undefined ? this.props.onClick : () => {
             this.setState({num: selected ? ++num : --num});
             console.log("num", num);
-            this.props.onChange({num})
+            this.props.onChange({title: this.props.data.title, num})
           }}
           style={{backgroundColor: activeColor ? "rgb(225,239,255)" : "rgb(255,255,255)"}}>
           {

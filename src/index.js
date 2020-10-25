@@ -5,6 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import RouterView from "./util/router/RouterView";
 import {initForUser} from "./util/init/init";
+import {Provider} from "react-redux";
+import store from "./store";
 
 console.log("================ initForUser ================== ");
 initForUser();
@@ -15,7 +17,9 @@ React.userInfo = null;
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterView />
+    <Provider store={store}>
+      <RouterView />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

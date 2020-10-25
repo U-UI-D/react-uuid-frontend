@@ -1,7 +1,8 @@
 
 let initState = {
   userInfo: null,
-  isLogin: false
+  isLogin: false,
+  name: "AlanLee"
 };
 
 if (sessionStorage.getItem("store")){
@@ -19,6 +20,11 @@ export function reducer(state = initState, action) {
 
   if (action.type === 'changeLoginState'){
     newState.isLogin = action.value;
+    console.log("newState", newState);
+  }
+
+  if (action.type === 'updateName'){
+    newState.name = action.value;
     console.log("newState", newState);
   }
 

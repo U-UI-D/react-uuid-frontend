@@ -1,25 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import "./style.css";
 import WorkContentLeft from "./component/WorkContentLeft";
 import {commonRequest} from "../../../../util/network/RequestHub";
 import {Affix, Avatar, Button} from "antd";
-import {GET_USER_ID, GET_WORK_UI_BY_ID} from "../../../../util/network/config/ApiConst";
-import {getUserInfoFromLocalStorage} from "../../../../util/util";
+import {GET_WORK_UI_BY_ID} from "../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../components/al-component";
 import {HoverBox} from "./component/HoverBox";
-
-
+import store from "../../../../store";
 
 class WorkDetailPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
 
+    const {userInfo} = store.getState();
     this.state = {
       workData: null,
-      userInfo: null,
+      userInfo: userInfo,
       activeColor: false,
-      countData: [
+      hoverBoxData: [
         {
           icon0: require("../../../../assets/icon/common/dianzan0.png"),
           icon1: require("../../../../assets/icon/common/dianzan1.png"),
@@ -39,59 +38,70 @@ class WorkDetailPage extends React.Component {
           num: 0
         },
       ],
-
+      countData: {},
       scrollTop: 0,
       isFollow: false,
-      dotNums: []
     }
   }
 
   //渲染函数
   render() {
     const {workData} = this.state;
+    const workInfoTop = workData === null ? <></> :
+      (
+        // 向下滚动后在顶部显示用户信息
+        <div hidden={this.state.scrollTop <= 70}>
+          <Affix offsetTop={0} className="animate">
+            <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
+              <ALFlexBox between className="content-width">
+                <ALFlexBox centerV>
+                  <Avatar size={60} shape="circle" src={workData.avatar}/>
 
-    const workInfoTop =
-    (
-      // 向下滚动后在顶部显示用户信息
-      <div hidden={this.state.scrollTop <= 70}>
-        <Affix offsetTop={0} className="animate">
-          <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
-            <ALFlexBox between className="content-width">
-              <ALFlexBox centerV>
-                <Avatar size={60} shape="circle" src={workData === null ? "" : workData.avatar}/>
+                  <ALFlexBox column centerH evenly className="al-m-left-10px">
+                    <div className="al-font-weight-bold">{workData.title}</div>
+                    <div>
+                      {workData.nickname}
+                      <Button type="link" className="al-m-lr-10px" onClick={() => {
+                        this.setState({isFollow: !this.state.isFollow})
+                      }}>
+                        {
+                          workData.userId === this.state.userInfo.id ? <></> :
+                          <span>
+                            {this.state.isFollow ? "已关注" : "关注"}
+                          </span>
+                        }
+                      </Button>
+                    </div>
+                  </ALFlexBox>
+                </ALFlexBox>
 
-                <ALFlexBox column centerH evenly className="al-m-left-10px">
-                  <div className="al-font-weight-bold">{workData === null ? "" : workData.title}</div>
+                <ALFlexBox centerVH>
+
                   <div>
-                    {workData === null ? "" : workData.nickname}
-                    <Button type="link" className="al-m-lr-10px" onClick={() => {this.setState({isFollow: !this.state.isFollow})}}>
-                      {this.state.isFollow ? "已关注" : "关注"}
-                    </Button>
+                    添加到我的项目
+                  </div>
+
+                  <div className="appendix" style={{padding: 10}}>
+                    <div className="al-m-right-10px">
+                      <span>附件</span>
+                      <span className="al-p-lr-10px">12MB</span>
+                      <a>下载</a>
+                    </div>
                   </div>
                 </ALFlexBox>
               </ALFlexBox>
-
-              <ALFlexBox centerVH className="appendix" padding={10}>
-                <div className="al-m-right-10px">
-                  附件
-                  <span className="al-p-lr-10px">12MB</span>
-                </div>
-                <a>下载</a>
-              </ALFlexBox>
             </ALFlexBox>
-          </ALFlexBox>
-        </Affix>
-      </div>
-    );
+          </Affix>
+        </div>
+      );
 
     const backTopData = {
       icon0: require("../../../../assets/icon/common/top1.png"),
       icon1: require("../../../../assets/icon/common/top1.png"),
     };
 
-    return this.workData === null ? <div></div> : (
+    return workData === null ? <></> : (
       <div>
-
         {/*向下滚动后再顶部显示用户信息*/}
         <div style={{backgroundColor: "#fff"}}>
           {workInfoTop}
@@ -110,12 +120,13 @@ class WorkDetailPage extends React.Component {
         <Affix offsetBottom={50} className="al-float-right">
           <ALFlexBox column width={60} className="al-m-right-40px">
             {
-              this.state.countData.map((item, index) => {
+              this.state.hoverBoxData.map((item, index) => {
                 return (
-                  <HoverBox key={index}
-                            data={item}
-                            showFloatDot
-                            onChange={this.handleChangeForHoverBox}/>
+                  <div key={index} >
+                    <HoverBox data={item}
+                              showFloatDot
+                              onChange={this.handleChangeForHoverBox}/>
+                  </div>
                 );
               })
             }
@@ -134,32 +145,22 @@ class WorkDetailPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-
-
     commonRequest({url: GET_WORK_UI_BY_ID + this.props.match.params.id}).then(res => {
-      let arr = [];
-      arr.push(res.data.likeCount);
-      arr.push(res.data.favorCount);
-      arr.push(res.data.commentCount);
+      if (res.err === null){
+        let {hoverBoxData, countData} = this.state;
+        hoverBoxData[0].num = countData.likeCount = res.data.likeCount;
+        hoverBoxData[1].num = countData.favorCount = res.data.favorCount;
+        hoverBoxData[2].num = countData.commentCount = res.data.commentCount;
 
-      let countData = this.state.countData;
-      arr.map((item, index) => {
-        countData[index].num = item;
-      })
+        this.setState({
+          workData: res.data,
+          hoverBoxData: hoverBoxData,
+          countData
+        });
 
-      this.setState({
-        workData: res.data,
-        countData: countData
-      });
+        this.increaseLookCount();
+      }
 
-      console.log("countData", this.state.countData);
-
-
-      // commonRequest({url: GET_USER_ID + "/" + res.data.userId}).then(res => {
-      //   this.setState({
-      //     userInfo: res.data
-      //   })
-      // })
     });
 
     window.addEventListener('scroll', this.bindHandleScroll);
@@ -168,6 +169,7 @@ class WorkDetailPage extends React.Component {
   //组件卸载前调用
   componentWillUnmount() {
     window.removeEventListener('scroll', this.bindHandleScroll);
+    console.log("newWorkData", this.state.newWorkData);
   }
 
   bindHandleScroll = (event) => {
@@ -182,7 +184,7 @@ class WorkDetailPage extends React.Component {
     let timer = setInterval(() => {
       if (this.state.scrollTop === 0) {
         clearInterval(timer);
-        return ;
+        return;
       }
       let speed = Math.ceil(this.state.scrollTop / 5);
       this.setState({
@@ -202,6 +204,27 @@ class WorkDetailPage extends React.Component {
 
   handleChangeForHoverBox = (data) => {
     console.log("HoverBox data", data)
+    let {countData} = this.state;
+
+    switch (data.title) {
+      case "点赞":
+        countData.likeCount = data.num;
+        break;
+      case "收藏":
+        countData.favorCount = data.num;
+        break;
+      case "评论":
+        countData.commentCount = data.num;
+        break;
+      default:
+        break;
+    }
+  }
+
+  increaseLookCount = () => {
+    const {workData} = this.state;
+    workData.lookCount = ++workData.lookCount;
+    this.setState({workData});
   }
 
 

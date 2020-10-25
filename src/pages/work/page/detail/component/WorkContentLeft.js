@@ -22,7 +22,12 @@ class WorkContentLeft extends React.Component{
           <span style={{marginRight: 20}}>分类：{workData.typename}</span>
           <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
           <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
+          <span style={{marginRight: 20}}>可商用：{workData.commercialAvailable === '0' ? "否" : "是"}</span>
           <Button type="link" style={{marginRight: 20}}>举报</Button>
+        </div>
+
+        <div>
+          标签：
         </div>
 
         <div className="al-m-tb-20px"><Divider /></div>
