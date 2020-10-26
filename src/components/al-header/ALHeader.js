@@ -174,16 +174,7 @@ class ALHeader extends React.Component {
                        className="header-menu" style={{flex: 1}}>
               {/*菜单1*/}
               <div>
-                <Menu mode="horizontal"
-                      defaultSelectedKeys={this.state.currentTitle}
-                      style={{backgroundColor: "#00000000"}}
-                      onClick={({item, key, keyPath, domEvent}) => {
-                        this.setState({
-                          currentTitle: [key]
-                        });
-                      }}
-
-                >
+                <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
                   {
                     this.state.menuItems.map((item, index) => {
                       return <MenuItem key={item.text}
@@ -272,6 +263,7 @@ class ALHeader extends React.Component {
 
   clearUserInfo() {
     localStorage.removeItem("isLogin");
+    sessionStorage.removeItem("store");
     deleteCookie("sso_token");
     this.setState({
       isLogin: false

@@ -5,7 +5,7 @@ import {commonRequest} from "../../../../util/network/RequestHub";
 import {Affix, Avatar, Button} from "antd";
 import {GET_WORK_UI_BY_ID} from "../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../components/al-component";
-import {HoverBox} from "./component/HoverBox";
+import HoverBox from "./component/HoverBox";
 import store from "../../../../store";
 
 class WorkDetailPage extends React.Component {
@@ -77,17 +77,14 @@ class WorkDetailPage extends React.Component {
 
                 <ALFlexBox centerVH>
 
-                  <div>
+                  <Button style={{height: "50px", marginRight: "10px"}} shape="round">
                     添加到我的项目
-                  </div>
+                  </Button>
 
-                  <div className="appendix" style={{padding: 10}}>
-                    <div className="al-m-right-10px">
-                      <span>附件</span>
-                      <span className="al-p-lr-10px">12MB</span>
-                      <a>下载</a>
-                    </div>
-                  </div>
+                  <Button style={{height: "50px"}} shape="round">
+                    <span>附件下载</span>
+                    <span className="al-p-left-10px">12MB</span>
+                  </Button>
                 </ALFlexBox>
               </ALFlexBox>
             </ALFlexBox>
@@ -110,10 +107,16 @@ class WorkDetailPage extends React.Component {
 
         {/*作品详情页：id={this.props.match.params.id}*/}
 
-        <div style={{height: 30}}></div>
 
-        <div className="content-width">
-          <WorkContentLeft workData={this.state.workData}/>
+
+        <div>
+          <div className="top-box">
+            <div className="top-bg" style={{backgroundImage: `url(${workData.poster})`}}></div>
+          </div>
+
+          <div className="content-width al-position-rela" style={{top: "-100px"}}>
+            <WorkContentLeft workData={this.state.workData}/>
+          </div>
         </div>
 
         {/*右侧点赞、收藏、评论、返回顶部的按钮*/}
@@ -124,6 +127,7 @@ class WorkDetailPage extends React.Component {
                 return (
                   <div key={index} >
                     <HoverBox data={item}
+                              isChangeNum={item.title !== '评论'}
                               showFloatDot
                               onChange={this.handleChangeForHoverBox}/>
                   </div>

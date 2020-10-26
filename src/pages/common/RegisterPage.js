@@ -102,11 +102,13 @@ class RegisterPage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     document.getElementById("al-header").hidden = true;
+    document.getElementById("al-footer").hidden = true;
   }
 
   //组件卸载前调用
   componentWillUnmount() {
     document.getElementById("al-header").hidden = false;
+    document.getElementById("al-footer").hidden = false;
   }
 
   //验证账号密码

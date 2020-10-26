@@ -4,6 +4,7 @@ import routes from "./config/routers";
 import {GlobalContext} from "../../index";
 import ALHeader from "../../components/al-header/ALHeader";
 import {getUserInfoFromLocalStorage} from "../util";
+import {ALFooter} from "../../components/al-component";
 
 export const RouteWithSubRoutes = route => (
   <Route
@@ -23,11 +24,16 @@ function RouterView(props){
     }}>
       <Router>
         <ALHeader />
-        {
-          routes.map((route, i) => {
-            return <RouteWithSubRoutes key={route.path} {...route} />
-          })
-        }
+
+        <div id="content">
+          {
+            routes.map((route, i) => {
+              return <RouteWithSubRoutes key={route.path} {...route} />
+            })
+          }
+        </div>
+
+        <ALFooter />
       </Router>
     </GlobalContext.Provider>
   );

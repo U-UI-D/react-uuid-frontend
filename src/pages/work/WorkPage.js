@@ -1,12 +1,12 @@
 import React from "react";
-import {Affix, Pagination} from "antd";
+import {Empty, Affix, Pagination} from "antd";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
 import {GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
 import TitleList from "./component/title-list/TitleList";
-import {ALFlexBox, ALFooter, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
+import {ALFlexBox, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
 
 class WorkPage extends React.Component {
   //构造器
@@ -40,21 +40,30 @@ class WorkPage extends React.Component {
             <div style={{marginLeft: "15px"}}>
               {
                 this.state.workData === null ?
-                  <ALLoading show height={200}/>
+                  (
+                    <ALLoading show height={200}/>
+                  )
                   :
-                  <ALFlexBox wrap margin={-15}>
-                    {
-                      this.state.workData.list.map((item, index) => {
-                        return (
-                          <div key={index} onClick={() => {
-                            this.goPage(PATH_WORK_DETAIL + "/" + item.id)
-                          }}>
-                            <ShowWorkBox workInfo={item}/>
-                          </div>
-                        )
-                      })
-                    }
-                  </ALFlexBox>
+                  (
+                    this.state.workData.total === 0 ?
+                      <div>
+                        <Empty />
+                      </div>
+                      :
+                    <ALFlexBox wrap margin={-15}>
+                      {
+                        this.state.workData.list.map((item, index) => {
+                          return (
+                            <div key={index} onClick={() => {
+                              this.goPage(PATH_WORK_DETAIL + "/" + item.id)
+                            }}>
+                              <ShowWorkBox workInfo={item}/>
+                            </div>
+                          )
+                        })
+                      }
+                    </ALFlexBox>
+                  )
               }
 
               {/*分页*/}
@@ -101,11 +110,6 @@ class WorkPage extends React.Component {
 
         </div>
 
-        <div className="al-box-size-20px"></div>
-        <div className="al-bg-color-light-white">
-          <ALFooter/>
-        </div>
-
       </div>
     );
   }
@@ -144,7 +148,7 @@ class WorkPage extends React.Component {
     let param = {};
     if (data.firstTitle === 'UI作品'){
       url = GET_WORK_UI_ALL;
-      param.typename = data.secondTitle;
+      param.typename = data.secondTitle === '全部' ? '' : data.secondTitle;
     }else {
       url = GET_WORK_SOFTWARE_ALL;
       // param.typename = data.secondTitle;

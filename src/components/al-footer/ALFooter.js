@@ -1,9 +1,10 @@
 import React from "react";
 import {Avatar} from "antd";
+import "./style.css";
 
 function ALFooter() {
   return (
-    <div style={{backgroundColor: "#282828", color: "#666"}}>
+    <div id="al-footer" className="footer">
       <div className="al-flex-container al-flex-container-center-v content-width">
         <div>
           <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')} />

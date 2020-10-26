@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Divider} from "antd";
+import {Button, Divider, Tag} from "antd";
 import {ALComment} from "../../../../../components/al-component";
 
 class WorkContentLeft extends React.Component{
@@ -14,7 +14,7 @@ class WorkContentLeft extends React.Component{
   render() {
 
     let workData = this.props.workData;
-    return workData === null ? <div></div> :(
+    return workData === null ? <></> :(
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
         <div>
@@ -28,6 +28,9 @@ class WorkContentLeft extends React.Component{
 
         <div>
           标签：
+          {this.props.workData.tagList.map((item, index) => {
+            return <Tag key={index}>{item}</Tag>
+          })}
         </div>
 
         <div className="al-m-tb-20px"><Divider /></div>
@@ -45,6 +48,12 @@ class WorkContentLeft extends React.Component{
             }
           </div>
 
+        </div>
+
+        <div className="al-m-tb-20px"><Divider /></div>
+
+        <div>
+          以下开发者正在开发此项目
         </div>
 
         <ALComment />

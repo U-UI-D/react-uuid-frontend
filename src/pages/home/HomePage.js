@@ -7,7 +7,7 @@ import {commonRequest} from "../../util/network/RequestHub";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
 import {GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
-import {ALFlexBox, ALFooter, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
+import {ALFlexBox, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
 
 class HomePage extends React.Component {
   //构造器
@@ -222,12 +222,6 @@ class HomePage extends React.Component {
         <div className="content-width">
           <h2>设计师/开发者推荐</h2>
           <ShowDesigner/>
-        </div>
-
-
-        <div className="al-box-size-20px"></div>
-        <div className="al-bg-color-light-white">
-          <ALFooter/>
         </div>
 
       </div>
