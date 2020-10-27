@@ -19,7 +19,7 @@ import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
-import WorkDetailPage from "../../../pages/work/page/detail/WorkDetailPage";
+import WorkDetailPage from "../../../pages/work/page/detail/page/ui/UIWorkDetailPage";
 import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
 import WorkPublishPage from "../../../pages/work/page/publish/WorkPublishPage";
