@@ -2,9 +2,18 @@
 import {
   PATH_DISCOVERY_PAGE,
   PATH_HOME_PAGE,
-  PATH_LOGIN, PATH_MATERIAL_PAGE, PATH_MESSAGE_PAGE,
-  PATH_REGISTER, PATH_SEARCH_PAGE,
-  PATH_TEST_PAGE, PATH_TOP_PAGE, PATH_USER_PAGE, PATH_USER_PROFILE_PAGE, PATH_WORK_DETAIL, PATH_WORK_PAGE
+  PATH_LOGIN,
+  PATH_MATERIAL_PAGE,
+  PATH_MESSAGE_PAGE,
+  PATH_REGISTER,
+  PATH_SEARCH_PAGE,
+  PATH_TEST_PAGE,
+  PATH_TOP_PAGE,
+  PATH_USER_PAGE,
+  PATH_USER_PROFILE_PAGE,
+  PATH_WORK_UI_DETAIL,
+  PATH_WORK_PAGE,
+  PATH_WORK_SOFTWARE_DETAIL
 } from "./RouterConst";
 import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
@@ -22,6 +31,7 @@ import DiscoveryPage from "../../../pages/discovery/DiscoveryPage";
 import MaterialPage from "../../../pages/material/MaterialPage";
 import SearchPage from "../../../pages/search/SearchPage";
 import MessagePage from "../../../pages/message/MessagePage";
+import SoftwareDetailPage from "../../../pages/work/page/detail/page/software/SoftwareWorkDetailPage";
 
 let routes = [
   {
@@ -49,10 +59,16 @@ let routes = [
     exact: true
   },
   {
-    title: "作品详情页",
+    title: "UI作品详情页",
     // path: '/passage-list/passage-detail/:id',
-    path: PATH_WORK_DETAIL + '/:id',
+    path: PATH_WORK_UI_DETAIL + '/:id',
     component: WorkDetailPage,
+    exact: true
+  },
+  {
+    title: "软件作品详情页",
+    path: PATH_WORK_SOFTWARE_DETAIL + '/:id',
+    component: SoftwareDetailPage,
     exact: true
   },
   {

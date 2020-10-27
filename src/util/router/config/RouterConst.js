@@ -10,7 +10,9 @@ export const PATH_REGISTER = "/register";
 //作品
 export const PATH_WORK_PAGE =  "/work";
 //作品详情
-export const PATH_WORK_DETAIL =  "/work/detail";
+export const PATH_WORK_UI_DETAIL =  "/work/ui/detail";
+//软件作品详情
+export const PATH_WORK_SOFTWARE_DETAIL =  "/work/software/detail";
 
 
 //用户 ==========================
