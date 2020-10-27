@@ -18,7 +18,7 @@ export function reducer(state = initState, action) {
     console.log("newState", newState);
   }
 
-  if (action.type === 'changeLoginState'){
+  if (action.type === 'updateLoginState'){
     newState.isLogin = action.value;
     console.log("newState", newState);
   }
