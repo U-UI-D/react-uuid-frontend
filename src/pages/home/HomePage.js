@@ -6,7 +6,7 @@ import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
 import {GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
-import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
+import {PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {ALFlexBox, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
 
 class HomePage extends React.Component {
@@ -149,7 +149,7 @@ class HomePage extends React.Component {
                     this.state.workData.list.map((item, index) => {
                       return (
                         <div key={index} onClick={() => {
-                          this.goPage(PATH_WORK_DETAIL + "/" + item.id)
+                          this.goPage(PATH_WORK_UI_DETAIL + "/" + item.id)
                         }}>
                           <ShowWorkBox workInfo={item}/>
                         </div>

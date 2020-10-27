@@ -2,7 +2,7 @@ import React from "react";
 import {Empty, Affix, Pagination} from "antd";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
-import {PATH_WORK_DETAIL} from "../../util/router/config/RouterConst";
+import {PATH_WORK_SOFTWARE_DETAIL, PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
 import TitleList from "./component/title-list/TitleList";
@@ -20,7 +20,7 @@ class WorkPage extends React.Component {
       currentPageNum: 1,
       currentPageSize: 20,
       total: 0,
-      workType: null
+      workType: "UI作品"
     }
   }
 
@@ -34,6 +34,8 @@ class WorkPage extends React.Component {
 
         <div>
           <div className="content-width">
+
+
 
             {/*作品列表*/}
             <ALPlaceBox height={20}/>
@@ -55,7 +57,7 @@ class WorkPage extends React.Component {
                         this.state.workData.list.map((item, index) => {
                           return (
                             <div key={index} onClick={() => {
-                              this.goPage(PATH_WORK_DETAIL + "/" + item.id)
+                              this.goPage((this.state.workType === 'UI作品' ? PATH_WORK_UI_DETAIL : PATH_WORK_SOFTWARE_DETAIL) + "/" + item.id);
                             }}>
                               <ShowWorkBox workInfo={item}/>
                             </div>
@@ -139,11 +141,12 @@ class WorkPage extends React.Component {
   }
 
   goPage = (path, data = {}) => {
-    this.props.history.push({pathname: path, state: {}})
+    this.props.history.push({pathname: path, state: data})
   }
 
   handleTitleListChange = data => {
     console.log("TitleListChange", data);
+    this.setState({workType: data.firstTitle})
     let url = "";
     let param = {};
     if (data.firstTitle === 'UI作品'){

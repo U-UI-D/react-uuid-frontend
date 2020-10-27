@@ -21,6 +21,7 @@ import ALFlexBox from "../al-flex-box/ALFlexBox";
 import "./style.css"
 import {GlobalContext} from "../../index";
 import store from "../../store";
+import {connect} from "react-redux";
 
 class ALHeader extends React.Component {
   //构造器
@@ -235,7 +236,7 @@ class ALHeader extends React.Component {
   }
 
   goPage = (path, data = {}) => {
-    this.props.history.push({pathname: path, state: {}})
+    this.props.history.push({pathname: path, state: data})
   }
 
   // 退出
@@ -264,6 +265,7 @@ class ALHeader extends React.Component {
   clearUserInfo() {
     localStorage.removeItem("isLogin");
     sessionStorage.removeItem("store");
+    this.props.updateLoginState(false);
     deleteCookie("sso_token");
     this.setState({
       isLogin: false
@@ -274,4 +276,23 @@ class ALHeader extends React.Component {
 
 }
 
-export default withRouter(ALHeader);
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateLoginState(data){
+      let action = {
+        type: "updateLoginState",
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ALHeader));

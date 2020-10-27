@@ -119,6 +119,8 @@ class LoginPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
+    console.log("props", this.props);
+
     store.subscribe(() => {
       this.setState({
         userInfo: store.getState().userInfo,
@@ -212,7 +214,7 @@ class LoginPage extends React.Component {
         store.dispatch(action);
 
         const action2 = {
-          type: "changeLoginState",
+          type: "updateLoginState",
           value: true
         }
         store.dispatch(action2);
