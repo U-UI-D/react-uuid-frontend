@@ -1,8 +1,8 @@
 import React from "react";
 import {Button, Divider, Tag} from "antd";
-import {ALComment} from "../../../../../components/al-component";
+import {ALComment} from "../../../../../../../components/al-component";
 
-class WorkContentLeft extends React.Component{
+class UIWorkContent extends React.Component{
   //构造器
   constructor(props) {
     super(props);
@@ -73,4 +73,4 @@ class WorkContentLeft extends React.Component{
 
 }
 
-export default WorkContentLeft;
+export default UIWorkContent;

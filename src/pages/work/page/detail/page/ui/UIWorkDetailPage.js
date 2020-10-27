@@ -1,16 +1,16 @@
 import React from "react";
 import "./style.css";
-import WorkContentLeft from "./component/WorkContentLeft";
-import {commonRequest} from "../../../../util/network/RequestHub";
+import UIWorkContent from "./component/UIWorkContent";
+import {commonRequest} from "../../../../../../util/network/RequestHub";
 import {Affix, Avatar, Button} from "antd";
-import {GET_WORK_UI_BY_ID} from "../../../../util/network/config/ApiConst";
-import {ALFlexBox} from "../../../../components/al-component";
-import HoverBox from "./component/HoverBox";
-import store from "../../../../store";
-import {PATH_LOGIN} from "../../../../util/router/config/RouterConst";
+import {GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
+import {ALFlexBox} from "../../../../../../components/al-component";
+import HoverBox from "../../component/HoverBox";
+import store from "../../../../../../store";
+import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
 
-class WorkDetailPage extends React.Component {
+class UIWorkDetailPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
@@ -22,20 +22,20 @@ class WorkDetailPage extends React.Component {
       activeColor: false,
       hoverBoxData: [
         {
-          icon0: require("../../../../assets/icon/common/dianzan0.png"),
-          icon1: require("../../../../assets/icon/common/dianzan1.png"),
+          icon0: require("../../../../../../assets/icon/common/dianzan0.png"),
+          icon1: require("../../../../../../assets/icon/common/dianzan1.png"),
           title: "点赞",
           num: 0
         },
         {
-          icon0: require("../../../../assets/icon/common/shoucang0.png"),
-          icon1: require("../../../../assets/icon/common/shoucang1.png"),
+          icon0: require("../../../../../../assets/icon/common/shoucang0.png"),
+          icon1: require("../../../../../../assets/icon/common/shoucang1.png"),
           title: "收藏",
           num: 0
         },
         {
-          icon0: require("../../../../assets/icon/common/xiaoxi0.png"),
-          icon1: require("../../../../assets/icon/common/xiaoxi1.png"),
+          icon0: require("../../../../../../assets/icon/common/xiaoxi0.png"),
+          icon1: require("../../../../../../assets/icon/common/xiaoxi1.png"),
           title: "评论",
           num: 0
         },
@@ -108,8 +108,8 @@ class WorkDetailPage extends React.Component {
       );
 
     const backTopData = {
-      icon0: require("../../../../assets/icon/common/top1.png"),
-      icon1: require("../../../../assets/icon/common/top1.png"),
+      icon0: require("../../../../../../assets/icon/common/top1.png"),
+      icon1: require("../../../../../../assets/icon/common/top1.png"),
     };
 
     return workData === null ? <></> : (
@@ -129,7 +129,7 @@ class WorkDetailPage extends React.Component {
           </div>
 
           <div className="content-width al-position-rela" style={{top: "-100px"}}>
-            <WorkContentLeft workData={this.state.workData}/>
+            <UIWorkContent workData={this.state.workData}/>
           </div>
         </div>
 
@@ -271,4 +271,4 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkDetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UIWorkDetailPage);
