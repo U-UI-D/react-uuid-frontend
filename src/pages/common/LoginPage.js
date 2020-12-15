@@ -1,15 +1,15 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
-import {request} from "../../util/network/NetworkRequest";
+import {HttpRequest} from "../../util/network/request";
 import {PATH_USER_PAGE} from "../../util/router/config/RouterConst";
 import {GET_USER_BY_TOKEN, POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 import {setCookie} from "../../util/cookieUtil";
-import {commonRequest} from "../../util/network/RequestHub";
-import {GlobalContext} from "../../index";
 import loginbg2 from "../../assets/image/login/loginbg2.svg"
 import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";
 import store from "../../store";
-
+import {connect} from "react-redux";
+import {ActionTypes} from "../../store/action-types";
+import './style.css'
 
 
 class LoginPage extends React.Component {
@@ -29,17 +29,8 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div style={{
-        width: 100 + '%',
-        height: "100vh",
-        padding: 0,
         backgroundImage: `url(${loginbg2})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "50%",
-        backgroundAttachment: "fixed",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column"
-      }}>
+      }} className="page">
 
         <ALFlexBox column flexNum={1}>
 
@@ -99,20 +90,7 @@ class LoginPage extends React.Component {
               </div>
             </ALFlexBox>
           </ALFlexBox>
-
         </ALFlexBox>
-
-
-        {/*将用户信息保存到context中*/}
-        <GlobalContext.Consumer>
-          {
-            data => {
-              data.userInfo = this.state.userInfo;
-              return (<></>);
-            }
-          }
-        </GlobalContext.Consumer>
-
       </div>
     );
   }
@@ -152,7 +130,6 @@ class LoginPage extends React.Component {
     }
 
     return true;
-
   }
 
   login = () => {
@@ -160,9 +137,8 @@ class LoginPage extends React.Component {
       return;
     }
     //去sso登录
-    request({
+    HttpRequest.post({
       url: POST_USER_LOGIN,
-      method: 'POST',
       data: {
         username: this.state.username,
         password: this.state.password,
@@ -174,12 +150,10 @@ class LoginPage extends React.Component {
         setCookie("sso_token", res.data.data.token);
         this.getUserInfoByToken(res.data.data.token);
       } else {
-        message.error(res.data.msg);
+        message.error(res.err);
+        message.error("网络错误，请稍候再试！");
         // console.log(res.data.msg);
       }
-    }).catch(err => {
-      message.error("网络错误，请稍候再试！");
-      // console.log(err);
     });
   }
 
@@ -197,7 +171,7 @@ class LoginPage extends React.Component {
       fromPath = this.props.location.state.fromPath;
     }
 
-    commonRequest({
+    HttpRequest.get({
       url: GET_USER_BY_TOKEN + token
     }).then(res => {
       // 成功获取用户信息
@@ -206,21 +180,9 @@ class LoginPage extends React.Component {
           userInfo: res.data,
         });
 
-        let userInfo = res.data
-        const action = {
-          type: "changeUserInfo",
-          value: userInfo
-        }
-        store.dispatch(action);
+        this.props.updateUserInfo(res.data);
+        this.props.updateLoginState(true);
 
-        const action2 = {
-          type: "updateLoginState",
-          value: true
-        }
-        store.dispatch(action2);
-
-        // 记住登录状态
-        this.rememberLoginState(true);
         // 跳转页面
         if (fromPath) {
           this.goPage(fromPath);
@@ -234,13 +196,32 @@ class LoginPage extends React.Component {
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: {}})
   }
+}
 
-  // 记住登录状态
-  rememberLoginState = (flag) => {
-    localStorage.setItem("isLogin", flag);
-    localStorage.setItem("userInfo", JSON.stringify(this.state.userInfo));
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin,
+    userInfo: state.userInfo,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateLoginState(data){
+      let action = {
+        type: ActionTypes.user.UPDATE_LOGIN_STATE,
+        value: data
+      }
+      dispatch(action);
+    },
+    updateUserInfo(data){
+      let action = {
+        type: ActionTypes.user.UPDATE_USER_INFO,
+        value: data
+      }
+      dispatch(action);
+    },
   }
 
 }
 
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

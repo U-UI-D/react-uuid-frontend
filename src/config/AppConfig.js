@@ -1,7 +1,7 @@
 
 
 const AppConfig = {
-  env: "dev",
+  env: "prod",
   backend: {
     mock: {
       host: "localhost",
@@ -10,17 +10,17 @@ const AppConfig = {
     },
     dev: {
       host: "localhost",
-      port: "8764",
+      port: "8000",
       prefix: "/api/v1",
     },
     prod: {
-      host: "localhost",
-      port: "8764",
+      host: "47.112.252.228",
+      port: "8000",
       prefix: "/api/v1",
     },
     test: {
       host: "localhost",
-      port: "8764",
+      port: "8000",
       prefix: "/api/v1",
     }
   }

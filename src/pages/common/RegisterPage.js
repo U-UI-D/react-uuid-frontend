@@ -1,6 +1,6 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
-import {request} from "../../util/network/NetworkRequest";
+import {request} from "../../util/network/request";
 import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
 import registerbg from "../../assets/image/register/registerbg.svg";
 import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";

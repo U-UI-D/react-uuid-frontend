@@ -13,7 +13,7 @@ import {
 } from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
-import {request} from "../../util/network/NetworkRequest";
+import {request} from "../../util/network/request";
 import {getUserInfoFromLocalStorage} from "../../util/util";
 import {POST_USER_LOGOUT} from "../../util/network/config/ApiConst";
 import ALFlexBox from "../al-flex-box/ALFlexBox";
@@ -22,6 +22,7 @@ import "./style.css"
 import {GlobalContext} from "../../index";
 import store from "../../store";
 import {connect} from "react-redux";
+import {ActionTypes} from "../../store/action-types";
 
 class ALHeader extends React.Component {
   //构造器
@@ -286,7 +287,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateLoginState(data){
       let action = {
-        type: "updateLoginState",
+        type: ActionTypes.user.UPDATE_LOGIN_STATE,
         value: data
       }
       dispatch(action);

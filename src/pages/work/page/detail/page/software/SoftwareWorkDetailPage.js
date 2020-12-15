@@ -7,6 +7,8 @@ import {ALFlexBox} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
 import store from "../../../../../../store";
 import SoftwareWorkContent from "./component/SoftwareWorkContent";
+import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
+import {connect} from "react-redux";
 
 class SoftwareDetailPage extends React.Component {
   //构造器
@@ -61,16 +63,28 @@ class SoftwareDetailPage extends React.Component {
                     <div className="al-font-weight-bold">{workData.title}</div>
                     <div>
                       {workData.nickname}
-                      <Button type="link" className="al-m-lr-10px" onClick={() => {
-                        this.setState({isFollow: !this.state.isFollow})
-                      }}>
-                        {
-                          workData.userId === this.state.userInfo.id ? <></> :
-                          <span>
-                            {this.state.isFollow ? "已关注" : "关注"}
-                          </span>
-                        }
-                      </Button>
+                      {
+                        this.props.isLogin ?
+                          (
+                            <Button type="link" className="al-m-lr-10px" onClick={() => {
+                              this.setState({isFollow: !this.state.isFollow})
+                            }}>
+                              {
+                                workData.userId === this.state.userInfo.id ? <></> :
+                                  <span>
+                                    {this.state.isFollow ? "已关注" : "关注"}
+                                  </span>
+                              }
+                            </Button>
+                          )
+                          :
+                          (
+                            <Button type="link" className="al-m-lr-10px" onClick={() => {
+                              this.props.history.push({pathname: PATH_LOGIN, state: {fromPath: this.props.match.url}})
+                            }}>关注</Button>
+                          )
+                      }
+
                     </div>
                   </ALFlexBox>
                 </ALFlexBox>
@@ -240,4 +254,24 @@ class SoftwareDetailPage extends React.Component {
 
 }
 
-export default SoftwareDetailPage;
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfo,
+    isLogin: state.isLogin
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateName(data){
+      let action = {
+        type: "updateName",
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoftwareDetailPage);

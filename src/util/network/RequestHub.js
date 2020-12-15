@@ -1,4 +1,4 @@
-import {createBaseURL, request} from "./NetworkRequest";
+import {createBaseURL, request} from "./request";
 
 /**
  * 通用网络请求
