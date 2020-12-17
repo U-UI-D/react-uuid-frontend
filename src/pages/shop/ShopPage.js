@@ -1,30 +1,18 @@
 import React from "react";
-import {Affix, Avatar, Button, Divider} from "antd";
+import {Affix, Avatar, Button, Divider, Input, message, Modal} from "antd";
 import {commonRequest} from "../../util/network/RequestHub";
-import {getUserInfoFromLocalStorage} from "../../util/util";
-import {GET_SHOP_DIY_GOODS} from "../../util/network/config/ApiConst";
+import {ApiConst, GET_SHOP_DIY_GOODS} from "../../util/network/config/ApiConst";
 import {ALFlexBox, ALImage, ALLoading} from "../../components/al-component";
+import {connect} from "react-redux";
+import SecKillProductBox from "./component/seckill-product-box/SecKillProductBox";
+import TimeCountDown from "./component/time-count-down/TimeCountDown";
+import {HttpRequest} from "../../util/network/request";
+import "./style.css";
+import DateTimeUtils from "../../util/DateTimeUtils";
 
-
-function GoodsBox(props) {
-  const {data} = props;
-  return (
-    <ALFlexBox column
-               padding={10}
-               width={177.5}
-               className="al-hover-border-color-light-black"
-               style={{border: "solid 1px #00000000"}}
-               lineHeight={2}>
-      <ALImage src={data.poster} width={157.5} />
-      <div className="al-text-overflow-show-point " style={{width: 157.5}}>{data.title}</div>
-      <div>{data.price}</div>
-      <Button>兑换</Button>
-    </ALFlexBox>
-  )
-}
-
-
-
+import { EditOutlined } from '@ant-design/icons';
+import {ProductBox} from "./component/product-box/ProductBox";
+import ExchangeRecordModal from "./component/exchange-record-modal/ExchangeRecordModal";
 
 class ShopPage extends React.Component{
   //构造器
@@ -33,14 +21,40 @@ class ShopPage extends React.Component{
 
     this.state = {
       diyGoodsList: null,
-      userInfo: null
+      seckillList: [],
+      isModalVisible: false,
+      isProductDetailModalVisible: false,
+      isAddressFormModalVisible: false,
+      isExchangeRecordModalVisible: false,
+      onConfirmAddressFormLoading: false,
+      disableSecKillBtn: false,
+      orderedProductIdList: [],
+
+      // 书籍商品
+      bookProductList: [],
+      // 虚拟商品
+      virtualProductList: [],
+      // 实体商品
+      realityProductList: [],
+
+      // 兑换记录列表
+      exchangeRecordList: [],
+
+      btnType: "",
+
+      rewardPoints: 0,
+      deliveryAddress: "",
+      inputDeliveryAddress: "",
     }
   }
 
   //渲染函数
   render() {
-    let bgImage = "https://uploadfiles.nowcoder.com/images/20180307/1_1520413042341_384F22719191B2BCA1BD12AD276E47B7";
+    let bgImage = require("../../assets/banner/shop-banner.png");
 
+    const {isModalVisible, isAddressFormModalVisible,isProductDetailModalVisible, isExchangeRecordModalVisible,
+      rewardPoints, deliveryAddress, inputDeliveryAddress, onConfirmAddressFormLoading,
+      disableSecKillBtn, orderedProductIdList, exchangeRecordList, btnType} = this.state;
     const iconGroup = [
       {
         icon: "https://static.nowcoder.com//images/res/mall/mod/2.png",
@@ -67,15 +81,18 @@ class ShopPage extends React.Component{
 
     return(
       <div>
-        <ALFlexBox centerH style={{backgroundColor: "#e44f37"}}>
+        <ALFlexBox centerH className="banner-bg al-position-rela">
           <ALImage src={bgImage} style={{width: 100+"%"}} height={220}/>
+          <ALFlexBox centerVH height={220} className="al-position-abs">
+            <h1 style={{color: "#fff", fontSize: "40px"}}>商城兑换中心</h1>
+          </ALFlexBox>
         </ALFlexBox>
 
         <div className="content-width al-p-tb-30px">
 
           <ALFlexBox between>
             {/*左边栏*/}
-            <ALFlexBox column width={800} padding={30} className="al-bg-color-white">
+            <ALFlexBox column width={840} padding={30} className="al-bg-color-white">
 
               {/*icon组*/}
               <ALFlexBox around>
@@ -93,33 +110,64 @@ class ShopPage extends React.Component{
 
               <Divider />
 
-              <div className="al-m-top-20px">
-                <h2>UU定制</h2>
-                <ALFlexBox between>
+              <div className="al-m-top-20px" >
+
+                <h2>秒杀兑换</h2>
+
+                <ALFlexBox centerVH style={{
+                  backgroundColor: "#ff4d4f",
+                  marginBottom: "20px",
+                }}>
+                  <h2 style={{color: "#fff", marginBottom: "0",}}><TimeCountDown /> 后结束秒杀</h2>
+                </ALFlexBox>
+
+                <ALFlexBox evenly={this.state.seckillList.length <= 4}>
                   {
-                    this.state.diyGoodsList === null ? <ALLoading /> :
-                    this.state.diyGoodsList.map((item, index) => {
-                      return (
-                        <div key={item.title}
-                             className="al-cursor-pointer al-m-bottom-10px">
-                          <GoodsBox data={item} />
-                        </div>
-                      )
-                    })
+                    this.state.seckillList.length === 0 ? <ALLoading /> :
+                      this.state.seckillList.map((item, index) => {
+                        return (
+                          <div key={index}
+                               className="al-cursor-pointer al-m-bottom-10px al-m-right-10px">
+                            <SecKillProductBox data={item}
+                                               disableSecKillBtn={disableSecKillBtn || item.quantity <= 0 || orderedProductIdList.indexOf(item.id) !== -1}
+                                               onBtnClick={this.handleExchangeBtnClick}
+                                               btnText={orderedProductIdList.indexOf(item.id) !== -1 ? "已兑换" : "秒杀兑换"} />
+                          </div>
+                        )
+                      })
                   }
                 </ALFlexBox>
               </div>
 
-              <div className="al-m-top-20px">
+              <Divider />
+
+{/*              <div className="al-m-top-20px">
                 <h2>热门商品</h2>
                 <ALFlexBox between>
                   {
                     this.state.diyGoodsList === null ? <ALLoading /> :
                       this.state.diyGoodsList.map((item, index) => {
                         return (
-                          <div key={item.title}
+                          <div key={index}
                                className="al-cursor-pointer al-m-bottom-10px">
-                            <GoodsBox data={item} />
+                            <ProductBox data={item} />
+                          </div>
+                        )
+                      })
+                  }
+                </ALFlexBox>
+              </div>*/}
+
+              <div className="al-m-top-20px">
+                <h2>实体商品</h2>
+                <ALFlexBox>
+                  {
+                    this.state.realityProductList === null ? <ALLoading /> :
+                      this.state.realityProductList.map((item, index) => {
+                        return (
+                          <div key={index}
+                               className="al-cursor-pointer al-m-bottom-10px al-m-right-10px">
+                            <ProductBox data={item} onBtnClick={this.handleExchangeBtnClick} />
                           </div>
                         )
                       })
@@ -127,80 +175,125 @@ class ShopPage extends React.Component{
                 </ALFlexBox>
               </div>
 
-              <div className="al-m-top-20px">
-                <h2>名企周边</h2>
-                <ALFlexBox between>
-                  {
-                    this.state.diyGoodsList === null ? <ALLoading /> :
-                      this.state.diyGoodsList.map((item, index) => {
-                        return (
-                          <div key={item.title}
-                               className="al-cursor-pointer al-m-bottom-10px">
-                            <GoodsBox data={item} />
-                          </div>
-                        )
-                      })
-                  }
-                </ALFlexBox>
-              </div>
+              <Divider />
 
               <div className="al-m-top-20px">
                 <h2>专业书籍</h2>
-                <ALFlexBox between>
+                <ALFlexBox>
                   {
-                    this.state.diyGoodsList === null ? <ALLoading /> :
-                      this.state.diyGoodsList.map((item, index) => {
+                    this.state.bookProductList === null ? <ALLoading /> :
+                      this.state.bookProductList.map((item, index) => {
                         return (
-                          <div key={item.title}
-                               className="al-cursor-pointer al-m-bottom-10px">
-                            <GoodsBox data={item} />
+                          <div key={index}
+                               className="al-cursor-pointer al-m-bottom-10px al-m-right-10px">
+                            <ProductBox data={item} onBtnClick={this.handleExchangeBtnClick} />
                           </div>
                         )
                       })
                   }
                 </ALFlexBox>
               </div>
+
+              <Divider />
 
               <div className="al-m-top-20px">
                 <h2>虚拟商品</h2>
-                <ALFlexBox between>
+                <ALFlexBox>
                   {
-                    this.state.diyGoodsList === null ? <ALLoading /> :
-                      this.state.diyGoodsList.map((item, index) => {
+                    this.state.virtualProductList === null ? <ALLoading /> :
+                      this.state.virtualProductList.map((item, index) => {
                         return (
-                          <div key={item.title}
-                               className="al-cursor-pointer al-m-bottom-10px">
-                            <GoodsBox data={item} />
+                          <div key={index}
+                               className="al-cursor-pointer al-m-bottom-10px al-m-right-10px">
+                            <ProductBox data={item} onBtnClick={this.handleExchangeBtnClick} />
                           </div>
                         )
                       })
                   }
                 </ALFlexBox>
               </div>
-
 
             </ALFlexBox>
 
             {/*右边栏*/}
             <Affix offsetTop={20}>
-              <ALFlexBox width={360}
+              <ALFlexBox width={320}
                          padding={30}
                          column
                          className="al-bg-color-white al-m-bottom-10px"
-                         style={{height: 95 + "vh"}}>
+                         >
                 <ALFlexBox className="al-width-100">
                   {
-                    this.state.userInfo === null ? <div></div> :
-                      <ALFlexBox centerV height={100} between flexNum={1}
-                                 className="">
-                        <ALFlexBox centerV>
-                          <Avatar src={this.state.userInfo.avatar} size={80} />
-                          <h2 className="al-m-left-20px">{this.state.userInfo.username}</h2>
-                        </ALFlexBox>
-                        <div>剩余66积分</div>
+                    this.props.userInfo === null ? <div></div> :
+                      <ALFlexBox between flexNum={1}>
+                        <Avatar src={this.props.userInfo.avatar} size={80} />
+                        <div className="al-m-left-20px" style={{flex: 1}}>
+                          <h2 style={{margin: 0}}>{this.props.userInfo.username}</h2>
+                          <div>剩余 <span style={{
+                            backgroundColor: "#f1f1f1",
+                            borderRadius: "4px",
+                            padding: "4px",
+                            fontSize: "12px",
+                            color: "#48caff"
+                          }}>{rewardPoints}</span> 积分</div>
+                          <div style={{marginTop: "4px"}}>
+                            收货地址：{deliveryAddress ?? "未填写"}
+                            <EditOutlined className="al-cursor-pointer"
+                                          style={{color: "#48caff", marginLeft: "10px"}}
+                                          onClick={() => {
+                                            this.setState({isAddressFormModalVisible: !isAddressFormModalVisible})
+                                          }} />
+                          </div>
+                        </div>
                       </ALFlexBox>
                   }
                 </ALFlexBox>
+
+                <Divider />
+
+                <div>
+                  <h3>兑换记录</h3>
+                  <ul>
+                    {
+                      exchangeRecordList.map((item, index) => {
+                        return (
+                          <>
+                            <li key={index}>
+                              <ALFlexBox between height={50} className="al-m-bottom-20px al-hover-bgcolor-light-white">
+                                <ALImage src={item.poster} size={50} fit={"contain"} />
+
+                                <div className="al-m-left-10px" style={{width: "200px"}}>
+                                  <h3 className="al-text-overflow-show-point" style={{margin: 0}}>{item.title}</h3>
+                                  <p>兑换时间：{DateTimeUtils.getFormatDateTime(item.createdTime, -8)}</p>
+                                </div>
+                              </ALFlexBox>
+                            </li>
+                          </>
+                        )
+                      })
+                    }
+                  </ul>
+
+                  <ALFlexBox centerVH>
+                    {
+                      this.props.isLogin ? (
+                        <Button size={"small"} style={{fontSize: "8px"}} onClick={() => {
+                          this.setState({
+                            isExchangeRecordModalVisible: !this.state.isExchangeRecordModalVisible
+                          })
+                        }}>
+                          查看更多
+                        </Button>
+                      ) : (
+                        <span style={{fontSize: "10px", color: "#ccc"}}>登录后查看</span>
+                      )
+                    }
+
+                  </ALFlexBox>
+                </div>
+
+                <Divider />
+
                 <div>
                   <h3>如何获取积分？</h3>
                   <ul>
@@ -211,25 +304,79 @@ class ShopPage extends React.Component{
                     <li>邀请用户</li>
                   </ul>
                 </div>
+
               </ALFlexBox>
             </Affix>
           </ALFlexBox>
         </div>
+
+
+
+        {/*弹框*/}
+        {/*排队下单提示Modal*/}
+        <Modal visible={isModalVisible}
+               title={btnType === "seckill" ? "秒杀兑换" : "兑换商品"}
+               closable={false}
+               maskClosable={false}
+               footer={
+                 <Button type="primary"
+                         onClick={() => {
+                           this.setState({isModalVisible: !isModalVisible})
+                         }}>
+                   取消
+                 </Button>
+               }>
+          <p>正在排队下单...</p>
+        </Modal>
+
+        {/*填写收货地址Modal*/}
+        <Modal visible={isAddressFormModalVisible}
+               title="填写收货地址"
+               cancelText={"取消"}
+               okText={"保存"}
+               onCancel={() => {
+                 this.toggleAddressFormModal();
+               }}
+               onOk={() => {
+                 this.putDeliveryAddress(inputDeliveryAddress);
+               }}
+               confirmLoading={onConfirmAddressFormLoading}
+               maskClosable={false}>
+          <p>
+            <p>请输入有效的收货地址，否则无法送出商品</p>
+            <Input placeholder={"请输入收货地址"}
+                   defaultValue={deliveryAddress}
+                   size="large"
+                   onChange={(event => {
+                     this.setState({
+                       inputDeliveryAddress: event.target.value
+                     })
+                   })} />
+          </p>
+        </Modal>
+
+        <ExchangeRecordModal
+          data={this.state.exchangeRecordList}
+          visible={isExchangeRecordModalVisible}
+          onCancel={() => {
+            this.setState({
+              isExchangeRecordModalVisible: !isExchangeRecordModalVisible
+            })
+          }} />
+
+
+
       </div>
     );
   }
 
   //组件挂载完成时调用
   componentDidMount() {
-    commonRequest({url: GET_SHOP_DIY_GOODS, env: "mock"}).then(res => {
-      this.setState({
-        diyGoodsList: res.data
-      })
-    });
+    this.initProductData();
 
-    this.setState({
-      userInfo: getUserInfoFromLocalStorage()
-    })
+    if (this.props.userInfo) {
+      this.getDeliveryAddressByUserId(this.props.userInfo.id);
+    }
   }
 
   //组件卸载前调用
@@ -237,6 +384,249 @@ class ShopPage extends React.Component{
 
   }
 
+  // 初始化商品数据
+  initProductData = () => {
+    this.getSecKillProductList();
+    this.getProductListByTypeId(2, (res) => {
+      this.setState({
+        virtualProductList: res.data.data.list
+      })
+    });
+    this.getProductListByTypeId(1, (res) => {
+      this.setState({
+        bookProductList: res.data.data.list
+      })
+    });
+    this.getProductListByTypeId(3, (res) => {
+      this.setState({
+        realityProductList: res.data.data.list
+      })
+    });
+
+    if (this.props.userInfo){
+      this.getRewardPointsByUserId(this.props.userInfo.id);
+      this.getExchangeRecordByUserId(this.props.userInfo.id);
+      this.getOrderedProductIdListByUserId(this.props.userInfo.id);
+    }
+
+  }
+
+  // 获取秒杀商品列表
+  getSecKillProductList = () => {
+    commonRequest({
+      // url: ApiConst.shop.seckill.get.GET_ALL
+      url: "http://localhost:9004/seckill"
+    }).then(res => {
+      this.setState({
+        seckillList: res.data.list
+      });
+    })
+  }
+
+  // 获取兑换记录
+  getExchangeRecordByUserId = (userId) => {
+    HttpRequest.get({
+      url: "http://localhost:9004/order/info-list/user/" + userId
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          exchangeRecordList: res.data.data.list
+        })
+      }
+    })
+  }
+
+  // 执行秒杀请求
+  postSecKillRequest = (productId, price) => {
+    console.log("postSecKillRequest", "执行秒杀请求");
+    if (!productId){
+      console.log("secKillProductId 为空");
+      return ;
+    }
+    let data = {
+      userId: this.props.userInfo.id,
+      productId,
+      tradePrice: price
+    };
+
+    HttpRequest.post({
+      url: "http://localhost:9004/seckill",
+      data: data,
+    }).then(res => {
+      if (res.data.code === 1){
+        message.success("兑换成功");
+      }else {
+        message.warning(res.data.msg);
+      }
+      this.initProductData();
+    }).catch(err => {
+      message.warning("网络繁忙，请重试");
+      this.setState({isModalVisible: !this.state.isModalVisible});
+    });
+  }
+
+  // 兑换按钮点击处理事件
+  handleExchangeBtnClick = (productId, price, btnType) => {
+    if (!this.props.isLogin){
+      message.warning("请先登录");
+      return ;
+    }
+    if (this.state.rewardPoints < price){
+      message.warning("积分不足");
+      return ;
+    }
+
+    this.setState({
+      btnType: btnType === "seckill" ? btnType : "",
+      isModalVisible: !this.state.isModalVisible,
+    });
+
+    if (btnType === "seckill"){
+      // 发送秒杀请求
+      this.postSecKillRequest(productId, price);
+    }else {
+      // 添加订单
+      this.postOrderRequest(productId, price);
+    }
+  }
+
+  // 获取已下单的商品id列表
+  getOrderedProductIdListByUserId = (userId) => {
+    if (!userId){
+      return ;
+    }
+    HttpRequest.get({
+      url: "http://localhost:9004/order/product-id-list?userId=" + userId,
+    }).then(res => {
+      if (res.data.code === 1){
+        this.setState({
+          orderedProductIdList: res.data.data,
+          isModalVisible: false
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  // 通过商品类型id获取商品
+  getProductListByTypeId = (typeId, callback) => {
+    HttpRequest.get({
+      url: "http://localhost:9004/product/type/" + typeId,
+    }).then(res => {
+      if (!res.err){
+        callback(res);
+      }
+    })
+  }
+
+  // 执行添加普通订单请求
+  postOrderRequest = (productId, price) => {
+    console.log("postOrderRequest", "执行添加普通订单请求");
+    if (!productId){
+      console.log("productId 为空");
+      return ;
+    }
+    let data = {
+      userId: this.props.userInfo.id,
+      productId,
+      tradePrice: price
+    };
+
+    HttpRequest.post({
+      url: "http://localhost:9004/order",
+      data: data,
+      headers: {
+        "content-type": "application/json"
+      }
+    }).then(res => {
+      if (res.data.code === 1){
+        message.success("兑换成功");
+      }else {
+        message.warning(res.data.msg);
+      }
+      this.initProductData();
+
+    }).catch(err => {
+      message.warning("网络繁忙，请重试");
+      this.setState({isModalVisible: !this.state.isModalVisible});
+    });
+  }
+
+  // 获取用户积分
+  getRewardPointsByUserId = (userId) => {
+    if (!userId){
+      return ;
+    }
+    HttpRequest.get({
+      url: "http://localhost:9001/userdata/reward-points?userId=" + userId
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          rewardPoints: res.data.data
+        })
+      }
+    });
+  }
+
+  // 获取收货地址
+  getDeliveryAddressByUserId = (userId) => {
+    HttpRequest.get({
+      url: "http://localhost:9001/usermore/address?userId=" + userId
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          deliveryAddress: res.data.data
+        })
+      }
+    });
+  }
+
+  // 更新收货地址
+  putDeliveryAddress = (address) => {
+    if (!this.props.isLogin){
+      message.warning("请先登录！");
+      return ;
+    }
+    this.setState({
+      onConfirmAddressFormLoading: true
+    })
+    HttpRequest.put({
+      url: "http://localhost:9001/usermore/address",
+      data: {address, userId: this.props.userInfo.id}
+    }).then(res => {
+      if (res.err === null){
+        message.success("收货地址更新成功");
+        this.getDeliveryAddressByUserId(this.props.userInfo.id);
+        this.toggleAddressFormModal();
+        this.setState({
+          onConfirmAddressFormLoading: false
+        })
+      }else {
+        message.error("失败成功，请重试！");
+      }
+    }).catch(err => {
+      message.warning("网络错误，请重试！")
+    })
+  }
+
+  // 切换地址modal状态
+  toggleAddressFormModal = () => {
+    this.setState({
+      isAddressFormModalVisible: !this.state.isAddressFormModalVisible
+    })
+  }
+
 }
 
-export default ShopPage;
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin,
+    userInfo: state.userInfo,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
