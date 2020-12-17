@@ -177,10 +177,10 @@ class LoginPage extends React.Component {
       // 成功获取用户信息
       if (res.err === null) {
         this.setState({
-          userInfo: res.data,
+          userInfo: res.data.data,
         });
 
-        this.props.updateUserInfo(res.data);
+        this.props.updateUserInfo(res.data.data);
         this.props.updateLoginState(true);
 
         // 跳转页面
