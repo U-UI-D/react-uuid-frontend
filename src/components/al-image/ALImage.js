@@ -13,8 +13,8 @@ function ALImage(props) {
              alt={props.alt}
              style={{
                objectFit: props.fit,
-               width: props.circle ? (100 + '%') : (props.width + 'px'),
-               height: props.circle ? (100 + '%') : (props.height + 'px'),
+               width: props.circle ? (100 + '%') : ((props.size ?? props.width) + 'px'),
+               height: props.circle ? (100 + '%') : ((props.size ?? props.height) + 'px'),
                borderRadius: props.radius + 'px',
                ...props.style
              }}
@@ -35,6 +35,10 @@ ALImage.propTypes = {
     PropTypes.string,
   ]),
   height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  size: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
   ]),
