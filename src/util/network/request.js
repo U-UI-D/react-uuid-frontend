@@ -4,11 +4,13 @@ import AppConfig from "../../config/AppConfig";
 
 export function request(config) {
   if (config.method === "get" || config.method === "GET"){
-    if (JSON.stringify(config.data) !== "{}"){
+    if (Object.keys(config.data).length > 0){
       config.url += "?" + qs.stringify(config.data);
     }
   }else {
-    config.data = qs.stringify(config.data);
+    if (config.headers["content-type"] !== "application/json"){
+      config.data = qs.stringify(config.data);
+    }
   }
 
   console.log("request config", config)

@@ -64,3 +64,28 @@ export const GET_MESSAGE_ALL = "/message/message-all";
 // 聊天消息接口
 export const GET_MESSAGE_CHAT = "/message/message-all";
 
+export const ApiConst = {
+  shop: {
+    product: {
+      get: {
+        GET_ALL: "/shop/product",
+        GET_BY_TYPE_ID: "/shop/product/type/",
+      },
+
+      post: {
+
+      },
+    },
+
+    seckill: {
+      get: {
+        GET_ALL: "/shop/seckill",
+      },
+
+      post: {
+        POST_SECKILL: "/shop/seckill"
+      },
+    }
+
+  }
+}
