@@ -13,6 +13,9 @@ function ExchangeRecordModal(props) {
   const [pagination, setPagination] = useState({current: 1, pageSize: 4, total: 0});
 
   useEffect(() => {
+    if (!props.userInfo){
+      return ;
+    }
     getExchangeRecordByUserId(props.userInfo.id);
   }, []);
 
