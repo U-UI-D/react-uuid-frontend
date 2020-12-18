@@ -1778,6 +1778,12 @@
     border: rgba(0,0,0, 0.3) solid 1px !important;
 }
 
+/*淡红色*/
+.al-hover-border-color-light-red:hover {
+    border: #ffd1d1 solid 1px;
+}
+
+
 /*白色*/
 .al-hover-bgcolor-white:hover {
     background-color: #fff;
