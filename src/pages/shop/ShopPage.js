@@ -99,7 +99,7 @@ class ShopPage extends React.Component{
                 {
                   iconGroup.map((item, index) => {
                     return (
-                      <ALFlexBox centerVH column lineHeight={3} key={item}>
+                      <ALFlexBox centerVH column lineHeight={3} key={index}>
                         <ALImage src={item.icon} />
                         <div>{item.title}</div>
                       </ALFlexBox>
@@ -253,26 +253,24 @@ class ShopPage extends React.Component{
 
                 <div>
                   <h3>兑换记录</h3>
-                  <ul>
+                  <div>
                     {
                       exchangeRecordList.map((item, index) => {
                         return (
-                          <>
-                            <li key={index}>
-                              <ALFlexBox between height={50} className="al-m-bottom-20px al-hover-bgcolor-light-white">
-                                <ALImage src={item.poster} size={50} fit={"contain"} />
+                          <div key={index}>
+                            <ALFlexBox between height={50} className="al-m-bottom-20px al-hover-bgcolor-light-white">
+                              <ALImage src={item.poster} size={50} fit={"contain"} />
 
-                                <div className="al-m-left-10px" style={{width: "200px"}}>
-                                  <h3 className="al-text-overflow-show-point" style={{margin: 0}}>{item.title}</h3>
-                                  <p>兑换时间：{DateTimeUtils.getFormatDateTime(item.createdTime, -8)}</p>
-                                </div>
-                              </ALFlexBox>
-                            </li>
-                          </>
+                              <div className="al-m-left-10px" style={{width: "200px"}}>
+                                <h3 className="al-text-overflow-show-point" style={{margin: 0}}>{item.title}</h3>
+                                <p>兑换时间：{DateTimeUtils.getFormatDateTime(item.createdTime, -8)}</p>
+                              </div>
+                            </ALFlexBox>
+                          </div>
                         )
                       })
                     }
-                  </ul>
+                  </div>
 
                   <ALFlexBox centerVH>
                     {
@@ -413,20 +411,25 @@ class ShopPage extends React.Component{
 
   // 获取秒杀商品列表
   getSecKillProductList = () => {
-    commonRequest({
-      // url: ApiConst.shop.seckill.get.GET_ALL
-      url: "http://localhost:9004/seckill"
+    HttpRequest.get({
+      url: ApiConst.shop.seckill.get.GET_ALL
+      // url: "http://localhost:9004/seckill"
     }).then(res => {
-      this.setState({
-        seckillList: res.data.list
-      });
+      if (res.err === null){
+        this.setState({
+          seckillList: res.data.data.list
+        });
+      }else {
+        message.warning("获取商品列表失败");
+      }
     })
   }
 
   // 获取兑换记录
   getExchangeRecordByUserId = (userId) => {
     HttpRequest.get({
-      url: "http://localhost:9004/order/info-list/user/" + userId
+      url: ApiConst.shop.order.get.GET_EXCHANGE_RECORD_BY_USER_ID + userId
+      // url: "http://localhost:9004/order/info-list/user/" + userId
     }).then(res => {
       if (res.err === null){
         this.setState({
@@ -450,7 +453,8 @@ class ShopPage extends React.Component{
     };
 
     HttpRequest.post({
-      url: "http://localhost:9004/seckill",
+      // url: "http://localhost:9004/seckill",
+      url: ApiConst.shop.seckill.post.POST_SECKILL,
       data: data,
     }).then(res => {
       if (res.data.code === 1){
@@ -496,7 +500,8 @@ class ShopPage extends React.Component{
       return ;
     }
     HttpRequest.get({
-      url: "http://localhost:9004/order/product-id-list?userId=" + userId,
+      // url: "http://localhost:9004/order/product-id-list?userId=" + userId,
+      url: ApiConst.shop.order.get.GET_ORDERED_PRODUCT_ID_LIST_BY_USER_ID + userId,
     }).then(res => {
       if (res.data.code === 1){
         this.setState({
@@ -512,7 +517,8 @@ class ShopPage extends React.Component{
   // 通过商品类型id获取商品
   getProductListByTypeId = (typeId, callback) => {
     HttpRequest.get({
-      url: "http://localhost:9004/product/type/" + typeId,
+      // url: "http://localhost:9004/product/type/" + typeId,
+      url: ApiConst.shop.product.get.GET_BY_TYPE_ID + typeId,
     }).then(res => {
       if (!res.err){
         callback(res);
@@ -534,7 +540,8 @@ class ShopPage extends React.Component{
     };
 
     HttpRequest.post({
-      url: "http://localhost:9004/order",
+      // url: "http://localhost:9004/order",
+      url: ApiConst.shop.order.post.POST_ORDER,
       data: data,
       headers: {
         "content-type": "application/json"
@@ -559,7 +566,8 @@ class ShopPage extends React.Component{
       return ;
     }
     HttpRequest.get({
-      url: "http://localhost:9001/userdata/reward-points?userId=" + userId
+      // url: "http://localhost:9001/userdata/reward-points?userId=" + userId
+      url: ApiConst.user.userdata.get.GET_REWARD_POINTS_BY_USER_ID + userId
     }).then(res => {
       if (res.err === null){
         this.setState({
@@ -572,7 +580,8 @@ class ShopPage extends React.Component{
   // 获取收货地址
   getDeliveryAddressByUserId = (userId) => {
     HttpRequest.get({
-      url: "http://localhost:9001/usermore/address?userId=" + userId
+      // url: "http://localhost:9001/usermore/address?userId=" + userId
+      url: ApiConst.user.usermore.get.GET_DELIVERY_ADDRESS_BY_USER_ID + userId
     }).then(res => {
       if (res.err === null){
         this.setState({
@@ -592,7 +601,8 @@ class ShopPage extends React.Component{
       onConfirmAddressFormLoading: true
     })
     HttpRequest.put({
-      url: "http://localhost:9001/usermore/address",
+      // url: "http://localhost:9001/usermore/address",
+      url: ApiConst.user.usermore.put.PUT_DELIVERY_ADDRESS,
       data: {address, userId: this.props.userInfo.id}
     }).then(res => {
       if (res.err === null){

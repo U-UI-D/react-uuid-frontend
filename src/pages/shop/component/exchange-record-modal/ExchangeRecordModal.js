@@ -4,6 +4,7 @@ import {ALImage} from "../../../../components/al-component";
 import {HttpRequest} from "../../../../util/network/request";
 import {connect} from "react-redux";
 import DateTimeUtils from "../../../../util/DateTimeUtils";
+import {ApiConst} from "../../../../util/network/config/ApiConst";
 
 // 兑换记录Modal
 function ExchangeRecordModal(props) {
@@ -17,7 +18,8 @@ function ExchangeRecordModal(props) {
 
   const getExchangeRecordByUserId = (userId, pageNum=1, pageSize=4) => {
     HttpRequest.get({
-      url: "http://localhost:9004/order/info-list/user/" + userId,
+      // url: "http://localhost:9004/order/info-list/user/" + userId,
+      url: ApiConst.shop.order.get.GET_EXCHANGE_RECORD_BY_USER_ID + userId,
       data: {
         pageNum,
         pageSize

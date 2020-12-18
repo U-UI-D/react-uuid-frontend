@@ -65,7 +65,27 @@ export const GET_MESSAGE_ALL = "/message/message-all";
 export const GET_MESSAGE_CHAT = "/message/message-all";
 
 export const ApiConst = {
+  // 用户模块
+  user: {
+    userdata: {
+      get: {
+        GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId="
+      }
+    },
+
+    usermore: {
+      get: {
+        GET_DELIVERY_ADDRESS_BY_USER_ID: "/user/usermore/address?userId="
+      },
+      put: {
+        PUT_DELIVERY_ADDRESS: "/user/usermore/address"
+      }
+    }
+  },
+
+  // 商城模块
   shop: {
+    // 商品接口
     product: {
       get: {
         GET_ALL: "/shop/product",
@@ -77,6 +97,7 @@ export const ApiConst = {
       },
     },
 
+    // 秒杀接口
     seckill: {
       get: {
         GET_ALL: "/shop/seckill",
@@ -85,6 +106,18 @@ export const ApiConst = {
       post: {
         POST_SECKILL: "/shop/seckill"
       },
+    },
+
+    // 订单接口
+    order: {
+      get: {
+        GET_EXCHANGE_RECORD_BY_USER_ID: "/shop/order/info-list/user/",
+        GET_ORDERED_PRODUCT_ID_LIST_BY_USER_ID: "/shop/order/product-id-list?userId=",
+      },
+
+      post: {
+        POST_ORDER: "/shop/order"
+      }
     }
 
   }
