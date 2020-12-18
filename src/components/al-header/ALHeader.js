@@ -241,7 +241,7 @@ class ALHeader extends React.Component {
   }
 
   // 退出
-  logout() {
+  logout = () => {
     let token = getCookieByName("sso_token");
     console.log(token);
     request({
@@ -263,10 +263,11 @@ class ALHeader extends React.Component {
     })
   }
 
-  clearUserInfo() {
+  clearUserInfo = () =>  {
     localStorage.removeItem("isLogin");
     sessionStorage.removeItem("store");
     this.props.updateLoginState(false);
+    this.props.updateUserInfo(null);
     deleteCookie("sso_token");
     this.setState({
       isLogin: false
@@ -288,6 +289,13 @@ const mapDispatchToProps = (dispatch) => {
     updateLoginState(data){
       let action = {
         type: ActionTypes.user.UPDATE_LOGIN_STATE,
+        value: data
+      }
+      dispatch(action);
+    },
+    updateUserInfo(data){
+      let action = {
+        type: ActionTypes.user.UPDATE_USER_INFO,
         value: data
       }
       dispatch(action);
