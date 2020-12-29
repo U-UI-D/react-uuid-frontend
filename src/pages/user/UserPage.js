@@ -3,8 +3,10 @@ import "./style.css";
 import {Avatar} from "antd";
 import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
-import {PATH_LOGIN} from "../../util/router/config/RouterConst";
+import {PATH_LOGIN, RouterConst} from "../../util/router/config/RouterConst";
 import {getUserInfoFromLocalStorage} from "../../util/util";
+import {connect} from "react-redux";
+import {ActionTypes} from "../../store/action-types";
 
 class UserPage extends React.Component {
   //构造器
@@ -12,7 +14,7 @@ class UserPage extends React.Component {
     super(props);
 
     this.state = {
-      userInfo: null,
+
     }
   }
 
@@ -32,7 +34,7 @@ class UserPage extends React.Component {
               <div className="al-flex-container">
                 {/*左边栏*/}
                 <div className="content-box-left al-box-radius">
-                  <ContentLeft {...this.props} userInfo={this.state.userInfo} />
+                  <ContentLeft {...this.props} userInfo={this.props.userInfo} />
                 </div>
 
                 <div className="content-box-right">
@@ -57,14 +59,11 @@ class UserPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    let isLogin = localStorage.getItem("isLogin");
     // 判断是否登录
-    if (!isLogin){
-      this.goPage(PATH_LOGIN);
+    if (!this.props.isLogin){
+      this.goPage(RouterConst.user.USER_PAGE);
     }
-    this.setState({
-      userInfo: getUserInfoFromLocalStorage()
-    })
+
   }
 
   //组件卸载前调用
@@ -79,4 +78,31 @@ class UserPage extends React.Component {
 
 }
 
-export default UserPage;
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin,
+    userInfo: state.userInfo
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateLoginState(data){
+      let action = {
+        type: ActionTypes.user.UPDATE_LOGIN_STATE,
+        value: data
+      }
+      dispatch(action);
+    },
+    updateUserInfo(data){
+      let action = {
+        type: ActionTypes.user.UPDATE_USER_INFO,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

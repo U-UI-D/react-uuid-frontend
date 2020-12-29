@@ -1,25 +1,14 @@
 import React from "react";
 import {Dropdown, Avatar, Button, Menu, message} from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {
-  PATH_DISCOVERY_PAGE,
-  PATH_HOME_PAGE,
-  PATH_LOGIN, PATH_MATERIAL_PAGE, PATH_MESSAGE_PAGE,
-  PATH_REGISTER, PATH_SEARCH_PAGE,
-  PATH_SHOP_PAGE,
-  PATH_TEST_PAGE,
-  PATH_TOP_PAGE,
-  PATH_WORK_PAGE
-} from "../../util/router/config/RouterConst";
+import {RouterConst} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
 import {deleteCookie, getCookieByName} from "../../util/cookieUtil";
 import {request} from "../../util/network/request";
-import {getUserInfoFromLocalStorage} from "../../util/util";
-import {POST_USER_LOGOUT} from "../../util/network/config/ApiConst";
+import {ApiConst} from "../../util/network/config/ApiConst";
 import ALFlexBox from "../al-flex-box/ALFlexBox";
 
 import "./style.css"
-import {GlobalContext} from "../../index";
 import store from "../../store";
 import {connect} from "react-redux";
 import {ActionTypes} from "../../store/action-types";
@@ -29,56 +18,53 @@ class ALHeader extends React.Component {
   constructor(props) {
     super(props);
 
-    const {userInfo, isLogin} = store.getState();
     this.state = {
       currentTitle: ["首页"],
       menuItems: [
         {
           text: "首页",
-          path: PATH_HOME_PAGE
+          path: RouterConst.home.INDEX_PAGE
         },
         {
           text: "作品",
-          path: PATH_WORK_PAGE
+          path: RouterConst.work.WORK_PAGE
         },
-        // {
-        //   text: "发现",
-        //   path: DISCOVERY_PAGE
-        // },
+        {
+          text: "话题",
+          path: RouterConst.topic.TOPIC_PAGE
+        },
         {
           text: "素材",
-          path: PATH_MATERIAL_PAGE
+          path: RouterConst.material.MATERIAL_PAGE
         },
         {
           text: "榜单",
-          path: PATH_TOP_PAGE
+          path: RouterConst.top.TOP_PAGE
         },
         {
           text: "商城",
-          path: PATH_SHOP_PAGE
+          path: RouterConst.shop.SHOP_PAGE
         },
-        {
-          text: "测试",
-          path: PATH_TEST_PAGE
-        }
+        // {
+        //   text: "测试",
+        //   path: PATH_TEST_PAGE
+        // }
       ],
       menuItems2: [
         {
           text: "搜索",
-          path: PATH_SEARCH_PAGE
+          path: RouterConst.search.SEARCH_PAGE
         },
         {
           text: "上传",
-          path: PATH_HOME_PAGE
+          path: "/"
         },
         {
           text: "通知",
-          path: PATH_MESSAGE_PAGE
+          path: RouterConst.message.MESSAGE_PAGE
         }
       ],
-      isLogin: isLogin,
       hidden: false,
-      userInfo: userInfo,
     }
 
     console.log("store", store.getState());
@@ -88,20 +74,21 @@ class ALHeader extends React.Component {
   render() {
 
     let isLoginDiv;
+    const {userInfo, isLogin} = this.props;
 
     const uploadDropdownMenu = (
       <div style={{color: this.props.color ?? "#000"}}>
         <Menu>
           <MenuItem style={{width: "100px"}}>
             <a onClick={() => {
-              this.goPage("/work/publish")
+              this.goPage(RouterConst.work.NEW_WORK_PAGE)
             }}>
               上传作品
             </a>
           </MenuItem>
           <MenuItem>
             <a onClick={() => {
-              this.goPage("/sucai/publish")
+              this.goPage(RouterConst.work.NEW_WORK_PAGE)
             }}>
               上传素材
             </a>
@@ -110,25 +97,24 @@ class ALHeader extends React.Component {
       </div>
     );
 
-    if (!this.state.isLogin) {
+    if (!isLogin) {
       isLoginDiv = (
         <div className="al-flex-container-center-v">
           <Button className="al-m-right-30px"
                   shape="round"
-                  onClick={() => this.goPage(PATH_LOGIN)}
+                  onClick={() => this.goPage(RouterConst.user.LOGIN_PAGE)}
           >登录</Button>
           <Button shape="round"
-                  onClick={() => this.goPage(PATH_REGISTER)}
+                  onClick={() => this.goPage(RouterConst.user.REGISTER_PAGE)}
           >注册</Button>
         </div>
       );
     } else {
-      let userInfo = getUserInfoFromLocalStorage();
       const avatarDropdownMenu = (
         <Menu>
           <MenuItem style={{width: "100px"}}>
             <a onClick={() => {
-              this.goPage("/user/" + userInfo.id)
+              this.goPage(RouterConst.user.USER_PAGE + "/" + userInfo.id)
             }}>
               个人中心
             </a>
@@ -137,14 +123,7 @@ class ALHeader extends React.Component {
             <a className="" onClick={() => {
               this.logout();
             }}>
-              <GlobalContext.Consumer>
-                {
-                  data => {
-                    data.userInfo = null;
-                    return (<>退出</>);
-                  }
-                }
-              </GlobalContext.Consumer>
+              退出
             </a>
           </MenuItem>
         </Menu>
@@ -193,7 +172,8 @@ class ALHeader extends React.Component {
               <ALFlexBox centerV>
                 <ALFlexBox centerV style={{marginTop: "4px"}}>
                   <div className="al-p-lr-20px">
-                    <a style={{color: this.props.color ?? "#000"}} onClick={() => this.goPage(PATH_SEARCH_PAGE)}>搜索</a>
+                    <a style={{color: this.props.color ?? "#000"}}
+                       onClick={() => this.goPage(RouterConst.search.SEARCH_PAGE)}>搜索</a>
                   </div>
 
                   <div className="al-p-lr-20px">
@@ -205,7 +185,7 @@ class ALHeader extends React.Component {
 
                   <div className="al-p-lr-20px">
                     <a style={{color: this.props.color ?? "#000"}}
-                       onClick={() => this.goPage(PATH_MESSAGE_PAGE)}>消息</a>
+                       onClick={() => this.goPage(RouterConst.message.MESSAGE_PAGE)}>消息</a>
                   </div>
                 </ALFlexBox>
                 {isLoginDiv}
@@ -220,15 +200,7 @@ class ALHeader extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    store.subscribe(() => {
-      this.setState({
-        userInfo: store.getState().userInfo,
-        isLogin: store.getState().isLogin
-      });
 
-      console.log("store userInfo", store.getState().userInfo);
-      console.log("store isLogin", store.getState().isLogin);
-    });
   }
 
   //组件卸载前调用
@@ -245,7 +217,7 @@ class ALHeader extends React.Component {
     let token = getCookieByName("sso_token");
     console.log(token);
     request({
-      url: POST_USER_LOGOUT,
+      url: ApiConst.user.LOGOUT,
       method: 'POST',
       data: {
         token: token
@@ -272,7 +244,7 @@ class ALHeader extends React.Component {
     this.setState({
       isLogin: false
     });
-    this.goPage(PATH_HOME_PAGE);
+    this.goPage(RouterConst.home.INDEX_PAGE);
   }
 
 
@@ -280,7 +252,8 @@ class ALHeader extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLogin: state.isLogin
+    isLogin: state.isLogin,
+    userInfo: state.userInfo
   }
 }
 

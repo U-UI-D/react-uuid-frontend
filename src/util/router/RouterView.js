@@ -1,42 +1,73 @@
-import {Route, HashRouter as Router} from "react-router-dom";
+import {Route, HashRouter as Router, Switch, Redirect} from "react-router-dom";
 import React from "react";
 import routes from "./config/routers";
-import {GlobalContext} from "../../index";
 import ALHeader from "../../components/al-header/ALHeader";
-import {getUserInfoFromLocalStorage} from "../util";
 import {ALFooter} from "../../components/al-component";
+import {connect} from "react-redux";
+import NotFoundPage from "../../pages/common/NotFoundPage";
+import {message} from "antd";
 
-export const RouteWithSubRoutes = route => (
-  <Route
-    path={route.path}
-    exact={route.exact}
-    render={props => (
-      <route.component {...props} routes={route.routes}/>
-    )}
-  />
-);
 
 function RouterView(props){
+  const {isLogin} = props;
   return (
-    <GlobalContext.Provider value={{
-      hello: "Hello React",
-      userInfo: getUserInfoFromLocalStorage()
-    }}>
-      <Router>
-        <ALHeader />
+    <Router>
+      <ALHeader />
 
-        <div id="content">
+      <div id="content">
+        <Switch>
           {
-            routes.map((route, i) => {
-              return <RouteWithSubRoutes key={route.path} {...route} />
+            routes.map((route, index) => {
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={route.exact}
+                  render={(props) => {
+                    let component = <route.component {...props} />;
+                    let redirect = (
+                      <Redirect to={{
+                        pathname: "/login",
+                        state: {
+                          from: route.path
+                        }
+                      }} />
+                    );
+
+                    // 登录判断
+                    if (route.requireLogin && !isLogin) {
+                      message.warning("请先登录");
+                      return redirect;
+                    }
+
+                    return component;
+                  }}
+                />
+              );
             })
           }
-        </div>
 
-        <ALFooter />
-      </Router>
-    </GlobalContext.Provider>
+          <Route
+            path={"/404"}
+            exact={true}
+            render={(props) => {
+              return (
+                <NotFoundPage />
+              )
+            }}
+          />
+        </Switch>
+      </div>
+
+      <ALFooter />
+    </Router>
   );
 }
 
-export default RouterView;
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin
+  }
+}
+
+export default connect(mapStateToProps)(RouterView);

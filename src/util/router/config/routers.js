@@ -13,7 +13,7 @@ import {
   PATH_USER_PROFILE_PAGE,
   PATH_WORK_UI_DETAIL,
   PATH_WORK_PAGE,
-  PATH_WORK_SOFTWARE_DETAIL
+  PATH_WORK_SOFTWARE_DETAIL, PATH_TOPIC_PAGE, RouterConst
 } from "./RouterConst";
 import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
@@ -32,6 +32,9 @@ import MaterialPage from "../../../pages/material/MaterialPage";
 import SearchPage from "../../../pages/search/SearchPage";
 import MessagePage from "../../../pages/message/MessagePage";
 import SoftwareDetailPage from "../../../pages/work/page/detail/page/software/SoftwareWorkDetailPage";
+import TopicPage from "../../../pages/topic/TopicPage";
+import TopicDetailPage from "../../../pages/topic/page/topic-detail/TopicDetailPage";
+import NewTopicPage from "../../../pages/topic/page/new-topic/NewTopicPage";
 
 let routes = [
   {
@@ -75,13 +78,15 @@ let routes = [
     title: "个人中心",
     path: PATH_USER_PAGE + "/:id",
     component: UserPage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "用户资料页",
     path: PATH_USER_PROFILE_PAGE + "/:id",
     component: UserProfilePage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "测试",
@@ -93,7 +98,8 @@ let routes = [
     title: "发布作品",
     path: "/work/publish",
     component: WorkPublishPage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "商城",
@@ -120,6 +126,25 @@ let routes = [
     exact: true
   },
   {
+    title: "话题",
+    path: RouterConst.topic.TOPIC_PAGE,
+    component: TopicPage,
+    exact: true
+  },
+  {
+    title: "话题详情",
+    path: RouterConst.topic.TOPIC_DETAIL_PAGE + "/:id",
+    component: TopicDetailPage,
+    exact: true
+  },
+  {
+    title: "发表话题",
+    path: RouterConst.topic.NEW_TOPIC_PAGE,
+    component: NewTopicPage,
+    exact: true,
+    requireLogin: true,
+  },
+  {
     title: "素材",
     path: PATH_MATERIAL_PAGE,
     component: MaterialPage,
@@ -135,7 +160,8 @@ let routes = [
     title: "消息",
     path: PATH_MESSAGE_PAGE,
     component: MessagePage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
 ];
 

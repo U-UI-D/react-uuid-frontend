@@ -1,0 +1,24 @@
+.search-topic-wrap{
+    border: 1px solid #ccc;
+    border-radius: 999em;
+    padding: 6px 10px;
+}
+
+.search-topic-wrap:hover{
+    border: 1.2px solid #00b6ff;
+}
+
+.search-input-box{
+    border: none;
+    background-color: #00000000;
+    outline: none;
+    width: 100px;
+    transition: width 0.6s;
+    -webkit-transition:width 0.6s;
+}
+
+.search-input-box:focus{
+    width: 240px;
+}
+
+
