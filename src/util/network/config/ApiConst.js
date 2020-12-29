@@ -67,6 +67,9 @@ export const GET_MESSAGE_CHAT = "/message/message-all";
 export const ApiConst = {
   // 用户模块
   user: {
+    LOGIN: "/sso/sso/login",
+    REGISTER: "/user/user/register",
+    LOGOUT: "/sso/sso/logout",
     userdata: {
       get: {
         GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId="
@@ -118,7 +121,20 @@ export const ApiConst = {
       post: {
         POST_ORDER: "/shop/order"
       }
-    }
+    },
 
+  },
+
+  // 轮播图接口
+  carousel: {
+    get: {
+      GET_CAROUSEL_ALL: "/common/carousel"
+    }
+  },
+
+  // 上传接口
+  upload: {
+    UPLOAD_RETURN_ID: "/common/upload/return-id",
+    UPLOAD_RETURN_URL: "/common/upload/return-url",
   }
 }

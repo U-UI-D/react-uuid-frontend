@@ -12,8 +12,6 @@ console.log("================ initForUser ================== ");
 initForUser();
 
 export const GlobalContext = React.createContext();
-React.userInfo = null;
-
 
 ReactDOM.render(
   <React.StrictMode>

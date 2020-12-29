@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Input} from 'antd';
 import store from "../../store";
 import {connect} from "react-redux";
+import {ALImage} from "../../components/al-component";
 
 
 

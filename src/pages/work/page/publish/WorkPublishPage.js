@@ -1,6 +1,4 @@
 import React from "react";
-import {PATH_LOGIN} from "../../../../util/router/config/RouterConst";
-import {getCookieByName} from "../../../../util/cookieUtil";
 import "./style.css";
 import WorkPublishLeftLayout from "./component/layout/left/WorkPublishLeftLayout";
 import WorkPublishRightLayout from "./component/layout/right/WorkPublishRightLayout";
@@ -17,12 +15,7 @@ class WorkPublishPage extends React.Component {
   }
 
   componentDidMount() {
-    //验证是否已单点登录
-    let token = getCookieByName("sso_token");
-    if (!token){
-      this.goPage(PATH_LOGIN, {fromPath: '/work/publish'});
-      return;
-    }
+
   }
 
   goPage = (path, data = {}) => {
