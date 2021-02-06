@@ -86,7 +86,7 @@ class RegisterPage extends React.Component {
                             style={{padding: "0 50px 0 50px"}}
                             onClick={() => {
                               this.register()
-                            }}>登录</Button>
+                            }}>注册</Button>
                   </div>
                 </div>
 

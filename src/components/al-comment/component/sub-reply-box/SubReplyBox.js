@@ -49,15 +49,18 @@ function SubReplyBox(props) {
       <Divider style={{marginTop: 0, marginBottom: "20px"}}/>
 
       <ALFlexBox centerV>
-        <ALAvatarNickname avatar={props.avatar}
-                          avatarSize={30}
-                          nickname={props.nickname}/>
 
-        <CaretRightOutlined className="al-m-lr-20px"/>
 
         <ALAvatarNickname avatar={props.originUserAvatar}
                           avatarSize={30}
                           nickname={props.originUserNickname}/>
+
+        <CaretRightOutlined className="al-m-lr-20px"/>
+
+        <ALAvatarNickname avatar={props.avatar}
+                          avatarSize={30}
+                          nickname={props.nickname}/>
+
       </ALFlexBox>
       <div className="al-m-left-50px">
         <p>{props.content}</p>

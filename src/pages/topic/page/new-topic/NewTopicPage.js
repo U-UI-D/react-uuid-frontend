@@ -1,6 +1,9 @@
 import React from "react";
 import {Button, Card, Input, message, Select, Upload} from "antd";
 import {ALFlexBox, ALPlaceBox} from "../../../../components/al-component";
+import {connect} from "react-redux";
+import {HttpRequest} from "../../../../util/network/request";
+import {RouterConst} from "../../../../util/router/config/RouterConst";
 
 class NewTopicPage extends React.Component{
   //构造器
@@ -12,7 +15,16 @@ class NewTopicPage extends React.Component{
       title: "",
       previewVisible: false,
       previewImage: "",
-      previewTitle: ""
+      previewTitle: "",
+      content: "",
+      imageId: "",
+      topicTagId: undefined,
+      boardTagId: undefined,
+      workId: undefined,
+      workType: undefined,
+      isSubmitting: false,
+      selectTopic: "",
+      selectBoard: "",
     }
   }
 
@@ -26,7 +38,7 @@ class NewTopicPage extends React.Component{
       name: 'file',
       action: 'http://localhost:9000/upload/return-id',
       data: {
-        userId: 1
+        userId: this.props.userInfo.id
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
@@ -46,6 +58,7 @@ class NewTopicPage extends React.Component{
         }
       },
     };
+    const {content, isSubmitting, workId} = this.state;
 
     return(
       <div className="content-width al-p-tb-20px">
@@ -65,7 +78,8 @@ class NewTopicPage extends React.Component{
                               style={{borderRadius: 5 + 'px'}}
                               autoSize={{minRows: 6}}
                               size="large"
-                              onChange={this.handleChangeInputForDesc}/>
+                              value={content}
+                              onChange={e => {this.setState({content: e.target.value})}}/>
             </div>
             <div><ALPlaceBox width={150}/></div>
           </ALFlexBox>
@@ -93,10 +107,10 @@ class NewTopicPage extends React.Component{
                 <span className="al-m-right-20px">选择话题</span>
                 <Select placeholder="请选择"
                         style={{width: 120}}
-                        onChange={this.handleChangeSelect}>
-                  <Option value="web">网站</Option>
-                  <Option value="app">APP</Option>
-                  <Option value="miniprogram">小程序</Option>
+                        onChange={value => {this.setState({selectTopic: value})}}>
+                  <Option value="14">网站</Option>
+                  <Option value="15">APP</Option>
+                  <Option value="16">小程序</Option>
                 </Select>
               </div>
 
@@ -112,10 +126,10 @@ class NewTopicPage extends React.Component{
                 <span className="al-m-right-20px">选择圈子</span>
                 <Select placeholder="请选择"
                         style={{width: 120}}
-                        onChange={this.handleChangeSelect}>
-                  <Option value="web">网站</Option>
-                  <Option value="app">APP</Option>
-                  <Option value="miniprogram">小程序</Option>
+                        onChange={value => {this.setState({selectBoard: value})}}>
+                  <Option value="11">设计</Option>
+                  <Option value="12">UI</Option>
+                  <Option value="13">开发</Option>
                 </Select>
               </div>
 
@@ -130,13 +144,15 @@ class NewTopicPage extends React.Component{
               <span className="al-m-right-20px">关联作品</span>
               <ALFlexBox>
                 <Input.Group compact>
-                  <Select placeholder="请选择">
+                  <Select placeholder="请选择" onChange={value => {this.setState({workType: value})}}>
                     <Option value="ui">UI</Option>
                     <Option value="software">软件</Option>
                   </Select>
                   <Input
                     style={{ width: '180px' }}
                     placeholder="请输入作品ID"
+                    value={workId}
+                    onChange={e => {this.setState({workId: e.target.value})}}
                   />
                 </Input.Group>
               </ALFlexBox>
@@ -149,7 +165,10 @@ class NewTopicPage extends React.Component{
             </ALFlexBox>
           </ALFlexBox>
 
-          <Button type={"primary"} shape={"round"}>发表</Button>
+          <Button type={"primary"}
+                  shape={"round"}
+                  loading={isSubmitting}
+                  onClick={this.handleNewTopic}>发表</Button>
 
         </Card>
       </div>
@@ -163,18 +182,6 @@ class NewTopicPage extends React.Component{
 
   //组件卸载前调用
   componentWillUnmount() {
-
-  }
-
-  handleChangeSelect = () => {
-
-  }
-
-  handleChangeInputForTitle = () => {
-
-  }
-
-  handleChangeInputForDesc = () => {
 
   }
 
@@ -201,6 +208,53 @@ class NewTopicPage extends React.Component{
 
   handleCancelPreview = () => this.setState({ previewVisible: false });
 
+  handleNewTopic = () => {
+    const {content, imageIds, selectTopic, selectBoard, workId, workType} = this.state;
+    if (!content){
+      return ;
+    }
+    this.setState({
+      isSubmitting: true
+    })
+    let postData = {
+      userId: this.props.userInfo.id,
+      content: content,
+      imageId: imageIds.join(";").toString(),
+      topicTagId: selectTopic,
+      boardTagId: selectBoard,
+      workId: workId,
+      workType: workType,
+    }
+
+    console.log("postData", postData);
+
+    HttpRequest.post({
+      url: "http://localhost:9005/topic",
+      data: postData
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          isSubmitting: false
+        });
+        message.success("发表成功");
+        setTimeout(() => {
+          this.props.history.push({pathname: RouterConst.topic.TOPIC_PAGE});
+        }, 500);
+      }else {
+        message.error("发表失败，请稍候重试！");
+      }
+    }).catch(err => {
+      message.error("发表失败，请稍候重试！");
+    })
+
+  }
+
 }
 
-export default NewTopicPage;
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfo,
+    isLogin: state.isLogin,
+  }
+};
+export default connect(mapStateToProps)(NewTopicPage);

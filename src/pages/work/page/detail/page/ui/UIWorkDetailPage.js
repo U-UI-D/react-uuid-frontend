@@ -3,12 +3,13 @@ import "./style.css";
 import UIWorkContent from "./component/UIWorkContent";
 import {commonRequest} from "../../../../../../util/network/RequestHub";
 import {Affix, Avatar, Button} from "antd";
-import {GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
+import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
 import store from "../../../../../../store";
 import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
+import {HttpRequest} from "../../../../../../util/network/request";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -20,6 +21,7 @@ class UIWorkDetailPage extends React.Component {
       workData: null,
       userInfo: userInfo,
       activeColor: false,
+      commentList: [],
       hoverBoxData: [
         {
           icon0: require("../../../../../../assets/icon/common/dianzan0.png"),
@@ -165,6 +167,7 @@ class UIWorkDetailPage extends React.Component {
   componentDidMount() {
 
     console.log("props", this.props);
+    let workId = this.props.match.params.id
 
     commonRequest({url: GET_WORK_UI_BY_ID + this.props.match.params.id}).then(res => {
       if (res.err === null) {
@@ -247,6 +250,8 @@ class UIWorkDetailPage extends React.Component {
     workData.lookCount = ++workData.lookCount;
     this.setState({workData});
   }
+
+
 
 
 }

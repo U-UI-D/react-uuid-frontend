@@ -1,12 +1,13 @@
 import React from "react";
 import {ALFlexBox, ALImage, ALPlaceBox} from "../../components/al-component";
-import {Button, Col, Divider, Input, Row, Space} from "antd";
+import {Button, Col, Divider, Input, message, Row, Space} from "antd";
 import {SearchOutlined} from '@ant-design/icons';
 import "./style.css";
 import TopicListItem from "./component/topic-list-item/TopicListItem";
 import {RouterConst} from "../../util/router/config/RouterConst";
 import {HttpRequest} from "../../util/network/request";
 import {NumberOutlined} from "@ant-design/icons";
+import {ApiConst} from "../../util/network/config/ApiConst";
 
 
 // 话题页面
@@ -34,13 +35,15 @@ class TopicPage extends React.Component{
           title: "开发",
           desc: ""
         }
-      ]
+      ],
+      pageNum: 1,
+      loading: false
     }
   }
 
   //渲染函数
   render() {
-    const {topicList, hotTopicList, hotBoardList} = this.state;
+    const {topicList, hotTopicList, hotBoardList, loading} = this.state;
     return(
       <div className="content-width al-p-tb-20px">
         <ALFlexBox between>
@@ -52,7 +55,9 @@ class TopicPage extends React.Component{
                      className="search-input-box" />
               <SearchOutlined />
             </span>
-            <Button shape={"round"} danger>热门话题</Button>
+            <Button shape={"round"} danger onClick={() => {
+              message.info("功能正在开发中...")
+            }}>热门话题</Button>
             <Button shape={"round"} type={"text"}>最新发表</Button>
 
             <Button shape={"round"} type="primary"
@@ -83,7 +88,9 @@ class TopicPage extends React.Component{
             </div>
 
             <ALFlexBox centerVH className="al-m-20px">
-              <Button shape="round">加载更多</Button>
+              <Button shape="round"
+                      loading={loading}
+                      onClick={this.handleLoadMore}>加载更多</Button>
             </ALFlexBox>
           </Col>
           <Col span={6}>
@@ -148,18 +155,27 @@ class TopicPage extends React.Component{
 
   }
 
-  getTopicList = () => {
+  getTopicList = (pageNum=1, pageSize=3) => {
+    this.setState({loading: true});
     HttpRequest.get({
-      url: "http://localhost:9005/topic"
+      // url: ApiConst.topic.get.GET_ALL + `?pageNum=${pageNum}&pageSize=${pageSize}`
+      url: "http://localhost:9005/topic" + `?pageNum=${pageNum}&pageSize=${pageSize}`
     }).then(res => {
       if (res.err === null){
         this.setState({
-          topicList: res.data.data.list
+          topicList: res.data.data.list.reverse(),
+          pageNum: pageNum,
+          loading: false
         })
       }
     }).catch(err => {
 
     })
+  }
+
+  // 加载更多
+  handleLoadMore = () => {
+    this.getTopicList(this.state.pageNum+1, 10);
   }
 
 }

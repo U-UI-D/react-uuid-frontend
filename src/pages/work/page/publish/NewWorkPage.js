@@ -5,9 +5,9 @@ import WorkPublishRightLayout from "./component/layout/right/WorkPublishRightLay
 import {ALFlexBox} from "../../../../components/al-component";
 
 
-class WorkPublishPage extends React.Component {
+class NewWorkPage extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       workData: null,
       currentTitle: "上传作品",
@@ -38,7 +38,7 @@ class WorkPublishPage extends React.Component {
         <div className="content-width al-p-tb-20px">
           <ALFlexBox between>
             <WorkPublishLeftLayout onChange={this.handleChangeForTitle}/>
-            <WorkPublishRightLayout title={this.state.currentTitle} />
+            <WorkPublishRightLayout title={this.state.currentTitle} history={this.props.history} />
           </ALFlexBox>
         </div>
       </div>
@@ -48,4 +48,4 @@ class WorkPublishPage extends React.Component {
 }
 
 
-export default WorkPublishPage;
+export default NewWorkPage;

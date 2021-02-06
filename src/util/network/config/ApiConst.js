@@ -86,6 +86,19 @@ export const ApiConst = {
     }
   },
 
+  // 作品模块
+  work: {
+    ui: {
+      get: {
+        GET_ALL: "/work/work/ui"
+      }
+    },
+
+    software: {
+
+    }
+  },
+
   // 商城模块
   shop: {
     // 商品接口
@@ -136,5 +149,26 @@ export const ApiConst = {
   upload: {
     UPLOAD_RETURN_ID: "/common/upload/return-id",
     UPLOAD_RETURN_URL: "/common/upload/return-url",
+  },
+
+  // 评论模块
+  comment: {
+    get: {
+      GET_BY_UI_WORK_ID: "/comment/comment/work/ui/",
+      GET_BY_SOFTWARE_WORK_ID: "/comment/comment/work/software/",
+      GET_BY_TOPIC_ID: "/comment/comment/topic/",
+    },
+
+    post: {
+      POST_WORK: "/comment/comment",
+    }
+  },
+
+  // 话题模块
+  topic: {
+    get: {
+      GET_ALL: "/topic/topic",
+      GET_DETAIL_BY_ID: "/topic/topic/",
+    }
   }
 }

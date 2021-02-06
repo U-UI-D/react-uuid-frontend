@@ -1,12 +1,10 @@
 import axios from "axios";
-import qs from "querystring";
+import qs from "qs";
 import AppConfig from "../../config/AppConfig";
 
 export function request(config) {
   if (config.method === "get" || config.method === "GET"){
-    if (Object.keys(config.data).length > 0){
-      config.url += "?" + qs.stringify(config.data);
-    }
+    config.data = qs.stringify(config.data);
   }else {
     if (config.headers["content-type"] !== "application/json"){
       config.data = qs.stringify(config.data);
