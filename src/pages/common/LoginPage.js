@@ -99,13 +99,6 @@ class LoginPage extends React.Component {
   componentDidMount() {
     console.log("props", this.props);
 
-    store.subscribe(() => {
-      this.setState({
-        userInfo: store.getState().userInfo,
-        isLogin: store.getState().isLogin,
-      });
-    });
-
     document.getElementById("al-header").hidden = true;
     document.getElementById("al-footer").hidden = true;
 
@@ -167,7 +160,7 @@ class LoginPage extends React.Component {
   getUserInfoByToken = (token) => {
     console.log("location", this.props.location);
     let from = "";
-    if (this.props.location.state.from) {
+    if (this.props.location.state?.from) {
       from = this.props.location.state.from;
     }
 

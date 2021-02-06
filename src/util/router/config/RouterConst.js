@@ -75,7 +75,7 @@ export const RouterConst = {
 
   work: {
     WORK_PAGE:  "/work",
-    NEW_WORK_PAGE: "/work/publish",
+    NEW_WORK_PAGE: "/work/new",
     ui: {
       DETAIL_PAGE: "/work/ui/detail"
     },

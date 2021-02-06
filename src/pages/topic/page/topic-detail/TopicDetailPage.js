@@ -4,6 +4,7 @@ import {ALComment, ALFlexBox, ALImage, ALLoading} from "../../../../components/a
 import DateTimeUtils from "../../../../util/DateTimeUtils";
 import {HttpRequest} from "../../../../util/network/request";
 import {NumberOutlined, Loading3QuartersOutlined} from "@ant-design/icons";
+import {ApiConst} from "../../../../util/network/config/ApiConst";
 
 
 class TopicDetailPage extends React.Component{
@@ -12,13 +13,14 @@ class TopicDetailPage extends React.Component{
     super(props);
 
     this.state = {
-      topicData: null
+      topicData: null,
+      commentList: []
     }
   }
 
   //渲染函数
   render() {
-    const {topicData} = this.state;
+    const {topicData, commentList} = this.state;
     return(
       <div className="content-width al-p-tb-20px">
         <Row gutter={[10]}>
@@ -73,7 +75,8 @@ class TopicDetailPage extends React.Component{
                     {/*评论*/}
                     <div className="al-m-top-20px">
                       <h2>说说我的看法</h2>
-                      <ALComment />
+                      <ALComment commentList={commentList}
+                                 topicId={topicData.id} reload={this.reGetCommentList} />
                     </div>
                   </div>
                 ) : <ALLoading />
@@ -110,6 +113,7 @@ class TopicDetailPage extends React.Component{
     console.log("props", this.props);
 
     this.getTopicDataById(id);
+    this.getCommentList(id);
   }
 
   //组件卸载前调用
@@ -119,7 +123,8 @@ class TopicDetailPage extends React.Component{
 
   getTopicDataById = (id) => {
     HttpRequest.get({
-      url: "http://localhost:9005/topic/" + id
+      // url: "http://localhost:9005/topic/" + id
+      url: ApiConst.topic.get.GET_DETAIL_BY_ID + id
     }).then(res => {
       if (res.err === null){
         this.setState({
@@ -127,6 +132,25 @@ class TopicDetailPage extends React.Component{
         })
       }
     })
+  }
+
+  getCommentList = (topicId) => {
+    HttpRequest.get({
+      // url: ApiConst.comment.get.GET_BY_TOPIC_ID + topicId
+      url: "http://localhost:9003/comment/topic/" + topicId
+    }).then(res => {
+      if (res.err === null){
+        console.log("getCommentList", res.data)
+        this.setState({
+          commentList: res.data.data.list,
+        })
+      }
+    })
+  }
+
+  reGetCommentList = () => {
+    let {id} = this.props.match.params;
+    this.getCommentList(id);
   }
 
 }

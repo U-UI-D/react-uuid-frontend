@@ -3,10 +3,11 @@ import {Empty, Affix, Pagination} from "antd";
 import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import {PATH_WORK_SOFTWARE_DETAIL, PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
-import {GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
+import {ApiConst, GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
 import TitleList from "./component/title-list/TitleList";
 import {ALFlexBox, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
+import {HttpRequest} from "../../util/network/request";
 
 class WorkPage extends React.Component {
   //构造器
@@ -26,6 +27,8 @@ class WorkPage extends React.Component {
 
   //渲染函数
   render() {
+    const {workData, workType} = this.state;
+
     return (
       <div>
         <Affix>
@@ -41,23 +44,23 @@ class WorkPage extends React.Component {
             <ALPlaceBox height={20}/>
             <div style={{marginLeft: "15px"}}>
               {
-                this.state.workData === null ?
+                workData === null ?
                   (
                     <ALLoading show height={200}/>
                   )
                   :
                   (
-                    this.state.workData.total === 0 ?
+                    workData.total === 0 ?
                       <div>
                         <Empty />
                       </div>
                       :
                     <ALFlexBox wrap margin={-15}>
                       {
-                        this.state.workData.list.map((item, index) => {
+                        workData.list && workData.list.map((item, index) => {
                           return (
                             <div key={index} onClick={() => {
-                              this.goPage((this.state.workType === 'UI作品' ? PATH_WORK_UI_DETAIL : PATH_WORK_SOFTWARE_DETAIL) + "/" + item.id);
+                              this.goPage((workType === 'UI作品' ? PATH_WORK_UI_DETAIL : PATH_WORK_SOFTWARE_DETAIL) + "/" + item.id);
                             }}>
                               <ShowWorkBox workInfo={item}/>
                             </div>
@@ -128,11 +131,16 @@ class WorkPage extends React.Component {
   }
 
   //获取作品列表
-  getWorkData = (url=GET_WORK_UI_ALL, data = {}) => {
-    commonRequest({url, data}).then(res => {
+  getWorkData = (url=ApiConst.work.ui.get.GET_ALL, data = {}) => {
+    HttpRequest.get({
+      url: url,
+      // url: "http://localhost:9002/work/ui",
+      data: data
+    }).then(res => {
       if (res.err === null) {
+
         this.setState({
-          workData: res.data,
+          workData: res.data.data,
           loading: false,
           total: res.data.total || 0
         })

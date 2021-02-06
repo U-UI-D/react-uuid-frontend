@@ -8,6 +8,7 @@ import {GET_MESSAGE_ALL, GET_MESSAGE_CHAT} from "../../util/network/config/ApiCo
 import {getCookieByName} from "../../util/cookieUtil";
 import {PATH_LOGIN} from "../../util/router/config/RouterConst";
 import {ALFlexBox, ALLoading} from "../../components/al-component";
+import {connect} from "react-redux";
 
 
 class MessagePage extends React.Component {
@@ -290,4 +291,11 @@ class MessagePage extends React.Component {
 
 }
 
-export default MessagePage;
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin,
+    userInfo: state.userInfo,
+  }
+}
+
+export default connect(mapStateToProps)(MessagePage);

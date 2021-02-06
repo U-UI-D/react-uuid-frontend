@@ -17,12 +17,12 @@ function ALImage(props) {
              alt={props.alt}
              style={{
                objectFit: props.fit,
-               width: props.circle ? (100 + '%') : ((props.size ?? props.width) + 'px'),
-               height: props.circle ? (100 + '%') : ((props.size ?? props.height) + 'px'),
+               width: (props.size ?? props.width) + 'px',
+               height: (props.size ?? props.height) + 'px',
                borderRadius: props.radius + 'px',
                ...props.style
              }}
-             className={" " + props.className}
+             className={" " + props.className + props.circle ? "al-img-circle" : ""}
              onClick={!props.previewable ? props.onClick : () => {
                setIsModalVisible(!isModalVisible)
              }}
