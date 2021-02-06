@@ -1,7 +1,6 @@
 import React from "react";
 import { createFromIconfontCN } from '@ant-design/icons';
 import PropTypes from "prop-types";
-import './style.css';
 import AppConfig from "../../config/AppConfig";
 
 function ALIcon(props) {

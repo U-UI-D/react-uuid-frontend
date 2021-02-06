@@ -93,7 +93,7 @@ class UIWorkDetailPage extends React.Component {
                 </ALFlexBox>
 
                 <ALFlexBox centerVH>
-                  <Space>
+                  <Space id='top-icon'>
                     <Tooltip title='添加到我的项目' placement="bottom" color={'#1890ff'}>
                       <ALIcon type='icon-tianjia' className='al-cursor-pointer' />
                     </Tooltip>
@@ -103,8 +103,6 @@ class UIWorkDetailPage extends React.Component {
                     <Tooltip title='github' placement="bottom" color={'#1890ff'}>
                       <ALIcon type='icon-github' className='al-cursor-pointer' />
                     </Tooltip>
-
-
                   </Space>
                 </ALFlexBox>
               </ALFlexBox>
