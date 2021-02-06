@@ -1,15 +1,15 @@
 import React from "react";
 import "./style.css";
-import UIWorkContent from "./component/UIWorkContent";
+import UIWorkContent from "./component/work-content/UIWorkContent";
 import {commonRequest} from "../../../../../../util/network/RequestHub";
-import {Affix, Avatar, Button} from "antd";
+import {Affix, Avatar, Button, Space, Tooltip} from "antd";
 import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
-import {ALFlexBox} from "../../../../../../components/al-component";
+import {ALFlexBox, ALImage} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
 import store from "../../../../../../store";
 import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
-import {HttpRequest} from "../../../../../../util/network/request";
+import ALIcon from "../../../../../../components/al-icon";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -93,15 +93,19 @@ class UIWorkDetailPage extends React.Component {
                 </ALFlexBox>
 
                 <ALFlexBox centerVH>
+                  <Space>
+                    <Tooltip title='添加到我的项目' placement="bottom" color={'#1890ff'}>
+                      <ALIcon type='icon-tianjia' className='al-cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip title='下载' placement="bottom" color={'#1890ff'}>
+                      <ALIcon type='icon-xiazai' className='al-cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip title='github' placement="bottom" color={'#1890ff'}>
+                      <ALIcon type='icon-github' className='al-cursor-pointer' />
+                    </Tooltip>
 
-                  <Button style={{height: "50px", marginRight: "10px"}} shape="round">
-                    添加到我的项目
-                  </Button>
 
-                  <Button style={{height: "50px"}} shape="round">
-                    <span>附件下载</span>
-                    <span className="al-p-left-10px">12MB</span>
-                  </Button>
+                  </Space>
                 </ALFlexBox>
               </ALFlexBox>
             </ALFlexBox>
@@ -126,11 +130,7 @@ class UIWorkDetailPage extends React.Component {
 
 
         <div>
-          <div className="top-box">
-            <div className="top-bg" style={{backgroundImage: `url(${workData.poster})`}}></div>
-          </div>
-
-          <div className="content-width al-position-rela" style={{top: "-100px"}}>
+          <div className="content-width" style={{marginTop: '20px'}}>
             <UIWorkContent workData={this.state.workData}/>
           </div>
         </div>

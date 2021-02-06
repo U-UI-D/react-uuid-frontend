@@ -23,7 +23,8 @@ const AppConfig = {
       port: "8000",
       prefix: "/api/v1",
     }
-  }
+  },
+  iconfontUrl: '//at.alicdn.com/t/font_2368608_2cdu9ely88g.js'
 
 }
 

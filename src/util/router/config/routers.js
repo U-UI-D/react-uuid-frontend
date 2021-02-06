@@ -22,7 +22,7 @@ import WorkPage from "../../../pages/work/WorkPage";
 import WorkDetailPage from "../../../pages/work/page/detail/page/ui/UIWorkDetailPage";
 import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
-import NewWorkPage from "../../../pages/work/page/publish/NewWorkPage";
+import NewWorkPage from "../../../pages/work/page/new-work/NewWorkPage";
 import ShopPage from "../../../pages/shop/ShopPage";
 import UserProfilePage from "../../../pages/user/page/profile/UserProfilePage";
 import Demo from "../../../pages/test/demo/Demo";
