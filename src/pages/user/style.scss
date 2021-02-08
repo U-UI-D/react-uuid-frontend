@@ -1,0 +1,65 @@
+.user-page-container {
+    position: relative;
+}
+
+.header-box{
+    width: 100%;
+    height: 350px;
+}
+
+.header-bg{
+    background-image: url("./img/new-top.png");
+    background-size: auto 350px;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.content-box-left{
+    width: 280px;
+    height: auto;
+}
+
+.content-box-right{
+    width: 900px;
+    height: auto;
+}
+
+.count-box-hover:hover{
+    border-radius: 10px;
+    background-color: #e9efff;
+}
+
+.title-text{
+    font-size: 16px;
+    color: #303133;
+}
+
+.suffix-text{
+    font-size: 14px;
+    color: #bbbbbb;
+}
+
+.content-wrapper{
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.menu-wrapper {
+    position: relative;
+    .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
+        color: #fff;
+        border-bottom: 2px solid #1890ff;
+    }
+    li{
+        margin-right: 30px;
+    }
+}
+
+.menu-style {
+    background-color: #00000000;
+    position: absolute;
+    top: -46px;
+    color: rgba(255,255,255,.5)
+}
+

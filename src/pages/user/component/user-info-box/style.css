@@ -16,5 +16,7 @@
 .user-sign {
     color: rgba(255,255,255,.6);
     font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 

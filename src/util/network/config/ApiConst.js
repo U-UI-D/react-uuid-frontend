@@ -83,6 +83,21 @@ export const ApiConst = {
     }
   },
 
+  // 作品模块
+  work: {
+    ui: {
+      get: {
+        GET_BY_USER_ID: "/work/work/ui/user/"
+      }
+    },
+
+    software: {
+      get: {
+        GET_BY_USER_ID: "/work/work/software/user/"
+      }
+    }
+  },
+
   // 商城模块
   shop: {
     // 商品接口

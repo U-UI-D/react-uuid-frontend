@@ -25,7 +25,7 @@ export default function UserInfoBox(props) {
                     <div>
                       <span className='user-identity-box'>UI设计师</span>
                     </div>
-                    <p className='user-sign al-m-top-10px'>这个人太懒了，什么都没留下。</p>
+                    <p className='user-sign'>这个人太懒了，什么都没留下。</p>
                   </ALFlexBox>
                 </Col>
               </Row>

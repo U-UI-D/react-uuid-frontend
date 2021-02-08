@@ -14,23 +14,42 @@ function DataBox(props) {
 }
 
 export default function StatisticsBox(props) {
+  const data = [
+    {
+      num: 4395,
+      text: "浏览"
+    },
+    {
+      num: 93,
+      text: "获赞"
+    },
+    {
+      num: 42,
+      text: "收藏"
+    }
+  ];
   return (
     <UserContext.Consumer>
       {
         contextState => {
           const {userInfo} = contextState;
-          let data = {
-            num: 2242,
-            text: "描述"
-          }
           return (
             <ALFlexBox>
               <Space size={40}>
-                <DataBox data={data} />
-                <Divider type="vertical" style={{borderColor: 'rgba(255,255,255,.5)', height: '2em'}} />
-                <DataBox data={data} />
-                <Divider type="vertical" style={{borderColor: 'rgba(255,255,255,.5)', height: '2em'}} />
-                <DataBox data={data} />
+                {
+                  data.map((item, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <DataBox data={item} />
+                        {
+                          index === data.length-1 ? <></> : (
+                            <Divider type="vertical" style={{borderColor: 'rgba(255,255,255,.5)', height: '2em'}} />
+                          )
+                        }
+                      </React.Fragment>
+                    )
+                  })
+                }
               </Space>
             </ALFlexBox>
           )

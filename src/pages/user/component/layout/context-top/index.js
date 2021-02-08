@@ -6,12 +6,11 @@ import {ALFlexBox} from "../../../../../components/al-component";
 
 export default function ContentTop(props) {
   return (
-    <div className='content-top-wrapper al-show-border'>
-      <ALFlexBox between className='content-width al-show-border-green'>
+    <ALFlexBox centerV className='content-top-wrapper'>
+      <ALFlexBox between className='content-width'>
         <UserInfoBox />
-
         <StatisticsBox />
       </ALFlexBox>
-    </div>
+    </ALFlexBox>
   )
 }
