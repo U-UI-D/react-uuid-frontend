@@ -1,0 +1,20 @@
+.user-info-wrapper {
+    color: white;
+}
+
+.user-identity-box {
+    border-radius: 999rem;
+    padding: 4px 12px;
+    color: white;
+    background-color: rgba(255,255,255,.3);
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    font-size: 11px;
+}
+
+.user-sign {
+    color: rgba(255,255,255,.6);
+    font-size: 12px;
+}
+
