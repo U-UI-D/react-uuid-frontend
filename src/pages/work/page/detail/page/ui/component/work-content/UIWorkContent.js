@@ -4,6 +4,7 @@ import {ALComment, ALTitleBox} from "../../../../../../../../components/al-compo
 import {HttpRequest} from "../../../../../../../../util/network/request";
 import {ApiConst} from "../../../../../../../../util/network/config/ApiConst";
 import ShowDevelopers from "../show-developers";
+import Proposal from "../proposal";
 
 class UIWorkContent extends React.Component{
   //构造器
@@ -58,11 +59,10 @@ class UIWorkContent extends React.Component{
         </div>
 
         <div className="al-m-tb-20px"><Divider /></div>
-
         <ShowDevelopers />
 
-        <Divider />
 
+        <Divider />
         <h2>评论</h2>
 
         <ALComment commentList={commentList}

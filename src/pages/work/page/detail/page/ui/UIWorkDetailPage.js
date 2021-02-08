@@ -9,6 +9,7 @@ import HoverBox from "../../component/HoverBox";
 import {connect} from "react-redux";
 import InfoTopBar from "./component/info-top-bar";
 import {WorkDetailContext} from "../../context/WorkDetailContext";
+import RightBottomBar from "./component/right-bottom-bar";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -52,6 +53,10 @@ class UIWorkDetailPage extends React.Component {
       isLogin: this.props.isLogin,
       history: this.props.history,
       match: this.props.match,
+      backTopData: {
+        icon0: require("../../../../../../assets/icon/common/top1.png"),
+        icon1: require("../../../../../../assets/icon/common/top1.png"),
+      }
     }
   }
 
@@ -113,6 +118,10 @@ class UIWorkDetailPage extends React.Component {
 
           </ALFlexBox>
         </Affix>
+{/*        <RightBottomBar handleChangeForHoverBox={this.handleChangeForHoverBox}
+                        handleBackToTop={this.handleBackToTop}
+                        scrollTop={this.state.scrollTop}
+        />*/}
 
       </div>
     );
