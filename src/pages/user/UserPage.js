@@ -62,7 +62,7 @@ class UserPage extends React.Component {
               </div>
             </div>
 
-            <div className='content-width'>
+            <div className='content-width content'>
               <div hidden={this.state.current !== 'published'}>
                 <MyPublished/>
               </div>
@@ -74,32 +74,6 @@ class UserPage extends React.Component {
               </div>
             </div>
 
-            {/*              <div>
-
-                <div className="content-width" style={{marginTop: -60 + 'px'}}>
-                  <div className="al-flex-container">
-                    左边栏
-                    <div className="content-box-left al-box-radius">
-                      <ContentLeft {...this.props} userInfo={this.state.userInfo} />
-                    </div>
-
-                    <div className="content-box-right">
-                      <ContentRight {...this.props} />
-                    </div>
-                  </div>
-                </div>
-
-
-                底部
-                <div>
-                  <div className="content-width al-text-align-center al-opacity-2">
-                    <Avatar size={70} src={require("../../assets/icon/common/UUID2.png")}/>
-                    <p>Powered by © 2020-2020 UUID</p>
-                  </div>
-                  <div className="al-box-size-20px"></div>
-                </div>
-
-              </div>*/}
           </div>
         </div>
       </UserContext.Provider>
