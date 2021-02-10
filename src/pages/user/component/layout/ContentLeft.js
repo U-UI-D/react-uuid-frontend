@@ -2,7 +2,7 @@ import React from "react";
 import {Avatar, Button, Divider} from "antd";
 import CountBox from "../CountBox";
 import VisitorBox from "../VisitorBox";
-import "../../style.css";
+import "../../style.scss";
 import {PATH_USER_PROFILE_PAGE} from "../../../../util/router/config/RouterConst";
 
 class ContentLeft extends React.Component{

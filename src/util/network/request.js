@@ -36,11 +36,26 @@ export const HttpRequest = {
    * @param env
    * @returns {Promise<*|{data: null, err: null}>}
    */
-  async commonRequest({url="", method="get", data={}, env="dev", headers={}}){
+  async commonRequest({url="", method="get", data={}, env="prod", headers={}}){
     let _url = url;
-    if (env === "mock"){
-      let baseMockURL = createBaseURL("mock");
-      _url = baseMockURL + url + ".json";
+    let baseURL = '';
+
+    switch (env) {
+      case "mock":
+        baseURL = createBaseURL("mock");
+        _url = baseURL + url + ".json";
+        break;
+      case "dev":
+        baseURL = createBaseURL("dev");
+        _url = baseURL + url;
+        break;
+      case "prod":
+        baseURL = createBaseURL("prod");
+        _url = baseURL + url;
+        break;
+      default:
+        baseURL = createBaseURL("prod");
+        _url = baseURL + url;
     }
 
     let result = {
@@ -66,49 +81,53 @@ export const HttpRequest = {
     return result;
   },
 
-  async get({url='', data={}, headers={}}){
+  async get({url='', data={}, headers={}, env}){
     console.log("HttpRequest get")
     let promise = this.commonRequest({
       url,
       method: 'GET',
       data,
-      headers
+      headers,
+      env
     }).then(res => {
       return res;
     });
     return await promise;
   },
 
-  async post({url='', data={}, headers={}}){
+  async post({url='', data={}, headers={}, env}){
     let promise = this.commonRequest({
       url,
       method: 'POST',
       data,
-      headers
+      headers,
+      env
     }).then(res => {
       return res;
     });
     return await promise;
   },
 
-  async put({url='', data={}, headers={}}){
+  async put({url='', data={}, headers={}, env}){
     let promise = this.commonRequest({
       url,
       method: 'PUT',
       data,
-      headers
+      headers,
+      env
     }).then(res => {
       return res;
     });
     return await promise;
   },
 
-  async delete({url='', data={}, headers={}}){
+  async delete({url='', data={}, headers={}, env}){
     let promise = this.commonRequest({
       url,
       method: 'DELETE',
       data,
-      headers
+      headers,
+      env
     }).then(res => {
       return res;
     });

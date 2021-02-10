@@ -2,7 +2,7 @@ import React from "react";
 import CountBox from "./CountBox";
 import ButtonGroup from "antd/lib/button/button-group";
 import {Button} from "antd";
-import "../style.css";
+import "../style.scss";
 
 class DataOverlook extends React.Component{
 

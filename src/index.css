@@ -37,9 +37,9 @@ a, body, button, caption, dd, div, dl, dt, em, figure, form, h1, h2, h3, h4, h5,
   background-color: rgba(240, 240, 240, 0.5);
 }
 
-.header-menu .ant-menu-horizontal{
+/*.header-menu .ant-menu-horizontal{
   border-bottom: none !important;
-}
+}*/
 
 .content-width{
   width: 1180px;

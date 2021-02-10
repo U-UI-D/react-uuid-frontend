@@ -90,12 +90,16 @@ export const ApiConst = {
   work: {
     ui: {
       get: {
+        GET_BY_USER_ID: "/work/work/ui/user/",
+        GET_LIKED_BY_USER_ID: "/work/work/common/get/liked-work/user/",
         GET_ALL: "/work/work/ui"
       }
     },
 
     software: {
-
+      get: {
+        GET_BY_USER_ID: "/work/work/software/user/"
+      }
     }
   },
 

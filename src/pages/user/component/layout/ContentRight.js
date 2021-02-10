@@ -1,6 +1,6 @@
 import React from "react";
 import DataOverlook from "../DataOverlook";
-import "../../style.css";
+import "../../style.scss";
 import Favorite from "../Favorite";
 
 class ContentRight extends React.Component{
