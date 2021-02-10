@@ -6,6 +6,7 @@ import {ALFlexBox, ALPlaceBox, ALImage} from "../../../../../../components/al-co
 import {HttpRequest} from "../../../../../../util/network/request";
 import {RouterConst} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
+import ALRichTextEditor from "../../../../../../components/al-rich-text-editor";
 
 
 class NewWork extends React.Component {
@@ -195,11 +196,11 @@ class NewWork extends React.Component {
               {/*描述*/}
               <div><ALPlaceBox width={28}/></div>
               <div className="al-flex-item-grow-1">
-                <Input.TextArea placeholder={"请输入作品说明"}
-                                style={{borderRadius: 5 + 'px'}}
-                                autoSize={{minRows: 3}}
-                                size="large"
-                                onChange={this.handleChangeInputForDesc}/>
+                <p>描述</p>
+                <ALRichTextEditor style={{
+                  border: '1px solid rgba(235,235,235,.8)'
+                }} onChange={this.handleChangeInputForDesc} />
+
               </div>
               <div><ALPlaceBox width={150}/></div>
             </ALFlexBox>
@@ -379,10 +380,10 @@ class NewWork extends React.Component {
     })
   }
 
-  handleChangeInputForDesc = (e) => {
-    console.log("handleChangeInputForDesc", e.target.value);
+  handleChangeInputForDesc = (value) => {
+    console.log("handleChangeInputForDesc", value);
     this.setState({
-      desc: e.target.value
+      desc: value
     });
   }
 

@@ -1,6 +1,10 @@
 import React from 'react';
 
+let action = {
+  updateName: () => {},
+  setIsFollow: () => {}
+}
+
 export const WorkDetailContext = React.createContext({
-  workId: 0,
-  updateModeType: () => {}
+  ...action
 });

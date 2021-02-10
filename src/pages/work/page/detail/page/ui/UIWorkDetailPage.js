@@ -1,25 +1,30 @@
 import React from "react";
 import "./style.css";
-import UIWorkContent from "./component/UIWorkContent";
+import UIWorkContent from "./component/work-content/UIWorkContent";
 import {commonRequest} from "../../../../../../util/network/RequestHub";
-import {Affix, Avatar, Button} from "antd";
+import {Affix} from "antd";
 import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
-import store from "../../../../../../store";
-import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
-import {HttpRequest} from "../../../../../../util/network/request";
+import InfoTopBar from "./component/info-top-bar";
+import {WorkDetailContext} from "../../context/WorkDetailContext";
+import RightBottomBar from "./component/right-bottom-bar";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
   constructor(props) {
     super(props);
 
-    const {userInfo, isLogin} = store.getState();
+    let contextAction = {
+      updateName: this.updateName,
+      setIsFollow: this.setIsFollow
+    }
+
     this.state = {
+      ...contextAction,
       workData: null,
-      userInfo: userInfo,
+      userInfo: this.props.userInfo,
       activeColor: false,
       commentList: [],
       hoverBoxData: [
@@ -45,92 +50,47 @@ class UIWorkDetailPage extends React.Component {
       countData: {},
       scrollTop: 0,
       isFollow: false,
-      isLogin: isLogin
+      isLogin: this.props.isLogin,
+      history: this.props.history,
+      match: this.props.match,
+      backTopData: {
+        icon0: require("../../../../../../assets/icon/common/top1.png"),
+        icon1: require("../../../../../../assets/icon/common/top1.png"),
+      }
     }
+  }
+
+  setIsFollow = (isFollow) => {
+    this.setState({isFollow: isFollow})
   }
 
   //渲染函数
   render() {
     const {workData} = this.state;
-    const workInfoTop = workData === null ? <></> :
-      (
-        // 向下滚动后在顶部显示用户信息
-        <div hidden={this.state.scrollTop <= 70}>
-          <Affix offsetTop={0} className="animate">
-            <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
-              <ALFlexBox between className="content-width">
-                <ALFlexBox centerV>
-                  <Avatar size={60} shape="circle" src={workData.avatar}/>
-
-                  <ALFlexBox column centerH evenly className="al-m-left-10px">
-                    <div className="al-font-weight-bold">{workData.title}</div>
-                    <div>
-                      {workData.nickname}
-                      {
-                        this.props.isLogin ?
-                          (
-                            <Button type="link" className="al-m-lr-10px" onClick={() => {
-                              this.setState({isFollow: !this.state.isFollow})
-                            }}>
-                              {
-                                workData.userId === this.state.userInfo.id ? <></> :
-                                  <span>
-                                    {this.state.isFollow ? "已关注" : "关注"}
-                                  </span>
-                              }
-                            </Button>
-                          )
-                          :
-                          (
-                            <Button type="link" className="al-m-lr-10px" onClick={() => {
-                              this.props.history.push({pathname: PATH_LOGIN, state: {fromPath: this.props.match.url}})
-                            }}>关注</Button>
-                          )
-                      }
-
-                    </div>
-                  </ALFlexBox>
-                </ALFlexBox>
-
-                <ALFlexBox centerVH>
-
-                  <Button style={{height: "50px", marginRight: "10px"}} shape="round">
-                    添加到我的项目
-                  </Button>
-
-                  <Button style={{height: "50px"}} shape="round">
-                    <span>附件下载</span>
-                    <span className="al-p-left-10px">12MB</span>
-                  </Button>
-                </ALFlexBox>
-              </ALFlexBox>
-            </ALFlexBox>
-          </Affix>
-        </div>
-      );
 
     const backTopData = {
       icon0: require("../../../../../../assets/icon/common/top1.png"),
       icon1: require("../../../../../../assets/icon/common/top1.png"),
     };
 
-    return workData === null ? <></> : (
+    const jsx = (
       <div>
         {/*向下滚动后再顶部显示用户信息*/}
         <div style={{backgroundColor: "#fff"}}>
-          {workInfoTop}
+          {
+            workData === null ? <></> :
+              (
+                // 向下滚动后在顶部显示用户信息
+                <div hidden={this.state.scrollTop <= 70}>
+                  <InfoTopBar workData={workData} history={this.props.history} />
+                </div>
+              )
+          }
         </div>
 
-
-        {/*作品详情页：id={this.props.match.params.id}*/}
-
-
+        {/*显示内容*/}
         <div>
-          <div className="top-box">
-            <div className="top-bg" style={{backgroundImage: `url(${workData.poster})`}}></div>
-          </div>
-
-          <div className="content-width al-position-rela" style={{top: "-100px"}}>
+          <div className="content-width" style={{marginTop: '20px'}}>
             <UIWorkContent workData={this.state.workData}/>
           </div>
         </div>
@@ -158,16 +118,24 @@ class UIWorkDetailPage extends React.Component {
 
           </ALFlexBox>
         </Affix>
+{/*        <RightBottomBar handleChangeForHoverBox={this.handleChangeForHoverBox}
+                        handleBackToTop={this.handleBackToTop}
+                        scrollTop={this.state.scrollTop}
+        />*/}
 
       </div>
+    );
+
+    return workData === null ? <></> : (
+
+      <WorkDetailContext.Provider value={{...this.state}}>
+        {jsx}
+      </WorkDetailContext.Provider>
     );
   }
 
   //组件挂载完成时调用
   componentDidMount() {
-
-    console.log("props", this.props);
-    let workId = this.props.match.params.id
 
     commonRequest({url: GET_WORK_UI_BY_ID + this.props.match.params.id}).then(res => {
       if (res.err === null) {
@@ -193,9 +161,9 @@ class UIWorkDetailPage extends React.Component {
   //组件卸载前调用
   componentWillUnmount() {
     window.removeEventListener('scroll', this.bindHandleScroll);
-    console.log("newWorkData", this.state.newWorkData);
   }
 
+  // 处理滚动
   bindHandleScroll = (event) => {
     // 滚动的高度
     const scrollTop = event.target.documentElement.scrollTop;
@@ -204,6 +172,7 @@ class UIWorkDetailPage extends React.Component {
     })
   }
 
+  // 返回顶部
   handleBackToTop = () => {
     let timer = setInterval(() => {
       if (this.state.scrollTop === 0) {
@@ -226,6 +195,7 @@ class UIWorkDetailPage extends React.Component {
     });
   }
 
+  // 点击hover box
   handleChangeForHoverBox = (data) => {
     console.log("HoverBox data", data)
     let {countData} = this.state;
@@ -245,16 +215,16 @@ class UIWorkDetailPage extends React.Component {
     }
   }
 
+  // 增加浏览量
   increaseLookCount = () => {
     const {workData} = this.state;
     workData.lookCount = ++workData.lookCount;
     this.setState({workData});
   }
 
-
-
-
 }
+
+UIWorkDetailPage.contextType = WorkDetailContext;
 
 const mapStateToProps = (state) => {
   return {
@@ -263,17 +233,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateName(data){
-      let action = {
-        type: "updateName",
-        value: data
-      }
-      dispatch(action);
-    }
-  }
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UIWorkDetailPage);
+export default connect(mapStateToProps)(UIWorkDetailPage);

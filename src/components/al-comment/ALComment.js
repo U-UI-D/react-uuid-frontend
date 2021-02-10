@@ -7,6 +7,7 @@ import {HttpRequest} from "../../util/network/request";
 import {ApiConst} from "../../util/network/config/ApiConst";
 import PropTypes from "prop-types";
 import CommentBox from "./component/comment-box/CommentBox";
+import ALRichTextEditor from "../al-rich-text-editor";
 
 const {TextArea} = Input;
 
@@ -46,9 +47,11 @@ class ALComment extends React.Component {
           }
           content={
             <div>
-              <TextArea rows={6}
-                        placeholder={"输入你的评论..."}
-                        onChange={this.handleTextAreaChange} value={inputValue}/>
+              {/*<TextArea rows={6}*/}
+              {/*          placeholder={"输入你的评论..."}*/}
+              {/*          onChange={this.handleTextAreaChange} value={inputValue}/>*/}
+
+              <ALRichTextEditor />
 
               <div className="al-text-right al-m-top-20px">
                 {

@@ -1,8 +1,10 @@
 import React from "react";
 import {Button, Divider, Tag} from "antd";
-import {ALComment, ALTitleBox} from "../../../../../../../components/al-component";
-import {HttpRequest} from "../../../../../../../util/network/request";
-import {ApiConst} from "../../../../../../../util/network/config/ApiConst";
+import {ALComment, ALTitleBox} from "../../../../../../../../components/al-component";
+import {HttpRequest} from "../../../../../../../../util/network/request";
+import {ApiConst} from "../../../../../../../../util/network/config/ApiConst";
+import ShowDevelopers from "../show-developers";
+import Proposal from "../proposal";
 
 class UIWorkContent extends React.Component{
   //构造器
@@ -19,6 +21,7 @@ class UIWorkContent extends React.Component{
 
     let {workData} = this.props;
     let {commentList} = this.state;
+    let html = {__html: workData.description}
     return workData === null ? <></> :(
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
@@ -41,8 +44,8 @@ class UIWorkContent extends React.Component{
         <div className="al-m-tb-20px"><Divider /></div>
 
         <div>
-          <div className="al-m-tb-20px">
-            {workData.description}
+          <div className="al-m-tb-20px" dangerouslySetInnerHTML={html}>
+
           </div>
 
           <div>
@@ -56,13 +59,10 @@ class UIWorkContent extends React.Component{
         </div>
 
         <div className="al-m-tb-20px"><Divider /></div>
+        <ShowDevelopers />
 
-        <div>
-          以下开发者正在开发此项目
-        </div>
 
         <Divider />
-
         <h2>评论</h2>
 
         <ALComment commentList={commentList}
