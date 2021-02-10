@@ -13,7 +13,7 @@ import {
   PATH_USER_PROFILE_PAGE,
   PATH_WORK_UI_DETAIL,
   PATH_WORK_PAGE,
-  PATH_WORK_SOFTWARE_DETAIL
+  PATH_WORK_SOFTWARE_DETAIL, PATH_TOPIC_PAGE, RouterConst
 } from "./RouterConst";
 import LoginPage from "../../../pages/common/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
@@ -22,7 +22,7 @@ import WorkPage from "../../../pages/work/WorkPage";
 import WorkDetailPage from "../../../pages/work/page/detail/page/ui/UIWorkDetailPage";
 import UserPage from "../../../pages/user/UserPage";
 import TestPage from "../../../pages/test/TestPage";
-import WorkPublishPage from "../../../pages/work/page/publish/WorkPublishPage";
+import NewWorkPage from "../../../pages/work/page/new-work/NewWorkPage";
 import ShopPage from "../../../pages/shop/ShopPage";
 import UserProfilePage from "../../../pages/user/page/profile/UserProfilePage";
 import Demo from "../../../pages/test/demo/Demo";
@@ -32,6 +32,9 @@ import MaterialPage from "../../../pages/material/MaterialPage";
 import SearchPage from "../../../pages/search/SearchPage";
 import MessagePage from "../../../pages/message/MessagePage";
 import SoftwareDetailPage from "../../../pages/work/page/detail/page/software/SoftwareWorkDetailPage";
+import TopicPage from "../../../pages/topic/TopicPage";
+import TopicDetailPage from "../../../pages/topic/page/topic-detail/TopicDetailPage";
+import NewTopicPage from "../../../pages/topic/page/new-topic/NewTopicPage";
 
 let routes = [
   {
@@ -54,7 +57,7 @@ let routes = [
   },
   {
     title: "作品",
-    path: PATH_WORK_PAGE,
+    path: RouterConst.work.WORK_PAGE,
     component: WorkPage,
     exact: true
   },
@@ -75,13 +78,15 @@ let routes = [
     title: "个人中心",
     path: PATH_USER_PAGE + "/:id",
     component: UserPage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "用户资料页",
     path: PATH_USER_PROFILE_PAGE + "/:id",
     component: UserProfilePage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "测试",
@@ -91,13 +96,14 @@ let routes = [
   },
   {
     title: "发布作品",
-    path: "/work/publish",
-    component: WorkPublishPage,
-    exact: true
+    path: RouterConst.work.NEW_WORK_PAGE,
+    component: NewWorkPage,
+    exact: true,
+    requireLogin: true,
   },
   {
     title: "商城",
-    path: "/shop",
+    path: RouterConst.shop.SHOP_PAGE,
     component: ShopPage,
     exact: true
   },
@@ -120,22 +126,42 @@ let routes = [
     exact: true
   },
   {
+    title: "话题",
+    path: RouterConst.topic.TOPIC_PAGE,
+    component: TopicPage,
+    exact: true
+  },
+  {
+    title: "话题详情",
+    path: RouterConst.topic.TOPIC_DETAIL_PAGE + "/:id",
+    component: TopicDetailPage,
+    exact: true
+  },
+  {
+    title: "发表话题",
+    path: RouterConst.topic.NEW_TOPIC_PAGE,
+    component: NewTopicPage,
+    exact: true,
+    requireLogin: true,
+  },
+  {
     title: "素材",
-    path: PATH_MATERIAL_PAGE,
+    path: RouterConst.material.MATERIAL_PAGE,
     component: MaterialPage,
     exact: true
   },
   {
     title: "搜索",
-    path: PATH_SEARCH_PAGE,
+    path: RouterConst.search.SEARCH_PAGE,
     component: SearchPage,
     exact: true
   },
   {
     title: "消息",
-    path: PATH_MESSAGE_PAGE,
+    path: RouterConst.message.MESSAGE_PAGE,
     component: MessagePage,
-    exact: true
+    exact: true,
+    requireLogin: true,
   },
 ];
 

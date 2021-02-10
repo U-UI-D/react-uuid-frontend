@@ -1574,6 +1574,10 @@
     cursor: pointer;
 }
 
+.al-cursor-arrow {
+    cursor: default;
+}
+
 /*================END 鼠标指示器================*/
 
 

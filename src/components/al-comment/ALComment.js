@@ -1,123 +1,92 @@
 import React from "react";
-import {Comment, Avatar, Form, Button, List, Input, Divider} from 'antd';
-import moment from 'moment';
+import {Comment, Avatar, Button, List, Input, Divider, message} from 'antd';
 import {connect} from "react-redux";
 import {PATH_LOGIN, PATH_REGISTER} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
+import {HttpRequest} from "../../util/network/request";
+import {ApiConst} from "../../util/network/config/ApiConst";
+import PropTypes from "prop-types";
+import CommentBox from "./component/comment-box/CommentBox";
+import ALRichTextEditor from "../al-rich-text-editor";
 
-class ALComment extends React.Component{
+const {TextArea} = Input;
+
+class ALComment extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      comments: [],
       submitting: false,
-      value: '',
+      inputValue: ''
     };
   }
 
-  handleSubmit = () => {
-    if (!this.state.value) {
-      return;
-    }
+  render() {
+    const {commentList} = this.props;
+    const CommentList = (({commentList}) => (
+      <List
+        dataSource={commentList}
+        header={`${commentList.length} 个评论`}
+        itemLayout="horizontal"
+        renderItem={props => {
+          return <CommentBox {...props} reload={this.props.reload} />
+        }}
+      />
+    ));
 
-    this.setState({
-      submitting: true,
-    });
+    const {submitting, inputValue} = this.state;
 
-    setTimeout(() => {
-      this.setState({
-        submitting: false,
-        value: '',
-        comments: [
-          {
-            author: 'Han Solo',
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            content: <p>{this.state.value}</p>,
-            datetime: moment().fromNow(),
-          },
-          ...this.state.comments,
-        ],
-      });
-    }, 1000);
-  };
+    return (
+      <div>
+        <Comment
+          avatar={
+            this.props.isLogin ?
+              <Avatar src={this.props.userInfo.avatar}/>
+              : null
+          }
+          content={
+            <div>
+              {/*<TextArea rows={6}*/}
+              {/*          placeholder={"输入你的评论..."}*/}
+              {/*          onChange={this.handleTextAreaChange} value={inputValue}/>*/}
 
-  handleChange = e => {
-    this.setState({
-      value: e.target.value,
-    });
-  };
+              <ALRichTextEditor />
 
-    render() {
-      const { TextArea } = Input;
-
-      const CommentList = ({ comments }) => (
-        <List
-          dataSource={comments}
-          header={`${comments.length} 个回复`}
-          itemLayout="horizontal"
-          renderItem={props => <Comment {...props} />}
-        />
-      );
-
-      const Editor = ({ onChange, onSubmit, submitting, value }) => (
-        <>
-          <Form.Item>
-            <TextArea rows={4} onChange={onChange} value={value} />
-          </Form.Item>
-          <div className="al-text-right">
-            <Form.Item>
-
-              {
-                this.props.isLogin ? <></> : (
-                  <span>
+              <div className="al-text-right al-m-top-20px">
+                {
+                  this.props.isLogin ? <></> : (
+                    <span>
                     登录后发表评论
                     <span className="al-m-lr-10px">
                       <Button type="link" style={{margin: 0, padding: 0}} onClick={() => {
                         this.props.history.push({pathname: PATH_LOGIN, state: {fromPath: this.props.match.url}})
                       }}>登录</Button>
-                      <Divider type="vertical" />
+                      <Divider type="vertical"/>
                       <Button type="link" style={{margin: 0, padding: 0}} onClick={() => {
                         this.props.history.push({pathname: PATH_REGISTER})
                       }}>注册</Button>
                     </span>
                   </span>
-                )
-              }
-
-              <Button disabled={!this.props.isLogin} htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                发表评论
-              </Button>
-            </Form.Item>
-          </div>
-        </>
-      );
-
-      const { comments, submitting, value } = this.state;
-
-      return this.props.userInfo === null ? <div></div> : (
-          <>
-            <Comment
-                avatar={
-                  this.props.isLogin ?
-                  <Avatar src={this.props.userInfo.avatar}/>
-                  : <></>
+                  )
                 }
-                content={
-                  <Editor
-                      onChange={this.handleChange}
-                      onSubmit={this.handleSubmit}
-                      submitting={submitting}
-                      value={value}
-                  />
-                }
-            />
 
-            {comments.length > 0 && <CommentList comments={comments} />}
-          </>
-      );
-    }
+                <Button disabled={!this.props.isLogin}
+                        htmlType="submit"
+                        loading={submitting}
+                        onClick={this.handleCommentSubmit} type="primary">
+                  发表评论
+                </Button>
+              </div>
+            </div>
+          }
+        />
+
+        {commentList && <CommentList commentList={commentList}/>}
+      </div>
+    )
+
+  }
 
   // 生命周期函数
   //组件已挂载
@@ -130,6 +99,76 @@ class ALComment extends React.Component{
 
   }
 
+  // 提交评论
+  handleCommentSubmit = () => {
+    const {inputValue} = this.state;
+    if (!inputValue) {
+      return;
+    }
+
+    this.setState({
+      submitting: false,
+    });
+
+    const {userInfo, topicId, workId, workType} = this.props;
+    let postData = {
+      userId: userInfo.id,
+      topicId: topicId,
+      workId: workId,
+      workType: workType,
+      content: inputValue
+    }
+
+    console.log("postData", postData);
+
+    HttpRequest.post({
+      // url: ApiConst.comment.post.POST_WORK,
+      url: "http://localhost:9003/comment",
+      data: postData
+    }).then(res => {
+      if (res.err === null) {
+        this.setState({
+          submitting: false,
+          inputValue: ""
+        });
+        message.success("评论成功");
+        this.props.reload();
+      } else {
+        message.error("评论失败，请稍候重试");
+      }
+    }).catch(err => {
+      message.error("网络错误，请稍候重试");
+    });
+  };
+
+  // 监听改变
+  handleTextAreaChange = e => {
+    this.setState({
+      inputValue: e.target.value,
+    });
+  };
+
+}
+
+
+// prop类型
+ALComment.propTypes = {
+  commentList: PropTypes.string,
+  reload: PropTypes.func,
+  workId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  workType: PropTypes.string,
+  topicId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+}
+
+// prop默认值
+ALComment.defaultProps = {
+  commentList: [],
 }
 
 const mapStateToProps = (state) => {
@@ -140,16 +179,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    updateLoginState(data){
-      let action = {
-        type: "updateLoginState",
-        value: data
-      }
-      dispatch(action);
-    }
-  }
-
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ALComment));

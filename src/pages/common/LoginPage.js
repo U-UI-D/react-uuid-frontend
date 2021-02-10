@@ -99,13 +99,6 @@ class LoginPage extends React.Component {
   componentDidMount() {
     console.log("props", this.props);
 
-    store.subscribe(() => {
-      this.setState({
-        userInfo: store.getState().userInfo,
-        isLogin: store.getState().isLogin,
-      });
-    });
-
     document.getElementById("al-header").hidden = true;
     document.getElementById("al-footer").hidden = true;
 
@@ -165,10 +158,10 @@ class LoginPage extends React.Component {
   }
 
   getUserInfoByToken = (token) => {
-    console.log("getUserInfoByToken", this.props.location);
-    let fromPath = "";
-    if (this.props.location.state) {
-      fromPath = this.props.location.state.fromPath;
+    console.log("location", this.props.location);
+    let from = "";
+    if (this.props.location.state?.from) {
+      from = this.props.location.state.from;
     }
 
     HttpRequest.get({
@@ -184,8 +177,8 @@ class LoginPage extends React.Component {
         this.props.updateLoginState(true);
 
         // 跳转页面
-        if (fromPath) {
-          this.goPage(fromPath);
+        if (from) {
+          this.goPage(from);
         } else {
           this.goPage(PATH_USER_PAGE + "/" + this.state.userInfo.id);
         }
@@ -193,8 +186,8 @@ class LoginPage extends React.Component {
     });
   }
 
-  goPage = (path, data = {}) => {
-    this.props.history.push({pathname: path, state: {}})
+  goPage = (path, state = {}) => {
+    this.props.history.push({pathname: path, state: state})
   }
 }
 

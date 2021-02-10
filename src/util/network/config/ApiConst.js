@@ -67,6 +67,9 @@ export const GET_MESSAGE_CHAT = "/message/message-all";
 export const ApiConst = {
   // 用户模块
   user: {
+    LOGIN: "/sso/sso/login",
+    REGISTER: "/user/user/register",
+    LOGOUT: "/sso/sso/logout",
     userdata: {
       get: {
         GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId="
@@ -88,7 +91,8 @@ export const ApiConst = {
     ui: {
       get: {
         GET_BY_USER_ID: "/work/work/ui/user/",
-        GET_LIKED_BY_USER_ID: "/work/work/common/get/liked-work/user/"
+        GET_LIKED_BY_USER_ID: "/work/work/common/get/liked-work/user/",
+        GET_ALL: "/work/work/ui"
       }
     },
 
@@ -134,7 +138,41 @@ export const ApiConst = {
       post: {
         POST_ORDER: "/shop/order"
       }
-    }
+    },
 
+  },
+
+  // 轮播图接口
+  carousel: {
+    get: {
+      GET_CAROUSEL_ALL: "/common/carousel"
+    }
+  },
+
+  // 上传接口
+  upload: {
+    UPLOAD_RETURN_ID: "/common/upload/return-id",
+    UPLOAD_RETURN_URL: "/common/upload/return-url",
+  },
+
+  // 评论模块
+  comment: {
+    get: {
+      GET_BY_UI_WORK_ID: "/comment/comment/work/ui/",
+      GET_BY_SOFTWARE_WORK_ID: "/comment/comment/work/software/",
+      GET_BY_TOPIC_ID: "/comment/comment/topic/",
+    },
+
+    post: {
+      POST_WORK: "/comment/comment",
+    }
+  },
+
+  // 话题模块
+  topic: {
+    get: {
+      GET_ALL: "/topic/topic",
+      GET_DETAIL_BY_ID: "/topic/topic/",
+    }
   }
 }

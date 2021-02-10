@@ -37,6 +37,10 @@ export const PATH_TOP_PAGE =  "/top";
 //发现
 export const PATH_DISCOVERY_PAGE =  "/discovery";
 
+//话题 ==========================
+//话题
+export const PATH_TOPIC_PAGE =  "/topic";
+
 //素材 ==========================
 //素材
 export const PATH_MATERIAL_PAGE =  "/material";
@@ -48,3 +52,64 @@ export const PATH_SEARCH_PAGE =  "/search";
 //消息 ==========================
 //消息
 export const PATH_MESSAGE_PAGE =  "/message";
+
+export const RouterConst = {
+  home: {
+    INDEX_PAGE: "/",
+    HOME_PAGE: "/home",
+  },
+
+  user: {
+    LOGIN_PAGE: "/login",
+    REGISTER_PAGE: "/register",
+    USER_PAGE:  "/user",
+    PROFILE_PAGE:  "/user/profile",
+  },
+
+  topic: {
+    TOPIC_PAGE: "/topic",
+    TOPIC_DETAIL_PAGE: "/topic/detail",
+    NEW_TOPIC_PAGE: "/topic/new",
+
+  },
+
+  work: {
+    WORK_PAGE:  "/work",
+    NEW_WORK_PAGE: "/work/new",
+    ui: {
+      DETAIL_PAGE: "/work/ui/detail"
+    },
+
+    software: {
+      DETAIL_PAGE: "/work/software/detail"
+    }
+  },
+
+  shop: {
+    SHOP_PAGE:  "/shop"
+  },
+
+  material: {
+    MATERIAL_PAGE: "/material"
+  },
+
+  top: {
+    TOP_PAGE: "/top"
+  },
+
+  search: {
+    SEARCH_PAGE: "/search"
+  },
+
+  message: {
+    MESSAGE_PAGE:  "/message"
+  },
+
+  discovery: {
+    DISCOVERY_PAGE:  "/discovery"
+  },
+
+  test: {
+    TEST_PAGE:  "/test"
+  }
+}

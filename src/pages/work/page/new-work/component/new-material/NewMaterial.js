@@ -1,23 +1,20 @@
 import React from "react";
-import {Modal, Button, Card, Input, message, Select, Switch, Upload} from "antd";
+import {Button, Card, Input, message, Select, Switch, Upload} from "antd";
 import {getUserInfoFromLocalStorage} from "../../../../../../util/util";
-import {commonRequest} from "../../../../../../util/network/RequestHub";
-import {POST_WORK_UI_ADD} from "../../../../../../util/network/config/ApiConst";
 import {CloseOutlined} from "@ant-design/icons";
 import {ALFlexBox, ALPlaceBox, ALImage} from "../../../../../../components/al-component";
 
-
-class PublishWork extends React.Component {
+class NewMaterial extends React.Component {
 
   constructor(props) {
     super();
     this.state = {
       workData: null,
-      currentTitle: "上传作品",
+      currentTitle: "上传素材",
       //sendData
       title: "",
       type: "",
-      desc: "",
+      description: "",
       imageIds: [],
       poster: "",
       tag: "",
@@ -32,11 +29,7 @@ class PublishWork extends React.Component {
       typeTip: false,
 
       // flag
-      clearTag: false,
-
-      previewVisible: false,
-      previewImage: '',
-      previewTitle: '',
+      clearTag: false
 
     }
   }
@@ -55,10 +48,6 @@ class PublishWork extends React.Component {
       onChange(info) {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
-
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} 上传成功`);
           info.fileList.map((item, index) => {
             imageIds.push(item.response);
           })
@@ -66,6 +55,9 @@ class PublishWork extends React.Component {
             imageIds: imageIds,
             imageTip: !(that.state.imageIds.length > 0)
           })
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} 上传成功`);
           console.log("imageIds", that.state.imageIds)
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} 上传失败`);
@@ -100,21 +92,11 @@ class PublishWork extends React.Component {
 
     return (
       <div>
-
-        <Modal
-          visible={this.state.previewVisible}
-          title={this.state.previewTitle}
-          footer={null}
-          onCancel={this.handleCancelPreview}
-        >
-          <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
-        </Modal>
-
         <ALFlexBox column className="al-bg-color-white">
 
-          {/*作品信息*/}
+          {/*素材信息*/}
           <Card title={
-            <h3>作品信息</h3>
+            <h3>素材信息</h3>
           } bordered={false}
                 style={{
                   width: 100 + '%',
@@ -123,14 +105,13 @@ class PublishWork extends React.Component {
 
             {/*标题*/}
             <div className="">
-              {/*<ALInput required onChange={this.handleChangeInputForTitle}/>*/}
               <ALFlexBox centerV between lineHeight={0}>
                 <ALFlexBox centerV flexNum={1}>
                   <div className="dot-red"/>
                   <div className="al-flex-item-grow-1">
                     <Input style={{borderRadius: 5 + 'px'}}
                            size="large"
-                           placeholder="请输入作品名称"
+                           placeholder="请输入素材名称"
                            maxLength={50}
                            allowClear
                            onChange={this.handleChangeInputForTitle}
@@ -153,6 +134,7 @@ class PublishWork extends React.Component {
               </ALFlexBox>
 
             </div>
+
             <ALFlexBox between>
 
               <div>
@@ -161,9 +143,9 @@ class PublishWork extends React.Component {
                 <Select placeholder="请选择"
                         style={{width: 120}}
                         onChange={this.handleChangeSelect}>
-                  <Option value="web">网站</Option>
-                  <Option value="app">APP</Option>
-                  <Option value="miniprogram">小程序</Option>
+                  <Option value="icon">icon</Option>
+                  <Option value="poster">海报</Option>
+                  <Option value="illustration">插画</Option>
                 </Select>
               </div>
 
@@ -178,7 +160,7 @@ class PublishWork extends React.Component {
               {/*描述*/}
               <div><ALPlaceBox width={28}/></div>
               <div className="al-flex-item-grow-1">
-                <Input.TextArea placeholder={"请输入作品说明"}
+                <Input.TextArea placeholder={"请输入素材说明"}
                                 style={{borderRadius: 5 + 'px'}}
                                 autoSize={{minRows: 3}}
                                 size="large"
@@ -208,10 +190,7 @@ class PublishWork extends React.Component {
                 <div className="dot-red" style={{marginTop: "15px"}}></div>
               </ALPlaceBox>
               <div>
-                <Upload {...uploadImages} multiple
-                        className="avatar-uploader"
-                        listType="picture-card"
-                        onPreview={this.handlePreview}>
+                <Upload {...uploadImages} multiple className="avatar-uploader" listType="picture-card">
                   <ALFlexBox centerVH>
                     <div>选择图片上传</div>
                   </ALFlexBox>
@@ -282,7 +261,6 @@ class PublishWork extends React.Component {
               <ALFlexBox>
                 <Upload {...uploadPoster} className="avatar-uploader"
                         listType="picture-card"
-                        onPreview={this.handlePreview}
                         showUploadList={false}>
                   <ALFlexBox centerVH className="al-cursor-pointer">
                     {
@@ -303,15 +281,6 @@ class PublishWork extends React.Component {
                   lineHeight: 4 + 'em'
                 }}>
             <div style={{marginLeft: '28px'}}>
-              <ALFlexBox centerV>
-                <span className="al-m-right-20px">征集实现</span>
-                <Switch checkedChildren="是" unCheckedChildren="否"
-                        onChange={(val) => {
-                          this.setState({
-                            raiseRealization: val ? 1 : 0
-                          })
-                        }}/>
-              </ALFlexBox>
               <ALFlexBox centerV>
                 <span className="al-m-right-20px">可商业化</span>
                 <Switch checkedChildren="是" unCheckedChildren="否"
@@ -356,10 +325,10 @@ class PublishWork extends React.Component {
     })
   }
 
-  handleChangeInputForDesc = (e) => {
-    console.log("handleChangeInputForDesc", e.target.value);
+  handleChangeInputForDesc = (value) => {
+    console.log("handleChangeInputForDesc", value);
     this.setState({
-      desc: e.target.value
+      description: value
     });
   }
 
@@ -394,29 +363,6 @@ class PublishWork extends React.Component {
 
     console.log("tagList", this.state.tagList);
   }
-
-  handlePreview = async file => {
-    if (!file.url && !file.preview) {
-      file.preview = await this.getBase64(file.originFileObj);
-    }
-
-    this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-    });
-  };
-
-  getBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  handleCancelPreview = () => this.setState({ previewVisible: false });
 
   createTagList = () => {
     return (
@@ -456,7 +402,7 @@ class PublishWork extends React.Component {
 
     let sendData = {
       title: this.state.title,
-      description: this.state.desc,
+      description: this.state.description,
       imageId: this.state.imageIds.join(";"),
       poster: this.state.poster,
       tagList: this.state.tagList.join(";"),
@@ -468,21 +414,21 @@ class PublishWork extends React.Component {
     }
     console.log("sendData", sendData);
 
-    commonRequest({
-      url: POST_WORK_UI_ADD,
-      method: "post",
-      data: sendData
-    }).then(res => {
-      if (res.err === null){
-        message.success("发布成功");
-      }else {
-        console.log(res.err);
-        message.error("发布失败");
-      }
-    })
+    // commonRequest({
+    //   url: POST_WORK_ADD,
+    //   method: "post",
+    //   data: sendData
+    // }).then(res => {
+    //   if (res.err === null){
+    //     message.success("发布成功");
+    //   }else {
+    //     console.log(res.err);
+    //     message.error("发布失败");
+    //   }
+    // })
   }
 
 
 }
 
-export default PublishWork;
+export default NewMaterial;

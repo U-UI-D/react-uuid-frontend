@@ -17,9 +17,9 @@ class SearchPage extends React.Component {
     return (
       <div className="al-full-screen"
            style={{
-             backgroundImage: "url('" + bgImage + "')",
-             backgroundSize: "cover",
-             backgroundRepeat: "no-repeat",
+             // backgroundImage: "url('" + bgImage + "')",
+             // backgroundSize: "cover",
+             // backgroundRepeat: "no-repeat",
            }}>
 
         <div className="content-width al-p-tb-30px">

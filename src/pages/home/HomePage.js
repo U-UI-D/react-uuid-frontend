@@ -8,6 +8,7 @@ import ShowDesigner from "./component/show-designer/ShowDesigner";
 import {GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import {PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {ALFlexBox, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
+import ShowCarousel from "./component/show-carousel/ShowCarousel";
 
 class HomePage extends React.Component {
   //构造器
@@ -91,28 +92,12 @@ class HomePage extends React.Component {
   //渲染函数
   render() {
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
     return (
       <div>
         <div className="al-bg-color-white">
           <div className="content-width al-p-tb-20px">
             {/*轮播图*/}
-            <Carousel autoplay>
-              {
-                this.state.carouselList === null ? <ALLoading/> :
-                  this.state.carouselList.map((item, index) => {
-                    return (
-                      <div key={item.poster}>
-                        <a href={item.url}>
-                          <Avatar shape="square" src={item.poster} style={{height: 350 + 'px', width: 'auto'}}/>
-                        </a>
-                      </div>
-                    );
-                  })
-              }
-            </Carousel>
+            <ShowCarousel />
           </div>
 
           {/*标题*/}
@@ -243,12 +228,6 @@ class HomePage extends React.Component {
           total: 0
         })
       }
-    });
-
-    commonRequest({url: GET_CAROUSEL_ALL, env: "mock"}).then(res => {
-      this.setState({
-        carouselList: res.data
-      })
     });
 
     window.addEventListener('scroll', this.bindHandleScroll);

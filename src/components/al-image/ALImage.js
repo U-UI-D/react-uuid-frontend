@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {Modal} from "antd";
+import {ALFlexBox} from "../al-component";
 
 function ALImage(props) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const screenWidth = window.innerWidth;
   return (
       <div style={{
         display: "inline-block",
@@ -13,14 +17,28 @@ function ALImage(props) {
              alt={props.alt}
              style={{
                objectFit: props.fit,
-               width: props.circle ? (100 + '%') : ((props.size ?? props.width) + 'px'),
-               height: props.circle ? (100 + '%') : ((props.size ?? props.height) + 'px'),
+               width: (props.size ?? props.width) + 'px',
+               height: (props.size ?? props.height) + 'px',
                borderRadius: props.radius + 'px',
                ...props.style
              }}
-             className={" " + props.className}
-             onClick={props.onClick}
+             className={" " + props.className + props.circle ? "al-img-circle" : ""}
+             onClick={!props.previewable ? props.onClick : () => {
+               setIsModalVisible(!isModalVisible)
+             }}
         />
+        <Modal title={null}
+               visible={isModalVisible}
+               onCancel={() => {
+                 setIsModalVisible(!isModalVisible);
+               }}
+               width={screenWidth - 200}
+               footer={null}
+               >
+          <ALFlexBox centerVH>
+            <img src={props.src} alt="" style={{width: "90vw"}}/>
+          </ALFlexBox>
+        </Modal>
       </div>
   );
 }
@@ -44,6 +62,7 @@ ALImage.propTypes = {
   ]),
   fit: PropTypes.string,
   circle: PropTypes.bool,
+  previewable: PropTypes.bool,
   radius: PropTypes.number,
   style: PropTypes.object,
   className: PropTypes.string,
@@ -62,6 +81,7 @@ ALImage.defaultProps = {
   style: {},
   className: "",
   onClick: null,
+  previewable: false,
 }
 
 export default ALImage;

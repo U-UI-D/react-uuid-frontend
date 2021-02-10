@@ -1,15 +1,15 @@
 import React from "react";
-import PublishWork from "../../publish-work/PublishWork";
-import PublishMaterial from "../../publish-material/PublishMaterial";
+import NewWork from "../../new-work/NewWork";
+import NewMaterial from "../../new-material/NewMaterial";
 
 function WorkPublishRightLayout(props) {
   return (
     <div style={{width: "960px", padding: "30px", backgroundColor: "#fff"}}>
       {
         props.title === "上传作品" ?
-          <PublishWork />
+          <NewWork history={props.history} />
           :
-          (props.title === "上传素材" ? <PublishMaterial /> : <PublishWork />)
+          (props.title === "上传素材" ? <NewMaterial /> : <NewWork />)
       }
 
     </div>
