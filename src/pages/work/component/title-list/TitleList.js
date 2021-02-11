@@ -7,7 +7,7 @@ function TitleList(props) {
   const [currentTitle, setCurrentTitle] = useState('全部');
   const [hoverTitle, setHoverTitle] = useState('');
 
-  let uiWorkTitleList = ['全部', '最新作品', '佳作分享', '即刻作品', '网站', 'APP', '小程序'];
+  let uiWorkTitleList = ['全部', '最新作品', '佳作分享', '网站', 'APP', '小程序'];
   let softwareWorkTitleList = ['全部', '成品', '开发中'];
 
   let subTitle = () => {

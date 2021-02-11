@@ -5,10 +5,11 @@ import MenuItem from "antd/lib/menu/MenuItem";
 import ShowJikeWorkBox from "./component/show-jike-work-box/ShowJikeWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
 import ShowDesigner from "./component/show-designer/ShowDesigner";
-import {GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
+import {ApiConst, GET_CAROUSEL_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import {PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {ALFlexBox, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
 import ShowCarousel from "./component/show-carousel/ShowCarousel";
+import {HttpRequest} from "../../util/network/request";
 
 class HomePage extends React.Component {
   //构造器
@@ -112,8 +113,8 @@ class HomePage extends React.Component {
                  className={`al-bg-color-white ${this.state.showTitleBoxShadow ? 'al-box-shadow' : ''}`}>
 
               <Menu mode="horizontal" defaultSelectedKeys={["index"]}>
-                <MenuItem key={"index"}>首页推荐</MenuItem>
-                <MenuItem key={"lasted"}>最新作品</MenuItem>
+                <MenuItem key={"index"} onClick={() => {this.getWorkData('look_count')}}>首页推荐</MenuItem>
+                <MenuItem key={"lasted"} onClick={() => {this.getWorkData('created_time')}}>最新作品</MenuItem>
               </Menu>
             </div>
 
@@ -216,19 +217,7 @@ class HomePage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
     //获取作品列表
-    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum: 1, pageSize: 20}}).then(res => {
-      if (res.err === null){
-        this.setState({
-          workData: res.data,
-          total: res.data.total
-        })
-      }else {
-        this.setState({
-          workData: null,
-          total: 0
-        })
-      }
-    });
+    this.getWorkData('look_count');
 
     window.addEventListener('scroll', this.bindHandleScroll);
   }
@@ -253,6 +242,25 @@ class HomePage extends React.Component {
 
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: data})
+  }
+
+  getWorkData = (orderBy, pageNum=1, pageSize=20) => {
+    HttpRequest.get({
+      url: `${ApiConst.work.ui.get.GET_ALL}?orderBy=${orderBy}&pageNum=${pageNum}&pageSize=${pageSize}&typename=`,
+      env: 'dev'
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          workData: res.data.data,
+          total: res.data.data.total
+        })
+      }else {
+        this.setState({
+          workData: null,
+          total: 0
+        })
+      }
+    })
   }
 
 }
