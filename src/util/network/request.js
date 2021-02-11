@@ -54,8 +54,7 @@ export const HttpRequest = {
         _url = baseURL + url;
         break;
       default:
-        baseURL = createBaseURL("prod");
-        _url = baseURL + url;
+        _url = url;
     }
 
     let result = {

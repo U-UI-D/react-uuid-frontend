@@ -158,7 +158,8 @@ class TopicPage extends React.Component{
   getTopicList = (pageNum=1, pageSize=3) => {
     this.setState({loading: true});
     HttpRequest.get({
-      // url: ApiConst.topic.get.GET_ALL + `?pageNum=${pageNum}&pageSize=${pageSize}`
+      // url: ApiConst.topic.get.GET_ALL + `?pageNum=${pageNum}&pageSize=${pageSize}`,
+      env: '',
       url: "http://localhost:9005/topic" + `?pageNum=${pageNum}&pageSize=${pageSize}`
     }).then(res => {
       if (res.err === null){
