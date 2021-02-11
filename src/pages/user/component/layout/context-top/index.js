@@ -1,5 +1,5 @@
 import React from "react";
-import './style.css';
+import './style.scss';
 import UserInfoBox from "../../user-info-box";
 import StatisticsBox from "../../statistics-box";
 import {ALFlexBox} from "../../../../../components/al-component";

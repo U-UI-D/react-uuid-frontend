@@ -63,7 +63,7 @@ export const RouterConst = {
     LOGIN_PAGE: "/login",
     REGISTER_PAGE: "/register",
     USER_PAGE:  "/user",
-    PROFILE_PAGE:  "/user/profile",
+    PROFILE_PAGE:  "/user/profile/",
   },
 
   topic: {
@@ -77,7 +77,7 @@ export const RouterConst = {
     WORK_PAGE:  "/work",
     NEW_WORK_PAGE: "/work/new",
     ui: {
-      DETAIL_PAGE: "/work/ui/detail"
+      DETAIL_PAGE: "/work/ui/detail/"
     },
 
     software: {

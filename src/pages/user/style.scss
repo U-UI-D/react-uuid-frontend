@@ -1,5 +1,16 @@
 .user-page-container {
     position: relative;
+    .setting-wrapper {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        cursor: pointer;
+        z-index: 11;
+        .icon {
+            color: rgba(255,255,255,.5);
+            font-size: 20px;
+        }
+    }
     .header-box{
         width: 100%;
         height: 350px;

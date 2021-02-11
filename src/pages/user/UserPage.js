@@ -1,9 +1,9 @@
 import React from "react";
 import "./style.scss";
-import {Menu, Avatar, Button} from "antd";
+import {Menu, Avatar, Button, Tooltip} from "antd";
 import ContentLeft from "./component/layout/ContentLeft";
 import ContentRight from "./component/layout/ContentRight";
-import {PATH_LOGIN} from "../../util/router/config/RouterConst";
+import {PATH_LOGIN, RouterConst} from "../../util/router/config/RouterConst";
 import {UserContext} from "./context/UserContext";
 import {connect} from "react-redux";
 import ContentTop from "./component/layout/context-top";
@@ -13,7 +13,7 @@ import Favorite from "./component/Favorite";
 import MyPublished from "./component/my-published";
 import MyLiked from "./component/my-liked";
 import MyFavored from "./component/my-favored";
-import {SendOutlined} from '@ant-design/icons';
+import {SendOutlined, FormOutlined} from '@ant-design/icons';
 
 class UserPage extends React.Component {
   //构造器
@@ -23,6 +23,7 @@ class UserPage extends React.Component {
     this.state = {
       userInfo: this.props.userInfo,
       current: 'published',
+      history: this.props.history
     }
   }
 
@@ -39,6 +40,17 @@ class UserPage extends React.Component {
           </div>
 
           <div className='content-wrapper'>
+            <div className='al-position-rela content-width'>
+              <div className='setting-wrapper'>
+                <Tooltip color='rgba(255,255,255, .5)' placement="bottom" title='编辑资料'>
+                  <span onClick={() => {
+                    this.goPage(RouterConst.user.PROFILE_PAGE + this.props.userInfo.id);
+                  }}>
+                    <FormOutlined className='icon' />
+                  </span>
+                </Tooltip>
+              </div>
+            </div>
             <ContentTop/>
 
             <div className='content-width menu-wrapper' id='menu-wrapper'>
@@ -58,7 +70,12 @@ class UserPage extends React.Component {
               </Menu>
 
               <div style={{position: 'absolute', top: '-18px', right: 0}}>
-                <Button type='primary' shape='round' icon={<SendOutlined />}>发布作品</Button>
+                <Button type='primary'
+                        shape='round'
+                        icon={<SendOutlined />}
+                        onClick={() => {
+                          this.goPage(RouterConst.work.NEW_WORK_PAGE);
+                        }}>发布作品</Button>
               </div>
             </div>
 
@@ -101,19 +118,6 @@ class UserPage extends React.Component {
 
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: data})
-  }
-
-  switchMenuItem = (title) => {
-    switch (title) {
-      case "published":
-        return <MyPublished/>
-      case "liked":
-        return <MyLiked/>
-      case "favored":
-        return <MyFavored/>
-      default:
-        break;
-    }
   }
 }
 
