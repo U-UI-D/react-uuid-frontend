@@ -87,7 +87,8 @@ class UIWorkContent extends React.Component{
   getCommentList = (workId) => {
     HttpRequest.get({
       // url: ApiConst.comment.get.GET_BY_UI_WORK_ID + "ui/" + workId
-      url: "http://localhost:9003/comment/work/ui/" + workId
+      url: ApiConst.comment.get.GET_BY_UI_WORK_ID + workId,
+      env: 'dev'
     }).then(res => {
       if (res.err === null){
         console.log("getCommentList", res.data)

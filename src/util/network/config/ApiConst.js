@@ -90,15 +90,29 @@ export const ApiConst = {
   work: {
     ui: {
       get: {
+        GET_BY_ID: "/work/work/ui/",
         GET_BY_USER_ID: "/work/work/ui/user/",
         GET_LIKED_BY_USER_ID: "/work/work/common/get/liked-work/user/",
-        GET_ALL: "/work/work/ui"
-      }
+        GET_ALL: "/work/work/ui",
+      },
+
     },
 
     software: {
       get: {
         GET_BY_USER_ID: "/work/work/software/user/"
+      }
+    },
+
+    common: {
+      increase: {
+        lookCount: "/work/work/common/increase/look-count"
+      },
+      get: {
+        GET_JOIN_WORK_BY_USER_ID: "/work/work/common/get/join-work-id/",
+      },
+      put: {
+        UPDATE_JOIN_WORK_BY_USER_ID: "/work/work/common/update/join-work-id",
       }
     }
   },

@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import UIWorkContent from "./component/work-content/UIWorkContent";
 import {commonRequest} from "../../../../../../util/network/RequestHub";
-import {Affix} from "antd";
+import {Affix, message} from "antd";
 import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import InfoTopBar from "./component/info-top-bar";
 import {WorkDetailContext} from "../../context/WorkDetailContext";
 import RightBottomBar from "./component/right-bottom-bar";
+import {HttpRequest} from "../../../../../../util/network/request";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -105,7 +106,10 @@ class UIWorkDetailPage extends React.Component {
                     <HoverBox data={item}
                               isChangeNum={item.title !== '评论'}
                               showFloatDot
-                              onChange={this.handleChangeForHoverBox}/>
+                              onChange={this.handleChangeForHoverBox}
+                              onClick={() => {
+                                console.log("点击了" + item.title);
+                              }}/>
                   </div>
                 );
               })
@@ -137,23 +141,7 @@ class UIWorkDetailPage extends React.Component {
   //组件挂载完成时调用
   componentDidMount() {
 
-    commonRequest({url: GET_WORK_UI_BY_ID + this.props.match.params.id}).then(res => {
-      if (res.err === null) {
-        let {hoverBoxData, countData} = this.state;
-        hoverBoxData[0].num = countData.likeCount = res.data.likeCount;
-        hoverBoxData[1].num = countData.favorCount = res.data.favorCount;
-        hoverBoxData[2].num = countData.commentCount = res.data.commentCount;
-
-        this.setState({
-          workData: res.data,
-          hoverBoxData: hoverBoxData,
-          countData
-        });
-
-        this.increaseLookCount();
-      }
-
-    });
+    this.getWorkDataById();
 
     window.addEventListener('scroll', this.bindHandleScroll);
   }
@@ -203,6 +191,7 @@ class UIWorkDetailPage extends React.Component {
     switch (data.title) {
       case "点赞":
         countData.likeCount = data.num;
+        this.increaseLikeCount();
         break;
       case "收藏":
         countData.favorCount = data.num;
@@ -215,11 +204,51 @@ class UIWorkDetailPage extends React.Component {
     }
   }
 
+  // 获取作品
+  getWorkDataById = () => {
+    HttpRequest.get({
+      url: ApiConst.work.ui.get.GET_BY_ID + this.props.match.params.id,
+      env: 'dev'
+    }).then(res => {
+      if (res.err === null) {
+        let {hoverBoxData, countData} = this.state;
+        let data = res.data.data;
+        hoverBoxData[0].num = countData.likeCount = data.likeCount;
+        hoverBoxData[1].num = countData.favorCount = data.favorCount;
+        hoverBoxData[2].num = countData.commentCount = data.commentCount;
+
+        this.setState({
+          workData: res.data.data,
+          hoverBoxData: hoverBoxData,
+          countData
+        });
+
+        this.increaseLookCount();
+      }
+    })
+  }
+
   // 增加浏览量
   increaseLookCount = () => {
-    const {workData} = this.state;
-    workData.lookCount = ++workData.lookCount;
-    this.setState({workData});
+    const {workData, userInfo} = this.state;
+    HttpRequest.put({
+      env: 'dev',
+      url: ApiConst.work.common.increase.lookCount,
+      data: {
+        userId: userInfo.id,
+        workId: workData.id,
+        workType: 'ui'
+      }
+    }).then(res => {
+      if (res.err === null) {
+        // this.setState({workData});
+      }
+    })
+  }
+
+  // TODO 增加点赞量
+  increaseLikeCount = () => {
+    // TODO
   }
 
 }
