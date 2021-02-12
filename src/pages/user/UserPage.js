@@ -14,6 +14,7 @@ import MyPublished from "./component/my-published";
 import MyLiked from "./component/my-liked";
 import MyFavored from "./component/my-favored";
 import {SendOutlined, FormOutlined} from '@ant-design/icons';
+import MyJoined from "./component/my-joined";
 
 class UserPage extends React.Component {
   //构造器
@@ -59,7 +60,10 @@ class UserPage extends React.Component {
                     className='menu-style'
                     mode="horizontal">
                 <Menu.Item key="published">
-                  我的发布
+                  我发布的
+                </Menu.Item>
+                <Menu.Item key="joined">
+                  我参与的
                 </Menu.Item>
                 <Menu.Item key="favored">
                   收藏
@@ -82,6 +86,9 @@ class UserPage extends React.Component {
             <div className='content-width content'>
               <div hidden={this.state.current !== 'published'}>
                 <MyPublished/>
+              </div>
+              <div hidden={this.state.current !== 'joined'}>
+                <MyJoined />
               </div>
               <div hidden={this.state.current !== 'liked'}>
                 <MyLiked/>
