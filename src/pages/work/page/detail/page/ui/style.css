@@ -47,18 +47,4 @@
     filter: blur(6px);
 }
 
-.top-content {
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
-#top-icon span[role='img'] svg {
-    width: 30px;
-    height: 30px;
-}
-
-#top-icon span[role='img'] svg:hover {
-    color: #1890ff;
-}

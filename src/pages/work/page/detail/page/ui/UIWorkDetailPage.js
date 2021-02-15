@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.css";
 import UIWorkContent from "./component/work-content/UIWorkContent";
-import {commonRequest} from "../../../../../../util/network/RequestHub";
 import {Affix, message} from "antd";
 import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../../../components/al-component";
@@ -235,7 +234,7 @@ class UIWorkDetailPage extends React.Component {
       env: 'dev',
       url: ApiConst.work.common.increase.lookCount,
       data: {
-        userId: userInfo.id,
+        userId: this.props.isLogin ? userInfo.id : null,
         workId: workData.id,
         workType: 'ui'
       }

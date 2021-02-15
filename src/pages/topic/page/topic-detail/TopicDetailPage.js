@@ -14,13 +14,14 @@ class TopicDetailPage extends React.Component{
 
     this.state = {
       topicData: null,
-      commentList: []
+      commentList: [],
+      proposalData: null,
     }
   }
 
   //渲染函数
   render() {
-    const {topicData, commentList} = this.state;
+    const {topicData, commentList, proposalData} = this.state;
     return(
       <div className="content-width al-p-tb-20px">
         <Row gutter={[10]}>
@@ -70,13 +71,13 @@ class TopicDetailPage extends React.Component{
                       </Space>
                     </div>
 
-                    <Divider />
+                    <div className="al-m-tb-20px"><Divider /></div>
 
                     {/*评论*/}
                     <div className="al-m-top-20px">
                       <h2>说说我的看法</h2>
                       <ALComment commentList={commentList}
-                                 topicId={topicData.id} reload={this.reGetCommentList} />
+                                 topicId={topicData.id} reload={this.reGetCommentList} reloadProposal={this.getProposalData}/>
                     </div>
                   </div>
                 ) : <ALLoading />
@@ -87,7 +88,7 @@ class TopicDetailPage extends React.Component{
             <div className="al-p-30px al-bg-color-white">
               {
                 topicData?.workId ? (
-                  <div className="al-m-top-20px">
+                  <div>
                     <h2>关联作品</h2>
                     <ALFlexBox className="al-p-10px" style={{backgroundColor: "#fafafa"}}>
                       <ALImage src={topicData.workPoster} width={200} height={140} radius={10} />
@@ -98,6 +99,24 @@ class TopicDetailPage extends React.Component{
                   </div>
                 ) : null
               }
+            </div>
+
+            <div className="al-p-30px al-bg-color-white al-m-top-10px">
+              <h2>最新提案</h2>
+              <div>
+                {
+                  proposalData && proposalData.list.length > 0 ?
+                    proposalData && proposalData.list.map((item, index) => {
+                      return (
+                        <div key={index}>
+                          <h3>{item.title}</h3>
+                          <div>{DateTimeUtils.getFormerTime(item.createdTime)}</div>
+                          {proposalData.list.length-1 === index ? null : <Divider />}
+                        </div>
+                      )
+                    }) : <div>暂无提案</div>
+                }
+              </div>
             </div>
           </Col>
         </Row>
@@ -114,6 +133,7 @@ class TopicDetailPage extends React.Component{
 
     this.getTopicDataById(id);
     this.getCommentList(id);
+    this.getProposalData();
   }
 
   //组件卸载前调用
@@ -136,8 +156,9 @@ class TopicDetailPage extends React.Component{
 
   getCommentList = (topicId) => {
     HttpRequest.get({
-      // url: ApiConst.comment.get.GET_BY_TOPIC_ID + topicId
-      url: "http://localhost:9003/comment/topic/" + topicId
+      url: ApiConst.comment.get.GET_BY_TOPIC_ID + topicId,
+      env: 'dev'
+      // url: "http://localhost:9003/comment/topic/" + topicId
     }).then(res => {
       if (res.err === null){
         console.log("getCommentList", res.data)
@@ -151,6 +172,26 @@ class TopicDetailPage extends React.Component{
   reGetCommentList = () => {
     let {id} = this.props.match.params;
     this.getCommentList(id);
+  }
+
+  getProposalData = () => {
+    let {id} = this.props.match.params;
+    HttpRequest.get({
+      url: `${ApiConst.work.proposal.get.GET_PROPOSAL_BY_WORK_ID_AND_TYPE_OR_TOPIC_ID}?topicId=${id}`,
+      env: "dev"
+    }).then(res => {
+      if (res.err === null){
+        this.setState({
+          proposalData: res.data.data
+        })
+      }else {
+        console.log(res.err);
+      }
+    })
+  }
+
+  reGetProposalData = () => {
+    this.getProposalData();
   }
 
 }

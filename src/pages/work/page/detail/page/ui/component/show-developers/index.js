@@ -27,8 +27,7 @@ function ShowDevelopers(props) {
 
   return (
     <div>
-      以下开发者正在开发此项目
-
+      <p className="al-m-top-20px">以下开发者正在开发此项目</p>
       <ALFlexBox className='al-m-tb-20px'>
         {
           developers.map((item, index) => <Avatar key={index} src={item.avatar} size={50} style={{marginRight: "10px"}} />)
