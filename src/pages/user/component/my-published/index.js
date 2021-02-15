@@ -87,12 +87,15 @@ function MyPublished(props) {
                     selectedKeys={current}
                     className='my-published-menu-style'
                     mode="horizontal">
-                <Menu.Item key="ui">
-                  UI作品({workUIData && workUIData.total})
-                </Menu.Item>
-                <Menu.Item key="software">
+                {
+                  userInfo.identity == 1 ?
+                  <Menu.Item key="ui">
+                    UI作品({workUIData && workUIData.total})
+                  </Menu.Item> :
+                  <Menu.Item key="software">
                   软件作品({workSoftwareData && workSoftwareData.total})
-                </Menu.Item>
+                  </Menu.Item>
+                }
                 <Menu.Item key="topic">
                   话题({topicData && topicData.total})
                 </Menu.Item>
