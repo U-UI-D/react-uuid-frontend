@@ -5,6 +5,7 @@ import { ContentUtils } from 'braft-utils'
 import { ImageUtils } from 'braft-finder'
 import {Button, Upload} from 'antd'
 import Icon from "antd/es/icon";
+import './style.scss';
 
 export default class ALRichTextEditor extends React.Component {
 
@@ -60,6 +61,7 @@ export default class ALRichTextEditor extends React.Component {
           value={this.state.editorState}
           onChange={this.handleChange}
           controls={controls}
+          placeholder={"请输入内容..."}
           extendControls={extendControls} style={{height: "300px"}}
         />
       </div>

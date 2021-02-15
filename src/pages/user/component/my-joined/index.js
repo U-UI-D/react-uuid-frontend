@@ -97,7 +97,7 @@ function MyJoined(props) {
                 <div hidden={current !== 'ui'}>
                   <ALFlexBox wrap margin={-15}>
                     {
-                      workUIData && workUIData.map((item, index) => {
+                      workUIData && workUIData.reverse().map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item} />

@@ -1,0 +1,22 @@
+#comment-box {
+  position: relative;
+  #add-proposal{
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+}
+
+#al-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span[role='img'] svg {
+    width: 22px;
+    height: 22px;
+  }
+  &:hover {
+    color: #1890ff;
+  }
+}
+

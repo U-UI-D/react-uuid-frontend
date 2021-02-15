@@ -72,7 +72,7 @@ ALImage.propTypes = {
 // prop默认值
 ALImage.defaultProps = {
   src: "",
-  alt: "this is an image",
+  alt: "image",
   width: "",
   height: "",
   fit: "cover",

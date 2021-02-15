@@ -27,10 +27,12 @@ class ALComment extends React.Component {
     const CommentList = (({commentList}) => (
       <List
         dataSource={commentList}
-        header={`${commentList.length} 个评论`}
         itemLayout="horizontal"
-        renderItem={props => {
-          return <CommentBox {...props} reload={this.props.reload} />
+        renderItem={item => {
+          return <CommentBox {...item}
+                             reload={this.props.reload}
+                             reloadProposal={this.props.reloadProposal}
+                             topicId={this.props.topicId}/>
         }}
       />
     ));
@@ -51,7 +53,9 @@ class ALComment extends React.Component {
               {/*          placeholder={"输入你的评论..."}*/}
               {/*          onChange={this.handleTextAreaChange} value={inputValue}/>*/}
 
-              <ALRichTextEditor />
+              <ALRichTextEditor style={{
+                border: '1px solid rgba(235,235,235,.8)'
+              }} />
 
               <div className="al-text-right al-m-top-20px">
                 {
@@ -122,8 +126,9 @@ class ALComment extends React.Component {
     console.log("postData", postData);
 
     HttpRequest.post({
-      // url: ApiConst.comment.post.POST_WORK,
-      url: "http://localhost:9003/comment",
+      url: ApiConst.comment.post.POST_WORK,
+      env: 'dev',
+      // url: "http://localhost:9003/comment",
       data: postData
     }).then(res => {
       if (res.err === null) {

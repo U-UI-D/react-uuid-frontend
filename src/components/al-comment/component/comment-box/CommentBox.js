@@ -1,16 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ALAvatarNickname from "../../../al-avatar-nickname/ALAvatarNickname";
 import {ALFlexBox} from "../../../al-component";
-import {Button, Input, List, message} from "antd";
+import {Button, Input, List, message, Tooltip, Modal, Form} from "antd";
 import {connect} from "react-redux";
 import ReplyBox from "../reply-box/ReplyBox";
 import {HttpRequest} from "../../../../util/network/request";
 import DateTimeUtils from "../../../../util/DateTimeUtils";
+import ALIcon from "../../../al-icon";
+import './style.scss';
+import {ApiConst} from "../../../../util/network/config/ApiConst";
 
 function CommentBox(props) {
   const [hiddenTextArea, setHiddenTextArea] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [proposalTitle, setProposalTitle] = useState(props.content);
+  const [proposalContent, setProposalContent] = useState(props.content);
+
   const handleReplyBtn = () => {
     setIsSubmitting(true);
     let postData = {
@@ -36,14 +43,72 @@ function CommentBox(props) {
       message.error("网络错误，请稍候再试！");
     })
   };
+  const addProposal = () => {
+    let data = {
+      title: proposalTitle,
+      content: proposalContent,
+      userId: props.userId,
+      workId: props.workId,
+      workType: 1,
+      topicId: props?.topicId
+    }
+    console.log("data", data);
+    HttpRequest.post({
+      url: ApiConst.work.proposal.post.POST_PROPOSAL,
+      env: 'dev',
+      data: data
+    }).then(res => {
+      if (res.data.code === 1){
+        setIsModalVisible(false);
+        message.success("已添加到提案");
+        props.reloadProposal();
+      }else {
+        message.error("添加失败，请稍候重试");
+      }
+    })
+  }
+  useEffect(() => {}, []);
+
+  console.log("props", props);
   return (
     <div style={{
       padding: "30px 0 0",
       borderTop: "1px solid #eee"
     }}>
+
+      <Modal
+        title="添加到提案"
+        visible={isModalVisible}
+        onOk={() => {addProposal();}}
+        onCancel={() => {setIsModalVisible(false);}}
+        okText={"提交"}
+        cancelText={"取消"}
+      >
+        <Form>
+          <Form.Item label="标题">
+            <Input placeholder="输入标题..." value={proposalTitle} onChange={e => {setProposalTitle(e.target.value)}} />
+          </Form.Item>
+          <Form.Item label="描述">
+            <Input placeholder="输入描述..." value={proposalContent} onChange={e => {setProposalContent(e.target.value)}}/>
+          </Form.Item>
+        </Form>
+      </Modal>
+
       <ALAvatarNickname avatar={props.avatar}
                         nickname={props.nickname}/>
-      <div className="al-m-left-50px al-m-bottom-50px">
+      <div className="al-m-left-50px al-m-bottom-50px" id="comment-box">
+
+        <span id="add-proposal">
+          <Tooltip placement="bottom" title="添加到提案">
+              <span id="al-icon"
+                    onClick={() => {
+                      setIsModalVisible(!isModalVisible);
+                    }}>
+                <ALIcon type='icon-tianjia1' />
+              </span>
+        </Tooltip>
+        </span>
+
         <p>{props.content}</p>
 
         <ALFlexBox between className="al-m-top-20px">
@@ -52,7 +117,6 @@ function CommentBox(props) {
                   onClick={() => {
                     setHiddenTextArea(!hiddenTextArea)
                   }}>{hiddenTextArea ? "回复" : "取消回复"}</Button>
-
         </ALFlexBox>
 
         <Input.TextArea hidden={hiddenTextArea}

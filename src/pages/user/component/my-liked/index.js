@@ -68,7 +68,7 @@ function MyLiked(props) {
                     className='my-published-menu-style'
                     mode="horizontal">
                 <Menu.Item key="ui" >
-                  UI作品({workUIData && workUIData.total})
+                  UI作品({workUIData && workUIData.total || workUIData?.length})
                 </Menu.Item>
                 <Menu.Item key="software">
                   软件作品({workSoftwareData && workSoftwareData.total})

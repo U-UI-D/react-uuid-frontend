@@ -37,7 +37,7 @@ function ALFlexBox(props) {
       (props.wrap ? classNames.wrap : '')+ " "
        + props.className}
          style={styles}
-         onClick={props.onClick}>
+         onClick={props.onClick} id={props.id}>
       {props.children}
     </div>
   );
