@@ -24,7 +24,7 @@ const AppConfig = {
       prefix: "/api/v1",
     }
   },
-  iconfontUrl: '//at.alicdn.com/t/font_2368608_2cdu9ely88g.js'
+  iconfontUrl: '//at.alicdn.com/t/font_2368608_vcyrzfw9n2.js'
 
 }
 

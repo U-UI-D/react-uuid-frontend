@@ -110,9 +110,19 @@ export const ApiConst = {
       },
       get: {
         GET_JOIN_WORK_BY_USER_ID: "/work/work/common/get/join-work-id/",
+        GET_JOIN_WORK_ID_LIST_BY_USER_ID: "/work/work/common/get/join-work-id/list/",
       },
       put: {
         UPDATE_JOIN_WORK_BY_USER_ID: "/work/work/common/update/join-work-id",
+      }
+    },
+
+    proposal: {
+      get: {
+        GET_PROPOSAL_BY_WORK_ID_AND_TYPE_OR_TOPIC_ID: "/work/work/proposal/get",
+      },
+      post: {
+        POST_PROPOSAL: "/work/work/proposal",
       }
     }
   },
