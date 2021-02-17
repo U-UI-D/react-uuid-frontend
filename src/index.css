@@ -66,14 +66,14 @@ a, body, button, caption, dd, div, dl, dt, em, figure, form, h1, h2, h3, h4, h5,
 /*BEGIN ========== 重写ant样式 ========== */
 
 /*调整 input，textarea，button 弧度为5px*/
-input, textarea{
-  border-radius: 5px !important;
-}
+/*input, textarea{*/
+/*  border-radius: 5px !important;*/
+/*}*/
 
 /*调整 input输入框 弧度为5px*/
-.ant-input-affix-wrapper, .ant-btn{
-  border-radius: 5px !important;
-}
+/*.ant-input-affix-wrapper, .ant-btn{*/
+/*  border-radius: 5px !important;*/
+/*}*/
 
 .ant-btn-round{
   border-radius: 999em !important;

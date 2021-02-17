@@ -70,6 +70,14 @@ export const ApiConst = {
     LOGIN: "/sso/sso/login",
     REGISTER: "/user/user/register",
     LOGOUT: "/sso/sso/logout",
+
+    base: {
+      put: {
+        PUT_USER_INFO: "/user/user",
+        PUT_BASE_USER_INFO: "/user/user/base",
+      }
+    },
+
     userdata: {
       get: {
         GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId="

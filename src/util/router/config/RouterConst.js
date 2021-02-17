@@ -56,7 +56,7 @@ export const PATH_MESSAGE_PAGE =  "/message";
 export const RouterConst = {
   home: {
     INDEX_PAGE: "/",
-    HOME_PAGE: "/home",
+    HOME_PAGE: "/",
   },
 
   user: {
@@ -64,6 +64,7 @@ export const RouterConst = {
     REGISTER_PAGE: "/register",
     USER_PAGE:  "/user",
     PROFILE_PAGE:  "/user/profile/",
+    EDIT_PROFILE_PAGE:  "/user/profile/edit/",
   },
 
   topic: {

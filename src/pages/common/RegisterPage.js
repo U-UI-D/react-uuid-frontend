@@ -1,9 +1,10 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
-import {request} from "../../util/network/request";
-import {GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
+import {HttpRequest, request} from "../../util/network/request";
+import {ApiConst, GET_CHECK_USER_EXIST, POST_USER_REGISTER} from "../../util/network/config/ApiConst";
 import registerbg from "../../assets/image/register/registerbg.svg";
 import {ALFlexBox, ALInlineWidthBox} from "../../components/al-component";
+import {RouterConst} from "../../util/router/config/RouterConst";
 
 
 class RegisterPage extends React.Component {
@@ -12,7 +13,7 @@ class RegisterPage extends React.Component {
     super(props);
 
     this.state = {
-      result: null,
+      userInfo: null,
       username: "",
       password: "",
     }
@@ -169,20 +170,21 @@ class RegisterPage extends React.Component {
       return ;
     }
 
-    request({
-      url: POST_USER_REGISTER,
-      method: 'POST',
+    HttpRequest.post({
+      url: ApiConst.user.REGISTER,
       data: {
         username: this.state.username,
         password: this.state.password,
-      }
+      },
+      env: 'dev'
     }).then(res => {
-      console.log(res);
+      console.log("register result", res);
       if (res.data.code === 1){
         this.setState({
-          result: res.data
+          userInfo: res.data.data
         });
         message.success("注册成功");
+        this.goPage(RouterConst.user.EDIT_PROFILE_PAGE, {userInfo: res.data.data});
       }
     }).catch(err => {
       console.log(err);
@@ -191,7 +193,7 @@ class RegisterPage extends React.Component {
   }
 
   goPage = (path, data = {}) => {
-    this.props.history.push({pathname: path, state: {}})
+    this.props.history.push({pathname: path, state: data})
   }
 
 }

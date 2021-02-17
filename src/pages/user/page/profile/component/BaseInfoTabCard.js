@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {getUserInfoFromLocalStorage} from "../../../../../util/util";
-import {Upload, Modal, Avatar, Button, Input, Radio, message} from "antd";
+import {Upload, Modal, Avatar, Button, Input, Radio, message, Select} from "antd";
 import ImgCrop from 'antd-img-crop';
 import {commonRequest} from "../../../../../util/network/RequestHub";
 import {PUT_USER} from "../../../../../util/network/config/ApiConst";
@@ -14,6 +14,7 @@ function BaseInfoTabCard(props) {
   const [mouseIn, setMouseIn] = useState(false);
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState("");
+  const [identity, setIdentity] = useState(1);
   const [sendData, sendSendData] = useState({});
 
   const [nickname, setNickname] = useState(userInfo.nickname ?? "");
@@ -199,18 +200,30 @@ function BaseInfoTabCard(props) {
           </ALFlexBox>
 
           <ALFlexBox lineHeight={4} flexNum={1} centerH column>
-            <ALLabelBox label={"性别"}>
-              <div>
-                <Radio.Group value={userInfo.gender}
-                             onChange={(e) => {
-                               userInfo.gender = e.target.value;
-                               setUserInfo(userInfo)
-                             }}>
-                  <Radio value={"1"}>男</Radio>
-                  <Radio value={"0"}>女</Radio>
-                  <Radio value={"2"}>保密</Radio>
-                </Radio.Group>
-              </div>
+            <ALLabelBox label={"身份"}>
+              <ALFlexBox between>
+                <div>
+                  <Select placeholder="请选择"
+                          style={{width: 120}}
+                          onChange={(value) => {setIdentity(value)}}>
+                    <Select.Option value={1}>UI设计师</Select.Option>
+                    <Select.Option value={2}>开发者</Select.Option>
+                  </Select>
+                </div>
+
+                <div>
+                  <span>性别：</span>
+                  <Radio.Group value={userInfo.gender}
+                               onChange={(e) => {
+                                 userInfo.gender = e.target.value;
+                                 setUserInfo(userInfo)
+                               }}>
+                    <Radio value={"1"}>男</Radio>
+                    <Radio value={"0"}>女</Radio>
+                    <Radio value={"2"}>保密</Radio>
+                  </Radio.Group>
+                </div>
+              </ALFlexBox>
             </ALLabelBox>
 
             <ALLabelBox label={"年龄"}>

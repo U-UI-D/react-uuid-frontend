@@ -102,13 +102,15 @@ class InfoTopBar extends React.Component {
       url: ApiConst.work.common.get.GET_JOIN_WORK_ID_LIST_BY_USER_ID + this.props.userInfo.id,
       env: "dev",
     }).then(res => {
-      this.setState({
-        workIdList: res.data.data,
-      }, () => {
-        this.setState({
-          isJoin: this.state.workIdList.indexOf(this.props.workData.id) !== -1
-        })
-      });
+      if (res.err === null) {
+        res.data.code === 1 && this.setState({
+          workIdList: res.data.data,
+        }, () => {
+          this.setState({
+            isJoin: this.state.workIdList.indexOf(this.props.workData.id) !== -1
+          })
+        });
+      }
     })
   }
 

@@ -35,6 +35,7 @@ import SoftwareDetailPage from "../../../pages/work/page/detail/page/software/So
 import TopicPage from "../../../pages/topic/TopicPage";
 import TopicDetailPage from "../../../pages/topic/page/topic-detail/TopicDetailPage";
 import NewTopicPage from "../../../pages/topic/page/new-topic/NewTopicPage";
+import EditProfilePage from "../../../pages/user/page/edit-profile/EditProfilePage";
 
 let routes = [
   {
@@ -53,6 +54,12 @@ let routes = [
     title: "注册",
     path: PATH_REGISTER,
     component: RegisterPage,
+    exact: true
+  },
+  {
+    title: "完善信息",
+    path: RouterConst.user.EDIT_PROFILE_PAGE,
+    component: EditProfilePage,
     exact: true
   },
   {
