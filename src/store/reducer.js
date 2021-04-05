@@ -3,7 +3,8 @@ import {ActionTypes} from "./action-types";
 let initState = {
   userInfo: null,
   isLogin: false,
-  name: "AlanLee"
+  name: "AlanLee",
+  currentHeaderTitle: '首页'
 };
 
 if (sessionStorage.getItem("store")){
@@ -26,6 +27,11 @@ export function reducer(state = initState, action) {
 
   if (action.type === 'updateName'){
     newState.name = action.value;
+    console.log("newState", newState);
+  }
+
+  if (action.type === ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE){
+    newState.currentHeaderTitle = action.value;
     console.log("newState", newState);
   }
 

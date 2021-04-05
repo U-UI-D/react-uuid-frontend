@@ -10,6 +10,8 @@ import {PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {ALFlexBox, ALLoading, ALPlaceBox, ALInlineWidthBox} from "../../components/al-component";
 import ShowCarousel from "./component/show-carousel/ShowCarousel";
 import {HttpRequest} from "../../util/network/request";
+import {ActionTypes} from "../../store/action-types";
+import {connect} from "react-redux";
 
 class HomePage extends React.Component {
   //构造器
@@ -218,7 +220,7 @@ class HomePage extends React.Component {
   componentDidMount() {
     //获取作品列表
     this.getWorkData('look_count');
-
+    this.props.updateCurrentHeaderTitle('首页');
     window.addEventListener('scroll', this.bindHandleScroll);
   }
 
@@ -265,4 +267,23 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  return {
+    currentHeaderTitle: state.currentHeaderTitle
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentHeaderTitle(data) {
+      let action = {
+        type: ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -8,7 +8,7 @@ import {request} from "../../util/network/request";
 import {ApiConst} from "../../util/network/config/ApiConst";
 import ALFlexBox from "../al-flex-box/ALFlexBox";
 
-import "./style.css"
+import "./style.scss"
 import store from "../../store";
 import {connect} from "react-redux";
 import {ActionTypes} from "../../store/action-types";
@@ -155,14 +155,19 @@ class ALHeader extends React.Component {
                        className="header-menu" style={{flex: 1}}>
               {/*菜单1*/}
               <div>
-                <Menu mode="horizontal" style={{backgroundColor: "#00000000"}}>
+                <Menu selectedKeys={this.state.currentTitle} mode="horizontal" style={{backgroundColor: "#00000000"}}>
                   {
                     this.state.menuItems.map((item, index) => {
                       return <MenuItem key={item.text}
                                        style={{color: this.props.color ?? "#000"}}
                                        onClick={
-                                         () => this.goPage(item.path)
-                                       }>{item.text}</MenuItem>
+                                         () => {
+                                           this.setState({
+                                             currentTitle: [item.text]
+                                           })
+                                           this.props.updateCurrentHeaderTitle(item.text);
+                                           this.goPage(item.path);
+                                         }}>{item.text}</MenuItem>
                     })
                   }
                 </Menu>
@@ -171,21 +176,35 @@ class ALHeader extends React.Component {
               {/*菜单2*/}
               <ALFlexBox centerV>
                 <ALFlexBox centerV style={{marginTop: "4px"}}>
-                  <div className="al-p-lr-20px">
-                    <a style={{color: this.props.color ?? "#000"}}
-                       onClick={() => this.goPage(RouterConst.search.SEARCH_PAGE)}>搜索</a>
+                  <div>
+                    <Button type="link"
+                            style={{color: this.props.currentHeaderTitle === '搜索' ? '#1890ff' : "#000"}}
+                       onClick={() => {
+                         this.setState({
+                           currentTitle: []
+                         })
+                         this.props.updateCurrentHeaderTitle('搜索');
+                         this.goPage(RouterConst.search.SEARCH_PAGE)
+                       }}>搜索</Button>
                   </div>
 
-                  <div className="al-p-lr-20px">
+                  <div className="al-m-lr-10px">
                     <Dropdown overlay={uploadDropdownMenu}
                               placement="bottomCenter">
-                      <a style={{color: this.props.color ?? "#000"}}>上传</a>
+                      <Button type="link" style={{color: this.props.currentHeaderTitle === '上传' ? '#1890ff' : "#000"}}>上传</Button>
                     </Dropdown>
                   </div>
 
-                  <div className="al-p-lr-20px">
-                    <a style={{color: this.props.color ?? "#000"}}
-                       onClick={() => this.goPage(RouterConst.message.MESSAGE_PAGE)}>消息</a>
+                  <div>
+                    <Button type="link"
+                            style={{color: this.props.currentHeaderTitle === '消息' ? '#1890ff' : "#000"}}
+                       onClick={() => {
+                         this.setState({
+                           currentTitle: []
+                         })
+                         this.props.updateCurrentHeaderTitle('消息');
+                         this.goPage(RouterConst.message.MESSAGE_PAGE)
+                       }}>消息</Button>
                   </div>
                 </ALFlexBox>
                 {isLoginDiv}
@@ -253,7 +272,8 @@ class ALHeader extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isLogin: state.isLogin,
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
+    currentHeaderTitle: state.currentHeaderTitle
   }
 }
 
@@ -269,6 +289,13 @@ const mapDispatchToProps = (dispatch) => {
     updateUserInfo(data){
       let action = {
         type: ActionTypes.user.UPDATE_USER_INFO,
+        value: data
+      }
+      dispatch(action);
+    },
+    updateCurrentHeaderTitle(data) {
+      let action = {
+        type: ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE,
         value: data
       }
       dispatch(action);
