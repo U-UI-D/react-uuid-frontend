@@ -22,6 +22,7 @@ function MyPublished(props) {
       url: ApiConst.work.ui.get.GET_BY_USER_ID + props.userInfo.id,
       env: 'dev'
     }).then(res => {
+      console.warn("getUIWorkByUserId res", res)
       setUIWorkData(res.data.data);
     })
   }
@@ -90,17 +91,17 @@ function MyPublished(props) {
                 {
                   userInfo.identity == 1 ?
                   <Menu.Item key="ui">
-                    UI作品({workUIData && workUIData.total})
+                    UI作品({workUIData && workUIData.total || 0})
                   </Menu.Item> :
                   <Menu.Item key="software">
                   软件作品({workSoftwareData && workSoftwareData.total})
                   </Menu.Item>
                 }
                 <Menu.Item key="topic">
-                  话题({topicData && topicData.total})
+                  话题({topicData && topicData.total || 0})
                 </Menu.Item>
                 <Menu.Item key="material">
-                  素材({3})
+                  素材({3 || 0})
                 </Menu.Item>
               </Menu>
 

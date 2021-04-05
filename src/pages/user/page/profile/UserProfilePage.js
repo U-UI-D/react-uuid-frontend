@@ -166,12 +166,17 @@ class UserProfilePage extends React.Component{
     let userInfo = getUserInfoFromLocalStorage()
     this.setState({
       userInfo: userInfo
-    })
+    });
+
+    let headerEl = document.getElementById("al-header");
+    headerEl.hidden = true;
+
   }
 
   //组件卸载前调用
   componentWillUnmount() {
-
+    let headerEl = document.getElementById("al-header");
+    headerEl.hidden = false;
   }
 
 }

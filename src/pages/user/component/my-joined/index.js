@@ -76,19 +76,19 @@ function MyJoined(props) {
                 {
                   userInfo.identity == '1' ? (
                       <Menu.Item key="ui" >
-                        UI作品({workUIData && workUIData.total || workUIData?.length})
+                        UI作品({workUIData && workUIData.total || workUIData?.length || 0})
                       </Menu.Item>
                     ) : <></>
                 }
                 {
                   userInfo.identity == '2' ? (
                     <Menu.Item key="software">
-                      软件作品({workSoftwareData && workSoftwareData.total})
+                      软件作品({workSoftwareData && workSoftwareData.total || 0})
                     </Menu.Item>
                   ) : <></>
                 }
                 <Menu.Item key="topic">
-                  话题({topicData && topicData.total})
+                  话题({topicData && topicData.total || 0})
                 </Menu.Item>
               </Menu>
 

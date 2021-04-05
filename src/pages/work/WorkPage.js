@@ -138,11 +138,10 @@ class WorkPage extends React.Component {
       env: 'prod'
     }).then(res => {
       if (res.err === null) {
-
         this.setState({
           workData: res.data.data,
           loading: false,
-          total: res.data.total || 0
+          total: res.data.data.total || 0
         })
       }
     })
