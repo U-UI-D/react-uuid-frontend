@@ -135,7 +135,7 @@ class WorkPage extends React.Component {
     HttpRequest.get({
       url: url,
       data: data,
-      env: 'dev'
+      env: 'prod'
     }).then(res => {
       if (res.err === null) {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Comment, Avatar, Button, List, Input, Divider, message} from 'antd';
+import {Comment, Avatar, Button, List, Input, Divider, message, Space} from 'antd';
 import {connect} from "react-redux";
 import {PATH_LOGIN, PATH_REGISTER} from "../../util/router/config/RouterConst";
 import {withRouter} from "react-router-dom";
@@ -55,7 +55,12 @@ class ALComment extends React.Component {
 
               <ALRichTextEditor style={{
                 border: '1px solid rgba(235,235,235,.8)'
-              }} />
+              }} onInputChange={(data) => {
+                console.log("输入的内容", data);
+                this.setState({
+                  inputValue: data
+                })
+              }} clearContent={c => this.ALRichTextEditor = c} />
 
               <div className="al-text-right al-m-top-20px">
                 {
@@ -74,13 +79,20 @@ class ALComment extends React.Component {
                   </span>
                   )
                 }
-
-                <Button disabled={!this.props.isLogin}
-                        htmlType="submit"
-                        loading={submitting}
-                        onClick={this.handleCommentSubmit} type="primary">
-                  发表评论
-                </Button>
+                <Space>
+                  <Button disabled={!this.props.isLogin}
+                          htmlType="submit"
+                          loading={submitting}
+                          onClick={this.clearContent} type="primary">
+                    清空
+                  </Button>
+                  <Button disabled={!this.props.isLogin}
+                          htmlType="submit"
+                          loading={submitting}
+                          onClick={this.handleCommentSubmit} type="primary">
+                    发表评论
+                  </Button>
+                </Space>
               </div>
             </div>
           }
@@ -103,10 +115,16 @@ class ALComment extends React.Component {
 
   }
 
+  clearContent = () => {
+    if(this.ALRichTextEditor) {
+      this.ALRichTextEditor.clearContent();
+    }
+  }
+
   // 提交评论
   handleCommentSubmit = () => {
     const {inputValue} = this.state;
-    if (!inputValue) {
+    if (!inputValue || inputValue === '<p></p>') {
       return;
     }
 
@@ -138,6 +156,7 @@ class ALComment extends React.Component {
         });
         message.success("评论成功");
         this.props.reload();
+        this.clearContent();
       } else {
         message.error("评论失败，请稍候重试");
       }

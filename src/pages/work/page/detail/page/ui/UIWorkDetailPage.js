@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 import UIWorkContent from "./component/work-content/UIWorkContent";
-import {Affix, message} from "antd";
+import {Affix, message, Anchor } from "antd";
 import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
 import {ALFlexBox} from "../../../../../../components/al-component";
 import HoverBox from "../../component/HoverBox";
@@ -67,6 +67,7 @@ class UIWorkDetailPage extends React.Component {
   //渲染函数
   render() {
     const {workData} = this.state;
+    const {Link} = Anchor;
 
     const backTopData = {
       icon0: require("../../../../../../assets/icon/common/top1.png"),
@@ -91,7 +92,7 @@ class UIWorkDetailPage extends React.Component {
         {/*显示内容*/}
         <div>
           <div className="content-width" style={{marginTop: '20px'}}>
-            <UIWorkContent workData={this.state.workData}/>
+            <UIWorkContent workData={this.state.workData} history={this.props.history}/>
           </div>
         </div>
 
@@ -148,6 +149,14 @@ class UIWorkDetailPage extends React.Component {
   //组件卸载前调用
   componentWillUnmount() {
     window.removeEventListener('scroll', this.bindHandleScroll);
+  }
+
+  componentDidCatch(error, errorInfo) {
+    this.goPage("/");
+  }
+
+  goPage = (path, data = {}) => {
+    this.props.history.push({pathname: path, state: data})
   }
 
   // 处理滚动

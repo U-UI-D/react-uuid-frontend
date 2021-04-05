@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {Button, Divider, Input, message} from "antd";
+import {Button, Divider, Input, message, Tag} from "antd";
 import {ALFlexBox} from "../../../al-component";
 import ALAvatarNickname from "../../../al-avatar-nickname/ALAvatarNickname";
 import {CaretRightOutlined} from "@ant-design/icons";
 import {connect} from "react-redux";
 import DateTimeUtils from "../../../../util/DateTimeUtils";
 import {HttpRequest} from "../../../../util/network/request";
+import {getUserIdentity} from "../../../../util/util";
 
 function SubReplyBox(props) {
   const [hiddenTextArea, setHiddenTextArea] = useState(true);
@@ -25,8 +26,9 @@ function SubReplyBox(props) {
     console.log("postData", postData)
 
     HttpRequest.post({
-      url: "http://localhost:9003/reply",
-      data: postData
+      url: "/comment/reply",
+      data: postData,
+      env: "dev"
     }).then(res => {
       if (res.err === null) {
         setHiddenTextArea(!hiddenTextArea);
@@ -51,15 +53,21 @@ function SubReplyBox(props) {
       <ALFlexBox centerV>
 
 
-        <ALAvatarNickname avatar={props.originUserAvatar}
+        <ALAvatarNickname avatar={props.avatar}
                           avatarSize={30}
-                          nickname={props.originUserNickname}/>
+                          nickname={props.nickname} tagSlot={props.identity && <Tag color={props.identity == '1' ? 'processing' : 'success'}
+                                                                                    style={{marginLeft: "10px", borderRadius: '20px'}}>
+          {getUserIdentity(props.identity)}
+        </Tag>}/>
 
         <CaretRightOutlined className="al-m-lr-20px"/>
 
-        <ALAvatarNickname avatar={props.avatar}
+        <ALAvatarNickname avatar={props.originUserAvatar}
                           avatarSize={30}
-                          nickname={props.nickname}/>
+                          nickname={props.originUserNickname} tagSlot={props.originUserIdentity && <Tag color={props.originUserIdentity == '1' ? 'processing' : 'success'}
+                                                                                              style={{marginLeft: "10px", borderRadius: '20px'}}>
+          {getUserIdentity(props.originUserIdentity)}
+        </Tag>}/>
 
       </ALFlexBox>
       <div className="al-m-left-50px">
@@ -69,6 +77,7 @@ function SubReplyBox(props) {
           <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(props.createdTime)}</div>
           <Button type="text"
                   className="al-m-left-20px"
+                  disabled={!props.isLogin}
                   onClick={() => {
                     setHiddenTextArea(!hiddenTextArea)
                   }}>{hiddenTextArea ? "回复" : "取消回复"}</Button>
@@ -88,6 +97,7 @@ function SubReplyBox(props) {
                 className="al-m-top-20px"
                 hidden={hiddenTextArea}
                 loading={isSubmitting}
+                disabled={!props.isLogin}
                 onClick={handleReplyBtn}>回复</Button>
       </div>
     </div>

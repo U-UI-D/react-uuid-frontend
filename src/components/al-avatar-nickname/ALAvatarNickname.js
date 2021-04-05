@@ -7,7 +7,10 @@ function ALAvatarNickname(props) {
     <ALFlexBox centerV className={props.className} style={props.style}>
       <ALImage src={props.avatar} circle size={props.avatarSize} />
       <div className="al-m-left-10px">
-        <h3 style={{margin: 0}}>{props.nickname}</h3>
+        <h3 style={{margin: 0}}>
+          {props.nickname}
+          {props.tagSlot ?? ""}
+        </h3>
         <div className="uuid-text-desc">{props.subTitle}</div>
       </div>
     </ALFlexBox>

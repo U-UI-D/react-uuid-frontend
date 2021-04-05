@@ -14,6 +14,7 @@ function ShowCarousel(props) {
   const getCarouselList = () => {
     HttpRequest.get({
       url: ApiConst.carousel.get.GET_CAROUSEL_ALL,
+      env: "dev",
     }).then(res => {
       if (res.err === null) {
         setCarouselList(res.data.data);
@@ -30,7 +31,7 @@ function ShowCarousel(props) {
             return (
               <div key={index}>
                 <a href={item.url}>
-                  <ALImage src={item.imgUrl} height={350} width={1180}/>
+                  <ALImage src={item.imgUrl} height={350} width={1180} fit={""}/>
                 </a>
               </div>
             );

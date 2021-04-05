@@ -7,5 +7,6 @@ let action = {
 
 export const WorkDetailContext = React.createContext({
   name: "WorkDetailContext",
+  history: null,
   ...action
 });

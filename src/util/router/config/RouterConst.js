@@ -82,7 +82,7 @@ export const RouterConst = {
     },
 
     software: {
-      DETAIL_PAGE: "/work/software/detail"
+      DETAIL_PAGE: "/work/software/detail/"
     }
   },
 

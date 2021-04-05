@@ -17,7 +17,7 @@ export default function RightBottomBar(props) {
                   hoverBoxData.map((item, index) => {
                     return (
                       <div key={index}>
-                        <HoverBox data={item}
+                        <HoverBox data={item.title !== '评论' ? item : null}
                                   isChangeNum={item.title !== '评论'}
                                   showFloatDot
                                   onChange={props.handleChangeForHoverBox}/>
@@ -27,6 +27,7 @@ export default function RightBottomBar(props) {
                 }
 
                 {
+                  // 返回顶部按钮
                   <HoverBox style={{visibility: props.scrollTop > 70 ? "" : "hidden"}}
                             data={backTopData} onClick={props.handleBackToTop}/>
                 }

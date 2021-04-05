@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ALAvatarNickname from "../../../al-avatar-nickname/ALAvatarNickname";
 import {ALFlexBox} from "../../../al-component";
-import {Button, Input, List, message, Tooltip, Modal, Form} from "antd";
+import {Button, Input, List, message, Tooltip, Modal, Form, Tag} from "antd";
 import {connect} from "react-redux";
 import ReplyBox from "../reply-box/ReplyBox";
 import {HttpRequest} from "../../../../util/network/request";
@@ -9,6 +9,7 @@ import DateTimeUtils from "../../../../util/DateTimeUtils";
 import ALIcon from "../../../al-icon";
 import './style.scss';
 import {ApiConst} from "../../../../util/network/config/ApiConst";
+import {getUserIdentity} from "../../../../util/util";
 
 function CommentBox(props) {
   const [hiddenTextArea, setHiddenTextArea] = useState(true);
@@ -28,8 +29,9 @@ function CommentBox(props) {
     };
 
     HttpRequest.post({
-      url: "http://localhost:9003/reply",
-      data: postData
+      url: "/comment/reply",
+      data: postData,
+      env: 'dev'
     }).then(res => {
       if (res.err === null){
         setHiddenTextArea(!hiddenTextArea);
@@ -94,26 +96,36 @@ function CommentBox(props) {
         </Form>
       </Modal>
 
+
       <ALAvatarNickname avatar={props.avatar}
-                        nickname={props.nickname}/>
+                        nickname={props.nickname}
+                        tagSlot={props.identity && <Tag color={props.identity == '1' ? 'processing' : 'success'}
+                                      style={{marginLeft: "10px", borderRadius: '20px'}}>
+                          {getUserIdentity(props.identity)}
+                        </Tag>}/>
       <div className="al-m-left-50px al-m-bottom-50px" id="comment-box">
 
         <span id="add-proposal">
-          <Tooltip placement="bottom" title="添加到提案">
+          {
+            props.userInfo && (props.userInfo.id === props.workId) ?
+            <Tooltip placement="bottom" title="添加到提案">
               <span id="al-icon"
                     onClick={() => {
                       setIsModalVisible(!isModalVisible);
                     }}>
                 <ALIcon type='icon-tianjia1' />
               </span>
-        </Tooltip>
+            </Tooltip> : ""
+          }
         </span>
 
-        <p>{props.content}</p>
+        <p dangerouslySetInnerHTML={{__html: props.content}}></p>
 
         <ALFlexBox between className="al-m-top-20px">
           <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(props.createdTime)}</div>
+          {/*打开回复输入框*/}
           <Button type="text"
+                  disabled={!props.isLogin}
                   onClick={() => {
                     setHiddenTextArea(!hiddenTextArea)
                   }}>{hiddenTextArea ? "回复" : "取消回复"}</Button>
@@ -127,8 +139,9 @@ function CommentBox(props) {
                   onChange={e => {
                     setInputValue(e.target.value);
                   }}/>
-
+        {/*发表回复的按钮*/}
         <Button type="primary"
+                disabled={!props.isLogin}
                 className="al-m-top-20px"
                 hidden={hiddenTextArea}
                 loading={isSubmitting}

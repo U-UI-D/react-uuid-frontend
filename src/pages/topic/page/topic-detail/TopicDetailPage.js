@@ -144,7 +144,8 @@ class TopicDetailPage extends React.Component{
   getTopicDataById = (id) => {
     HttpRequest.get({
       // url: "http://localhost:9005/topic/" + id
-      url: ApiConst.topic.get.GET_DETAIL_BY_ID + id
+      url: ApiConst.topic.get.GET_DETAIL_BY_ID + id,
+      env: 'dev'
     }).then(res => {
       if (res.err === null){
         this.setState({

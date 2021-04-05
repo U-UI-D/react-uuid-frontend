@@ -26,3 +26,13 @@ export function getUserInfoFromLocalStorage() {
   let userInfo = localStorage.getItem("userInfo");
   return JSON.parse(userInfo);
 }
+
+export function getUserIdentity (identity) {
+  switch (identity) {
+    case "1":
+    case 1: return "UI设计师";
+    case "2":
+    case 2: return "开发者";
+    default: return "";
+  }
+}

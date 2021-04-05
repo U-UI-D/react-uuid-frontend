@@ -7,6 +7,7 @@ import ShowDevelopers from "../show-developers";
 import Proposal from "../proposal";
 import ALDot from "../../../../../../../../components/al-dot/ALDot";
 import DateTimeUtils from "../../../../../../../../util/DateTimeUtils";
+import {RouterConst} from "../../../../../../../../util/router/config/RouterConst";
 
 class UIWorkContent extends React.Component{
   //构造器
@@ -16,7 +17,8 @@ class UIWorkContent extends React.Component{
     this.state = {
       commentList: [],
       proposalData: null,
-      workData: this.props
+      workData: this.props,
+      linkWorkData: null
     }
   }
 
@@ -24,13 +26,13 @@ class UIWorkContent extends React.Component{
   render() {
 
     let {workData} = this.props;
-    let {commentList, proposalData} = this.state;
+    let {commentList, proposalData, linkWorkData} = this.state;
     let html = {__html: workData.description}
     return workData === null ? <></> :(
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
         <div>
-          <span style={{marginRight: 20}}>原创作品</span>
+          <span style={{marginRight: 20}}>ID: {workData.id}</span>
           <span style={{marginRight: 20}}>分类：{workData.typename}</span>
           <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
           <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
@@ -38,12 +40,15 @@ class UIWorkContent extends React.Component{
           <Button type="link" style={{marginRight: 20}}>举报</Button>
         </div>
 
-        <div>
-          标签：
-          {this.props.workData.tagList.map((item, index) => {
-            return <Tag key={index}>{item}</Tag>
-          })}
-        </div>
+        {
+          this.props.workData.tagList.length > 0 &&
+          <div>
+            标签：
+            {this.props.workData.tagList.map((item, index) => {
+              return <Tag key={index}>{item}</Tag>
+            })}
+          </div>
+        }
 
         <div className="al-m-tb-20px"><Divider /></div>
 
@@ -62,12 +67,18 @@ class UIWorkContent extends React.Component{
 
         <div className="al-m-tb-20px"><Divider /></div>
         <h2>关联软件作品</h2>
-        <ALFlexBox className="al-p-10px al-m-top-20px" style={{backgroundColor: "#fafafa"}}>
-          <ALImage src={workData.poster} width={200} height={140} radius={10} />
-          <div className="al-m-left-20px">
-            <h3>{workData.title}</h3>
-          </div>
-        </ALFlexBox>
+        {
+          linkWorkData ?
+          <ALFlexBox className="al-p-10px al-m-top-20px al-cursor-pointer"
+                     style={{backgroundColor: "#fafafa"}}
+                     onClick={() => {this.props.history.push(RouterConst.work.software.DETAIL_PAGE + linkWorkData.id)}}>
+            <ALImage src={linkWorkData.poster} width={200} height={140} radius={10} />
+            <div className="al-m-left-20px">
+              <h3>{linkWorkData.title}</h3>
+            </div>
+          </ALFlexBox> :
+          <p>暂无关联软件作品</p>
+        }
         <ShowDevelopers />
 
         <div className="al-m-tb-20px"><Divider /></div>
@@ -87,7 +98,7 @@ class UIWorkContent extends React.Component{
           }
         </div>
         <Divider />
-        <h2>评论</h2>
+        <h2 id="work-comment">评论</h2>
 
         <ALComment commentList={commentList}
                    workId={workData.id}
@@ -102,12 +113,27 @@ class UIWorkContent extends React.Component{
   componentDidMount() {
     let workId = this.props.workData.id;
     this.getCommentList(workId);
+    this.getLinkSoftwareWorkById(this.props.workData.linkSoftwareWorkId);
     this.getProposalData();
   }
 
   //组件卸载前调用
   componentWillUnmount() {
 
+  }
+
+  getLinkSoftwareWorkById = (softWorkId = this.props.workData.linkSoftwareWorkId) => {
+    HttpRequest.get({
+      url: ApiConst.work.software.get.GET_SIMPLE_BY_ID + softWorkId,
+      env: 'dev'
+    }).then(res => {
+      console.warn("res", res);
+      this.setState({
+        linkWorkData: res.data.data
+      })
+    }).catch(err => {
+      console.warn(err);
+    })
   }
 
   getCommentList = (workId) => {

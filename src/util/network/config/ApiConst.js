@@ -108,7 +108,9 @@ export const ApiConst = {
 
     software: {
       get: {
-        GET_BY_USER_ID: "/work/work/software/user/"
+        GET_BY_USER_ID: "/work/work/software/user/",
+        GET_BY_ID: "/work/work/software/",
+        GET_SIMPLE_BY_ID: "/work/work/software/simple/",
       }
     },
 
