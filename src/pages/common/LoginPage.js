@@ -1,7 +1,7 @@
 import React from "react";
 import {Affix, Avatar, Button, Divider, Input, message} from "antd";
 import {HttpRequest} from "../../util/network/request";
-import {PATH_USER_PAGE} from "../../util/router/config/RouterConst";
+import {PATH_USER_PAGE, RouterConst} from "../../util/router/config/RouterConst";
 import {GET_USER_BY_TOKEN, POST_USER_LOGIN} from "../../util/network/config/ApiConst";
 import {setCookie} from "../../util/cookieUtil";
 import loginbg2 from "../../assets/image/login/loginbg2.svg"
@@ -135,11 +135,11 @@ class LoginPage extends React.Component {
       data: {
         username: this.state.username,
         password: this.state.password,
-      }
+      },
+      env: "dev"
     }).then(res => {
       console.log(res);
       if (res.data.code === 1) {
-        message.success("登录成功");
         setCookie("sso_token", res.data.data.token);
         this.getUserInfoByToken(res.data.data.token);
       } else {
@@ -172,15 +172,17 @@ class LoginPage extends React.Component {
         this.setState({
           userInfo: res.data.data,
         });
-
+        message.success("登录成功");
         this.props.updateUserInfo(res.data.data);
         this.props.updateLoginState(true);
 
+        // debugger;
         // 跳转页面
         if (from) {
           this.goPage(from);
         } else {
-          this.goPage(PATH_USER_PAGE + "/" + this.state.userInfo.id);
+          // this.goPage(RouterConst.user.USER_PAGE + this.state.userInfo.id);
+          this.props.history.push(RouterConst.user.USER_PAGE + this.state.userInfo.id);
         }
       }
     });

@@ -28,6 +28,7 @@ class ALComment extends React.Component {
       <List
         dataSource={commentList}
         itemLayout="horizontal"
+        locale={{emptyText: '暂无评论'}}
         renderItem={item => {
           return <CommentBox {...item}
                              reload={this.props.reload}

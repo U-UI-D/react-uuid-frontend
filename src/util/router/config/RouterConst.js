@@ -62,7 +62,7 @@ export const RouterConst = {
   user: {
     LOGIN_PAGE: "/login",
     REGISTER_PAGE: "/register",
-    USER_PAGE:  "/user",
+    USER_PAGE:  "/user/",
     PROFILE_PAGE:  "/user/profile/",
     EDIT_PROFILE_PAGE:  "/user/profile/edit/",
   },

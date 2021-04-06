@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Divider, Tag} from "antd";
 import {ALComment} from "../../../../../../../components/al-component";
 
-class SoftwareWorkDetailPage extends React.Component{
+class SoftwareWorkContent extends React.Component{
   //构造器
   constructor(props) {
     super(props);
@@ -14,6 +14,7 @@ class SoftwareWorkDetailPage extends React.Component{
   render() {
 
     let workData = this.props.workData;
+    console.warn('workData', workData);
     return workData === null ? <></> :(
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
@@ -42,7 +43,7 @@ class SoftwareWorkDetailPage extends React.Component{
 
           <div>
             {
-              workData.imageUrls.map((item, index) => {
+              workData && workData.imageUrls.map((item, index) => {
                 return <img key={index} src={item} style={{width: 100+'%'}} alt=""/>
               })
             }
@@ -73,4 +74,4 @@ class SoftwareWorkDetailPage extends React.Component{
 
 }
 
-export default SoftwareWorkDetailPage;
+export default SoftwareWorkContent;

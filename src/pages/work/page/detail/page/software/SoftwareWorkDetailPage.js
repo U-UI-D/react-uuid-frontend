@@ -9,6 +9,7 @@ import store from "../../../../../../store";
 import SoftwareWorkContent from "./component/SoftwareWorkContent";
 import {PATH_LOGIN} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
+import {HttpRequest} from "../../../../../../util/network/request";
 
 class SoftwareDetailPage extends React.Component {
   //构造器
@@ -169,7 +170,10 @@ class SoftwareDetailPage extends React.Component {
 
     console.log("props", this.props);
 
-    commonRequest({url: GET_WORK_SOFTWARE_BY_ID + this.props.match.params.id}).then(res => {
+    HttpRequest.get({
+      url: GET_WORK_SOFTWARE_BY_ID + this.props.match.params.id,
+      env: "dev"
+    }).then(res => {
       if (res.err === null){
         let {hoverBoxData, countData} = this.state;
         hoverBoxData[0].num = countData.likeCount = res.data.likeCount;
@@ -177,7 +181,7 @@ class SoftwareDetailPage extends React.Component {
         hoverBoxData[2].num = countData.commentCount = res.data.commentCount;
 
         this.setState({
-          workData: res.data,
+          workData: res.data.data,
           hoverBoxData: hoverBoxData,
           countData
         });

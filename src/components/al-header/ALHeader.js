@@ -114,7 +114,8 @@ class ALHeader extends React.Component {
         <Menu>
           <MenuItem style={{width: "100px"}}>
             <a onClick={() => {
-              this.goPage(RouterConst.user.USER_PAGE + "/" + userInfo.id)
+              this.goPage(RouterConst.user.USER_PAGE + userInfo.id);
+              this.clearCurrentHeaderTitle();
             }}>
               个人中心
             </a>
@@ -256,6 +257,7 @@ class ALHeader extends React.Component {
 
   clearUserInfo = () =>  {
     localStorage.removeItem("isLogin");
+    localStorage.removeItem("userInfo");
     sessionStorage.removeItem("store");
     this.props.updateLoginState(false);
     this.props.updateUserInfo(null);
@@ -264,6 +266,10 @@ class ALHeader extends React.Component {
       isLogin: false
     });
     this.goPage(RouterConst.home.INDEX_PAGE);
+  }
+
+  clearCurrentHeaderTitle = () => {
+    this.props.updateCurrentHeaderTitle('');
   }
 
 

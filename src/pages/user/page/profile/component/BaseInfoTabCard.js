@@ -6,6 +6,9 @@ import {commonRequest} from "../../../../../util/network/RequestHub";
 import {PUT_USER} from "../../../../../util/network/config/ApiConst";
 import {getCookieByName} from "../../../../../util/cookieUtil";
 import {ALFlexBox, ALLabelBox, ALImage} from "../../../../../components/al-component";
+import {HttpRequest} from "../../../../../util/network/request";
+import moment from "moment";
+import {RouterConst} from "../../../../../util/router/config/RouterConst";
 
 
 function BaseInfoTabCard(props) {
@@ -57,23 +60,28 @@ function BaseInfoTabCard(props) {
     let sendData = {
       ...userInfo,
       avatar,
-      createdTime: null,
-      updatedTime: new Date()
+      createdTime: undefined,
+      updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
     }
     console.log("sendData", sendData);
 
     let token = getCookieByName("sso_token");
-    commonRequest({url: PUT_USER, method: "PUT", data: sendData, headers: {
+    HttpRequest.put({
+      url: PUT_USER,
+      data: sendData,
+      env: "dev",
+      headers: {
       "Authorization": token
       }})
       .then(res => {
         console.log("PUT_USER", res);
+        message.success("信息已变更，重新登录后生效");
       })
   }
 
   const uploadAvatar = {
     name: 'file',
-    action: 'http://localhost:9000/upload/return-url',
+    action: 'http://localhost:8000/api/v1/common/upload/return-url',
     data: {
       userId: 1
     },
@@ -129,6 +137,7 @@ function BaseInfoTabCard(props) {
     <div>
       {modal}
 
+      {moment().format("YYYY-MM-DD HH:mm:ss")}
       <h1>基本信息</h1>
 
       {/*头像*/}
