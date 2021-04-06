@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Menu} from "antd";
+import {Empty, Menu} from "antd";
 import './style.scss';
 import {UserContext} from "../../context/UserContext";
 import {connect} from "react-redux";
@@ -97,13 +97,13 @@ function MyJoined(props) {
                 <div hidden={current !== 'ui'}>
                   <ALFlexBox wrap margin={-15}>
                     {
-                      workUIData && workUIData.reverse().map((item, index) => {
+                      workUIData ? workUIData.reverse().map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item} />
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
@@ -111,13 +111,13 @@ function MyJoined(props) {
                 <div hidden={current !== 'software'}>
                   <ALFlexBox>
                     {
-                      workSoftwareData && workSoftwareData.list.map((item, index) => {
+                      workSoftwareData ? workSoftwareData.list.map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item} />
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
@@ -125,7 +125,7 @@ function MyJoined(props) {
                 <div hidden={current !== 'topic'}>
                   <ALFlexBox column>
                     {
-                      topicData && topicData.list.map((item, index) => {
+                      topicData ? topicData.list.map((item, index) => {
                         return (
                           <div key={index} style={{
                             backgroundColor: "#fff",
@@ -136,7 +136,7 @@ function MyJoined(props) {
                             <TopicListItem data={item} history={props.history}/>
                           </div>
                         )
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>

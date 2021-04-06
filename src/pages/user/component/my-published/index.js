@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Menu} from "antd";
+import {Empty, Menu} from "antd";
 import './style.scss';
 import {UserContext} from "../../context/UserContext";
 import {connect} from "react-redux";
 import {HttpRequest} from "../../../../util/network/request";
 import {ApiConst} from "../../../../util/network/config/ApiConst";
 import ShowWorkBox from "../../../work/component/show-work-box/ShowWorkBox";
-import {ALFlexBox} from "../../../../components/al-component";
+import {ALFlexBox, ALLoading} from "../../../../components/al-component";
 import IconBox from "../../../material/component/icon-module/icon-box/IconBox";
 import {RouterConst} from "../../../../util/router/config/RouterConst";
 import TopicListItem from "../../../topic/component/topic-list-item/TopicListItem";
@@ -107,10 +107,11 @@ function MyPublished(props) {
 
 
               <div className='al-m-top-40px'>
+                {/*ui作品*/}
                 <div hidden={current !== 'ui'}>
                   <ALFlexBox wrap margin={-15}>
                     {
-                      workUIData && workUIData.list.map((item, index) => {
+                      workUIData ? workUIData.list.map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item}
@@ -119,29 +120,31 @@ function MyPublished(props) {
                                          }}/>
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
 
+                {/*软件作品*/}
                 <div hidden={current !== 'software'}>
                   <ALFlexBox>
                     {
-                      workSoftwareData && workSoftwareData.list.map((item, index) => {
+                      workSoftwareData ? workSoftwareData.list.map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item}/>
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
 
+                {/*话题*/}
                 <div hidden={current !== 'topic'}>
                   <ALFlexBox column>
                     {
-                      topicData && topicData.list.map((item, index) => {
+                      topicData ? topicData.list.map((item, index) => {
                         return (
                           <div key={index} style={{
                             backgroundColor: "#fff",
@@ -152,11 +155,12 @@ function MyPublished(props) {
                             <TopicListItem data={item} history={props.history}/>
                           </div>
                         )
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
 
+                {/*素材*/}
                 <div hidden={current !== 'material'}>
                   <IconBox/>
                 </div>

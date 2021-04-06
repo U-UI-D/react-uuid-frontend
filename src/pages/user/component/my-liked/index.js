@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Menu} from "antd";
+import {Empty, Menu} from "antd";
 import './style.scss';
 import {UserContext} from "../../context/UserContext";
 import {connect} from "react-redux";
@@ -29,6 +29,7 @@ function MyLiked(props) {
       url: ApiConst.work.software.get.GET_BY_USER_ID + props.userInfo.id,
       env: 'dev'
     }).then(res => {
+      console.warn('getSoftwareWorkByUserId res', res);
       setSoftwareWorkData(res.data.data);
     })
   }
@@ -81,29 +82,29 @@ function MyLiked(props) {
 
               <div className='al-m-top-40px'>
                 <div hidden={current !== 'ui'}>
-                  <ALFlexBox wrap margin={-15}>
+                  <ALFlexBox wrap margin={-15} centerVH>
                     {
-                      workUIData && workUIData.map((item, index) => {
+                      workUIData ? workUIData.map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item} />
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>
 
                 <div hidden={current !== 'software'}>
-                  <ALFlexBox>
+                  <ALFlexBox centerVH>
                     {
-                      workSoftwareData && workSoftwareData.list.map((item, index) => {
+                      workSoftwareData && workSoftwareData.list > 0 ? workSoftwareData.list.map((item, index) => {
                         return (
                           <React.Fragment key={index}>
                             <ShowWorkBox workInfo={item} />
                           </React.Fragment>
                         );
-                      })
+                      }) : <Empty />
                     }
                   </ALFlexBox>
                 </div>

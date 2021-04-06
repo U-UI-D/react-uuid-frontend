@@ -235,7 +235,7 @@ class ShopPage extends React.Component{
                             padding: "4px",
                             fontSize: "12px",
                             color: "#48caff"
-                          }}>{rewardPoints}</span> 积分</div>
+                          }}>{rewardPoints || 0}</span> 积分</div>
                           <div style={{marginTop: "4px"}}>
                             收货地址：{deliveryAddress ?? "未填写"}
                             <EditOutlined className="al-cursor-pointer"

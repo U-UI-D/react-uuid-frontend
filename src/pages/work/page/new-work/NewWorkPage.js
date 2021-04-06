@@ -3,6 +3,8 @@ import "./style.css";
 import WorkPublishLeftLayout from "./component/layout/left/WorkPublishLeftLayout";
 import WorkPublishRightLayout from "./component/layout/right/WorkPublishRightLayout";
 import {ALFlexBox} from "../../../../components/al-component";
+import {connect} from "react-redux";
+import {ActionTypes} from "../../../../store/action-types";
 
 
 class NewWorkPage extends React.Component {
@@ -15,7 +17,7 @@ class NewWorkPage extends React.Component {
   }
 
   componentDidMount() {
-
+    this.props.updateCurrentHeaderTitle('上传');
   }
 
   goPage = (path, data = {}) => {
@@ -47,5 +49,23 @@ class NewWorkPage extends React.Component {
 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    currentHeaderTitle: state.currentHeaderTitle
+  }
+}
 
-export default NewWorkPage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentHeaderTitle(data) {
+      let action = {
+        type: ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewWorkPage);
