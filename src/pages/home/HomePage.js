@@ -156,31 +156,8 @@ class HomePage extends React.Component {
                               defaultPageSize={this.state.currentPageSize}
                               pageSizeOptions={["20", "40", "60", "80", "100"]}
                               hideOnSinglePage
-                              onShowSizeChange={(pageNum, pageSize) => {
-                                console.log("pageNum", pageNum);
-                                console.log("pageSize", pageSize);
-                                commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
-                                  this.setState({
-                                    currentPageNum: pageNum,
-                                    total: res.data.total,
-                                    workData: res.data
-                                  })
-                                });
-                              }}
-                              onChange={(pageNum, pageSize) => {
-                                console.log("pageNum", pageNum);
-                                console.log("pageSize", pageSize);
-                                this.setState({
-                                  workData: null
-                                });
-                                commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
-                                  this.setState({
-                                    currentPageNum: pageNum,
-                                    total: res.data.total,
-                                    workData: res.data
-                                  })
-                                });
-                              }}/>
+                              onShowSizeChange={this.handlePageChange}
+                              onChange={this.handlePageChange}/>
 
                 </ALInlineWidthBox>
               }
@@ -246,6 +223,7 @@ class HomePage extends React.Component {
     this.props.history.push({pathname: path, state: data})
   }
 
+  // 获取作品数据
   getWorkData = (orderBy, pageNum=1, pageSize=20) => {
     HttpRequest.get({
       url: `${ApiConst.work.ui.get.GET_ALL}?orderBy=${orderBy}&pageNum=${pageNum}&pageSize=${pageSize}&typename=`,
@@ -253,6 +231,7 @@ class HomePage extends React.Component {
     }).then(res => {
       if (res.err === null){
         this.setState({
+          currentPageNum: pageNum,
           workData: res.data.data,
           total: res.data.data.total
         })
@@ -263,6 +242,11 @@ class HomePage extends React.Component {
         })
       }
     })
+  }
+
+  // 处理页面大小改变，重新获取作品列表
+  handlePageChange = (pageNum, pageSize) => {
+    this.getWorkData('', pageNum, pageSize);
   }
 
 }
