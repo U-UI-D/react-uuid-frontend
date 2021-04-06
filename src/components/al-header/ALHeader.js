@@ -19,7 +19,7 @@ class ALHeader extends React.Component {
     super(props);
 
     this.state = {
-      currentTitle: ["首页"],
+      currentTitle: [this.props.currentHeaderTitle],
       menuItems: [
         {
           text: "首页",
@@ -156,16 +156,13 @@ class ALHeader extends React.Component {
                        className="header-menu" style={{flex: 1}}>
               {/*菜单1*/}
               <div>
-                <Menu selectedKeys={this.state.currentTitle} mode="horizontal" style={{backgroundColor: "#00000000"}}>
+                <Menu selectedKeys={[this.props.currentHeaderTitle]} mode="horizontal" style={{backgroundColor: "#00000000"}}>
                   {
                     this.state.menuItems.map((item, index) => {
                       return <MenuItem key={item.text}
                                        style={{color: this.props.color ?? "#000"}}
                                        onClick={
                                          () => {
-                                           this.setState({
-                                             currentTitle: [item.text]
-                                           })
                                            this.props.updateCurrentHeaderTitle(item.text);
                                            this.goPage(item.path);
                                          }}>{item.text}</MenuItem>
@@ -181,9 +178,6 @@ class ALHeader extends React.Component {
                     <Button type="link"
                             style={{color: this.props.currentHeaderTitle === '搜索' ? '#1890ff' : "#000"}}
                        onClick={() => {
-                         this.setState({
-                           currentTitle: []
-                         })
                          this.props.updateCurrentHeaderTitle('搜索');
                          this.goPage(RouterConst.search.SEARCH_PAGE)
                        }}>搜索</Button>
@@ -200,9 +194,6 @@ class ALHeader extends React.Component {
                     <Button type="link"
                             style={{color: this.props.currentHeaderTitle === '消息' ? '#1890ff' : "#000"}}
                        onClick={() => {
-                         this.setState({
-                           currentTitle: []
-                         })
                          this.props.updateCurrentHeaderTitle('消息');
                          this.goPage(RouterConst.message.MESSAGE_PAGE)
                        }}>消息</Button>

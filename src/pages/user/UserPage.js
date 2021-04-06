@@ -15,6 +15,8 @@ import MyLiked from "./component/my-liked";
 import MyFavored from "./component/my-favored";
 import {SendOutlined, FormOutlined} from '@ant-design/icons';
 import MyJoined from "./component/my-joined";
+import {ActionTypes} from "../../store/action-types";
+import store from "../../store";
 
 class UserPage extends React.Component {
   //构造器
@@ -106,11 +108,15 @@ class UserPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    let isLogin = localStorage.getItem("isLogin");
+    let isLogin = this.props.isLogin;
     // 判断是否登录
     if (!isLogin) {
       this.goPage(PATH_LOGIN);
     }
+
+    let s = store.getState();
+    console.warn("store", s);
+    this.props.updateCurrentHeaderTitle('');
   }
 
   //组件卸载前调用
@@ -130,11 +136,24 @@ class UserPage extends React.Component {
 
 UserPage.contextType = UserContext;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userInfo: state.userInfo,
     isLogin: state.isLogin,
+    userInfo: state.userInfo,
   }
 }
 
-export default connect(mapStateToProps)(UserPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentHeaderTitle(data) {
+      let action = {
+        type: ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

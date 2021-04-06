@@ -80,7 +80,8 @@ export const ApiConst = {
 
     userdata: {
       get: {
-        GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId="
+        GET_REWARD_POINTS_BY_USER_ID: "/user/userdata/reward-points?userId=",
+        GET_FAVOR_WORK_BY_USER_ID: "/user/userdata/favor-work/uid/"
       }
     },
 

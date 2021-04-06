@@ -16,10 +16,12 @@ function MyFavored(props) {
 
   const getUIWorkByUserId = () => {
     HttpRequest.get({
-      url: ApiConst.work.ui.get.GET_BY_USER_ID + props.userInfo.id,
+      url: ApiConst.user.userdata.get.GET_FAVOR_WORK_BY_USER_ID + props.userInfo.id,
       env: 'dev'
     }).then(res => {
-      setUIWorkData(res.data.data);
+      if (res.err === null) {
+        setUIWorkData(res.data.data);
+      }
     })
   }
 
