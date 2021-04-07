@@ -103,10 +103,10 @@ class ALHeader extends React.Component {
           <Button className="al-m-right-30px"
                   shape="round"
                   onClick={() => this.goPage(RouterConst.user.LOGIN_PAGE)}
-          >登录</Button>
-          <Button shape="round"
-                  onClick={() => this.goPage(RouterConst.user.REGISTER_PAGE)}
-          >注册</Button>
+          >登录 / 注册</Button>
+          {/*<Button shape="round"*/}
+          {/*        onClick={() => this.goPage(RouterConst.user.REGISTER_PAGE)}*/}
+          {/*>注册</Button>*/}
         </div>
       );
     } else {
