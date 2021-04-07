@@ -1,0 +1,23 @@
+.page {
+  .profile-avatar-box {
+    box-shadow: 0 20px 50px 0 hsla(0,0%,63.5%,.1);
+    border-radius: 6px;
+
+    h3 {
+      margin-top: 20px;
+    }
+  }
+
+  input {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  .input-wrapper {
+    background-color: #f9f9f9;
+    height: 60px;
+    border-radius: 4px;
+  }
+}

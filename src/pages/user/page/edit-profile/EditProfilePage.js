@@ -4,6 +4,7 @@ import {Steps, Form, Input, Button, Select, Space, message} from "antd";
 import {RouterConst} from "../../../../util/router/config/RouterConst";
 import {HttpRequest} from "../../../../util/network/request";
 import {ApiConst} from "../../../../util/network/config/ApiConst";
+import './style.scss';
 
 class EditProfilePage extends React.Component{
   //构造器
@@ -15,18 +16,19 @@ class EditProfilePage extends React.Component{
       identity: 1,
       avatar: '',
       currentStep: 0,
-      userInfo: {}
+      userInfo: {},
+      activeBorderColor: "#409EFF"
     }
   }
 
   //渲染函数
   render() {
     let {Step} = Steps;
-    let designerAvatar = "https://gitee.com/AlanLee97/dev-mock/raw/master/project/uuid-react-native-app/avatar/designer-f.png";
-    let developerAvatar = "https://gitee.com/AlanLee97/dev-mock/raw/master/project/uuid-react-native-app/avatar/developer-m.png";
-    const {nickname, identity, currentStep} = this.state;
+    let designerAvatar = require('./designer.png');
+    let developerAvatar = require('./developer.png');
+    const {nickname, identity, currentStep, activeBorderColor} = this.state;
     return(
-      <ALFlexBox centerVH column className='al-full-screen'>
+      <ALFlexBox centerVH column className='al-full-screen page'>
         <div>
           <Steps size="small" current={currentStep} style={{width: '800px'}}>
             <Step title="填写昵称" />
@@ -37,10 +39,14 @@ class EditProfilePage extends React.Component{
 
         <div className='al-m-top-50px' style={{height: "200px"}}>
           <Form hidden={currentStep !== 0}>
-            <Form.Item label="昵称">
-              <Input value={nickname}
-                     onChange={(e) => {this.setState({nickname: e.target.value})}}
-                     placeholder={nickname}/>
+            <Form.Item>
+              <p style={{marginBottom: '10px'}}>Hi~，新用户，取个昵称呗。</p>
+              <div className="input-wrapper">
+                <Input value={nickname}
+                       maxLength={16}
+                       onChange={(e) => {this.setState({nickname: e.target.value})}}
+                       placeholder={nickname}/>
+              </div>
             </Form.Item>
           </Form>
 
@@ -48,14 +54,16 @@ class EditProfilePage extends React.Component{
             <ALFlexBox>
               <Space size={40}>
                 <ALFlexBox centerVH column padding={12}
-                           style={{border: identity === 1 ? "2px solid #409EFF" : "", borderRadius: "4px"}}
+                           style={{border: `2px solid ${identity === 1 ? activeBorderColor : '#00000000'}`, borderRadius: "4px"}}
+                           className="profile-avatar-box al-cursor-arrow"
                            onClick={() => {this.setState({identity: 1})}}>
                   <ALImage src={designerAvatar} size={100} />
                   <h3>UI设计师</h3>
                 </ALFlexBox>
 
                 <ALFlexBox centerVH column padding={12}
-                           style={{border: identity === 2 ? "2px solid #409EFF" : "", borderRadius: "4px"}}
+                           style={{border: `2px solid ${identity === 2 ? activeBorderColor : '#00000000'}`, borderRadius: "4px"}}
+                           className="profile-avatar-box al-cursor-arrow"
                            onClick={() => {this.setState({identity: 2})}}>
                   <ALImage src={developerAvatar} size={100} />
                   <h3>开发者</h3>
@@ -104,14 +112,14 @@ class EditProfilePage extends React.Component{
     }
 
     let userInfo =  this.props.history.location.state?.userInfo;
-    console.log("userInfo", userInfo);
-    if (!userInfo){
-      message.error("获取用户信息失败，即将跳转回首页...");
-      setTimeout(() => {
-        this.props.history.push({pathname: RouterConst.home.HOME_PAGE})
-      }, 2000);
-      return ;
-    }
+    // console.log("userInfo", userInfo);
+    // if (!userInfo){
+    //   message.error("获取用户信息失败，即将跳转回首页...");
+    //   setTimeout(() => {
+    //     this.props.history.push({pathname: RouterConst.home.HOME_PAGE})
+    //   }, 2000);
+    //   return ;
+    // }
     this.setState({userInfo});
     message.info("请先完善用户基本资料");
 
