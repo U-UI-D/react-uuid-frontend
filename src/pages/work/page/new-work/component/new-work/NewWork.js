@@ -7,6 +7,8 @@ import {HttpRequest} from "../../../../../../util/network/request";
 import {RouterConst} from "../../../../../../util/router/config/RouterConst";
 import {connect} from "react-redux";
 import ALRichTextEditor from "../../../../../../components/al-rich-text-editor";
+import {ApiConst} from "../../../../../../util/network/config/ApiConst";
+import AppConfig from "../../../../../../config/AppConfig";
 
 
 class NewWork extends React.Component {
@@ -55,16 +57,20 @@ class NewWork extends React.Component {
   render() {
     const {Option} = Select;
 
+    console.warn('this.props', this.props);
+
     const {workTypeList, projectUrl} = this.state;
 
     let that = this;
     let imageIds = [];
+    const {host, port, prefix} = AppConfig.backend.dev;
+    let backEndBaseUrl = `http://${host}:${port}/${prefix}/`;
 
     const uploadImages = {
       name: 'file',
-      action: 'http://localhost:9000/upload/return-id',
+      action: backEndBaseUrl + ApiConst.upload.UPLOAD_RETURN_ID,
       data: {
-        userId: 1
+        userId: that.props.userInfo.id
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
@@ -88,9 +94,9 @@ class NewWork extends React.Component {
     };
     const uploadPoster = {
       name: 'file',
-      action: 'http://localhost:9000/upload/return-url',
+      action: backEndBaseUrl + ApiConst.upload.UPLOAD_RETURN_URL,
       data: {
-        userId: 1
+        userId: that.props.userInfo.id
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
@@ -492,7 +498,7 @@ class NewWork extends React.Component {
     }
     console.log("sendData", sendData);
 
-    if (this.state.title === "" || this.state.poster === "" || this.state.type === "" || !(this.state.imageIds.length > 0)){
+    if (this.state.title === "" || this.state.poster === "" || !this.state.typeId || !(this.state.imageIds.length > 0)){
       message.warning("请填写相关信息");
       return ;
     }
@@ -500,9 +506,11 @@ class NewWork extends React.Component {
 
 
 
-/*    HttpRequest.post({
-      url: "http://localhost:9002/work/ui",
-      data: sendData
+    HttpRequest.post({
+      // url: "http://localhost:9002/work/ui",
+      url: ApiConst.work.ui.post.POST_WORK,
+      data: sendData,
+      env: "dev"
     }).then(res => {
       if (res.err === null){
         message.success("发布成功");
@@ -513,13 +521,14 @@ class NewWork extends React.Component {
         console.log(res.err);
         message.error("发布失败");
       }
-    })*/
+    })
   }
 
   // 获取作品类型
   getWorkType = () => {
     HttpRequest.get({
-      url: "http://localhost:9002/work/type"
+      // url: "http://localhost:9002/work/type",
+      url: ApiConst.work.type.GET_TYPE,
     }).then(res => {
       if (res.err === null){
         this.setState({

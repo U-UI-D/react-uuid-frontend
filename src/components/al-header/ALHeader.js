@@ -100,8 +100,8 @@ class ALHeader extends React.Component {
     if (!isLogin) {
       isLoginDiv = (
         <div className="al-flex-container-center-v">
-          <Button className="al-m-right-30px"
-                  shape="round"
+          <Button shape="round"
+                  className="al-m-left-20px"
                   onClick={() => this.goPage(RouterConst.user.LOGIN_PAGE)}
           >登录 / 注册</Button>
           {/*<Button shape="round"*/}

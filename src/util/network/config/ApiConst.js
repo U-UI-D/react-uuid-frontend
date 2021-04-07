@@ -97,6 +97,10 @@ export const ApiConst = {
 
   // 作品模块
   work: {
+    type: {
+      GET_TYPE: "/work/work/type"
+    },
+
     ui: {
       get: {
         GET_BY_ID: "/work/work/ui/",
@@ -105,6 +109,9 @@ export const ApiConst = {
         GET_ALL: "/work/work/ui",
       },
 
+      post: {
+        POST_WORK: "/work/work/ui"
+      }
     },
 
     software: {
@@ -199,7 +206,7 @@ export const ApiConst = {
     },
 
     post: {
-      POST_WORK: "/comment/comment",
+      POST_COMMENT: "/comment/comment",
     }
   },
 

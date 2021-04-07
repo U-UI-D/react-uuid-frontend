@@ -31,14 +31,17 @@ class UIWorkContent extends React.Component{
     return workData === null ? <></> :(
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
-        <div>
-          <span style={{marginRight: 20}}>ID: {workData.id}</span>
-          <span style={{marginRight: 20}}>分类：{workData.typename}</span>
-          <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
-          <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
-          <span style={{marginRight: 20}}>可商用：{workData.commercialAvailable === '0' ? "否" : "是"}</span>
-          <Button type="link" style={{marginRight: 20}}>举报</Button>
-        </div>
+        <ALFlexBox between>
+          <div>
+            <span style={{marginRight: 20}}>ID: {workData.id}</span>
+            <span style={{marginRight: 20}}>分类：{workData.typename}</span>
+            <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
+            <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
+            <span style={{marginRight: 20}}>可商用：{workData.commercialAvailable === '0' ? "否" : "是"}</span>
+            <Button type="link" style={{marginRight: 20}}>举报</Button>
+          </div>
+          <span>发布于 {DateTimeUtils.getFormerTime(workData.createdTime)}</span>
+        </ALFlexBox>
 
         {
           this.props.workData.tagList.length > 0 &&
@@ -79,7 +82,10 @@ class UIWorkContent extends React.Component{
           </ALFlexBox> :
           <p>暂无关联软件作品</p>
         }
-        <ShowDevelopers />
+        {
+          (workData.developerList && workData.developerList?.length > 0 )
+          && <ShowDevelopers list={workData.developerList} />
+        }
 
         <div className="al-m-tb-20px"><Divider /></div>
         <h2>最新提案</h2>

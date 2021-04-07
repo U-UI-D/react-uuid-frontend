@@ -10,6 +10,7 @@ import InfoTopBar from "./component/info-top-bar";
 import {WorkDetailContext} from "../../context/WorkDetailContext";
 import RightBottomBar from "./component/right-bottom-bar";
 import {HttpRequest} from "../../../../../../util/network/request";
+import {ActionTypes} from "../../../../../../store/action-types";
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -140,7 +141,7 @@ class UIWorkDetailPage extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-
+    this.props.updateCurrentHeaderTitle('作品');
     this.getWorkDataById();
 
     window.addEventListener('scroll', this.bindHandleScroll);
@@ -270,4 +271,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(UIWorkDetailPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentHeaderTitle(data) {
+      let action = {
+        type: ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UIWorkDetailPage);

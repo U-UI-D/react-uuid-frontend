@@ -25,7 +25,7 @@ export default class ALRichTextEditor extends React.Component {
     // this.props.onChange(editorState);
     console.log(editorState);
     console.log(editorState.toHTML());
-    this.props.onInputChange(editorState.toHTML());
+    this.props.onChange(editorState.toHTML());
   }
 
   clearContent = () => {

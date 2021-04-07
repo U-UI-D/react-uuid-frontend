@@ -30,6 +30,7 @@ class InfoTopBar extends React.Component {
 
   render() {
     const {workIdList, isJoin} = this.state;
+    const {fileUrl, projectUrl} = this.props;
     return (
       <WorkDetailContext.Consumer>
         {
@@ -76,12 +77,12 @@ class InfoTopBar extends React.Component {
                           <ALIcon type='icon-tianjia' className='al-cursor-pointer' />
                         </Tooltip>
                       </Button>
-                      <Button type='text'>
+                      <Button type='text' disabled={!fileUrl}>
                         <Tooltip title='下载' placement="bottom" color={'#1890ff'}>
                           <ALIcon type='icon-xiazai' className='al-cursor-pointer'/>
                         </Tooltip>
                       </Button>
-                      <Button type='text'>
+                      <Button type='text' disabled={!projectUrl}>
                         <Tooltip title='github' placement="bottom" color={'#1890ff'}>
                           <ALIcon type='icon-github' className='al-cursor-pointer'/>
                         </Tooltip>

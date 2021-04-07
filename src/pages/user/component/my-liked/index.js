@@ -82,7 +82,7 @@ function MyLiked(props) {
 
               <div className='al-m-top-40px'>
                 <div hidden={current !== 'ui'}>
-                  <ALFlexBox wrap margin={-15} centerVH>
+                  <ALFlexBox wrap margin={-15}>
                     {
                       workUIData ? workUIData.map((item, index) => {
                         return (
@@ -96,7 +96,7 @@ function MyLiked(props) {
                 </div>
 
                 <div hidden={current !== 'software'}>
-                  <ALFlexBox centerVH>
+                  <ALFlexBox>
                     {
                       workSoftwareData && workSoftwareData.list > 0 ? workSoftwareData.list.map((item, index) => {
                         return (

@@ -22,7 +22,11 @@ function MyJoined(props) {
       url: ApiConst.work.common.get.GET_JOIN_WORK_BY_USER_ID + props.userInfo.id,
       env: 'dev'
     }).then(res => {
-      setUIWorkData(res.data.data);
+      if (res.err === null) {
+        setUIWorkData(res.data.data);
+
+        console.warn('workUIData res', res, workUIData);
+      }
     })
   }
 
@@ -32,7 +36,11 @@ function MyJoined(props) {
       url: ApiConst.work.software.get.GET_BY_USER_ID + props.userInfo.id,
       env: 'dev'
     }).then(res => {
-      setSoftwareWorkData(res.data.data);
+      if (res.err === null) {
+        setSoftwareWorkData(res.data.data);
+
+        console.warn('workSoftwareData res', res, workSoftwareData);
+      }
     })
   }
 
@@ -67,6 +75,8 @@ function MyJoined(props) {
       {
         contextState => {
           const {userInfo} = contextState;
+          console.warn('workSoftwareData res2', workSoftwareData);
+
           return (
             <div className='my-published'>
               <Menu onClick={handleClick}
@@ -96,29 +106,30 @@ function MyJoined(props) {
               <div className='al-m-top-40px'>
                 <div hidden={current !== 'ui'}>
                   <ALFlexBox wrap margin={-15}>
-                    {
-                      workUIData ? workUIData.reverse().map((item, index) => {
-                        return (
-                          <React.Fragment key={index}>
-                            <ShowWorkBox workInfo={item} />
-                          </React.Fragment>
-                        );
-                      }) : <Empty />
-                    }
+                    {/*{*/}
+                    {/*  workUIData && workUIData.list.length > 0 ? workUIData.reverse().map((item, index) => {*/}
+                    {/*    return (*/}
+                    {/*      <React.Fragment key={index}>*/}
+                    {/*        <ShowWorkBox workInfo={item} />*/}
+                    {/*      </React.Fragment>*/}
+                    {/*    );*/}
+                    {/*  }) : <Empty />*/}
+                    {/*}*/}
                   </ALFlexBox>
                 </div>
 
                 <div hidden={current !== 'software'}>
                   <ALFlexBox>
-                    {
-                      workSoftwareData ? workSoftwareData.list.map((item, index) => {
-                        return (
-                          <React.Fragment key={index}>
-                            <ShowWorkBox workInfo={item} />
-                          </React.Fragment>
-                        );
-                      }) : <Empty />
-                    }
+                    {/*{*/}
+                    {/*  workSoftwareData ?*/}
+                    {/*    workSoftwareData.list.map((item, index) => {*/}
+                    {/*    return (*/}
+                    {/*      <React.Fragment key={index}>*/}
+                    {/*        <ShowWorkBox workInfo={item} />*/}
+                    {/*      </React.Fragment>*/}
+                    {/*    );*/}
+                    {/*  }) : <Empty />*/}
+                    {/*}*/}
                   </ALFlexBox>
                 </div>
 

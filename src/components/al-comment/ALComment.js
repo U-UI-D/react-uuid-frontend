@@ -56,7 +56,7 @@ class ALComment extends React.Component {
 
               <ALRichTextEditor style={{
                 border: '1px solid rgba(235,235,235,.8)'
-              }} onInputChange={(data) => {
+              }} onChange={(data) => {
                 console.log("输入的内容", data);
                 this.setState({
                   inputValue: data
@@ -145,7 +145,7 @@ class ALComment extends React.Component {
     console.log("postData", postData);
 
     HttpRequest.post({
-      url: ApiConst.comment.post.POST_WORK,
+      url: ApiConst.comment.post.POST_COMMENT,
       env: 'dev',
       // url: "http://localhost:9003/comment",
       data: postData
