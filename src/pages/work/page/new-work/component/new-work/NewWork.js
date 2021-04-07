@@ -29,7 +29,8 @@ class NewWork extends React.Component {
       tagList: [],
       raiseRealization: 0,
       commercialAvailable: 0,
-      projectUrl: undefined,
+      fileUrl: '',
+      projectUrl: '',
 
       workTypeList: [],
 
@@ -111,6 +112,27 @@ class NewWork extends React.Component {
           that.setState({
             posterTip: that.state.poster === "",
           })
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} 上传失败`);
+        }
+      },
+    };
+
+    const uploadFile = {
+      name: 'file',
+      action: backEndBaseUrl + ApiConst.upload.UPLOAD_RETURN_URL,
+      data: {
+        userId: that.props.userInfo.id
+      },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+          that.setState({
+            fileUrl: info.file.response
+          })
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} 上传成功`);
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} 上传失败`);
         }
@@ -356,7 +378,7 @@ class NewWork extends React.Component {
               </ALFlexBox>
               <div>
                 <span>上传附件</span>
-                <Upload>
+                <Upload {...uploadFile}>
                   <Button type="link">选择文件上传</Button>
                 </Upload>
               </div>
@@ -494,6 +516,7 @@ class NewWork extends React.Component {
       userId: this.props.userInfo.id,
       raiseRealization: this.state.raiseRealization,
       commercialAvailable: this.state.commercialAvailable,
+      fileUrl: this.state.fileUrl,
       projectUrl: this.state.projectUrl,
     }
     console.log("sendData", sendData);
