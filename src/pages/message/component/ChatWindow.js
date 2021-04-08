@@ -48,7 +48,7 @@ class ChatWindow extends React.Component {
     return (
       <div className="al-p-lr-30px al-position-rela">
         <ALFlexBox centerV between>
-          <Button type="primary"
+          <Button type="link"
                   onClick={() => {
                     this.props.onBack("点击了返回按钮")
                   }}>

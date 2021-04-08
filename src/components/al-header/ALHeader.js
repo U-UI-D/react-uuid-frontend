@@ -180,13 +180,16 @@ class ALHeader extends React.Component {
                        onClick={() => {
                          this.props.updateCurrentHeaderTitle('搜索');
                          this.goPage(RouterConst.search.SEARCH_PAGE)
-                       }}>搜索</Button>
+                       }} className="right-menu-text">搜索</Button>
                   </div>
 
                   <div className="al-m-lr-10px">
                     <Dropdown overlay={uploadDropdownMenu}
                               placement="bottomCenter">
-                      <Button type="link" style={{color: this.props.currentHeaderTitle === '上传' ? '#1890ff' : "#000"}}>上传</Button>
+                      <Button type="link"
+                              style={{color: this.props.currentHeaderTitle === '上传' ? '#1890ff' : "#000"}}
+                              className="right-menu-text"
+                      >上传</Button>
                     </Dropdown>
                   </div>
 
@@ -196,10 +199,12 @@ class ALHeader extends React.Component {
                        onClick={() => {
                          this.props.updateCurrentHeaderTitle('消息');
                          this.goPage(RouterConst.message.MESSAGE_PAGE)
-                       }}>消息</Button>
+                       }} className="right-menu-text">消息</Button>
                   </div>
                 </ALFlexBox>
-                {isLoginDiv}
+                <div className="al-m-top-10px">
+                  {isLoginDiv}
+                </div>
               </ALFlexBox>
             </ALFlexBox>
 

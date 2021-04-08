@@ -23,7 +23,7 @@ class ALComment extends React.Component {
   }
 
   render() {
-    const {commentList} = this.props;
+    const {commentList, ownerId} = this.props;
     const CommentList = (({commentList}) => (
       <List
         dataSource={commentList}
@@ -33,6 +33,7 @@ class ALComment extends React.Component {
           return <CommentBox {...item}
                              reload={this.props.reload}
                              reloadProposal={this.props.reloadProposal}
+                             ownerId={ownerId}
                              topicId={this.props.topicId}/>
         }}
       />

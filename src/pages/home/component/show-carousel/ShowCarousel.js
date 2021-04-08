@@ -3,9 +3,11 @@ import {HttpRequest} from "../../../../util/network/request";
 import {Avatar, Carousel, message} from "antd";
 import {ApiConst} from "../../../../util/network/config/ApiConst";
 import {ALImage} from "../../../../components/al-component";
+import {RouterConst} from "../../../../util/router/config/RouterConst";
 
 function ShowCarousel(props) {
 
+  const {history} = props;
   const [carouselList, setCarouselList] = useState([]);
   useEffect(() => {
     getCarouselList();
@@ -24,13 +26,23 @@ function ShowCarousel(props) {
     })
   }
 
+  const createUrl = ({type, link}) => {
+    if (type === 'ui') {
+      return RouterConst.work.ui.DETAIL_PAGE + link;
+    }
+  }
+
   return (
     <Carousel autoplay>
       {
         carouselList.map((item, index) => {
             return (
               <div key={index}>
-                <a href={item.url}>
+                <a onClick={() => {
+                  if (item.link) {
+                    history.push(createUrl({type: item.type, link: item.link}))
+                  }
+                }}>
                   <ALImage src={item.imgUrl} height={350} width={1180} fit={""}/>
                 </a>
               </div>

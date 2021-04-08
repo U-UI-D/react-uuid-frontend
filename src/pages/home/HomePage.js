@@ -100,7 +100,7 @@ class HomePage extends React.Component {
         <div className="al-bg-color-white">
           <div className="content-width al-p-tb-20px">
             {/*轮播图*/}
-            <ShowCarousel />
+            <ShowCarousel history={this.props.history} />
           </div>
 
           {/*标题*/}

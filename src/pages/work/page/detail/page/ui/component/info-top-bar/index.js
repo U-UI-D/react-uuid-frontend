@@ -1,6 +1,6 @@
 import React from "react";
 import {ALFlexBox} from "../../../../../../../../components/al-component";
-import {Affix, Avatar, Button, message, Space, Tooltip} from "antd";
+import {Affix, Avatar, Button, message, Space, Tag, Tooltip} from "antd";
 import {RouterConst} from "../../../../../../../../util/router/config/RouterConst";
 import ALIcon from "../../../../../../../../components/al-icon";
 import {WorkDetailContext} from "../../../../context/WorkDetailContext";
@@ -8,6 +8,7 @@ import {HttpRequest} from "../../../../../../../../util/network/request";
 import {ApiConst} from "../../../../../../../../util/network/config/ApiConst";
 import {connect} from "react-redux";
 import './style.scss';
+import {getUserIdentity} from "../../../../../../../../util/util";
 
 
 class InfoTopBar extends React.Component {
@@ -31,6 +32,7 @@ class InfoTopBar extends React.Component {
   render() {
     const {workIdList, isJoin} = this.state;
     const {fileUrl, projectUrl} = this.props.workData;
+    console.warn("this.props.workData", this.props.workData)
     return (
       <WorkDetailContext.Consumer>
         {
@@ -46,7 +48,7 @@ class InfoTopBar extends React.Component {
                       <ALFlexBox column centerH evenly className="al-m-left-10px">
                         <div className="al-font-weight-bold">{workData.title}</div>
                         <div>
-                          {workData.nickname}
+                          {workData.nickname} <span className="al-m-lr-10px">·</span> <span>{getUserIdentity(workData.identity)}</span>
                           {
                             isLogin ?
                               (

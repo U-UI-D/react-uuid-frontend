@@ -70,7 +70,7 @@ function SubReplyBox(props) {
         </Tag>}/>
 
       </ALFlexBox>
-      <div className="al-m-left-50px">
+      <div className="al-m-left-50px al-m-top-20px">
         <p>{props.content}</p>
 
         <ALFlexBox centerV className="al-m-top-20px">

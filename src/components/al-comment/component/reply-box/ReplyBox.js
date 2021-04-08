@@ -54,7 +54,7 @@ function ReplyBox(props) {
                                                                                   style={{marginLeft: "10px", borderRadius: '20px'}}>
         {getUserIdentity(props.identity)}
       </Tag>}/>
-      <div className="al-m-left-50px al-m-bottom-20px">
+      <div className="al-m-left-50px al-m-bottom-20px al-m-top-20px">
         <p>{props.content}</p>
         <ALFlexBox centerV between className="al-m-top-20px">
           <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(props.createdTime)}</div>

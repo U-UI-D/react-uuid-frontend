@@ -19,7 +19,7 @@ class SoftwareWorkContent extends React.Component{
       <div style={{width: "auto", backgroundColor: "#fff", padding: 20}}>
         <h1>{workData.title}</h1>
         <div>
-          <span style={{marginRight: 20}}>原创作品</span>
+          <span style={{marginRight: 20}}>ID: {workData.id}</span>
           <span style={{marginRight: 20}}>分类：{workData.typename}</span>
           <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
           <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
@@ -38,7 +38,9 @@ class SoftwareWorkContent extends React.Component{
 
         <div>
           <div className="al-m-tb-20px">
-            {workData.description}
+            <div dangerouslySetInnerHTML={{__html: workData.description}}>
+
+            </div>
           </div>
 
           <div>
@@ -53,9 +55,9 @@ class SoftwareWorkContent extends React.Component{
 
         <div className="al-m-tb-20px"><Divider /></div>
 
-        <div>
-          以下开发者正在开发此项目
-        </div>
+        {/*<div>*/}
+        {/*  以下开发者正在开发此项目*/}
+        {/*</div>*/}
 
         <ALComment />
       </div>

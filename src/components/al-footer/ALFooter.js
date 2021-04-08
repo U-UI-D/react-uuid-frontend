@@ -13,10 +13,10 @@ function ALFooter() {
         <div>
           <div className="al-flex-container">
             <div>首页</div><div style={{width: 30+'px'}}></div>
-            <div>发现</div><div style={{width: 30+'px'}}></div>
-            <div>学习</div><div style={{width: 30+'px'}}></div>
-            <div>关于我们</div><div style={{width: 30+'px'}}></div>
-            <div>联系我们</div>
+            <div>作品</div><div style={{width: 30+'px'}}></div>
+            <div>话题</div><div style={{width: 30+'px'}}></div>
+            <div>素材</div><div style={{width: 30+'px'}}></div>
+            <div>关于我们</div>
           </div>
         </div>
       </div>

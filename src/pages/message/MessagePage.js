@@ -88,7 +88,7 @@ class MessagePage extends React.Component {
           return (
             <ALFlexBox key={index} centerV
                        className="al-p-30px al-hover-bgcolor-light-white al-cursor-pointer">
-              <Avatar src={item.avatar} size={70} />
+              <Avatar src={item.nickname === 'UU通知' ? require('../../assets/icon/common/UUID2.png') : item.avatar} size={70} />
               <ALFlexBox column className="al-m-left-20px">
                 <ALFlexBox centerV>
                   <h2 className="al-p-right-20px">{item.nickname}</h2>
@@ -120,8 +120,8 @@ class MessagePage extends React.Component {
               <Avatar src={item.avatar} size={70} />
               <ALFlexBox column className="al-m-left-20px">
                 <ALFlexBox centerV>
-                  <h2>{item.nickname}</h2>
-                  <div className="al-m-right-20px" style={{fontSize: 12+'px', color: "#bbb"}}>{item.reachTime}</div>
+                  <h2 className="al-m-right-20px">{item.nickname}</h2>
+                  <div style={{fontSize: 12+'px', color: "#bbb"}}>{item.reachTime}</div>
                 </ALFlexBox>
                 <div>
                   {item.message}
@@ -188,7 +188,7 @@ class MessagePage extends React.Component {
     }
 
     const handleChangeChatWindow = (value) => {
-      message.info("父组件接收子组件数据：" + value);
+      // message.info("父组件接收子组件数据：" + value);
       this.setState({
         activeChatWindow: false
       })

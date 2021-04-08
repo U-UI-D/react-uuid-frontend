@@ -19,6 +19,9 @@ function CommentBox(props) {
   const [proposalTitle, setProposalTitle] = useState(props.content);
   const [proposalContent, setProposalContent] = useState(props.content);
 
+  console.warn("CommentBox props", props);
+  const {ownerId} = props;
+
   const handleReplyBtn = () => {
     setIsSubmitting(true);
     let postData = {
@@ -71,7 +74,6 @@ function CommentBox(props) {
   }
   useEffect(() => {}, []);
 
-  console.log("props", props);
   return (
     <div style={{
       padding: "30px 0 0",
@@ -86,14 +88,23 @@ function CommentBox(props) {
         okText={"提交"}
         cancelText={"取消"}
       >
-        <Form>
+{/*        <Form>
           <Form.Item label="标题">
             <Input placeholder="输入标题..." value={proposalTitle} onChange={e => {setProposalTitle(e.target.value)}} />
           </Form.Item>
           <Form.Item label="描述">
             <Input placeholder="输入描述..." value={proposalContent} onChange={e => {setProposalContent(e.target.value)}}/>
           </Form.Item>
-        </Form>
+        </Form>*/}
+
+        <h2>标题</h2>
+        <div dangerouslySetInnerHTML={{__html: proposalTitle}}>
+
+        </div>
+
+        <h2 className="al-m-top-20px">描述</h2>
+        <div dangerouslySetInnerHTML={{__html: proposalContent}}>
+        </div>
       </Modal>
 
 
@@ -107,7 +118,7 @@ function CommentBox(props) {
 
         <span id="add-proposal">
           {
-            props.userInfo && (props.userInfo.id === props.workId) ?
+            props.userInfo && (props.userInfo.id === ownerId) ?
             <Tooltip placement="bottom" title="添加到提案">
               <span id="al-icon"
                     onClick={() => {
@@ -119,7 +130,10 @@ function CommentBox(props) {
           }
         </span>
 
-        <p dangerouslySetInnerHTML={{__html: props.content}}></p>
+        {/*评论内容*/}
+        <div className="al-m-top-20px">
+          <div dangerouslySetInnerHTML={{__html: props.content}}></div>
+        </div>
 
         <ALFlexBox between className="al-m-top-20px">
           <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(props.createdTime)}</div>

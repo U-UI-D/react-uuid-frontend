@@ -176,9 +176,9 @@ class SoftwareDetailPage extends React.Component {
     }).then(res => {
       if (res.err === null){
         let {hoverBoxData, countData} = this.state;
-        hoverBoxData[0].num = countData.likeCount = res.data.likeCount;
-        hoverBoxData[1].num = countData.favorCount = res.data.favorCount;
-        hoverBoxData[2].num = countData.commentCount = res.data.commentCount;
+        hoverBoxData[0].num = countData.likeCount = res.data.likeCount || 0;
+        hoverBoxData[1].num = countData.favorCount = res.data.favorCount || 0;
+        hoverBoxData[2].num = countData.commentCount = res.data.commentCount || 0;
 
         this.setState({
           workData: res.data.data,

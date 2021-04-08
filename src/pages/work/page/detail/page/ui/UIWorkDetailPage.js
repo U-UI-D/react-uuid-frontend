@@ -67,6 +67,8 @@ class UIWorkDetailPage extends React.Component {
 
   //渲染函数
   render() {
+
+    console.warn("test->history", this.props.history)
     const {workData} = this.state;
     const {Link} = Anchor;
 
@@ -106,7 +108,7 @@ class UIWorkDetailPage extends React.Component {
                   <div key={index}>
                     <HoverBox data={item}
                               isChangeNum={item.title !== '评论'}
-                              showFloatDot
+                              showFloatDot={item.title !== '评论'}
                               onChange={this.handleChangeForHoverBox}
                               onClick={() => {
                                 console.log("点击了" + item.title);

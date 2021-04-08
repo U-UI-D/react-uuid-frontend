@@ -95,8 +95,8 @@ class UIWorkContent extends React.Component{
             proposalData && proposalData.list.map((item, index) => {
               return (
                 <div key={index}>
-                  <h3>{item.title}</h3>
-                  <div>{DateTimeUtils.getFormerTime(item.createdTime)}</div>
+                  <div dangerouslySetInnerHTML={{__html: item.title}}></div>
+                  <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(item.createdTime)}</div>
                   {proposalData.list.length-1 === index ? null : <Divider />}
                 </div>
               )
@@ -108,6 +108,7 @@ class UIWorkContent extends React.Component{
 
         <ALComment commentList={commentList}
                    workId={workData.id}
+                   ownerId={workData.userId}
                    workType={"ui"}
                    reload={this.reGetCommentList}
                    reloadProposal={this.getProposalData} />
