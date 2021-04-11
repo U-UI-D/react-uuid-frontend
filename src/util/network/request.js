@@ -1,6 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 import AppConfig from "../../config/AppConfig";
+import React from "react";
+import store from "../../store";
 
 export function request(config) {
   if (config.method === "get" || config.method === "GET"){
@@ -135,6 +137,7 @@ export const HttpRequest = {
 }
 
 export function createBaseURL(env) {
+  let state = store.getState();
   let host = "";
   let port = "";
   let prefix = "";
@@ -149,7 +152,10 @@ export function createBaseURL(env) {
       host = AppConfig.backend.dev.host;
       port = AppConfig.backend.dev.port;
       prefix = AppConfig.backend.dev.prefix;
-      break;
+      if (state.appRunMode === 'dev') {
+        break;
+      }
+
     case "prod":
       host = AppConfig.backend.prod.host;
       port = AppConfig.backend.prod.port;

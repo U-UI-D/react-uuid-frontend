@@ -4,7 +4,8 @@ let initState = {
   userInfo: null,
   isLogin: false,
   name: "AlanLee",
-  currentHeaderTitle: '首页'
+  currentHeaderTitle: '首页',
+  appRunMode: 'prod'
 };
 
 if (sessionStorage.getItem("store")){
@@ -32,6 +33,11 @@ export function reducer(state = initState, action) {
 
   if (action.type === ActionTypes.header.UPDATE_CURRENT_HEADER_TITLE){
     newState.currentHeaderTitle = action.value;
+    console.log("newState", newState);
+  }
+
+  if (action.type === ActionTypes.common.UPDATE_RUN_MODE){
+    newState.appRunMode = action.value;
     console.log("newState", newState);
   }
 

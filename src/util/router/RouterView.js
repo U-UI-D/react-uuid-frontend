@@ -6,10 +6,22 @@ import {ALFooter} from "../../components/al-component";
 import {connect} from "react-redux";
 import NotFoundPage from "../../pages/common/NotFoundPage";
 import {message} from "antd";
+import {ActionTypes} from "../../store/action-types";
 
 
 function RouterView(props){
+  // debugger;
+  console.warn("router-view window.location", window.location);
+  let devMode = window.location.host.includes('dev');
+  console.warn("devMode", devMode);
+  if (devMode) {
+    props.updateRunMode('dev');
+  }
+  console.warn('store runMode', props.appRunMode);
+
   const {isLogin} = props;
+
+
   return (
     <Router>
       <ALHeader />
@@ -67,8 +79,20 @@ function RouterView(props){
 
 const mapStateToProps = (state) => {
   return {
-    isLogin: state.isLogin
+    isLogin: state.isLogin,
+    appRunMode: state.appRunMode
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateRunMode(data){
+      let action = {
+        type: ActionTypes.common.UPDATE_RUN_MODE,
+        value: data
+      }
+      dispatch(action);
+    }
+  }
 
-export default connect(mapStateToProps)(RouterView);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RouterView);
