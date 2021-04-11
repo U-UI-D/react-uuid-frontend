@@ -39,10 +39,10 @@ import EditProfilePage from "../../../pages/user/page/edit-profile/EditProfilePa
 
 let routes = [
   {
-    title: "UUID",
+    title: "UUID | UI设计师与软件开发者交流合作平台",
     path: PATH_HOME_PAGE,
     component: HomePage,
-    exact: true
+    exact: true,
   },
   {
     title: "登录",

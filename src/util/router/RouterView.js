@@ -39,7 +39,8 @@ function RouterView(props){
                       message.warning("请先登录");
                       return redirect;
                     }
-
+                    // 设置文档标题
+                    document.title = route.title;
                     return component;
                   }}
                 />
