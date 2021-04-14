@@ -65,9 +65,10 @@ class ALHeader extends React.Component {
         }
       ],
       hidden: false,
+      isMobile: false,
+      menuBg: "rgba(255,255,255,.5)"
     }
 
-    console.log("store", store.getState());
   }
 
   //渲染函数
@@ -75,6 +76,7 @@ class ALHeader extends React.Component {
 
     let isLoginDiv;
     const {userInfo, isLogin} = this.props;
+    const {isMobile, menuBg} = this.state;
 
     const uploadDropdownMenu = (
       <div style={{color: this.props.color ?? "#000"}}>
@@ -140,83 +142,113 @@ class ALHeader extends React.Component {
       </div>
     }
 
-    return (
-      <div id="al-header" style={{backgroundColor: ""}} hidden={this.state.hidden}>
-
-        <div style={{
-          width: 1180 + 'px',
-          margin: "0 auto"
-        }}>
-          <div className="al-flex-container al-flex-container-center-v">
-            <Avatar className="al-display-inline" src={require("../../assets/icon/common/UUID2.png")} size={70}/>
-
-            <ALFlexBox id="header-menu"
-                       centerVH
-                       between
-                       className="header-menu" style={{flex: 1}}>
-              {/*菜单1*/}
-              <div>
-                <Menu selectedKeys={[this.props.currentHeaderTitle]} mode="horizontal" style={{backgroundColor: "#00000000"}}>
-                  {
-                    this.state.menuItems.map((item, index) => {
-                      return <MenuItem key={item.text}
-                                       style={{color: this.props.color ?? "#000"}}
-                                       onClick={
-                                         () => {
-                                           this.props.updateCurrentHeaderTitle(item.text);
-                                           this.goPage(item.path);
-                                         }}>{item.text}</MenuItem>
-                    })
-                  }
-                </Menu>
-              </div>
-
-              {/*菜单2*/}
-              <ALFlexBox centerV>
-                <ALFlexBox centerV style={{marginTop: "4px"}}>
-                  <div>
-                    <Button type="link"
-                            style={{color: this.props.currentHeaderTitle === '搜索' ? '#1890ff' : "#000"}}
-                       onClick={() => {
-                         this.props.updateCurrentHeaderTitle('搜索');
-                         this.goPage(RouterConst.search.SEARCH_PAGE)
-                       }} className="right-menu-text">搜索</Button>
-                  </div>
-
-                  <div className="al-m-lr-10px">
-                    <Dropdown overlay={uploadDropdownMenu}
-                              placement="bottomCenter">
-                      <Button type="link"
-                              style={{color: this.props.currentHeaderTitle === '上传' ? '#1890ff' : "#000"}}
-                              className="right-menu-text"
-                      >上传</Button>
-                    </Dropdown>
-                  </div>
-
-                  <div>
-                    <Button type="link"
-                            style={{color: this.props.currentHeaderTitle === '消息' ? '#1890ff' : "#000"}}
-                       onClick={() => {
-                         this.props.updateCurrentHeaderTitle('消息');
-                         this.goPage(RouterConst.message.MESSAGE_PAGE)
-                       }} className="right-menu-text">消息</Button>
-                  </div>
-                </ALFlexBox>
-                <div className="al-m-top-10px">
-                  {isLoginDiv}
-                </div>
-              </ALFlexBox>
-            </ALFlexBox>
-
-          </div>
+    const headerMenu = (
+      <ALFlexBox id="header-menu"
+                 centerVH={!isMobile}
+                 between
+                 column={isMobile}
+                 style={{backgroundColor: isMobile ? menuBg : null, width: "100%"}}
+                 className="header-menu">
+        {/*菜单1*/}
+        <div className="left-menu">
+          <Menu selectedKeys={[this.props.currentHeaderTitle]}
+                style={{backgroundColor: isMobile ? menuBg : null}}
+                mode={isMobile ? 'vertical' : 'horizontal'} >
+            {
+              this.state.menuItems.map((item, index) => {
+                return <MenuItem key={item.text}
+                                 style={{color: this.props.color ?? "#000"}}
+                                 onClick={
+                                   () => {
+                                     this.props.updateCurrentHeaderTitle(item.text);
+                                     this.goPage(item.path);
+                                   }}>{item.text}</MenuItem>
+              })
+            }
+          </Menu>
         </div>
+
+        {/*菜单2*/}
+        <ALFlexBox centerV={!isMobile} column={isMobile}
+                   className="right-menu"
+                   style={{backgroundColor: isMobile ? menuBg : null}}>
+          <ALFlexBox centerV={!isMobile}  column={isMobile}>
+            <div>
+              <Button type="link"
+                      style={{color: this.props.currentHeaderTitle === '搜索' ? '#1890ff' : "#000"}}
+                      onClick={() => {
+                        this.props.updateCurrentHeaderTitle('搜索');
+                        this.goPage(RouterConst.search.SEARCH_PAGE)
+                      }} className="right-menu-text">搜索</Button>
+            </div>
+
+            <div>
+              <Dropdown overlay={uploadDropdownMenu}
+                        placement="bottomCenter">
+                <Button type="link"
+                        style={{color: this.props.currentHeaderTitle === '上传' ? '#1890ff' : "#000"}}
+                        className="right-menu-text"
+                >上传</Button>
+              </Dropdown>
+            </div>
+
+            <div>
+              <Button type="link"
+                      style={{color: this.props.currentHeaderTitle === '消息' ? '#1890ff' : "#000"}}
+                      onClick={() => {
+                        this.props.updateCurrentHeaderTitle('消息');
+                        this.goPage(RouterConst.message.MESSAGE_PAGE)
+                      }} className="right-menu-text">消息</Button>
+            </div>
+          </ALFlexBox>
+          <div className="al-m-top-10px">
+            {isMobile ? null : isLoginDiv}
+          </div>
+        </ALFlexBox>
+      </ALFlexBox>
+    );
+
+    return (
+      <div id="al-header" hidden={this.state.hidden}>
+        <ALFlexBox between>
+          <Dropdown overlay={headerMenu}
+                    trigger="click" overlayStyle={{width: "100%"}}
+                    placement="bottomCenter">
+            <Button className="btn-show">=</Button>
+          </Dropdown>
+
+          {
+            <ALFlexBox>
+              {isMobile ? isLoginDiv : null}
+              {
+                isLogin && isMobile ? null :
+                <Avatar className="al-display-inline"
+                        src={require("../../assets/icon/common/UUID2.png")}
+                        size={isMobile ? 36 : 70}/>
+              }
+            </ALFlexBox>
+          }
+        </ALFlexBox>
+
+        {isMobile ? null : headerMenu}
       </div>
     );
   }
 
   //组件挂载完成时调用
   componentDidMount() {
-
+    window.addEventListener('resize', () => {
+      console.warn("test-> 窗口大小变化了", window.outerWidth);
+      if (window.outerWidth < 768) {
+        this.setState({
+          isMobile: true
+        })
+      }else {
+        this.setState({
+          isMobile: false
+        })
+      }
+    });
   }
 
   //组件卸载前调用

@@ -1,4 +1,38 @@
 #al-header {
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+
+    .header-menu {
+        flex: 1;
+        width: 100%;
+    }
+
+    .btn-show {
+        display: none;
+    }
+
+    // 响应式设计
+    @media screen and (max-width: 768px){
+        display: flex;
+        width: auto;
+        margin: 0;
+        flex-direction: column;
+        .btn-show {
+            display: flex;
+        }
+
+        .left-menu {
+            width: 100%;
+        }
+
+        .right-menu {
+            width: 100%;
+        }
+    }
+
+
+    // 覆盖antd样式
     ul li{
         border-bottom-color: transparent !important;
         border-bottom-width: 0 !important;
@@ -23,3 +57,5 @@
         color: #1890ff !important;
     }
 }
+
+
