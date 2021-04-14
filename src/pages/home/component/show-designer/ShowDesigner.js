@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Button} from "antd";
+import {Avatar, Button, Divider} from "antd";
 import {commonRequest} from "../../../../util/network/RequestHub";
 import "./style.css";
 import {GET_DESIGNER_RECOMMEND} from "../../../../util/network/config/ApiConst";
 import {ALFlexBox, ALLoading} from "../../../../components/al-component";
+import {connect} from "react-redux";
 
 function ShowDesigner(props) {
+  const {isMobile} = props;
 
   const [designerData, setDesignerData] = useState(null);
   useEffect( () => {
@@ -24,8 +26,8 @@ function ShowDesigner(props) {
         {
           designerData.map((item, index) => {
             return (
-              <div key={index} className="al-hover-bgcolor-white al-cursor-pointer">
-                <ALFlexBox centerV between>
+              <div key={index} className={`al-hover-bgcolor-white al-cursor-pointer ${isMobile ? "" : "content-width"}`}>
+                <ALFlexBox centerV between={!isMobile} wrap={isMobile}>
                   <ALFlexBox padding={30}  centerV>
                     <div>
                       {/*头像*/}
@@ -76,14 +78,14 @@ function ShowDesigner(props) {
 
                   </ALFlexBox>
 
-                  <ALFlexBox  className="al-text-right al-m-right-30px">
+                  <ALFlexBox centerVH={isMobile}  className="al-text-right">
                     {
                       //封面图
                       item.workPoster.map((item, index) => {
                         return <Avatar shape="square"
                                        style={{
-                                         width: 200 + 'px',
-                                         height: 150 + 'px',
+                                         width: '30%',
+                                         height: '100%',
                                          margin: "0 5px"
                                        }}
                                        src={item}
@@ -92,6 +94,9 @@ function ShowDesigner(props) {
                     }
                   </ALFlexBox>
                 </ALFlexBox>
+                {
+                  index !== designerData.length ? <Divider /> : null
+                }
               </div>
             )
           })
@@ -100,4 +105,10 @@ function ShowDesigner(props) {
   );
 }
 
-export default ShowDesigner;
+const mapStateToProps = (state) => {
+  return {
+    isMobile: state.isMobile
+  }
+}
+
+export default connect(mapStateToProps)(ShowDesigner);

@@ -189,7 +189,7 @@ class HomePage extends React.Component {
         <ALPlaceBox height={30}/>
         {/*显示设计师*/}
         <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
-          <h2>设计师/开发者推荐</h2>
+          <h2 style={isMobile ? {marginLeft:  "20px"} : {}}>设计师/开发者推荐</h2>
           <ShowDesigner/>
         </div>
 

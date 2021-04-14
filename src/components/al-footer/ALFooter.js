@@ -8,7 +8,7 @@ function ALFooter(props) {
   const {isMobile} = props;
   return (
     <div id="al-footer" className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
-      <ALFlexBox centerVH className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
+      <ALFlexBox centerV className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
         <div>
           <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')} />
         </div>
