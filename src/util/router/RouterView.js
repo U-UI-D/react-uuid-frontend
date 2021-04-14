@@ -10,6 +10,23 @@ import {ActionTypes} from "../../store/action-types";
 
 
 function RouterView(props){
+
+  const setIsMobile = (width) => {
+    console.warn('test-> rv props', props, props);
+    if (width < 768 && props) {
+      props.updateIsMobile(true);
+    }else {
+      if (props) {
+        props.updateIsMobile(false);
+      }
+    }
+  }
+  window.addEventListener('load', () => {
+    setIsMobile(window.outerWidth);
+  });
+  window.addEventListener('resize', () => {
+    setIsMobile(window.outerWidth);
+  });
   // debugger;
   console.warn("router-view window.location", window.location);
   let devMode = window.location.host.includes('dev');
@@ -19,7 +36,7 @@ function RouterView(props){
   }
   console.warn('store runMode', props.appRunMode);
 
-  const {isLogin} = props;
+  const {isLogin, isMobile} = props;
 
 
   return (
@@ -80,6 +97,7 @@ function RouterView(props){
 const mapStateToProps = (state) => {
   return {
     isLogin: state.isLogin,
+    isMobile: state.isMobile,
     appRunMode: state.appRunMode
   }
 }
@@ -88,6 +106,13 @@ const mapDispatchToProps = (dispatch) => {
     updateRunMode(data){
       let action = {
         type: ActionTypes.common.UPDATE_RUN_MODE,
+        value: data
+      }
+      dispatch(action);
+    },
+    updateIsMobile(data){
+      let action = {
+        type: ActionTypes.common.UPDATE_IS_MOBILE,
         value: data
       }
       dispatch(action);

@@ -5,6 +5,7 @@ let initState = {
   isLogin: false,
   name: "AlanLee",
   currentHeaderTitle: '首页',
+  isMobile: false,
   appRunMode: 'prod'
 };
 
@@ -41,6 +42,10 @@ export function reducer(state = initState, action) {
     console.log("newState", newState);
   }
 
+  if (action.type === ActionTypes.common.UPDATE_IS_MOBILE){
+    newState.isMobile = action.value;
+    console.log("newState", newState);
+  }
   sessionStorage.setItem("store", JSON.stringify(newState));
 
   return newState;

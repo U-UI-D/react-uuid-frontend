@@ -4,10 +4,11 @@ import {Avatar, Carousel, message} from "antd";
 import {ApiConst} from "../../../../util/network/config/ApiConst";
 import {ALImage} from "../../../../components/al-component";
 import {RouterConst} from "../../../../util/router/config/RouterConst";
+import {connect} from "react-redux";
 
 function ShowCarousel(props) {
 
-  const {history} = props;
+  const {history, isMobile} = props;
   const [carouselList, setCarouselList] = useState([]);
   useEffect(() => {
     getCarouselList();
@@ -32,6 +33,7 @@ function ShowCarousel(props) {
     }
   }
 
+
   return (
     <Carousel autoplay>
       {
@@ -43,7 +45,7 @@ function ShowCarousel(props) {
                     history.push(createUrl({type: item.type, link: item.link}))
                   }
                 }}>
-                  <ALImage src={item.imgUrl} height={350} width={1180} fit={""}/>
+                  <ALImage src={item.imgUrl} height={isMobile ? 160 : 350}  fit={""}/>
                 </a>
               </div>
             );
@@ -53,4 +55,10 @@ function ShowCarousel(props) {
   );
 }
 
-export default ShowCarousel;
+const mapStateToProps = state => {
+  return {
+    isMobile: state.isMobile,
+  }
+}
+
+export default connect(mapStateToProps)(ShowCarousel);

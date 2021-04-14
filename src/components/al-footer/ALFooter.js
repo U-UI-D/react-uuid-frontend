@@ -1,11 +1,14 @@
 import React from "react";
 import {Avatar} from "antd";
 import "./style.css";
+import {connect} from "react-redux";
+import {ALFlexBox} from "../al-component";
 
-function ALFooter() {
+function ALFooter(props) {
+  const {isMobile} = props;
   return (
-    <div id="al-footer" className="footer">
-      <div className="al-flex-container al-flex-container-center-v content-width">
+    <div id="al-footer" className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
+      <ALFlexBox centerVH className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
         <div>
           <Avatar size={100} src={require('../../assets/icon/common/UUID2.png')} />
         </div>
@@ -19,10 +22,16 @@ function ALFooter() {
             <div>关于我们</div>
           </div>
         </div>
-      </div>
+      </ALFlexBox>
     </div>
 
   );
 }
 
-export default ALFooter;
+const mapStateToProps = (state) => {
+  return {
+    isMobile: state.isMobile
+  }
+}
+
+export default connect(mapStateToProps)(ALFooter);

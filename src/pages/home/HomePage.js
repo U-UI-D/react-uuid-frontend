@@ -95,10 +95,12 @@ class HomePage extends React.Component {
   //渲染函数
   render() {
 
+    const {isMobile} = this.props;
+
     return (
       <div>
         <div className="al-bg-color-white">
-          <div className="content-width al-p-tb-20px">
+          <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
             {/*轮播图*/}
             <ShowCarousel history={this.props.history} />
           </div>
@@ -124,21 +126,21 @@ class HomePage extends React.Component {
         </div>
 
 
-        <div className="content-width al-p-tb-20px">
+        <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
           {/*作品列表*/}
           <ALPlaceBox height={20}/>
-          <div style={{marginLeft: "15px"}}>
+          <div style={{marginLeft: isMobile ? null : "15px"}}>
             {
               this.state.workData === null ?
                 <ALLoading show height={200}/>
                 :
-                <ALFlexBox wrap margin={-15}>
+                <ALFlexBox centerVH={isMobile} wrap margin={isMobile ? 0 : -15}>
                   {
                     this.state.workData.list.map((item, index) => {
                       return (
                         <div key={index} onClick={() => {
                           this.goPage(PATH_WORK_UI_DETAIL + "/" + item.id)
-                        }}>
+                        }} className={`${isMobile ? "al-width-96" : ""}`}>
                           <ShowWorkBox workInfo={item}/>
                         </div>
                       )
@@ -167,8 +169,9 @@ class HomePage extends React.Component {
         </div>
 
         {/*即刻作品*/}
+{/*
         <div style={{backgroundColor: "#e9eef2"}} className="al-p-tb-30px">
-          <div className="content-width">
+          <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
             <h2>热门即刻</h2>
             <div className="al-m-top-20px">
               <div className="al-flex-container al-flex-justify-space-between">
@@ -181,10 +184,11 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
+*/}
 
         <ALPlaceBox height={30}/>
         {/*显示设计师*/}
-        <div className="content-width">
+        <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
           <h2>设计师/开发者推荐</h2>
           <ShowDesigner/>
         </div>
@@ -253,7 +257,8 @@ class HomePage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentHeaderTitle: state.currentHeaderTitle
+    currentHeaderTitle: state.currentHeaderTitle,
+    isMobile: state.isMobile
   }
 }
 

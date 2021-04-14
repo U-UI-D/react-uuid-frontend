@@ -1,6 +1,7 @@
 import React from "react";
 import {Avatar, Tag} from "antd";
 import "./style.css"
+import {connect} from "react-redux";
 
 class ShowWorkBox extends React.Component {
 
@@ -15,12 +16,18 @@ class ShowWorkBox extends React.Component {
   // 渲染函数
   render() {
     const workInfo = this.props.workInfo;
+    const {isMobile} = this.props;
     return (
-        <div className="work-box al-m-bottom-10px al-p-10px al-cursor-pointer"
-             style={{width: 283.75+'px', marginRight: "15px", marginBottom: "15px"}} onClick={this.props.onClick}>
+        <div className={`work-box al-m-bottom-10px al-p-10px al-cursor-pointer ${isMobile ? "work-box-shadow" : ""}`}
+             style={{
+               width: isMobile ? "100%" : 283.75+'px',
+               marginRight: "15px",
+               marginBottom: "15px",
+               backgroundColor: isMobile ? "#fff" : ""
+             }} onClick={this.props.onClick}>
           <Avatar shape="square" src={workInfo.poster}
                   style={{
-                    width: 262.5 + 'px', height: 193 + 'px'}}/>
+                    width: isMobile ? "100%" : 262.5 + 'px', height: isMobile ? "100%" : 193 + 'px'}}/>
           <div className="desc" style={{lineHeight: "3em"}}>
             <h4 className="al-font-weight-bold" style={{lineHeight: 1.5}}>{workInfo.title}</h4>
             <div className="al-flex-container">
@@ -66,4 +73,10 @@ class ShowWorkBox extends React.Component {
 
 }
 
-export default ShowWorkBox;
+const mapStateToProps = state => {
+  return {
+    isMobile: state.isMobile,
+  }
+}
+
+export default connect(mapStateToProps)(ShowWorkBox);

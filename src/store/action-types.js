@@ -1,6 +1,7 @@
 export const ActionTypes = {
   common: {
-    UPDATE_RUN_MODE: "updateRunMode"
+    UPDATE_RUN_MODE: "updateRunMode",
+    UPDATE_IS_MOBILE: "updateIsMobile",
   },
   user: {
     UPDATE_LOGIN_STATE: "updateLoginState",
