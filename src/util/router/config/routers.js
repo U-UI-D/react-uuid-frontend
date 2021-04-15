@@ -1,22 +1,9 @@
 
 import {
-  PATH_DISCOVERY_PAGE,
-  PATH_HOME_PAGE,
-  PATH_LOGIN,
-  PATH_MATERIAL_PAGE,
-  PATH_MESSAGE_PAGE,
-  PATH_REGISTER,
-  PATH_SEARCH_PAGE,
   PATH_TEST_PAGE,
-  PATH_TOP_PAGE,
-  PATH_USER_PAGE,
-  PATH_USER_PROFILE_PAGE,
-  PATH_WORK_UI_DETAIL,
-  PATH_WORK_PAGE,
-  PATH_WORK_SOFTWARE_DETAIL, PATH_TOPIC_PAGE, RouterConst
+  RouterConst
 } from "./RouterConst";
 import LoginPage from "../../../pages/common/login/LoginPage";
-import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
 import WorkDetailPage from "../../../pages/work/page/detail/page/ui/UIWorkDetailPage";
@@ -27,7 +14,6 @@ import ShopPage from "../../../pages/shop/ShopPage";
 import UserProfilePage from "../../../pages/user/page/profile/UserProfilePage";
 import Demo from "../../../pages/test/demo/Demo";
 import TopPage from "../../../pages/top/TopPage";
-import DiscoveryPage from "../../../pages/discovery/DiscoveryPage";
 import MaterialPage from "../../../pages/material/MaterialPage";
 import SearchPage from "../../../pages/search/SearchPage";
 import MessagePage from "../../../pages/message/MessagePage";
@@ -40,20 +26,14 @@ import EditProfilePage from "../../../pages/user/page/edit-profile/EditProfilePa
 let routes = [
   {
     title: "UUID | UI设计师与软件开发者交流合作平台",
-    path: PATH_HOME_PAGE,
+    path: RouterConst.home.HOME_PAGE,
     component: HomePage,
     exact: true,
   },
   {
     title: "登录",
-    path: PATH_LOGIN,
+    path: RouterConst.user.LOGIN_PAGE,
     component: LoginPage,
-    exact: true
-  },
-  {
-    title: "注册",
-    path: PATH_REGISTER,
-    component: RegisterPage,
     exact: true
   },
   {
@@ -70,27 +50,26 @@ let routes = [
   },
   {
     title: "UI作品详情页",
-    // path: '/passage-list/passage-detail/:id',
-    path: PATH_WORK_UI_DETAIL + '/:id',
+    path: RouterConst.work.ui.DETAIL_PAGE + ':id',
     component: WorkDetailPage,
     exact: true
   },
   {
     title: "软件作品详情页",
-    path: PATH_WORK_SOFTWARE_DETAIL + '/:id',
+    path: RouterConst.work.software.DETAIL_PAGE + ':id',
     component: SoftwareDetailPage,
     exact: true
   },
   {
     title: "个人中心",
-    path: PATH_USER_PAGE + "/:id",
+    path: RouterConst.user.USER_PAGE + ":id",
     component: UserPage,
     exact: true,
     requireLogin: true,
   },
   {
     title: "用户资料页",
-    path: PATH_USER_PROFILE_PAGE + "/:id",
+    path: RouterConst.user.PROFILE_PAGE + ":id",
     component: UserProfilePage,
     exact: true,
     requireLogin: true,
@@ -122,14 +101,8 @@ let routes = [
   },
   {
     title: "排行榜",
-    path: PATH_TOP_PAGE,
+    path: RouterConst.top.TOP_PAGE,
     component: TopPage,
-    exact: true
-  },
-  {
-    title: "发现",
-    path: PATH_DISCOVERY_PAGE,
-    component: DiscoveryPage,
     exact: true
   },
   {

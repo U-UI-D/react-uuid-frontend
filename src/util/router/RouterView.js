@@ -4,7 +4,7 @@ import routes from "./config/routers";
 import ALHeader from "../../components/al-header/ALHeader";
 import {ALFooter} from "../../components/al-component";
 import {connect} from "react-redux";
-import NotFoundPage from "../../pages/common/NotFoundPage";
+import NotFoundPage from "../../pages/common/not-found/NotFoundPage";
 import {message} from "antd";
 import {ActionTypes} from "../../store/action-types";
 
