@@ -12,7 +12,7 @@ import {ActionTypes} from "../../store/action-types";
 function RouterView(props){
 
   const setIsMobile = (width) => {
-    console.warn('test-> rv props', props, props);
+    // console.warn('test-> rv props', props, props);
     if (width < 768 && props) {
       props.updateIsMobile(true);
     }else {

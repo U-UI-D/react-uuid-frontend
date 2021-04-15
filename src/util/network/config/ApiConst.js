@@ -72,6 +72,10 @@ export const ApiConst = {
     LOGOUT: "/sso/sso/logout",
 
     base: {
+      get: {
+        GET_USERINFO_BY_TOKEN: "/sso/sso/",
+        GET_USER_IS_EXIST: "/user/user/u/",
+      },
       put: {
         PUT_USER_INFO: "/user/user",
         PUT_BASE_USER_INFO: "/user/user/base",

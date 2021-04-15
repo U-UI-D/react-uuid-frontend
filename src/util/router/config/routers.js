@@ -15,7 +15,7 @@ import {
   PATH_WORK_PAGE,
   PATH_WORK_SOFTWARE_DETAIL, PATH_TOPIC_PAGE, RouterConst
 } from "./RouterConst";
-import LoginPage from "../../../pages/common/LoginPage";
+import LoginPage from "../../../pages/common/login/LoginPage";
 import RegisterPage from "../../../pages/common/RegisterPage";
 import HomePage from "../../../pages/home/HomePage";
 import WorkPage from "../../../pages/work/WorkPage";
