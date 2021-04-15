@@ -36,7 +36,7 @@ UI中国网站（ui.cn）和站酷网站（zcool.cn）上有许多UI设计者们
 
 ## 功能点
 
-![UUID](https://gitee.com/AlanLee97/assert/raw/master/note_images/UUID.png)
+![UUID](https://gitee.com/AlanLee97/public-asset/raw/master/note_images/UUID.png)
 
 ## 技术选型
 
