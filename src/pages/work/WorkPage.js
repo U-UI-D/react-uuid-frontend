@@ -1,14 +1,11 @@
 import React from "react";
-import {Empty, Affix, Pagination, message} from "antd";
-import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
 import {commonRequest} from "../../util/network/RequestHub";
-import {PATH_WORK_SOFTWARE_DETAIL, PATH_WORK_UI_DETAIL} from "../../util/router/config/RouterConst";
 import {ApiConst, GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
 import "./style.css"
-import TitleList from "./component/title-list/TitleList";
-import {ALFlexBox, ALInlineWidthBox, ALLoading, ALPlaceBox} from "../../components/al-component";
 import {HttpRequest} from "../../util/network/request";
-import {WorkPageContext} from "./context/WorkPageContext";
+import WorkPageView from "./WorkPageView";
+import {connect} from "react-redux";
+import {WorkService} from "../../service/work/WorkService";
 
 class WorkPage extends React.Component {
   //构造器
@@ -18,7 +15,6 @@ class WorkPage extends React.Component {
     this.state = {
       workData: null,
       loading: true,
-      // pagination
       currentPageNum: 1,
       currentPageSize: 20,
       total: 0,
@@ -29,93 +25,15 @@ class WorkPage extends React.Component {
   //渲染函数
   render() {
     const {workData, workType} = this.state;
+    const {isMobile} = this.props;
     return (
-      <WorkPageContext.Provider value={this.state}>
-        <div>
-          <Affix>
-            <TitleList onChange={this.handleTitleListChange} />
-          </Affix>
-
-          <div>
-            <div className="content-width">
-
-              {/*作品列表*/}
-              <ALPlaceBox height={20}/>
-              <div style={{marginLeft: "15px"}}>
-                {
-                  workData === null ?
-                    (
-                      <ALLoading show height={200}/>
-                    )
-                    :
-                    (
-                      workData.total === 0 ?
-                        <div>
-                          <Empty />
-                        </div>
-                        :
-                        <ALFlexBox wrap margin={-15}>
-                          {
-                            workData.list && workData.list.map((item, index) => {
-                              return (
-                                <div key={index} onClick={() => {
-                                  this.goPage((workType === 'UI作品' ? PATH_WORK_UI_DETAIL : PATH_WORK_SOFTWARE_DETAIL) + "/" + item.id);
-                                }}>
-                                  <ShowWorkBox workInfo={item}/>
-                                </div>
-                              )
-                            })
-                          }
-                        </ALFlexBox>
-                    )
-                }
-
-                {/*分页*/}
-                <ALFlexBox centerH className="al-m-tb-20px">
-                  {
-
-                    <ALInlineWidthBox>
-                      <Pagination current={this.state.currentPageNum}
-                                  total={this.state.total}
-                                  defaultPageSize={this.state.currentPageSize}
-                                  pageSizeOptions={["20", "40", "60", "80", "100"]}
-                                  hideOnSinglePage
-                                  onShowSizeChange={(pageNum, pageSize) => {
-                                    console.log("pageNum", pageNum);
-                                    console.log("pageSize", pageSize);
-                                    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
-                                      this.setState({
-                                        currentPageNum: pageNum,
-                                        total: res.data.total,
-                                        workData: res.data
-                                      })
-                                    });
-                                  }}
-                                  onChange={(pageNum, pageSize) => {
-                                    console.log("pageNum", pageNum);
-                                    console.log("pageSize", pageSize);
-                                    this.setState({
-                                      workData: null
-                                    });
-                                    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
-                                      this.setState({
-                                        currentPageNum: pageNum,
-                                        total: res.data.total,
-                                        workData: res.data
-                                      })
-                                    });
-                                  }}/>
-
-                    </ALInlineWidthBox>
-                  }
-                </ALFlexBox>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </WorkPageContext.Provider>
+      <WorkPageView workData={workData}
+                    workType={workType}
+                    isMobile={isMobile}
+                    goPage={this.goPage}
+                    handleTitleListChange={this.handleTitleListChange}
+                    onShowSizeChange={this.onShowSizeChange}
+                    handlePageChange={this.handlePageChange} />
     );
   }
 
@@ -145,6 +63,16 @@ class WorkPage extends React.Component {
         })
       }
     })
+
+    // WorkService.getUIWorkData({url, data}).then(res => {
+    //   this.setState({
+    //     workData: res,
+    //     loading: false,
+    //     total: res.total || 0
+    //   })
+    // }).catch(err => {
+    //
+    // });
   }
 
   goPage = (path, data = {}) => {
@@ -162,8 +90,7 @@ class WorkPage extends React.Component {
       let orderBy = this.handleSecondTitleForOrderBy(data.secondTitle);
       url = `${ApiConst.work.ui.get.GET_ALL}?orderBy=${orderBy}&pageNum=${currentPageNum}&pageSize=${currentPageSize}&typename=${typename}`;
     }else {
-      url = GET_WORK_SOFTWARE_ALL;
-      // param.typename = data.secondTitle;
+      url = ApiConst.work.software.get.GET_ALL;
       param.finished = data.secondTitle === '成品' ? '1' : '0';
     }
     this.getWorkData(url, {...param});
@@ -190,6 +117,39 @@ class WorkPage extends React.Component {
     }
   }
 
+  onShowSizeChange = (pageNum, pageSize) => {
+    console.log("pageNum", pageNum);
+    console.log("pageSize", pageSize);
+    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
+      this.setState({
+        currentPageNum: pageNum,
+        total: res.data.total,
+        workData: res.data
+      })
+    });
+  }
+
+  handlePageChange = (pageNum, pageSize) => {
+    console.log("pageNum", pageNum);
+    console.log("pageSize", pageSize);
+    this.setState({
+      workData: null
+    });
+    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
+      this.setState({
+        currentPageNum: pageNum,
+        total: res.data.total,
+        workData: res.data
+      })
+    });
+  }
+
 }
 
-export default WorkPage;
+const mapStateToProps = state => {
+  return {
+    isMobile: state.isMobile,
+  }
+}
+
+export default connect(mapStateToProps)(WorkPage);

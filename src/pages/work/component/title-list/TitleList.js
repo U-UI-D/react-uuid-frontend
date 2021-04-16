@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./style.css";
+import "./style.scss";
 
 function TitleList(props) {
   let titleList = ['全部', 'UI作品', '软件作品'];
