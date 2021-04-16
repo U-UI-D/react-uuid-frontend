@@ -31,11 +31,22 @@
 
     .top-bar {
         margin: 20px;
+
+        @media screen and (max-width: 768px){
+            h1, h2{
+                font-size: 1rem;
+            }
+        }
         .platform-title {
             h2 {
                 font-weight: 200;
             }
         }
+    }
+
+    .poster-image-mobile {
+        position: absolute;
+        bottom: 0;
     }
 
     .ant-card {

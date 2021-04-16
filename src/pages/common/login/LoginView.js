@@ -2,15 +2,16 @@ import {Avatar, Button, Card, Divider, Input, Space} from "antd";
 import {ALFlexBox} from "../../../components/al-component";
 import React from "react";
 import {RouterConst} from "../../../util/router/config/RouterConst";
+import {connect} from "react-redux";
 
 function TopBar(props) {
-  const {history} = props;
+  const {history, isMobile} = props;
   return (
     <div className="top-bar">
       <ALFlexBox centerV>
         <Avatar src={require('../../../assets/icon/common/UUID2.png')}
                 className="al-cursor-pointer"
-                size={60}
+                size={isMobile ? 45 : 60}
                 onClick={() => {
                   history.push(RouterConst.home.HOME_PAGE)
                 }}/>
@@ -24,8 +25,8 @@ function TopBar(props) {
   );
 }
 
-export default function(props) {
-  const {history, noTitleKey, currentKey} = props;
+function LoginView(props) {
+  const {history, noTitleKey, currentKey, isMobile} = props;
   const {onTabChange, handleChangeForUsername, handleChangeForPassword, register, login} = props;
   const tabListNoTitle = [
     {
@@ -64,24 +65,38 @@ export default function(props) {
     register: formBox({mode: 'register'}),
   };
 
+  const image = (
+    <div style={{flex: 1}}>
+      <div className={`${isMobile ? 'poster-image-mobile' : "al-position-fixed"}`}>
+        <img src={require('./bg.png')} width={ isMobile ? "100%" : "56%"} alt=""/>
+      </div>
+    </div>
+  );
+
   return (
     <div className="login-page">
-      <ALFlexBox>
-        <div style={{flex: 1}}>
-          <div className="al-position-fixed">
-            <img src={require('./bg.png')} width={"56%"} alt=""/>
-          </div>
-        </div>
+      <ALFlexBox column={isMobile}>
+        {isMobile ? null : image}
 
         <div style={{flex: 2}}>
-          <TopBar history={history}/>
+          <TopBar history={history} isMobile={isMobile}/>
           <div className="al-position-rela al-width-100">
             <div className="al-position-abs al-flex-container-center-vh" style={{
               left: 0,
               right: 0,
             }}>
               <Card
-                style={{width: '450px', padding: "21px", marginTop: '60px'}} bordered={false}
+                style={isMobile ? {
+                  width: '80%',
+                  padding: "12px",
+                  marginTop: '60px',
+                  zIndex: 100
+                } : {
+                  width: '450px',
+                  padding: "21px",
+                  marginTop: '60px'
+                }}
+                bordered={false}
                 tabList={tabListNoTitle}
                 activeTabKey={noTitleKey}
                 onTabChange={key => {
@@ -93,7 +108,17 @@ export default function(props) {
             </div>
           </div>
         </div>
+
+        {!isMobile ? null : image}
       </ALFlexBox>
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    isMobile: state.isMobile
+  }
+}
+
+export default connect(mapStateToProps)(LoginView);
