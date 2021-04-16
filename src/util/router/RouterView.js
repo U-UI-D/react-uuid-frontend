@@ -8,11 +8,8 @@ import NotFoundPage from "../../pages/common/not-found/NotFoundPage";
 import {message} from "antd";
 import {ActionTypes} from "../../store/action-types";
 
-
 function RouterView(props){
-
   const setIsMobile = (width) => {
-    // console.warn('test-> rv props', props, props);
     if (width < 768 && props) {
       props.updateIsMobile(true);
     }else {
@@ -22,22 +19,18 @@ function RouterView(props){
     }
   }
   window.addEventListener('load', () => {
-    setIsMobile(window.outerWidth);
+    setIsMobile(window.innerWidth);
   });
   window.addEventListener('resize', () => {
-    setIsMobile(window.outerWidth);
+    setIsMobile(window.innerWidth);
   });
-  // debugger;
-  console.warn("router-view window.location", window.location);
+
   let devMode = window.location.host.includes('dev');
-  console.warn("devMode", devMode);
   if (devMode) {
     props.updateRunMode('dev');
   }
-  console.warn('store runMode', props.appRunMode);
 
-  const {isLogin, isMobile} = props;
-
+  const {isLogin} = props;
 
   return (
     <Router>
@@ -97,7 +90,6 @@ function RouterView(props){
 const mapStateToProps = (state) => {
   return {
     isLogin: state.isLogin,
-    isMobile: state.isMobile,
     appRunMode: state.appRunMode
   }
 }

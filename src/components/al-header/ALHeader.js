@@ -75,8 +75,8 @@ class ALHeader extends React.Component {
   render() {
 
     let isLoginDiv;
-    const {userInfo, isLogin} = this.props;
-    const {isMobile, menuBg} = this.state;
+    const {userInfo, isLogin, isMobile} = this.props;
+    const {menuBg} = this.state;
 
     const uploadDropdownMenu = (
       <div style={{color: this.props.color ?? "#000"}}>
@@ -237,18 +237,17 @@ class ALHeader extends React.Component {
 
   //组件挂载完成时调用
   componentDidMount() {
-    window.addEventListener('resize', () => {
-      console.warn("test-> 窗口大小变化了", window.outerWidth);
-      if (window.outerWidth < 768) {
-        this.setState({
-          isMobile: true
-        })
-      }else {
-        this.setState({
-          isMobile: false
-        })
-      }
-    });
+    // window.addEventListener('resize', () => {
+    //   if (window.innerWidth < 768) {
+    //     this.setState({
+    //       isMobile: true
+    //     })
+    //   }else {
+    //     this.setState({
+    //       isMobile: false
+    //     })
+    //   }
+    // });
   }
 
   //组件卸载前调用
@@ -307,6 +306,7 @@ const mapStateToProps = (state) => {
   return {
     isLogin: state.isLogin,
     userInfo: state.userInfo,
+    isMobile: state.isMobile,
     currentHeaderTitle: state.currentHeaderTitle
   }
 }
