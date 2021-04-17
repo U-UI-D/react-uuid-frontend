@@ -1,11 +1,68 @@
 import React from "react";
-import {commonRequest} from "../../util/network/RequestHub";
-import {ApiConst, GET_WORK_SOFTWARE_ALL, GET_WORK_UI_ALL} from "../../util/network/config/ApiConst";
-import "./style.css"
-import {HttpRequest} from "../../util/network/request";
-import WorkPageView from "./WorkPageView";
+import {ApiConst} from "../../util/network/config/ApiConst";
 import {connect} from "react-redux";
 import {WorkService} from "../../service/work/WorkService";
+import {Affix, Empty, message, Pagination} from "antd";
+import {WorkPageContext} from "./context/WorkPageContext";
+import TitleList from "./component/title-list/TitleList";
+import {ALFlexBox, ALLoading, ALPlaceBox} from "../../components/al-component";
+import {RouterConst} from "../../util/router/config/RouterConst";
+import ShowWorkBox from "./component/show-work-box/ShowWorkBox";
+import './style.scss'
+
+
+function View(props) {
+  const {isMobile, workData, workType, currentPageNum, currentPageSize, total} = props;
+  const {goPage, handleTitleListChange, onShowSizeChange, handlePageChange} = props;
+  return (
+    <WorkPageContext.Provider value={props}>
+      <div className="work-page-view">
+        <Affix>
+          <TitleList onChange={handleTitleListChange} />
+        </Affix>
+
+        {/*作品列表*/}
+        <div className={`al-p-tb-20px ${isMobile ? "": "content-width"}`}>
+          <ALPlaceBox height={10}/>
+          <div style={{marginLeft: isMobile ? null : "15px"}}>
+            {
+              workData === null ? <ALLoading show height={200}/>
+                :
+                (
+                  workData.total === 0 ? <Empty /> :
+                    <ALFlexBox centerVH={isMobile} wrap margin={isMobile ? 0 : -15}>
+                      {
+                        workData.list && workData.list.map((item, index) => {
+                          return (
+                            <div key={index} onClick={() => {
+                              goPage((workType === 'UI作品' ? RouterConst.work.ui.DETAIL_PAGE : RouterConst.work.software.DETAIL_PAGE) + item.id);
+                            }} className={`${isMobile ? "al-width-96" : ""}`}>
+                              <ShowWorkBox workInfo={item}/>
+                            </div>
+                          )
+                        })
+                      }
+                    </ALFlexBox>
+                )
+            }
+          </div>
+
+          {/*分页*/}
+          <ALFlexBox centerH className="al-m-tb-20px">
+            <Pagination current={currentPageNum}
+                        total={total}
+                        defaultPageSize={currentPageSize}
+                        pageSizeOptions={["20", "40", "60", "80", "100"]}
+                        hideOnSinglePage
+                        onShowSizeChange={onShowSizeChange}
+                        onChange={handlePageChange}/>
+          </ALFlexBox>
+        </div>
+      </div>
+    </WorkPageContext.Provider>
+  );
+}
+
 
 class WorkPage extends React.Component {
   //构造器
@@ -24,15 +81,12 @@ class WorkPage extends React.Component {
 
   //渲染函数
   render() {
-    const {workData, workType} = this.state;
-    const {isMobile} = this.props;
     return (
-      <WorkPageView workData={workData}
-                    workType={workType}
-                    isMobile={isMobile}
+      <View {...this.state}
+                    {...this.props}
                     goPage={this.goPage}
                     handleTitleListChange={this.handleTitleListChange}
-                    onShowSizeChange={this.onShowSizeChange}
+                    onShowSizeChange={this.handlePageChange}
                     handlePageChange={this.handlePageChange} />
     );
   }
@@ -50,29 +104,16 @@ class WorkPage extends React.Component {
 
   //获取作品列表
   getWorkData = (url=ApiConst.work.ui.get.GET_ALL, data = {}) => {
-    HttpRequest.get({
-      url: url,
-      data: data,
-      env: 'dev'
-    }).then(res => {
-      if (res.err === null) {
-        this.setState({
-          workData: res.data.data,
-          loading: false,
-          total: res.data.data.total || 0
-        })
-      }
-    })
-
-    // WorkService.getUIWorkData({url, data}).then(res => {
-    //   this.setState({
-    //     workData: res,
-    //     loading: false,
-    //     total: res.total || 0
-    //   })
-    // }).catch(err => {
-    //
-    // });
+    WorkService.getUIWorkData({url, data, pageNum: data.pageNum, pageSize: data.pageSize}).then(res => {
+      console.warn('test-> WorkPage.getWorkData', res);
+      this.setState({
+        workData: res,
+        loading: false,
+        total: res.total || 0
+      })
+    }).catch(err => {
+      message.warning("数据获取失败");
+    });
   }
 
   goPage = (path, data = {}) => {
@@ -117,31 +158,12 @@ class WorkPage extends React.Component {
     }
   }
 
-  onShowSizeChange = (pageNum, pageSize) => {
-    console.log("pageNum", pageNum);
-    console.log("pageSize", pageSize);
-    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize}}).then(res => {
-      this.setState({
-        currentPageNum: pageNum,
-        total: res.data.total,
-        workData: res.data
-      })
-    });
-  }
-
   handlePageChange = (pageNum, pageSize) => {
-    console.log("pageNum", pageNum);
-    console.log("pageSize", pageSize);
     this.setState({
+      loading: true,
       workData: null
     });
-    commonRequest({url: GET_WORK_UI_ALL, data: {pageNum, pageSize: 20}}).then(res => {
-      this.setState({
-        currentPageNum: pageNum,
-        total: res.data.total,
-        workData: res.data
-      })
-    });
+    this.getWorkData(null, {pageNum, pageSize});
   }
 
 }

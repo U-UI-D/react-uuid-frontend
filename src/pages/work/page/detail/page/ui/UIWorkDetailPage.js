@@ -1,16 +1,72 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import UIWorkContent from "./component/work-content/UIWorkContent";
-import {Affix, message, Anchor } from "antd";
-import {ApiConst, GET_WORK_UI_BY_ID} from "../../../../../../util/network/config/ApiConst";
-import {ALFlexBox} from "../../../../../../components/al-component";
+import {Affix, message} from "antd";
+import {ALFlexBox} from "@components/al-component";
 import HoverBox from "../../component/HoverBox";
 import {connect} from "react-redux";
 import InfoTopBar from "./component/info-top-bar";
 import {WorkDetailContext} from "../../context/WorkDetailContext";
-import RightBottomBar from "./component/right-bottom-bar";
-import {HttpRequest} from "../../../../../../util/network/request";
-import {ActionTypes} from "../../../../../../store/action-types";
+import {ActionTypes} from "@store/action-types";
+import {WorkService} from "@service/work/WorkService";
+
+
+function View(props) {
+  const {workData, history, scrollTop, hoverBoxData} = props;
+  const {handleChangeForHoverBox, handleBackToTop} = props;
+
+  const backTopData = {
+    icon0: require("../../../../../../assets/icon/common/top1.png"),
+    icon1: require("../../../../../../assets/icon/common/top1.png"),
+  };
+
+  const jsx = (
+    <div className="ui-work-detail-view">
+      {/*向下滚动后再顶部显示用户信息*/}
+      <div style={{backgroundColor: "#fff"}}>
+        {
+          workData &&
+          <div hidden={scrollTop <= 70}>
+            <InfoTopBar workData={workData} history={history} />
+          </div>
+        }
+      </div>
+
+      {/*显示内容*/}
+      <div className="content-width" style={{marginTop: '20px'}}>
+        <UIWorkContent workData={workData} history={history}/>
+      </div>
+
+      {/*右侧点赞、收藏、评论、返回顶部的按钮*/}
+      <Affix offsetBottom={50} className="al-float-right">
+        <ALFlexBox column width={60} className="al-m-right-40px">
+          {
+            hoverBoxData.map((item, index) => {
+              return (
+                <div key={index}>
+                  <HoverBox data={item}
+                            isChangeNum={item.title !== '评论'}
+                            showFloatDot={item.title !== '评论'}
+                            onChange={handleChangeForHoverBox}
+                            />
+                </div>
+              );
+            })
+          }
+
+          <HoverBox style={{visibility: scrollTop > 70 ? "" : "hidden"}}
+                    data={backTopData} onClick={handleBackToTop}/>
+        </ALFlexBox>
+      </Affix>
+    </div>
+  );
+
+  return workData && (
+    <WorkDetailContext.Provider value={{...props}}>
+      {jsx}
+    </WorkDetailContext.Provider>
+  );
+}
 
 class UIWorkDetailPage extends React.Component {
   //构造器
@@ -67,77 +123,10 @@ class UIWorkDetailPage extends React.Component {
 
   //渲染函数
   render() {
-
-    console.warn("test->history", this.props.history)
-    const {workData} = this.state;
-    const {Link} = Anchor;
-
-    const backTopData = {
-      icon0: require("../../../../../../assets/icon/common/top1.png"),
-      icon1: require("../../../../../../assets/icon/common/top1.png"),
-    };
-
-    const jsx = (
-      <div>
-        {/*向下滚动后再顶部显示用户信息*/}
-        <div style={{backgroundColor: "#fff"}}>
-          {
-            workData === null ? <></> :
-              (
-                // 向下滚动后在顶部显示用户信息
-                <div hidden={this.state.scrollTop <= 70}>
-                  <InfoTopBar workData={workData} history={this.props.history} />
-                </div>
-              )
-          }
-        </div>
-
-        {/*显示内容*/}
-        <div>
-          <div className="content-width" style={{marginTop: '20px'}}>
-            <UIWorkContent workData={this.state.workData} history={this.props.history}/>
-          </div>
-        </div>
-
-        {/*右侧点赞、收藏、评论、返回顶部的按钮*/}
-        <Affix offsetBottom={50} className="al-float-right">
-          <ALFlexBox column width={60} className="al-m-right-40px">
-            {
-              this.state.hoverBoxData.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <HoverBox data={item}
-                              isChangeNum={item.title !== '评论'}
-                              showFloatDot={item.title !== '评论'}
-                              onChange={this.handleChangeForHoverBox}
-                              onClick={() => {
-                                console.log("点击了" + item.title);
-                              }}/>
-                  </div>
-                );
-              })
-            }
-
-            {
-              <HoverBox style={{visibility: this.state.scrollTop > 70 ? "" : "hidden"}}
-                        data={backTopData} onClick={this.handleBackToTop}/>
-            }
-
-          </ALFlexBox>
-        </Affix>
-{/*        <RightBottomBar handleChangeForHoverBox={this.handleChangeForHoverBox}
-                        handleBackToTop={this.handleBackToTop}
-                        scrollTop={this.state.scrollTop}
-        />*/}
-
-      </div>
-    );
-
-    return workData === null ? <></> : (
-
-      <WorkDetailContext.Provider value={{...this.state}}>
-        {jsx}
-      </WorkDetailContext.Provider>
+    return (
+      <View {...this.state} {...this.props}
+            handleBackToTop={this.handleBackToTop}
+            handleChangeForHoverBox={this.handleChangeForHoverBox}/>
     );
   }
 
@@ -217,44 +206,43 @@ class UIWorkDetailPage extends React.Component {
 
   // 获取作品
   getWorkDataById = () => {
-    HttpRequest.get({
-      url: ApiConst.work.ui.get.GET_BY_ID + this.props.match.params.id,
-      env: 'dev'
-    }).then(res => {
-      if (res.err === null) {
-        let {hoverBoxData, countData} = this.state;
-        let data = res.data.data;
-        hoverBoxData[0].num = countData.likeCount = data.likeCount;
-        hoverBoxData[1].num = countData.favorCount = data.favorCount;
-        hoverBoxData[2].num = countData.commentCount = data.commentCount;
+    let workId = this.props.match.params.id;
+    if (!workId) {
+      message.warning("没有作品ID");
+      return ;
+    }
+    WorkService.getUIWorkDataById(workId).then(res => {
+      let {hoverBoxData, countData} = this.state;
+      let data = res;
+      hoverBoxData[0].num = countData.likeCount = data.likeCount;
+      hoverBoxData[1].num = countData.favorCount = data.favorCount;
+      hoverBoxData[2].num = countData.commentCount = data.commentCount;
 
-        this.setState({
-          workData: res.data.data,
-          hoverBoxData: hoverBoxData,
-          countData
-        });
+      this.setState({
+        workData: res,
+        hoverBoxData: hoverBoxData,
+        countData
+      });
 
-        this.increaseLookCount();
-      }
+      this.increaseLookCount();
+    }).catch(err => {
+      message.warning("获取数据失败");
     })
   }
 
   // 增加浏览量
   increaseLookCount = () => {
     const {workData, userInfo} = this.state;
-    HttpRequest.put({
-      env: 'dev',
-      url: ApiConst.work.common.increase.lookCount,
-      data: {
-        userId: this.props.isLogin ? userInfo.id : null,
-        workId: workData.id,
-        workType: 'ui'
-      }
-    }).then(res => {
-      if (res.err === null) {
-        // this.setState({workData});
-      }
-    })
+    let data = {
+      userId: this.props.isLogin ? userInfo.id : null,
+      workId: workData.id,
+      workType: 'ui'
+    }
+    WorkService.increaseLookCount(data).then(res => {
+
+    }).catch(err => {
+      console.error("浏览量增加失败");
+    });
   }
 
   // TODO 增加点赞量
