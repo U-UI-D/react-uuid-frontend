@@ -1,6 +1,39 @@
 import React from "react";
 import {Avatar, Tooltip} from "antd";
 import PropTypes from "prop-types";
+import './style.scss';
+
+function View(props) {
+  let {activeColor, selected, num, data, showFloatDot, style} = props;
+  const {onClick, handleOnClick, onMouseEnter, onMouseLeave, onMouseDown} = props;
+
+  return (
+    <Tooltip title={data.title} color={"blue"} placement="left">
+      <div style={style} className="hover-box">
+        <div
+          className="al-border-capsule al-p-5px al-display-inline-block al-cursor-pointer al-m-bottom-20px al-box-shadow"
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onMouseDown={onMouseDown}
+          onClick={data.num !== undefined ? handleOnClick : onClick}
+          style={{backgroundColor: activeColor ? "rgb(225,239,255)" : "rgb(255,255,255)"}}>
+          {
+            selected ?
+              <Avatar src={(selected ? data.icon1 : data.icon0)} size={30}/>
+              :
+              <Avatar src={(activeColor ? data.icon1 : data.icon0)} size={30}/>
+          }
+        </div>
+
+        {
+          // 右上角的角标
+          showFloatDot &&
+          <span className="icon-num-box">{num > 99 ? "99+" : num}</span>
+        }
+      </div>
+    </Tooltip>
+  );
+}
 
 class HoverBox extends React.Component{
   constructor(props) {
@@ -18,70 +51,35 @@ class HoverBox extends React.Component{
     })
   }
 
-
   render() {
-
-    let {activeColor, selected, num} = this.state;
-
     return (
-      <Tooltip title={this.props.data.title} color={"blue"} placement="left">
-        <div style={this.props.style} className="al-position-rela">
-          <div
-            className="al-border-capsule al-p-5px al-display-inline-block al-cursor-pointer al-m-bottom-20px al-box-shadow"
-            onMouseEnter={() => {
-              this.setState({activeColor: true});
-            }}
-            onMouseLeave={() => {
-              this.setState({activeColor: false});
-            }}
-            onMouseDown={() => {
-              this.setState({selected: !this.state.selected});
-            }}
-            onClick={this.props.data.num === undefined ? this.props.onClick : () => {
-              if (this.props.isChangeNum){
-                this.setState({num: selected ? ++num : --num});
-              }
-              console.log("num", num);
-              this.props.onChange({title: this.props.data.title, num})
-            }}
-            style={{backgroundColor: activeColor ? "rgb(225,239,255)" : "rgb(255,255,255)"}}>
-            {
-              selected ?
-                <Avatar
-                  src={(selected ? this.props.data.icon1 : this.props.data.icon0)}
-                  size={30}/>
-                :
-                <Avatar
-                  src={(activeColor ? this.props.data.icon1 : this.props.data.icon0)}
-                  size={30}/>
-            }
-          </div>
+      <View {...this.state} {...this.props}
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}
+            onMouseDown={this.onMouseDown}
+            onClick={this.props.onClick}
+            handleOnClick={this.handleOnClick}
+      />
+    )
+  }
 
-          {
-            // 右上角的角标
-            this.props.showFloatDot ?
-              (
-                <div className="al-position-abs"
-                     style={{
-                       top: -6,
-                       right: 16,
-                       width: "20px",
-                       height: "20px",
-                       padding: "3px",
-                       fontSize: ".4rem",
-                       borderRadius: "50%",
-                       backgroundColor: "rgb(77,183,255, .2)",
-                       textAlign: "center"
-                     }}
-                >
-                  {num > 99 ? "99+" : num}
-                </div>
-              )
-              : <></>
-          }
-        </div>
-      </Tooltip>
-    );
+  onMouseEnter = () => {
+    this.setState({activeColor: true});
+  }
+  onMouseLeave = () => {
+    this.setState({activeColor: false});
+  }
+  onMouseDown = () => {
+    this.setState({selected: !this.state.selected});
+  }
+  handleOnClick = () => {
+    let {selected, num} = this.state;
+    const {onChange} = this.props;
+    if (this.props.isChangeNum){
+      this.setState({num: selected ? ++num : --num});
+    }
+    console.log("num", num);
+    onChange && onChange({title: this.props.data.title, num})
   }
 }
 

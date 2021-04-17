@@ -1,0 +1,16 @@
+.hover-box {
+  position: relative;
+
+  .icon-num-box {
+    position: absolute;
+    top: -6px;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    font-size: 0.4rem;
+    border-radius: 50%;
+    background-color: rgba(77, 183, 255, 0.2);
+    text-align: center
+  }
+}

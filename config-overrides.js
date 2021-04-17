@@ -7,6 +7,7 @@ module.exports = {
       '@store': resolve(__dirname, 'src/store'),
       '@service': resolve(__dirname, 'src/service'),
       '@components': resolve(__dirname, 'src/components'),
+      '@util': resolve(__dirname, 'src/util'),
     })
   )
 }

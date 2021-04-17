@@ -5,7 +5,7 @@ import {Affix, message} from "antd";
 import {ALFlexBox} from "@components/al-component";
 import HoverBox from "../../component/HoverBox";
 import {connect} from "react-redux";
-import InfoTopBar from "./component/info-top-bar";
+import InfoTopBar from "./component/info-top-bar/InfoTopBar";
 import {WorkDetailContext} from "../../context/WorkDetailContext";
 import {ActionTypes} from "@store/action-types";
 import {WorkService} from "@service/work/WorkService";

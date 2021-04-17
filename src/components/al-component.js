@@ -9,6 +9,7 @@ import ALLabelBox from "./al-label-box/ALLabelBox";
 import ALLoading from "./al-loading/ALLoading";
 import ALPlaceBox from "./al-place-box/ALPlaceBox";
 import ALTitleBox from "./al-title-box/ALTitleBox";
+import ALIcon from "./al-icon";
 
 export {
   ALFlexBox,
@@ -21,5 +22,6 @@ export {
   ALLabelBox,
   ALLoading,
   ALPlaceBox,
-  ALTitleBox
+  ALTitleBox,
+  ALIcon
 };
