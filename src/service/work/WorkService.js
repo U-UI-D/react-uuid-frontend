@@ -29,10 +29,37 @@ export class WorkService {
     return await promise;
   }
 
+  // 通过id获取ui作品数据
+  static async addUIWorkData(work) {
+    let promise = HttpRequest.post({
+      url: ApiConst.work.ui.post.POST_WORK,
+      data: work,
+      env: "dev",
+    }).then(res => {
+      if (res.err === null) {
+        return res.data.data
+      }
+    })
+    return await promise;
+  }
+
   // 获取软件作品数据
   static async getSoftwareWorkData({orderBy, pageNum=1, pageSize=20}) {
     let promise = HttpRequest.get({
       url: `${ApiConst.work.ui.get.GET_ALL}?orderBy=${orderBy}&pageNum=${pageNum}&pageSize=${pageSize}&typename=`,
+      env: "dev",
+    }).then(res => {
+      if (res.err === null) {
+        return res.data.data
+      }
+    })
+    return await promise;
+  }
+
+  // 获取作品类型列表
+  static async getWorkTypeList() {
+    let promise = HttpRequest.get({
+      url: ApiConst.work.type.GET_TYPE,
       env: "dev",
     }).then(res => {
       if (res.err === null) {

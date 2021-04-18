@@ -35,15 +35,12 @@ class LoginPage extends React.Component {
 
   //渲染函数
   render() {
-    const {noTitleKey, key} = this.state;
-    const {history} = this.props;
+
     return (
-      <LoginView handleChangeForUsername={this.handleChangeForUsername}
+      <LoginView {...this.state} {...this.props}
+                 handleChangeForUsername={this.handleChangeForUsername}
                  handleChangeForPassword={this.handleChangeForPassword}
                  onTabChange={this.onTabChange}
-                 noTitleKey={noTitleKey}
-                 currentKey={key}
-                 history={history}
                  register={() => this.register()}
                  login={() => this.login()} />
     );
@@ -92,7 +89,6 @@ class LoginPage extends React.Component {
     }
 
     UserService.login(data).then(res => {
-      console.log('test-> LoginPage login res', res);
       if (res) {
         setCookie("sso_token", res.token);
         this.getUserInfoByToken(res.token);
@@ -110,17 +106,15 @@ class LoginPage extends React.Component {
 
     UserService.getUserInfoByToken(token).then(res => {
       // 成功获取用户信息
-      if (res.err === null) {
-        message.success("登录成功");
-        this.props.updateUserInfo(res);
-        this.props.updateLoginState(true);
+      message.success("登录成功");
+      this.props.updateUserInfo(res);
+      this.props.updateLoginState(true);
 
-        // 跳转页面
-        if (from) {
-          this.goPage(from);
-        } else {
-          this.props.history.push(RouterConst.user.USER_PAGE + this.state.userInfo.id);
-        }
+      // 跳转页面
+      if (from) {
+        this.goPage(from);
+      } else {
+        this.props.history.push(RouterConst.user.USER_PAGE + this.props.userInfo.id);
       }
     });
   }
@@ -157,7 +151,6 @@ class LoginPage extends React.Component {
       password: this.state.password,
     };
     UserService.register(data).then(res => {
-      console.log("register result", res);
       if (res) {
         message.success("注册成功");
         this.goPage(RouterConst.user.EDIT_PROFILE_PAGE, {userInfo: res});

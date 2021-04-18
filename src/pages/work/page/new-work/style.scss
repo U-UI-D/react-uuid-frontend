@@ -1,0 +1,29 @@
+#work-publish-page{
+    .avatar-uploader > .ant-upload {
+        width: 240px;
+        height: 160px;
+    }
+
+    .ant-upload-list-picture-card .ant-upload-list-item{
+        float: left;
+        width: 240px;
+        height: 160px;
+        margin: 0 8px 8px 0;
+    }
+
+    .dot-red{
+        width: 8px;
+        height: 8px;
+        background-color: orangered;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .ant-upload-list-picture-card-container{
+        float: left;
+        width: auto;
+        height: auto;
+        margin: 0 8px 8px 0;
+    }
+}

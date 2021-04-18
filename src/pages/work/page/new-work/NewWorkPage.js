@@ -1,11 +1,25 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import WorkPublishLeftLayout from "./component/layout/left/WorkPublishLeftLayout";
 import WorkPublishRightLayout from "./component/layout/right/WorkPublishRightLayout";
-import {ALFlexBox} from "../../../../components/al-component";
+import {ALFlexBox} from "@components/al-component";
 import {connect} from "react-redux";
-import {ActionTypes} from "../../../../store/action-types";
+import {ActionTypes} from "@store/action-types";
 
+function View(props) {
+  const {currentTitle, history} = props;
+  const {handleChangeForTitle} = props;
+  return (
+    <div id="work-publish-page">
+      <div className="content-width al-p-tb-20px">
+        <ALFlexBox between>
+          <WorkPublishLeftLayout onChange={handleChangeForTitle}/>
+          <WorkPublishRightLayout title={currentTitle} history={history} />
+        </ALFlexBox>
+      </div>
+    </div>
+  );
+}
 
 class NewWorkPage extends React.Component {
   constructor(props) {
@@ -20,33 +34,19 @@ class NewWorkPage extends React.Component {
     this.props.updateCurrentHeaderTitle('上传');
   }
 
+  render() {
+    return (<View {...this.state} {...this.props} handleChangeForTitle={this.handleChangeForTitle} />);
+  }
+
   goPage = (path, data = {}) => {
     this.props.history.push({pathname: path, state: data})
   }
 
   handleChangeForTitle = (val) => {
-    console.log("WorkPublishLeftLayout", val);
     this.setState({
       currentTitle: val,
     })
   }
-
-
-
-  render() {
-
-    return (
-      <div id="work-publish-page">
-        <div className="content-width al-p-tb-20px">
-          <ALFlexBox between>
-            <WorkPublishLeftLayout onChange={this.handleChangeForTitle}/>
-            <WorkPublishRightLayout title={this.state.currentTitle} history={this.props.history} />
-          </ALFlexBox>
-        </div>
-      </div>
-    );
-  }
-
 }
 
 const mapStateToProps = (state) => {
@@ -65,7 +65,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(action);
     }
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewWorkPage);
