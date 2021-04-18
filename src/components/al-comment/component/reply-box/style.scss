@@ -1,0 +1,16 @@
+.reply-box {
+  margin-top: 20px;
+  padding: 20px 20px 5px;
+  border-radius: 10px;
+  background-color: #fafafa;
+
+  .reply-content-wrapper {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 768px){
+      margin-left: 0px;
+    }
+  }
+}

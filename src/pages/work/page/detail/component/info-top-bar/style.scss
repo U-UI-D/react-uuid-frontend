@@ -1,9 +1,57 @@
-#top-icon {
-  span[role='img'] svg {
-    width: 30px;
-    height: 30px;
+.info-top-bar {
+  background-color: #fff;
+  box-shadow: 2px 2px 10px #eee;
+  padding: 4px 10px;
+  //height: 70px;
+
+  .left-content {
+    .person-info {
+      max-width: 80%;
+      .work-title {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      .username {
+        font-size: 0.8rem;
+      }
+
+      .follow-text {
+        cursor: pointer;
+        color: #00b0ff;
+        margin-left: 10px;
+      }
+    }
+    img{
+      max-width: 60px;
+      max-height: 60px;
+      border-radius: 50%;
+    }
+    @media screen and (max-height: 768px) {
+      img {
+        max-width: 50px;
+        max-height: 50px;
+        border-radius: 50%;
+      }
+    }
   }
-  &:hover {
-    color: #1890ff;
+
+
+  #top-icon {
+    span[role='img'] svg {
+      width: 30px;
+      height: 30px;
+    }
+    &:hover {
+      color: #1890ff;
+    }
+
+    @media screen and (max-height: 768px) {
+      button {
+        padding: 2px 8px !important;
+      }
+    }
   }
 }

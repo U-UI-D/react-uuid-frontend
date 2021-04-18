@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import DateTimeUtils from "../../../../util/DateTimeUtils";
 import {HttpRequest} from "../../../../util/network/request";
 import {getUserIdentity} from "../../../../util/util";
+import './style.scss';
 
 function ReplyBox(props) {
   console.warn('ReplyBox props', props);
@@ -43,18 +44,14 @@ function ReplyBox(props) {
     })
   };
   return (
-    <div style={{
-      padding: "20px 20px 5px",
-      borderRadius: "10px",
-      backgroundColor: "#fafafa"
-    }} className="al-m-top-20px">
+    <div className="reply-box">
       <ALAvatarNickname avatar={props.avatar}
                         nickname={props.nickname}
                         tagSlot={props.identity && <Tag color={props.identity == '1' ? 'processing' : 'success'}
                                                                                   style={{marginLeft: "10px", borderRadius: '20px'}}>
         {getUserIdentity(props.identity)}
       </Tag>}/>
-      <div className="al-m-left-50px al-m-bottom-20px al-m-top-20px">
+      <div className="reply-content-wrapper">
         <p>{props.content}</p>
         <ALFlexBox centerV between className="al-m-top-20px">
           <div className="uuid-text-desc">{DateTimeUtils.getFormerTime(props.createdTime)}</div>

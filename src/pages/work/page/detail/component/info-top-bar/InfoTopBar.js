@@ -9,7 +9,7 @@ import {WorkService} from "@service/work/WorkService";
 import './style.scss';
 
 function View(props) {
-  const {workIdList, isJoin, workType} = props;
+  const {workIdList, isJoin, workType, isMobile} = props;
   const {joinWork} = props;
   const {fileUrl, projectUrl} = props.workData;
   return (
@@ -19,31 +19,31 @@ function View(props) {
           const {workData, isFollow, setIsFollow, isLogin, userInfo, history, match} = contextState;
           return (
             <Affix offsetTop={0} className="animate">
-              <ALFlexBox centerV className="al-bg-color-white work-info-top" style={{height: "70px"}}>
+              <ALFlexBox centerV className="info-top-bar">
                 <ALFlexBox between className="content-width">
                   {/*左侧内容*/}
-                  <ALFlexBox centerV>
+                  <ALFlexBox centerV className="left-content">
                     {/*头像*/}
-                    <Avatar size={60} shape="circle" src={workData.avatar !== undefined ? workData.avatar : require('../../../../../../assets/icon/common/UUID2.png')}/>
+                    <img src={workData.avatar !== undefined ? workData.avatar : require('../../../../../../assets/icon/common/UUID2.png')}/>
                     {/*个人信息*/}
-                    <ALFlexBox column centerH evenly className="al-m-left-10px">
-                      <div className="al-font-weight-bold">{workData.title}</div>
-                      <div>
+                    <ALFlexBox column centerH evenly className="al-m-left-10px person-info">
+                      <div className="al-font-weight-bold work-title">{workData.title}</div>
+                      <div className="username">
                         {workData.nickname} <span className="al-m-lr-10px">·</span> <span>{getUserIdentity(workData.identity)}</span>
                         {
                           isLogin ?
                             (
-                              <Button type="link" className="al-m-lr-10px" onClick={() => {setIsFollow(!isFollow);}}>
+                              <span className="follow-text" onClick={() => {setIsFollow(!isFollow);}}>
                                 {
                                   workData.userId === userInfo.id ? null : <span>{isFollow ? "已关注" : "关注"}</span>
                                 }
-                              </Button>
+                              </span>
                             )
                             :
                             (
-                              <Button type="link" className="al-m-lr-10px" onClick={() => {
+                              <span className="follow-text" onClick={() => {
                                 history.push({pathname: RouterConst.user.LOGIN_PAGE, state: {fromPath: match.url}})
-                              }}>关注</Button>
+                              }}>关注</span>
                             )
                         }
                       </div>
@@ -52,19 +52,22 @@ function View(props) {
 
                   {/*右侧图标按钮*/}
                   <ALFlexBox centerVH id='top-icon'>
-                    <Button type="text" onClick={() => {joinWork()}} disabled={isJoin}>
+                    <Button type="text" onClick={() => {joinWork()}} disabled={isJoin}
+                            style={isMobile ? {padding: '2px 8px'} : {}}>
                       <Tooltip title='添加到我的项目' placement="bottom" color={'#1890ff'}>
                         <ALIcon type='icon-tianjia' className='al-cursor-pointer' />
                       </Tooltip>
                     </Button>
-                    <Button type='text' disabled={!fileUrl} href={fileUrl}>
+                    <Button type='text' disabled={!fileUrl} href={fileUrl}
+                            style={isMobile ? {padding: '2px 8px'} : {}}>
                       <Tooltip title='下载' placement="bottom" color={'#1890ff'}>
                         <ALIcon type='icon-xiazai' className='al-cursor-pointer'/>
                       </Tooltip>
                     </Button>
                     {
                       workType !== 'software' ? null :
-                      <Button type='text' disabled={!projectUrl}>
+                      <Button type='text' disabled={!projectUrl}
+                              style={isMobile ? {padding: '2px 8px'} : {}}>
                         <Tooltip title='github' placement="bottom" color={'#1890ff'}>
                           <ALIcon type='icon-github' className='al-cursor-pointer'/>
                         </Tooltip>
@@ -147,6 +150,7 @@ const mapStateToProps = state => {
   return {
     userInfo: state.userInfo,
     isLogin: state.isLogin,
+    isMobile: state.isMobile
   }
 }
 

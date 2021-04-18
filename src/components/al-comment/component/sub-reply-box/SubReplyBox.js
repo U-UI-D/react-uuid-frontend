@@ -7,8 +7,10 @@ import {connect} from "react-redux";
 import DateTimeUtils from "../../../../util/DateTimeUtils";
 import {HttpRequest} from "../../../../util/network/request";
 import {getUserIdentity} from "../../../../util/util";
+import './style.scss';
 
 function SubReplyBox(props) {
+  const {isMobile} = props;
   const [hiddenTextArea, setHiddenTextArea] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,11 +45,7 @@ function SubReplyBox(props) {
     })
   };
   return (
-    <div style={{
-      padding: "20px 20px 5px",
-      borderRadius: "10px",
-      backgroundColor: "#fafafa"
-    }}>
+    <div className="sub-reply-box">
       <Divider style={{marginTop: 0, marginBottom: "20px"}}/>
 
       <ALFlexBox centerV>
@@ -55,7 +53,8 @@ function SubReplyBox(props) {
 
         <ALAvatarNickname avatar={props.avatar}
                           avatarSize={30}
-                          nickname={props.nickname} tagSlot={props.identity && <Tag color={props.identity == '1' ? 'processing' : 'success'}
+                          nickname={isMobile ? "" : props.nickname}
+                          tagSlot={props.identity && <Tag color={props.identity == '1' ? 'processing' : 'success'}
                                                                                     style={{marginLeft: "10px", borderRadius: '20px'}}>
           {getUserIdentity(props.identity)}
         </Tag>}/>
@@ -64,13 +63,14 @@ function SubReplyBox(props) {
 
         <ALAvatarNickname avatar={props.originUserAvatar}
                           avatarSize={30}
-                          nickname={props.originUserNickname} tagSlot={props.originUserIdentity && <Tag color={props.originUserIdentity == '1' ? 'processing' : 'success'}
+                          nickname={isMobile ? "" : props.originUserNickname}
+                          tagSlot={props.originUserIdentity && <Tag color={props.originUserIdentity == '1' ? 'processing' : 'success'}
                                                                                               style={{marginLeft: "10px", borderRadius: '20px'}}>
           {getUserIdentity(props.originUserIdentity)}
         </Tag>}/>
 
       </ALFlexBox>
-      <div className="al-m-left-50px al-m-top-20px">
+      <div className="reply-content-wrapper">
         <p>{props.content}</p>
 
         <ALFlexBox centerV className="al-m-top-20px">
@@ -108,6 +108,7 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
     isLogin: state.isLogin,
+    isMobile: state.isMobile
   }
 }
 

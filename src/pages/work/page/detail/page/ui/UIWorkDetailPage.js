@@ -12,7 +12,7 @@ import {WorkService} from "@service/work/WorkService";
 
 
 function View(props) {
-  const {workData, history, scrollTop, hoverBoxData} = props;
+  const {workData, history, scrollTop, hoverBoxData, isMobile} = props;
   const {handleChangeForHoverBox, handleBackToTop} = props;
 
   const backTopData = {
@@ -34,7 +34,7 @@ function View(props) {
 
       {/*显示内容*/}
       <div className="content-width" style={{marginTop: '20px'}}>
-        <UIWorkContent workData={workData} history={history}/>
+        <UIWorkContent workData={workData} history={history} isMobile={isMobile}/>
       </div>
 
       {/*右侧点赞、收藏、评论、返回顶部的按钮*/}
@@ -257,7 +257,8 @@ UIWorkDetailPage.contextType = WorkDetailContext;
 const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
-    isLogin: state.isLogin
+    isLogin: state.isLogin,
+    isMobile: state.isMobile
   }
 }
 

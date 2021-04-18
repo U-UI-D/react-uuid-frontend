@@ -1,6 +1,15 @@
-.bf-content {
-  height: 300px;
-  padding-bottom: 10px;
-  overflow: auto;
-  font-size: 16px;
+.editor-wrapper {
+  .bf-content {
+    height: 300px;
+    padding-bottom: 10px;
+    overflow: auto;
+    font-size: 16px;
+
+    @media screen and (max-width: 768px) {
+      height: 200px;
+      padding-bottom: 10px;
+      overflow: auto;
+      font-size: 16px;
+    }
+  }
 }

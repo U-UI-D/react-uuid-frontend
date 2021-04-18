@@ -83,11 +83,11 @@ class WorkPage extends React.Component {
   render() {
     return (
       <View {...this.state}
-                    {...this.props}
-                    goPage={this.goPage}
-                    handleTitleListChange={this.handleTitleListChange}
-                    onShowSizeChange={this.handlePageChange}
-                    handlePageChange={this.handlePageChange} />
+            {...this.props}
+            goPage={this.goPage}
+            handleTitleListChange={this.handleTitleListChange}
+            onShowSizeChange={this.handlePageChange}
+            handlePageChange={this.handlePageChange} />
     );
   }
 

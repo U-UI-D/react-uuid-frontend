@@ -44,6 +44,11 @@ a, body, button, caption, dd, div, dl, dt, em, figure, form, h1, h2, h3, h4, h5,
 .content-width{
   width: 1180px;
   margin: auto;
+
+  @media screen and (max-width: 768px){
+    width: 100vw;
+    margin: auto;
+  }
 }
 
 .primary-bg-color{

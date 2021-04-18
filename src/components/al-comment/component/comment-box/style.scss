@@ -1,5 +1,19 @@
 #comment-box {
   position: relative;
+  .comment-content-wrapper {
+    margin-left: 50px;
+    margin-bottom: 50px;
+    img {
+      max-width: 60%;
+    }
+
+    @media screen and (max-width: 768px){
+      margin-bottom: 50px;
+    }
+  }
+
+
+
   #add-proposal{
     position: absolute;
     top: 0;

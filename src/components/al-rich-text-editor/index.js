@@ -6,8 +6,9 @@ import { ImageUtils } from 'braft-finder'
 import {Button, message, Upload} from 'antd'
 import Icon from "antd/es/icon";
 import './style.scss';
+import {connect} from "react-redux";
 
-export default class ALRichTextEditor extends React.Component {
+class ALRichTextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,7 +84,8 @@ export default class ALRichTextEditor extends React.Component {
 
   render () {
 
-    // const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator']
+    const {isMobile} = this.props;
+    const controls = ['bold', 'italic', 'underline', 'text-color', 'separator']
     const extendControls = [
       {
         key: 'antd-uploader',
@@ -109,18 +111,39 @@ export default class ALRichTextEditor extends React.Component {
       'media', 'superscript', 'subscript'
     ]
 
+    const MobileEditor = (
+      <BraftEditor
+        controls={controls}
+        value={this.state.editorState}
+        onChange={this.handleChange}
+        placeholder={"请输入内容..."}
+        extendControls={extendControls}
+      />
+    );
+
+    const PCEditor = (
+      <BraftEditor
+        excludeControls={excludeControls}
+        value={this.state.editorState}
+        onChange={this.handleChange}
+        placeholder={"请输入内容..."}
+        extendControls={extendControls}
+      />
+    );
+
     return (
       <div className="editor-wrapper" style={this.props.style}>
-        <BraftEditor
-          excludeControls={excludeControls}
-          value={this.state.editorState}
-          onChange={this.handleChange}
-          placeholder={"请输入内容..."}
-          extendControls={extendControls}
-        />
+        {isMobile ? MobileEditor : PCEditor}
       </div>
     )
 
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    isMobile: state.isMobile
+  }
+}
+export default connect(mapStateToProps)(ALRichTextEditor);

@@ -1,0 +1,27 @@
+.sub-reply-box {
+  margin: 15px;
+  padding: 20px 20px 5px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  @media screen and (max-width: 768px){
+    padding: 0px 0px 5px;
+    h3 {
+      font-size: 0.8rem;
+      span {
+        font-size: 0.5rem;
+      }
+    }
+  }
+
+  .reply-content-wrapper {
+    margin-left: 50px;
+    margin-bottom: 20px;
+    img {
+      max-width: 60%;
+    }
+
+    @media screen and (max-width: 768px){
+      margin-left: 0px;
+    }
+  }
+}

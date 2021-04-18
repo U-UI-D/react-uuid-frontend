@@ -114,8 +114,7 @@ function CommentBox(props) {
                                       style={{marginLeft: "10px", borderRadius: '20px'}}>
                           {getUserIdentity(props.identity)}
                         </Tag>}/>
-      <div className="al-m-left-50px al-m-bottom-50px" id="comment-box">
-
+      <div id="comment-box">
         <span id="add-proposal">
           {
             props.userInfo && (props.userInfo.id === ownerId) ?
@@ -131,7 +130,7 @@ function CommentBox(props) {
         </span>
 
         {/*评论内容*/}
-        <div className="al-m-top-20px">
+        <div className="comment-content-wrapper">
           <div dangerouslySetInnerHTML={{__html: props.content}}></div>
         </div>
 

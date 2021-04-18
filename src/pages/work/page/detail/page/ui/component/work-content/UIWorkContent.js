@@ -10,22 +10,25 @@ import {WorkService} from "@service/work/WorkService";
 import './style.scss';
 
 function View(props) {
-  const {workData, commentList, proposalData, linkWorkData, history} = props;
+  const {workData, commentList, proposalData, linkWorkData, history, isMobile} = props;
   const {reGetCommentList, getProposalData} = props;
   let html = {__html: workData.description}
   return workData && (
     <div className="ui-work-content">
       <h1>{workData.title}</h1>
-      <ALFlexBox between>
+      <ALFlexBox between className="work-base-info">
         <div>
           <span style={{marginRight: 20}}>ID: {workData.id}</span>
           <span style={{marginRight: 20}}>分类：{workData.typename}</span>
           <span style={{marginRight: 20}}>浏览：{workData.lookCount}</span>
           <span style={{marginRight: 20}}>实现：{workData.usingCount}</span>
           <span style={{marginRight: 20}}>可商用：{workData.commercialAvailable === '0' ? "否" : "是"}</span>
-          <Button type="link" style={{marginRight: 20}}>举报</Button>
+          {!isMobile && <Button type="link">举报</Button>}
         </div>
-        <span>发布于 {DateTimeUtils.getFormerTime(workData.createdTime)}</span>
+        <div className="created-time">
+          <span>发布于 {DateTimeUtils.getFormerTime(workData.createdTime)}</span>
+          {isMobile && <Button type="link">举报</Button>}
+        </div>
       </ALFlexBox>
 
       {
