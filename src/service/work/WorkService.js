@@ -42,8 +42,21 @@ export class WorkService {
     return await promise;
   }
 
-  // 通过作品id获取软件作品数据
+  // 通过简单作品id获取软件作品数据
   static async getSoftwareWorkDataById(softwareWorkId) {
+    let promise = HttpRequest.get({
+      url: ApiConst.work.software.get.GET_BY_ID + softwareWorkId,
+      env: "dev",
+    }).then(res => {
+      if (res.err === null) {
+        return res.data.data
+      }
+    })
+    return await promise;
+  }
+
+  // 通过简单作品id获取软件作品数据
+  static async getSimpleSoftwareWorkDataById(softwareWorkId) {
     let promise = HttpRequest.get({
       url: ApiConst.work.software.get.GET_SIMPLE_BY_ID + softwareWorkId,
       env: "dev",

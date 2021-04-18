@@ -1,12 +1,12 @@
 import React from "react";
 import {Avatar} from "antd";
-import {ALFlexBox} from "../../../../../../../../components/al-component";
+import {ALFlexBox} from "@components/al-component";
 
 function ShowDevelopers(props) {
   const {list} = props;
 
   return (
-    <div>
+    <div className="show-developer-view">
       <p className="al-m-top-20px">以下开发者正在开发此项目</p>
       <ALFlexBox className='al-m-tb-20px'>
         {

@@ -138,7 +138,7 @@ class UIWorkContent extends React.Component{
 
   // 获取关联的软件作品
   getLinkSoftwareWorkById = (softWorkId = this.props.workData.linkSoftwareWorkId) => {
-    softWorkId && WorkService.getSoftwareWorkDataById(softWorkId).then(res => {
+    softWorkId && WorkService.getSimpleSoftwareWorkDataById(softWorkId).then(res => {
       this.setState({
         linkWorkData: res
       })

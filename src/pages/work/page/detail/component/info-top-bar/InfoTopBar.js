@@ -2,14 +2,14 @@ import React from "react";
 import {ALFlexBox, ALIcon} from "@components/al-component";
 import {Affix, Avatar, Button, message, Tooltip} from "antd";
 import {RouterConst} from "@util/router/config/RouterConst";
-import {WorkDetailContext} from "../../../../context/WorkDetailContext";
+import {WorkDetailContext} from "../../context/WorkDetailContext";
 import {connect} from "react-redux";
 import {getUserIdentity} from "@util/util";
 import {WorkService} from "@service/work/WorkService";
 import './style.scss';
 
 function View(props) {
-  const {workIdList, isJoin} = props;
+  const {workIdList, isJoin, workType} = props;
   const {joinWork} = props;
   const {fileUrl, projectUrl} = props.workData;
   return (
@@ -24,7 +24,7 @@ function View(props) {
                   {/*左侧内容*/}
                   <ALFlexBox centerV>
                     {/*头像*/}
-                    <Avatar size={60} shape="circle" src={workData.avatar}/>
+                    <Avatar size={60} shape="circle" src={workData.avatar !== undefined ? workData.avatar : require('../../../../../../assets/icon/common/UUID2.png')}/>
                     {/*个人信息*/}
                     <ALFlexBox column centerH evenly className="al-m-left-10px">
                       <div className="al-font-weight-bold">{workData.title}</div>
@@ -62,11 +62,14 @@ function View(props) {
                         <ALIcon type='icon-xiazai' className='al-cursor-pointer'/>
                       </Tooltip>
                     </Button>
-                    {/*<Button type='text' disabled={!projectUrl}>*/}
-                    {/*  <Tooltip title='github' placement="bottom" color={'#1890ff'}>*/}
-                    {/*    <ALIcon type='icon-github' className='al-cursor-pointer'/>*/}
-                    {/*  </Tooltip>*/}
-                    {/*</Button>*/}
+                    {
+                      workType !== 'software' ? null :
+                      <Button type='text' disabled={!projectUrl}>
+                        <Tooltip title='github' placement="bottom" color={'#1890ff'}>
+                          <ALIcon type='icon-github' className='al-cursor-pointer'/>
+                        </Tooltip>
+                      </Button>
+                    }
                   </ALFlexBox>
                 </ALFlexBox>
               </ALFlexBox>
