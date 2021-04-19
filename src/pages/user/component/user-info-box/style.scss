@@ -1,5 +1,9 @@
 .user-info-wrapper {
     color: white;
+
+    @media screen and (max-width: 768px) {
+        padding-bottom: 16px;
+    }
 }
 
 .user-identity-box {

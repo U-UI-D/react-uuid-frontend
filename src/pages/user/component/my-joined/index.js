@@ -74,7 +74,7 @@ function MyJoined(props) {
     <UserContext.Consumer>
       {
         contextState => {
-          const {userInfo} = contextState;
+          const {userInfo, isMobile} = contextState;
           console.warn('workSoftwareData res2', workSoftwareData);
 
           return (
@@ -105,7 +105,7 @@ function MyJoined(props) {
 
               <div className='al-m-top-40px'>
                 <div hidden={current !== 'ui'}>
-                  <ALFlexBox wrap margin={-15}>
+                  <ALFlexBox wrap margin={isMobile ? 0 : -15}>
                     {/*{*/}
                     {/*  workUIData && workUIData.list.length > 0 ? workUIData.reverse().map((item, index) => {*/}
                     {/*    return (*/}

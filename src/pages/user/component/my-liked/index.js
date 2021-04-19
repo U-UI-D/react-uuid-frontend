@@ -61,7 +61,7 @@ function MyLiked(props) {
     <UserContext.Consumer>
       {
         contextState => {
-          const {userInfo} = contextState;
+          const {userInfo, isMobile} = contextState;
           return (
             <div className='my-published'>
               <Menu onClick={handleClick}
@@ -82,7 +82,7 @@ function MyLiked(props) {
 
               <div className='al-m-top-40px'>
                 <div hidden={current !== 'ui'}>
-                  <ALFlexBox wrap margin={-15}>
+                  <ALFlexBox wrap margin={isMobile ? 0 : -15}>
                     {
                       workUIData ? workUIData.map((item, index) => {
                         return (

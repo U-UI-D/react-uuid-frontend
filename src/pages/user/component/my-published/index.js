@@ -81,7 +81,7 @@ function MyPublished(props) {
     <UserContext.Consumer>
       {
         contextState => {
-          const {userInfo, history} = contextState;
+          const {userInfo, history, isMobile} = contextState;
           return (
             <div className='my-published'>
               <Menu onClick={handleClick}
@@ -109,7 +109,7 @@ function MyPublished(props) {
               <div className='al-m-top-40px'>
                 {/*ui作品*/}
                 <div hidden={current !== 'ui'}>
-                  <ALFlexBox wrap margin={-15}>
+                  <ALFlexBox wrap margin={isMobile ? 10 : -15}>
                     {
                       workUIData ? workUIData.list.map((item, index) => {
                         return (
@@ -175,7 +175,8 @@ function MyPublished(props) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
+    isMobile: state.isMobile
   }
 }
 

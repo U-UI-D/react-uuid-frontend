@@ -26,20 +26,18 @@ class UserPage extends React.Component {
     this.state = {
       userInfo: this.props.userInfo,
       current: 'published',
-      history: this.props.history
+      history: this.props.history,
+      isMobile: this.props.isMobile
     }
   }
 
   //渲染函数
   render() {
+    const {isMobile} = this.props;
     return (
       <UserContext.Provider value={this.state}>
         <div className='user-page-container'>
           <div className="header-box header-bg">
-            <div style={{
-              width: 100 + '%',
-              height: 350 + 'px'
-            }}></div>
           </div>
 
           <div className='content-wrapper'>
@@ -75,14 +73,17 @@ class UserPage extends React.Component {
                 </Menu.Item>
               </Menu>
 
-              <div style={{position: 'absolute', top: '-18px', right: 0}}>
-                <Button type='primary'
-                        shape='round'
-                        icon={<SendOutlined />}
-                        onClick={() => {
-                          this.goPage(RouterConst.work.NEW_WORK_PAGE);
-                        }}>发布作品</Button>
-              </div>
+              {
+                !isMobile &&
+                <div style={{position: 'absolute', top: '-18px', right: 0}}>
+                  <Button type='primary'
+                          shape='round'
+                          icon={<SendOutlined />}
+                          onClick={() => {
+                            this.goPage(RouterConst.work.NEW_WORK_PAGE);
+                          }}>发布作品</Button>
+                </div>
+              }
             </div>
 
             <div className='content-width content'>
@@ -140,6 +141,7 @@ const mapStateToProps = (state) => {
   return {
     isLogin: state.isLogin,
     userInfo: state.userInfo,
+    isMobile: state.isMobile
   }
 }
 

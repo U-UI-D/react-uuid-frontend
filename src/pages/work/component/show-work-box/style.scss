@@ -1,0 +1,38 @@
+.work-box{
+    padding: 10px;
+    cursor: pointer;
+    width: 273.5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    &:hover {
+        background-color: #fff;
+        border-radius: 6px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        margin-right: unset;
+        background-color: #fff;
+        border-radius: 6px;
+        .work-box-shadow {
+            box-shadow: 0 20px 50px 0 hsla(0,0%,63.5%,.1);
+            border-radius: 6px;
+        }
+    }
+
+    .work-poster {
+        width: 100%;
+        height: 193px;
+        img {
+            width: 100%;
+            height: 193px;
+        }
+    }
+
+
+    .desc{
+        padding: 5px 0 10px 5px;
+    }
+}
+
+

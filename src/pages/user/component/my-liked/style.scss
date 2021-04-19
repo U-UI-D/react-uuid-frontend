@@ -3,9 +3,21 @@
   .my-published-menu-style {
     background-color: #00000000;
     margin-top: 50px;
+    @media screen and (max-width: 768px) {
+      margin-top: 0px;
+    }
+  }
+  ul {
+    @media screen and (max-width: 768px) {
+      display: flex;
+      justify-content: center;
+    }
   }
   li{
     margin-right: 30px;
+    @media screen and (max-width: 768px) {
+      margin-right: 0px;
+    }
   }
 }
 

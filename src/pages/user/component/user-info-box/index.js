@@ -1,7 +1,7 @@
 import React from "react";
 import {UserContext} from "../../context/UserContext";
 import {Avatar, Button, Col, Row} from "antd";
-import './style.css';
+import './style.scss';
 import {ALFlexBox} from "../../../../components/al-component";
 
 export default function UserInfoBox(props) {
