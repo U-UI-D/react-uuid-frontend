@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import NotFoundPage from "../../pages/common/not-found/NotFoundPage";
 import {message} from "antd";
 import {ActionTypes} from "../../store/action-types";
+import {debounce} from "../performaceUtil";
 
 function RouterView(props){
   const setIsMobile = (width) => {
@@ -18,12 +19,13 @@ function RouterView(props){
       }
     }
   }
+  const resizeHandler = debounce(() => {
+    setIsMobile(window.innerWidth);
+  }, 500);
   window.addEventListener('load', () => {
     setIsMobile(window.innerWidth);
   });
-  window.addEventListener('resize', () => {
-    setIsMobile(window.innerWidth);
-  });
+  window.addEventListener('resize', resizeHandler);
 
   let devMode = window.location.host.includes('dev');
   if (devMode) {
